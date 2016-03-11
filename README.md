@@ -17,7 +17,7 @@ At any time, you can go online and see:
 “Enough with the jibber-jabber, fool!
 Show me how it works!”
 
-Well, the code isn’t written yet. But here is a [SMALL DEMO](http://demo.govmeeting.org) of one possible feature.  It show what was discussed at a past meeting of the Boothbay Harbor Selectmen in Maine, USA. The final version will have many more features.
+Well, the code is in progress. But here is a [SMALL DEMO](http://demo.govmeeting.org) of one possible feature.  It show what was discussed at a past meeting of the Boothbay Harbor Selectmen in Maine, USA. The final version will have many more features.
 
 ## Design
 
@@ -27,17 +27,19 @@ The software consists of two separate systems:
 
 #### Public System
 * A front-end using Typescript and AngularJS.
-* A WEB API implemented in NodeJS or ASP.NET/C# or in both.
+* A WEB API implemented in NodeJS or ASP.NET/C# or both.
 * An SQL database which could be MySql, SQL Server or another. 
 * Object-Relational mapping using C# and Entity Framework.
 
 #### Volunteer System
 * A crowd-sourcing app for creating or processing existing transcripts – in Typescript and AngularJS.
 * An existing content management system, the Drupal CMS, for volunteer workflow coordination.
-* Utility modules for audio processing of meeting recordings.
-* Utility scripts to preprocess existing written transcripts. 
+* Utility modules for audio processing of meeting recordings. Language to be determined.
+* Utility scripts to preprocess existing written transcripts.  Language to be determined.
 
-For more design information, see the [WIKI Design Documentation.](https://github.com/govmeeting/govmeeting/wiki/Overall-Design)
+Whether you develop on Linux, Mac or Windows, your contributions are needed. An attempt has been made to keep the processes "OS neutral". For example, we are using npm, bower for dependencies, gulp for automated tasks and karma and jasmine Javascript testing.
+
+For more design information, see the [WIKI Design Documentation.](https://github.com/govmeeting/govmeeting/wiki/Design-Documentation)
 
 ## Goals
 
