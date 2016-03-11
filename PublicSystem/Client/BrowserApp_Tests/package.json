@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "name": "BrowserAppTest",
+  "private": true,
+  "devDependencies": {
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-xml-reporter": "^0.1.4"
+  }
+}
