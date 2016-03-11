@@ -8,8 +8,7 @@
 /// <reference path="..\..\Client\Utilities\utilities.js" />
 /// <reference path="..\..\Client\SingleMeeting\singleMeeting.js" />
 
-
-
+// A stripped down test that I am trying to have Jamine run.
 describe('SingleMeeting', function () {
 
     beforeEach(module('singleMeeting'));

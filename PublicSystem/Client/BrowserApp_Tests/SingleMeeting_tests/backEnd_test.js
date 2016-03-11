@@ -22,6 +22,10 @@
 // http://michalostruszka.pl/blog/2013/05/27/easy-stubbing-out-http-in-angularjs-for-backend-less-frontend-development/
 // http://stackoverflow.com/questions/25953482/how-to-debug-jasmine-unit-test-with-visual-studio-2013
 
+// TODO - I switched from Chutzpah for unit JS tests to Jasmine/Karma, but it is not yet working.
+// TODO - After Jasmine/Karma is working, complete this test, which never worked.
+
+
 'use strict';
 
 describe('Client -> SingleMeeting -> backEnd ->', function () {
@@ -71,6 +75,7 @@ describe('Client -> SingleMeeting -> backEnd ->', function () {
 
         //    expect(this.meetingInfo.name).toEqual(headingResponse.name)
 
+        // Just trying to get something to pass:
         expect(1 + 1).toEqual(2);
 
     });
