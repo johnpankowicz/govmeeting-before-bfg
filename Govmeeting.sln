@@ -6,10 +6,19 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublicSystem", "PublicSystem", "{7A7C0DE4-8F51-4FB3-BD90-798B925739B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{8D7CD392-A78D-4BB3-9CB7-F348787E0F8B}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Readme.txt = Data\Readme.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{2A1E9469-111C-43A6-9294-B505A32AFB4A}"
+	ProjectSection(SolutionItems) = preProject
+		PublicSystem\Backend\README.txt = PublicSystem\Backend\README.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{116FC8D2-6465-4929-B3E7-23E443E82ECA}"
+	ProjectSection(SolutionItems) = preProject
+		PublicSystem\Client\Readme.txt = PublicSystem\Client\Readme.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{D5775C0E-970A-4DD1-B7D5-7B947F6BE7D7}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,12 +46,26 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VolunteerSystem", "VolunteerSystem", "{407F9109-AF3B-49CE-BBFE-57FF72E2F2B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PreProcessTranscripts", "PreProcessTranscripts", "{1A11AE01-0F7E-4FF8-97A4-22E92A67D698}"
+	ProjectSection(SolutionItems) = preProject
+		VolunteerSystem\PreProcessTranscripts\Readme.txt = VolunteerSystem\PreProcessTranscripts\Readme.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessAllTranscripts", "VolunteerSystem\PreProcessTranscripts\ProcessAllTranscripts\ProcessAllTranscripts.csproj", "{3495C197-D9BF-4CA9-9A19-B60B274C4760}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessTranscript", "VolunteerSystem\PreProcessTranscripts\ProcessTranscript\ProcessTranscript.csproj", "{6B3A920B-38A0-4D1D-9B3F-8B0DD0C1E148}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C3C94076-0FE6-4B11-9132-7FBBB80CC278}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdata", "testdata", "{A28B572E-3B96-4BFD-ABE3-3030B811A728}"
+	ProjectSection(SolutionItems) = preProject
+		VolunteerSystem\PreProcessTranscripts\testdata\Readme.txt = VolunteerSystem\PreProcessTranscripts\testdata\Readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,5 +137,6 @@ Global
 		{1A11AE01-0F7E-4FF8-97A4-22E92A67D698} = {407F9109-AF3B-49CE-BBFE-57FF72E2F2B2}
 		{3495C197-D9BF-4CA9-9A19-B60B274C4760} = {1A11AE01-0F7E-4FF8-97A4-22E92A67D698}
 		{6B3A920B-38A0-4D1D-9B3F-8B0DD0C1E148} = {1A11AE01-0F7E-4FF8-97A4-22E92A67D698}
+		{A28B572E-3B96-4BFD-ABE3-3030B811A728} = {1A11AE01-0F7E-4FF8-97A4-22E92A67D698}
 	EndGlobalSection
 EndGlobal

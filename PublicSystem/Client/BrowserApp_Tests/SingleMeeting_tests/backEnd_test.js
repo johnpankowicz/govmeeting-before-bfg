@@ -1,8 +1,8 @@
-﻿/// <reference path="..\Scripts\jasmine.js" />
-/// <reference path="..\Scripts\angular.js" />
-/// <reference path="..\scripts\angular-mocks.js" />
-/// <reference path="..\..\Client\SingleMeeting\backEnd.js" />
-/// <reference path="..\..\Client\SingleMeeting\singleMeeting.js" />
+﻿/// <reference path="..\..\Scripts\jasmine.js" />
+/// <reference path="..\..\Scripts\angular.js" />
+/// <reference path="..\..\scripts\angular-mocks.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\backEnd.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\singleMeeting.js" />
 
 //describe('Client -> SingleMeeting ->', function () {
 //    beforeEach(module('utilities'));

@@ -1,5 +1,5 @@
 # govmeeting
-Software to inform us of issues discussed at local government meetings
+Software to help us be involved with our local governments actions
 
 ## Features
 
@@ -43,7 +43,11 @@ For more design information, see the [WIKI Design Documentation.](https://github
 
 ## Goals
 
-We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work well if only one percent are fully informed.
+We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work if only one percent are involved.
+
+Democracy will become a forgotten dream of the past, if we don't involve more people in the process. People need to be involved continually -- not just once every four years.
+
+The anti-government movements of today are a result of most people feeling completely out of the process.  
 
 People throughout the world deal with the same problems. This software will be designed to be used anywhere, wherever there is democracy and public access to government meetings.
 

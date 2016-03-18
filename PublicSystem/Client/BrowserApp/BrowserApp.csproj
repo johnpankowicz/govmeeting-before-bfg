@@ -19,15 +19,15 @@
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app.css" />
+    <Content Include="app\app.css" />
     <Content Include="gulpfile.js" />
-    <Content Include="Navigation\footer.html" />
+    <Content Include="app\Navigation\footer.html" />
     <TypeScriptCompile Include="Scripts\typings\jasmine\jasmine.d.ts" />
-    <TypeScriptCompile Include="SingleMeeting\backEnd.ts" />
-    <Content Include="SingleMeeting\heading.html" />
-    <Content Include="index.html" />
-    <TypeScriptCompile Include="mainApp.ts" />
-    <Content Include="Navigation\navBar.html" />
+    <TypeScriptCompile Include="app\SingleMeeting\backEnd.ts" />
+    <Content Include="app\SingleMeeting\heading.html" />
+    <Content Include="app\index.html" />
+    <TypeScriptCompile Include="app\mainApp.ts" />
+    <Content Include="app\Navigation\navBar.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -794,15 +794,16 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="SingleMeeting\browseMeeting.html" />
-    <TypeScriptCompile Include="SingleMeeting\browseMeeting.ts" />
-    <Content Include="SingleMeeting\meetingOptions.html" />
-    <TypeScriptCompile Include="SingleMeeting\meetingOptions.ts" />
-    <TypeScriptCompile Include="SingleMeeting\heading.ts" />
-    <TypeScriptCompile Include="Utilities\userChoices.ts" />
-    <TypeScriptCompile Include="SingleMeeting\singleMeeting.ts" />
-    <Content Include="Utilities\promiseExtender.js" />
-    <TypeScriptCompile Include="Utilities\utilities.ts" />
+    <Content Include="app\SingleMeeting\browseMeeting.html" />
+    <TypeScriptCompile Include="app\SingleMeeting\browseMeeting.ts" />
+    <Content Include="app\SingleMeeting\meetingOptions.html" />
+    <TypeScriptCompile Include="app\SingleMeeting\meetingOptions.ts" />
+    <TypeScriptCompile Include="app\SingleMeeting\heading.ts" />
+    <TypeScriptCompile Include="app\Utilities\userChoices.ts" />
+    <TypeScriptCompile Include="app\SingleMeeting\singleMeeting.ts" />
+    <TypeScriptCompile Include="app\Utilities\utilities.ts" />
+    <Content Include="unused\promiseExtender.js" />
+    <Content Include="unused\readme.txt" />
     <Content Include="web.config" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

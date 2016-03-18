@@ -1,12 +1,12 @@
-﻿/// <reference path="..\Scripts\jasmine.js" />
-/// <reference path="..\Scripts\angular.js" />
-/// <reference path="..\scripts\angular-mocks.js" />
-/// <reference path="..\..\Client\SingleMeeting\backEnd.js" />
-/// <reference path="..\..\Client\SingleMeeting\heading.js" />
-/// <reference path="..\..\Client\SingleMeeting\browseMeeting.js" />
-/// <reference path="..\..\Client\SingleMeeting\meetingOptions.js" />
-/// <reference path="..\..\Client\Utilities\utilities.js" />
-/// <reference path="..\..\Client\SingleMeeting\singleMeeting.js" />
+﻿/// <reference path="..\..\Scripts\jasmine.js" />
+/// <reference path="..\..\Scripts\angular.js" />
+/// <reference path="..\..\scripts\angular-mocks.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\backEnd.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\heading.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\browseMeeting.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\meetingOptions.js" />
+/// <reference path="..\..\..\Client\Utilities\utilities.js" />
+/// <reference path="..\..\..\Client\SingleMeeting\singleMeeting.js" />
 
 // A stripped down test that I am trying to have Jamine run.
 describe('SingleMeeting', function () {

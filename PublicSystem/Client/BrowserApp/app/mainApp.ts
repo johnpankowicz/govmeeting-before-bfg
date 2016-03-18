@@ -1,4 +1,4 @@
-﻿/// <reference path="scripts/typings/angularjs/angular.d.ts" />
+﻿/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
 
 // mainApp module
 // Code related to the entire application can be put here,

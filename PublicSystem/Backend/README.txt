@@ -1,4 +1,4 @@
-				        PROJECTS OF THIS SOLUTION
+PROJECTS
 
 Model - class library project that defines the data model. The entities are defined
  as POCO's (plain ordinary C# objects). They do not contain references to Entity Framework, 
