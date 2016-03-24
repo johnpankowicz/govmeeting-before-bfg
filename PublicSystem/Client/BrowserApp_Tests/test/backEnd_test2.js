@@ -1,21 +1,8 @@
-﻿/// <reference path="..\Scripts\jasmine.js" />
-/// <reference path="..\Scripts\angular.js" />
-/// <reference path="..\Scripts\angular-mocks.js" />
-/// <reference path="..\..\BrowserApp\app\SingleMeeting\backEnd.js" />
-/// <reference path="..\..\BrowserApp\app\SingleMeeting\singleMeeting.js" />
-
-
-// http://www.i-avington.com/Posts/Post/unit-testing-a-service-that-makes-an-api-call-using-httpbackend
-// https://docs.angularjs.org/api/ngMock/service/$httpBackend
-// http://www.jeremyzerr.com/angularjs-backend-less-development-using-httpbackend-mock
-// http://michalostruszka.pl/blog/2013/05/27/easy-stubbing-out-http-in-angularjs-for-backend-less-frontend-development/
-// http://stackoverflow.com/questions/25953482/how-to-debug-jasmine-unit-test-with-visual-studio-2013
-
-
-
+﻿
 describe('Client_SingleMeeting_backEnd', function () {
     var backEnd,
     $httpBackend;
+
 
     var headingResponse = [
     {
@@ -26,13 +13,26 @@ describe('Client_SingleMeeting_backEnd', function () {
     var AuthRequestHandler;
 
     beforeEach(function () {
-        module('singleMeeting');
-        inject(function (_$httpBackend_, _BackEndSrvWithCtrl_) {
+            module('singleMeeting');
+            inject(function (_$httpBackend_, _BackEndSrvWithCtrl_) {
             $httpBackend = _$httpBackend_;
             backEnd = _BackEndSrvWithCtrl_;
         })
     });
 
+
+/*
+    beforeEach(inject(function($injector) {
+        // Set up the mock http service responses
+        $httpBackend = $injector.get('$httpBackend');
+        // Set up our backend service
+        backEnd = $injector.get('BackEndSrvWithCtrl');
+        // backend definition common for all tests
+        authRequestHandler = $httpBackend.when('GET', '/testdata/BBH-2014-09-08.json')
+                                .respond({userId: 'userX'}, {'A-Token': 'xxx'});
+    }));
+*/
+/*
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest()
@@ -46,12 +46,8 @@ describe('Client_SingleMeeting_backEnd', function () {
     it('getMeetingData should be defined', function () {
         expect(backEnd.getMeetingData).toBeDefined();
     });
-
-//    it("TEST2", function () {
-//        expect(true).toBe(true);
-//    });
-/*
-    xit("TEST1", function () {
+*/
+    it("TEST3", function () {
 //        authRequestHandler = $httpBackend.when('GET', 'testdata/BBH-2014-09-08.json')
 //        authRequestHandler = $httpBackend.when('GET', 'whatever.json')
 //            .respond({ userId: 'userX' }, { 'A-Token': 'xxx' });
@@ -64,36 +60,28 @@ describe('Client_SingleMeeting_backEnd', function () {
         // mock (which has the same API as $httpBackend) and use it to verify the requests
         // and respond with some testing data without sending a request to a real server.
 
-        $httpBackend.expectGET('testdata\\BBH-2014-09-08.json').respond(headingResponse);
+        //$httpBackend.expectGet('testdata\\BBH-2014-09-08.json').respond(headingResponse);
 
-        console.log("TEST1===============================");
+//        var ss = backEnd.getFour();
+//        expect(ss).ToEqual("Four");
 
-        var deferredResponse = backEnd.getMeetingInfo();
-
-        console.log("TEST2===============================");
-
-        var heading;
+//        var deferredResponse = backEnd.getMeetingData();
+/*        var heading;
         deferredResponse.then(function (response) {
             heading = response.data;
         });
 
-        console.log("TEST3===============================");
-
-        // backEnd.getMeetingInfo(this);
-
-        console.log("TEST3===============================");
+        backEnd.getMeetingInfo(this);
 
         $httpBackend.flush();
 
-//        expect(this.heading.name).toEqual(headingResponse.name)
-
-        // expect(this.meetingInfo.name).toEqual(headingResponse.name)
+        expect(this.meetingInfo.name).toEqual(headingResponse.name)
 
         // Just trying to get something to pass:
          // expect(1).toEqual(1);
-
-    });
 */
+    });
+
 });
 
 

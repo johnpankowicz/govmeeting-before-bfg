@@ -1,8 +1,8 @@
 ﻿/// <reference path="..\Scripts\jasmine.js" />
 /// <reference path="..\Scripts\angular.js" />
 /// <reference path="..\scripts\angular-mocks.js" />
-/// <reference path="..\..\Client\Utilities\userChoices.js" />
-/// <reference path="..\..\Client\Utilities\utilities.js" />
+/// <reference path="..\..\BrowserApp\app\Utilities\userChoices.js" />
+/// <reference path="..\..\BrowserApp\app\Utilities\utilities.js" />
 
 
 

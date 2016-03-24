@@ -23,7 +23,7 @@
     <Content Include="gulpfile.js" />
     <Content Include="app\Navigation\footer.html" />
     <TypeScriptCompile Include="Scripts\typings\jasmine\jasmine.d.ts" />
-    <TypeScriptCompile Include="app\SingleMeeting\backEnd.ts" />
+    <TypeScriptCompile Include="app\SingleMeeting\backEndWithCtrl.ts" />
     <Content Include="app\SingleMeeting\heading.html" />
     <Content Include="app\index.html" />
     <TypeScriptCompile Include="app\mainApp.ts" />

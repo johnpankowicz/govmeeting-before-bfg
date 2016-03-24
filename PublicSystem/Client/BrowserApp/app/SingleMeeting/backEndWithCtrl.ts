@@ -12,12 +12,13 @@ module SingleMeeting {
      *  Interface for back end.
      * </summary>
     **/
-    export interface IBackEnd {
+    export interface IBackEndWithCtrl {
         meetingDataUrl: string;
         getMeetingInfo(ctrl: any): void;
         getTopicNames(ctrl: any): void;
         getSpeakerNames(ctrl: any): void;
         getTopicDiscussions(ctrl: any): void;
+        getFour(): string;
     }
 
     /**   
@@ -29,7 +30,7 @@ module SingleMeeting {
       *  been done.
       * </summary>
      **/
-    export class BackEndSrv {
+    export class BackEndSrvWithCtrl implements IBackEndWithCtrl {
 
         http: ng.IHttpService;
         meetingDataUrl: string;
@@ -37,7 +38,7 @@ module SingleMeeting {
 
         /**
          * <summary>
-         *  BackEndSrv Constructor. 
+         *  BackEndSrvWithCtrl Constructor. 
          * </summary>
          * <param name="$http"> The $http service. </param>
         **/
@@ -47,6 +48,9 @@ module SingleMeeting {
             this.httpPromise = null;
         }
 
+        public getFour(): string {
+            return "Four";
+        }
 
         /**
          * <summary>
@@ -57,11 +61,12 @@ module SingleMeeting {
          *  We will add the meeting info onto this object. 
          * </param>
          */
-        public getMeetingInfo(ctrl: any): void {
+        public getMeetingInfo(ctrl: any): any {
             this.getMeetingData();
             this.httpPromise.success(function (data: any) {
                 ctrl.meetingInfo = data.meetingInfo;
             });
+            return this.httpPromise;
         }
 
         /**

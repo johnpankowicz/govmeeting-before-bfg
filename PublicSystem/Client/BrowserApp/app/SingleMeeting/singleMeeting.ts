@@ -2,13 +2,13 @@
 
 var singleMeetingModule = angular.module('singleMeeting', ['utilities']);
 
-singleMeetingModule.factory("BackEndSrv", ['$http', ($http: ng.IHttpService) =>
-    new SingleMeeting.BackEndSrv($http)]);
+singleMeetingModule.factory("BackEndSrvWithCtrl", ['$http', ($http: ng.IHttpService) =>
+    new SingleMeeting.BackEndSrvWithCtrl($http)]);
 
 singleMeetingModule.controller("headingCtrl", SingleMeeting.headingCtrl);
 
 //singleMeetingModule.controller("headingCtrl", [()
-//    => new SingleMeeting.headingCtrl(BackEndSrv)]);
+//    => new SingleMeeting.headingCtrl(BackEndSrvWithCtrl)]);
 
 singleMeetingModule.controller("BrowseMeetingCtrl", SingleMeeting.BrowseMeetingCtrl);
 

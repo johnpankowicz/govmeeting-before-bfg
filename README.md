@@ -1,5 +1,5 @@
 # govmeeting
-Software to help us be involved with our local governments actions
+Software to help us be involved with our local governments
 
 ## Features
 
@@ -17,11 +17,12 @@ At any time, you can go online and see:
 “Enough with the jibber-jabber, fool!
 Show me how it works!”
 
-Well, the code is in progress. But here is a [SMALL DEMO](http://demo.govmeeting.org) of one possible feature.  It show what was discussed at a past meeting of the Boothbay Harbor Selectmen in Maine, USA. The final version will have many more features.
+Well, the code is in progress. But here is a [SMALL DEMO](http://demo.govmeeting.org) of one possible feature.  It shows what was discussed at a past meeting of the Boothbay Harbor Selectmen in Maine, USA. The final version will have many more features.
 
 ## Design
 
 The software consists of two separate systems:
+
 * A Public System that anyone can use to access information.
 * A Volunteer System that community volunteers use to process meeting transcripts.
 
@@ -43,11 +44,9 @@ For more design information, see the [WIKI Design Documentation.](https://github
 
 ## Goals
 
-We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work if only one percent are involved.
+We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work if only one percent are involved. And people need to be involved continually -- not just once every four years.
 
-Democracy will become a forgotten dream of the past, if we don't involve more people in the process. People need to be involved continually -- not just once every four years.
-
-The anti-government movements of today are a result of most people feeling completely out of the process.  
+Many Open Data projects rely on data supplied by the government. This project instead uses a grass-roots effort to gather data. Government is more likely supply us with technical data. But they would naturally be less willing to supply us data about themselves  - namely exactly what they said and how they acted on all public issues.
 
 People throughout the world deal with the same problems. This software will be designed to be used anywhere, wherever there is democracy and public access to government meetings.
 

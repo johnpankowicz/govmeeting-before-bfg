@@ -16,10 +16,10 @@ module SingleMeeting {
     **/
     export class BrowseMeetingCtrl {
 
-        _backEnd: IBackEnd;
+        _backEnd: IBackEndWithCtrl;
         _userChoice: Utilities.IUserChoiceSrv;
 
-        static $inject = ['BackEndSrv', 'UserChoiceSrv'];
+        static $inject = ['BackEndSrvWithCtrl', 'UserChoiceSrv'];
 
         /**
          * <summary>
@@ -28,7 +28,7 @@ module SingleMeeting {
          * <param name="backEnd">       The back end service. </param>
          * <param name="userChoiceSrv"> The user choice service. </param>
         **/
-        constructor(backEnd: IBackEnd, userChoiceSrv: Utilities.IUserChoiceSrv) {
+        constructor(backEnd: IBackEndWithCtrl, userChoiceSrv: Utilities.IUserChoiceSrv) {
             this._backEnd = backEnd;
             this._userChoice = userChoiceSrv;
 
