@@ -1,8 +1,8 @@
 ﻿/// <reference path="..\Scripts\jasmine.js" />
 /// <reference path="..\Scripts\angular.js" />
 /// <reference path="..\Scripts\angular-mocks.js" />
-/// <reference path="..\..\BrowserApp\app\SingleMeeting\backEnd.js" />
-/// <reference path="..\..\BrowserApp\app\SingleMeeting\singleMeeting.js" />
+/// <reference path="..\..\BrowserApp\app\Utilities\backEnd.js" />
+/// <reference path="..\..\BrowserApp\app\Utilities\utilities.js" />
 
 
 // http://www.i-avington.com/Posts/Post/unit-testing-a-service-that-makes-an-api-call-using-httpbackend
@@ -12,10 +12,10 @@
 // http://stackoverflow.com/questions/25953482/how-to-debug-jasmine-unit-test-with-visual-studio-2013
 
 
-
-describe('Client_SingleMeeting_backEnd', function () {
+describe('Client_Utilities_backEnd', function () {
     var backEnd,
     $httpBackend;
+    var meetingData = {};
 
     var headingResponse = [
     {
@@ -23,13 +23,12 @@ describe('Client_SingleMeeting_backEnd', function () {
         "date": "April 3, 2015"
     }
     ];
-    var AuthRequestHandler;
 
     beforeEach(function () {
-        module('singleMeeting');
-        inject(function (_$httpBackend_, _BackEndSrvWithCtrl_) {
+        module('utilities');
+        inject(function (_$httpBackend_, _BackEndSrv_) {
             $httpBackend = _$httpBackend_;
-            backEnd = _BackEndSrvWithCtrl_;
+            backEnd = _BackEndSrv_;
         })
     });
 
@@ -47,16 +46,7 @@ describe('Client_SingleMeeting_backEnd', function () {
         expect(backEnd.getMeetingData).toBeDefined();
     });
 
-//    it("TEST2", function () {
-//        expect(true).toBe(true);
-//    });
-/*
-    xit("TEST1", function () {
-//        authRequestHandler = $httpBackend.when('GET', 'testdata/BBH-2014-09-08.json')
-//        authRequestHandler = $httpBackend.when('GET', 'whatever.json')
-//            .respond({ userId: 'userX' }, { 'A-Token': 'xxx' });
-//            .respond({ "name": 'Clifton Council' }, { 'date': 'April 3, 2015' });
-        // it('Get request for meeting data and return heading', function () {
+    it('Get meeting info', function () {
 
         // From Angular docs: When an Angular application needs some data from a server,
         // it calls the $http service, which sends the request to a real server using
@@ -64,36 +54,26 @@ describe('Client_SingleMeeting_backEnd', function () {
         // mock (which has the same API as $httpBackend) and use it to verify the requests
         // and respond with some testing data without sending a request to a real server.
 
+        // We expect the backend to request this URL and respond with the heading.
         $httpBackend.expectGET('testdata\\BBH-2014-09-08.json').respond(headingResponse);
 
-        console.log("TEST1===============================");
-
-        var deferredResponse = backEnd.getMeetingInfo();
-
-        console.log("TEST2===============================");
+        var deferredResponse = backEnd.getMeetingInfo(meetingData);
 
         var heading;
         deferredResponse.then(function (response) {
             heading = response.data;
         });
 
-        console.log("TEST3===============================");
-
-        // backEnd.getMeetingInfo(this);
-
-        console.log("TEST3===============================");
-
         $httpBackend.flush();
 
-//        expect(this.heading.name).toEqual(headingResponse.name)
+//        console.log("heading ===============================");
+//        console.log(heading);
 
-        // expect(this.meetingInfo.name).toEqual(headingResponse.name)
+        expect(heading.name).toEqual(headingResponse.name)
 
-        // Just trying to get something to pass:
-         // expect(1).toEqual(1);
-
+        expect(heading.date).toEqual(headingResponse.date)
     });
-*/
+
 });
 
 

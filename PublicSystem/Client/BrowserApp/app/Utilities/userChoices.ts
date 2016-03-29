@@ -24,7 +24,7 @@ module Utilities {
      *  A user choice server.
      * </summary>
     **/
-    export class UserChoiceSrv {
+    export class UserChoiceSrv implements IUserChoiceSrv{
 
         _speaker : string;
         _topic: string;

@@ -790,7 +790,8 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="SingleMeeting_tests\backEnd_test.js" />
+    <Content Include="Utilities_tests\backEnd_test.js" />
+    <Content Include="SingleMeeting_tests\backEndWithCtrl_test.js" />
     <Content Include="SingleMeeting_tests\tests2.js" />
     <Content Include="test\backEnd_test2.js" />
     <Content Include="test\tests.js" />

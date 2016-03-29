@@ -14,10 +14,9 @@ module SingleMeeting {
     **/
     export class headingCtrl {
 
-        meetingInfo: { name: string; date: string};
-        _backEnd: IBackEndWithCtrl;
+        _backEnd: Utilities.IBackEnd;
 
-        static $inject = ["BackEndSrvWithCtrl"];
+        static $inject = ['BackEndSrv'];
 
         /**
          * <summary>
@@ -25,7 +24,7 @@ module SingleMeeting {
          * </summary>
          * <param name="backEnd">   The back end service. </param>
         **/
-        constructor(backEnd: IBackEndWithCtrl) {
+        constructor(backEnd: Utilities.IBackEnd) {
             this._backEnd = backEnd;
             this._backEnd.getMeetingInfo(this);
         }

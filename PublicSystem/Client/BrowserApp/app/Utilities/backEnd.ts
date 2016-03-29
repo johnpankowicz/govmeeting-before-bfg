@@ -5,20 +5,19 @@
  *  This code belongs to the module for handling browsing a single meeting.
  * </summary>
 **/
-module SingleMeeting {
+module Utilities {
 
     /**
      * <summary>
      *  Interface for back end.
      * </summary>
     **/
-    export interface IBackEndWithCtrl {
+    export interface IBackEnd {
         meetingDataUrl: string;
-        getMeetingInfo(ctrl: any): void;
-        getTopicNames(ctrl: any): void;
-        getSpeakerNames(ctrl: any): void;
-        getTopicDiscussions(ctrl: any): void;
-        getFour(): string;
+        getMeetingInfo(meetingData: any): void;
+        getTopicNames(meetingData: any): void;
+        getSpeakerNames(meetingData: any): void;
+        getTopicDiscussions(meetingData: any): void;
     }
 
     /**   
@@ -30,7 +29,7 @@ module SingleMeeting {
       *  been done.
       * </summary>
      **/
-    export class BackEndSrvWithCtrl implements IBackEndWithCtrl {
+    export class BackEndSrv implements IBackEnd {
 
         http: ng.IHttpService;
         meetingDataUrl: string;
@@ -38,7 +37,7 @@ module SingleMeeting {
 
         /**
          * <summary>
-         *  BackEndSrvWithCtrl Constructor. 
+         *  BackEndSrv Constructor. 
          * </summary>
          * <param name="$http"> The $http service. </param>
         **/
@@ -48,23 +47,19 @@ module SingleMeeting {
             this.httpPromise = null;
         }
 
-        public getFour(): string {
-            return "Four";
-        }
-
         /**
          * <summary>
          *  Gets general meeting information for this meeting
          * </summary>
-         * <param name="ctrl">
-         *  The controller's "this" pointer.
+         * <param name="meetingData">
+         *  An object pointer.
          *  We will add the meeting info onto this object. 
          * </param>
          */
-        public getMeetingInfo(ctrl: any): any {
+        public getMeetingInfo(meetingData: any): any {
             this.getMeetingData();
             this.httpPromise.success(function (data: any) {
-                ctrl.meetingInfo = data.meetingInfo;
+                meetingData.meetingInfo = data.meetingInfo;
             });
             return this.httpPromise;
         }
@@ -73,15 +68,15 @@ module SingleMeeting {
          * <summary>
          *  Gets topic names for this meeting
          * </summary>
-         * <param name="ctrl">
-         *  The controller's "this" pointer.
+         * <param name="meetingData">
+         *  An object pointer.
          *  We will add the topicNames onto this object. 
          * </param>
         **/
-        public getTopicNames(ctrl: any): void {
+        public getTopicNames(meetingData: any): void {
             this.getMeetingData();
             this.httpPromise.success(function (data: any) {
-                ctrl.topicNames = data.topicNames;
+                meetingData.topicNames = data.topicNames;
             });
         }
 
@@ -89,15 +84,15 @@ module SingleMeeting {
          * <summary>
          *  Gets speaker names for this meeting
          * </summary>
-         * <param name="ctrl">
-         *  The controller's "this" pointer.
+         * <param name="meetingData">
+         *  An object pointer.
          *  We will add the speakerNames onto this object. 
          * </param>
         **/
-        public getSpeakerNames(ctrl: any): void {
+        public getSpeakerNames(meetingData: any): void {
             this.getMeetingData();
             this.httpPromise.success(function (data: any) {
-                ctrl.speakerNames = data.speakerNames;
+                meetingData.speakerNames = data.speakerNames;
             });
         }
 
@@ -105,15 +100,15 @@ module SingleMeeting {
          * <summary>
          *  Gets topic discussions for this meeting
          * </summary>
-         * <param name="ctrl">
-         *  The controller's "this" pointer.
+         * <param name="meetingData">
+         *  An object pointer.
          *  We will add the topicDiscussions onto this object. 
          * </param>
         **/
-        public getTopicDiscussions(ctrl: any): void {
+        public getTopicDiscussions(meetingData: any): void {
             this.getMeetingData();
             this.httpPromise.success(function (data: any) {
-                ctrl.topicDiscussions = data.topicDiscussions;
+                meetingData.topicDiscussions = data.topicDiscussions;
             });
         }
 
