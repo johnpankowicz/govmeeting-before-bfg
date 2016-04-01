@@ -1,4 +1,6 @@
 # govmeeting
+
+[![Join the chat at https://gitter.im/govmeeting/govmeeting](https://badges.gitter.im/govmeeting/govmeeting.svg)](https://gitter.im/govmeeting/govmeeting?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Software to help us be involved with our local governments
 
 ## Features
