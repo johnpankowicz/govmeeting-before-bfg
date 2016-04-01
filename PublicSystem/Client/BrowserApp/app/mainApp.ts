@@ -20,4 +20,3 @@ appModule.config([function () {
 
 // TODO Transpile Typescript files with gulp.
 // TODO Add dialog for user to select which meeting to display 
-// TODO fix failed tests

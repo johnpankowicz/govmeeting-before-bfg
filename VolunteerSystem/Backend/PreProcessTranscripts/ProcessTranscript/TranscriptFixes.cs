@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Govmeeting.Volunteer.PreProcessTranscripts
 {
-    // TODO - All methods in TranscriptFixes are in need of unit tests.
+    // TODO: All methods in TranscriptFixes are in need of unit tests.
 
     public static class TranscriptFixes
     {

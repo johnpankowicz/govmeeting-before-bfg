@@ -60,7 +60,7 @@ namespace Govmeeting.Volunteer.PreProcessTranscripts
             // Get the transcript of what was said
             string transcript = TranscriptFixes.LinesBetween(text, "    - - -\n", "    - - -\n");
 
-            // TODO - put the list of officers and then topics in the beginning of file.
+            // TODO: put the list of officers in the beginning of file.
 
         }
 

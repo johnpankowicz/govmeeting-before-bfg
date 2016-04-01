@@ -13,7 +13,7 @@ At any time, you can go online and see:
 * See all that was said in the past on any specific issue.
 * See exactly what any specific official said on any specific issue. This is especially helpful at election time.
 
-![Mr. T](http://govmeeting.org/attachments/download/4/mr-t-mrt-36834265-320-254-24kb.png)
+![Mr. T](images/mr-t-mrt-36834265-320-254-24kb.png)
 “Enough with the jibber-jabber, fool!
 Show me how it works!”
 
