@@ -54,7 +54,15 @@ People throughout the world deal with the same problems. This software will be d
 
 The first goal is to get the software fully working at the local government level. Then we will expand the software to include state and federal government bodies.
 
-<a title="Web Statistics" href="http://clicky.com/100938995"><img alt="Web Statistics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
-<script src="//static.getclicky.com/js" type="text/javascript"></script>
-<script type="text/javascript">try{ clicky.init(100938995); }catch(e){}</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100938995ns.gif" /></p></noscript>
+-------------------------------------------------------------------------------------------------------
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75868363-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
