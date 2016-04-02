@@ -48,10 +48,13 @@ For more design information, see the [WIKI Design Documentation.](https://github
 
 We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work if only one percent are involved. And people need to be involved continually -- not just once every four years.
 
-Many Open Data projects rely on data supplied by the government. This project instead uses a grass-roots effort to gather data. Government is more likely supply us with technical data. But they would naturally be less willing to supply us data about themselves  - namely exactly what they said and how they acted on all public issues.
+Many Open Data projects rely on data supplied by the government. This project instead uses a grass-roots effort to gather data. Government is more likely to supply us with technical data. But they would naturally be less willing when it's data about themselves  - namely exactly what they said and how they acted on all public issues.
 
 People throughout the world deal with the same problems. This software will be designed to be used anywhere, wherever there is democracy and public access to government meetings.
 
 The first goal is to get the software fully working at the local government level. Then we will expand the software to include state and federal government bodies.
 
-
+<a title="Web Statistics" href="http://clicky.com/100938995"><img alt="Web Statistics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100938995); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100938995ns.gif" /></p></noscript>
