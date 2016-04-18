@@ -1,7 +1,14 @@
 # govmeeting
 
 [![Join the chat at https://gitter.im/govmeeting/govmeeting](https://badges.gitter.im/govmeeting/govmeeting.svg)](https://gitter.im/govmeeting/govmeeting?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-Software to help us be involved with our local governments
+## Purpose
+
+To inform people of decisions that our government officials are considering. This allows citizens the time to have a voice in the decisions.  
+
+It is normally during town or city public meetings, where new laws are proposed. It is at these meetings where the public is allowed to give their input on pending laws. 
+
+This project attempt to obtain transcripts as soon as possible after meetings conclude. It then processes the transcripts, extracts the information and makes it available to anyone who is interested. 
+
 
 ## Features
 
@@ -15,44 +22,32 @@ At any time, you can go online and see:
 * See all that was said in the past on any specific issue.
 * See exactly what any specific official said on any specific issue. This is especially helpful at election time.
 
-![Mr. T](images/mr-t-mrt-36834265-320-254-24kb.png)
-“Enough with the jibber-jabber, fool!
-Show me how it works!”
-
-Well, the code is in progress. But here is a [SMALL DEMO](http://demo.govmeeting.org) of one possible feature.  It shows what was discussed at a past meeting of the Boothbay Harbor Selectmen in Maine, USA. The final version will have many more features.
-
 ## Design
 
-The software consists of two separate systems:
+* A front-end based on AngularJS.
+* A back-end based on C# and ASP.NET
+* An SQL database with Entity Framework as the Object-Relational mapping.
 
-* A Public System that anyone can use to access information.
-* A Volunteer System that community volunteers use to process meeting transcripts.
 
-#### Public System
-* A front-end using Typescript and AngularJS.
-* A WEB API implemented in NodeJS or ASP.NET/C# or both.
-* An SQL database which could be MySql, SQL Server or another. 
-* Object-Relational mapping using C# and Entity Framework.
+Some towns and cities provide full transcripts of public meetings online. For example the Philadelphia City Council does this. In case like this, the project has the information it needs.
 
-#### Volunteer System
-* A crowd-sourcing app for creating or processing existing transcripts – in Typescript and AngularJS.
-* An existing content management system, the Drupal CMS, for volunteer workflow coordination.
-* Utility modules for audio processing of meeting recordings. Language to be determined.
-* Utility scripts to preprocess existing written transcripts.  Language to be determined.
+However most other places only provide either meeting minutes or a video recording. Minutes provide only summary information. The do not capture the detailed discussion and debate on the issues.
 
-Whether you develop on Linux, Mac or Windows, your contributions are needed. An attempt has been made to keep the processes "OS neutral". For example, we are using npm, bower for dependencies, gulp for automated tasks and karma and jasmine Javascript testing.
+Therefore this project also aims to build a system for generating transcripts from video recordings.
 
-For more design information, see the [WIKI Design Documentation.](https://github.com/govmeeting/govmeeting/wiki/Design-Documentation)
-
+The design information can be found in the Wiki tab above or click here: [WIKI Design Documentation.](https://github.com/govmeeting/govmeeting/wiki/Design-Documentation)
+ 
 ## Goals
+
+The first goal is to build a working system for those towns or cities that provide online transcripts. Specifically, the first test place will be Philadelphia, PA. USA.
+
+The next goal is to build the system for converting video recordings into transcipts.
 
 We can attend government meetings or watch them on TV. But how many times have we ever done this? How many people in a town of 50,000 people do this? Maybe 500. Democracy can’t work if only one percent are involved. And people need to be involved continually -- not just once every four years.
 
-Many Open Data projects rely on data supplied by the government. This project instead uses a grass-roots effort to gather data. Government is more likely to supply us with technical data. But they would naturally be less willing when it's data about themselves  - namely exactly what they said and how they acted on all public issues.
-
 People throughout the world deal with the same problems. This software will be designed to be used anywhere, wherever there is democracy and public access to government meetings.
 
-The first goal is to get the software fully working at the local government level. Then we will expand the software to include state and federal government bodies.
+Perhaps once the software is working at the town and city level, we can look into expanding to state and federal government bodies.
 
 -------------------------------------------------------------------------------------------------------
 
