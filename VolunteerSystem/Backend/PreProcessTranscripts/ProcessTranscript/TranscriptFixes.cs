@@ -7,8 +7,9 @@ using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 
-namespace Govmeeting.Volunteer.PreProcessTranscripts
+namespace Govmeeting.Volunteer.PreProcessTranscript
 {
     // TODO: All methods in TranscriptFixes are in need of unit tests.
 
@@ -172,6 +173,8 @@ namespace Govmeeting.Volunteer.PreProcessTranscripts
                 // check if this line is a speaker label and value.
                 else if ((nextLine.Length >= speakerLabelLen) && (nextLine.Substring(0, speakerLabelLen) == speakerLabel))
                 {
+                    nextLine = speakerLabel + nextLine.Substring(speakerLabelLen);
+
                     if ((sectionLine != null) && (wroteSection == false))
                     {
                         strWriter.WriteLine(sectionLine);
@@ -186,21 +189,109 @@ namespace Govmeeting.Volunteer.PreProcessTranscripts
 
         public static void ReFormatSectionHeaders(ref string text)
         {
-            string pattern = "^    Section: (.*)$";
-            string replacement = "\n\n==============================\nSection: $1\n==============================\n";
+            string pattern = "^    Section: +";
+            string replacement = "\nSection: ";
             text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
         }
 
         public static void ReFormatSpeakerHeaders(ref string text)
         {
-            string pattern = "^    Speaker:";
-            string replacement = "\nSpeaker:";
+            string pattern = "^    Speaker: +";
+            string replacement = "\nSpeaker: ";
             text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
         }
 
+        public static void HighlightSectionHeaders(ref string text)
+        {
+            string pattern = "^Section: (.*)$";
+            string replacement = "\n\n==============================\nSection: $1\n==============================\n";
+            text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
+        }
+
+        public static void ConvertToJson(ref string text)
+        {
+
+            Talk talk = new Talk { speaker = null, said = null, section = null, topic = null, showSetTopic = false };
+
+            StringWriter strWriter = new StringWriter();
+            strWriter.NewLine = "\n";
+
+            StringWriter said = new StringWriter();
+            said.NewLine = "\n";
+
+            StringReader strReader = new StringReader(text);
+            string nextLine;
+            bool firstRecord = true;
+
+            string sectionLabel = "Section: ";
+            int sectionLabelLen = sectionLabel.Length;
+            string speakerLabel = "Speaker: ";
+            int speakerLabelLen = speakerLabel.Length;
+
+            strWriter.WriteLine("{ \"data\": [");
+
+            while ((nextLine = strReader.ReadLine()) != null)
+            {
+                // if line is blank, ignore it.
+                if (nextLine == "")
+                {
+                }
+                // If line is section name, store it.
+                else if ((nextLine.Length >= sectionLabelLen) && (nextLine.Substring(0, sectionLabelLen) == sectionLabel))
+                {
+                    if (talk.speaker != null)
+                    {
+                        strWriter.WriteLine(JsonRecord(ref talk, ref said, ref firstRecord));
+                    }
+                    // ignore blank lines after Section: line.
+                    talk.section = nextLine.Substring(sectionLabelLen);
+                }
+                // if line is speaker name, store it.
+                else if ((nextLine.Length >= speakerLabelLen) && (nextLine.Substring(0, speakerLabelLen) == speakerLabel))
+                {
+                    if (talk.speaker != null)
+                    {
+                        strWriter.WriteLine(JsonRecord(ref talk, ref said, ref firstRecord));
+                    }
+                    talk.speaker = nextLine.Substring(speakerLabelLen);
+
+                }
+                // If it is something else and we have a current speaker, it is what was said.
+                else if (talk.speaker != null)
+                {
+                    said.WriteLine(nextLine);
+                }
+            }
+            if (talk.speaker != null)
+            {
+                strWriter.WriteLine(JsonRecord(ref talk, ref said, ref firstRecord));
+            }
+            strWriter.WriteLine("\n] }");
+            text = strWriter.ToString();
+        }
+
+        static string JsonRecord(ref Talk talk, ref StringWriter said, ref bool firstRecord)
+        {
+            talk.said = said.ToString();
+
+            string text = (firstRecord ? "" : ",") + "\n    " + new JavaScriptSerializer().Serialize(talk);
+            firstRecord = false;
+
+            talk.speaker = null;
+            talk.section = null;
+            talk.said = null;
+            talk.topic = null;
+            talk.showSetTopic = false;
+            said.Dispose();
+            said = new StringWriter();
+            said.NewLine = "\n";
+            return text;
+        }
+        
         /*
          * For debugging transcript formats - outputs the file in hex.
          */
+
         static void DisplayFileInHex(string filename)
         {
             using (TextReader reader = File.OpenText(filename))

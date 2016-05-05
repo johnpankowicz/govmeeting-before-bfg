@@ -1,0 +1,39 @@
+<ul style="list-style: none;">
+    <li *ngFor="#talk of talks; #i = index">
+    
+    <!-- Display the section name and up/down arrows if start of new section -->
+    <div [hidden]="talk.section==null"><br>
+        <button (click)="moveSectionUp(talk, i)"> ^ </button>
+        <button (click)="moveSectionDown(talk, i)"> v </button>
+        ########## SECTION: {{talk.section}} ##########<br><br>
+    </div>
+    
+    <!-- Display the topic name and up/down arrows if start of new topic -->
+    <div [hidden]="talk.topic==null"><br>
+        <button (click)="moveTopicUp(talk, i)"> ^ </button>
+        <button (click)="moveTopicDown(talk, i)"> v </button>
+        ---------- TOPIC: {{talk.topic}} ----------<br><br>
+    </div>
+    
+    <!-- Display the topic input line.
+         When the user selects or enters a topic, it triggers the event "topicSelect" and 
+         we then call "OnTopicSelect"" in TalksComponent, passing it the topic selected.
+         When the user highlights some spoken text, "highlightedTopic" is set in TalksComponent and
+         and this is used to set "newTopicName" in TopicsComponent. Thus the input box gets populated.-->
+    <div [hidden]="!talk.showSetTopic">
+        TOPIC: 
+        <topics
+            (topicSelect)="onTopicSelect($event, talk)" 
+            [newTopicName]="highlightedTopic"></topics>
+    </div>
+          
+    <!-- Display the speaker and spoken text. -->
+    <div >
+        <div [hidden]="talk.showSetTopic"><br></div>
+        <!-- {{i}} --> {{ talk.speaker }}:
+        <div (click)="showTopicSelection(talk,i)" myhighlight (textSelected)="handleTextSelected($event)"> {{talk.said}}</div>
+        
+    </div>
+    <br>
+    </li>
+</ul>

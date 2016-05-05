@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Govmeeting.Volunteer.PreProcessTranscript;
 
 
 namespace Govmeeting.Volunteer.PreProcessTranscripts
@@ -93,12 +94,19 @@ namespace Govmeeting.Volunteer.PreProcessTranscripts
 
             TranscriptFixes.RemoveNewlinesInsideParagraphs(ref transcript);
 
+            TranscriptFixes.ReFormatSectionHeaders(ref transcript);
             TranscriptFixes.ReFormatSpeakerHeaders(ref transcript);
 
-            TranscriptFixes.ReFormatSectionHeaders(ref transcript);
+            File.WriteAllText(filename + "_Step5.txt", transcript);
+
+            TranscriptFixes.ConvertToJson(ref transcript);
+
+            File.WriteAllText(filename + ".json", transcript);
+
+            TranscriptFixes.HighlightSectionHeaders(ref transcript);
 
             string step5 = MeetingInfo + "-----------------------------\n" + OfficersNames + "-----------------------------\n" + transcript;
-            File.WriteAllText(filename + "_Step5.txt", step5);
+            File.WriteAllText(filename + "_Step6.txt", step5);
 
         }
 
