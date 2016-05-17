@@ -3,7 +3,7 @@
     <div *ngFor="#topic of topicNames; #i = index">
         <div>
             <span myhighlight [hidden]="i==0" (click)="FilterByTopic(i)"> {{topic}} </span>
-            <span myhighlight [hidden]="i!=0"  (click)="FilterByTopic(i)"> All Topics </span>
+            <span myhighlight [hidden]="i!=0"  (click)="FilterByTopic(i)">  All Topics </span>
             <span [hidden]="!IsSelectedTopic(i)"> ## </span>
         </div>
     </div>

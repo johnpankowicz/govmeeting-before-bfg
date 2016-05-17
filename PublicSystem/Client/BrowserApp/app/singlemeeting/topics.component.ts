@@ -28,8 +28,10 @@ export class TopicsComponent {
     getTopicNames() {
         this._backendService.getMeeting()
         .subscribe(
-        t => {this.topicNames = t.data.topicNames;
-            // console.log(this.topicNames);},
+        t => {
+            this.topicNames = t.topicNames;
+            // console.log(this.topicNames);
+        },
         error => this.errorMessage = <any>error);
     }
     

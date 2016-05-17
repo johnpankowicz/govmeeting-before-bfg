@@ -41,9 +41,10 @@ export class BrowsemeetingComponent {
     getTopicDiscussions() {
         this._backendService.getMeeting()
         .subscribe(
-        t => {this.topicDiscussions = t.data.topicDiscussions;
+        t => {
+            this.topicDiscussions = t.topicDiscussions;
              // console.log(this.topicDiscussions);
-            },
+        },
         error => this.errorMessage = <any>error);
     }
 

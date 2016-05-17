@@ -6,8 +6,8 @@ import {Headers, RequestOptions} from 'angular2/http';
 @Injectable()
 export class BackendService {
     
-    private _meetingUrl = 'app/testdata/BBH-2014-09-08.json';
-    private _topicDiscussionsUrl = 'app/testdata/topicDiscussions.json';
+    //private _meetingUrl = 'app/testdata/BBH-2014-09-08.json';
+    private _meetingUrl = 'http://birdw8.com:57233/api/transcript';
     
     // private _meetingData: any = {};
     private data: any;
@@ -16,12 +16,6 @@ export class BackendService {
     
     constructor (private http: Http) {}
 
-/*    
-    getMeetingFromFile(): Observable<any> {
-        return this.getData(this._meetingUrl);
-    }
-*/
-       
     getMeeting(): Observable<any> {
         return this.getData(this._meetingUrl);
     }
@@ -50,17 +44,6 @@ export class BackendService {
     }  
 
     
-/*    
-    getTopicDiscussions() {
-        return [
-            {name: "topic1", speakers: [{name: "Joe", text: "Hi all."}, {name: "Pat", text: "Hi all."}]},
-            {name: "topic2", speakers: [{name: "Pat", text: "Hi Joe."}, {name: "Mac", text: "Hi all."}]},
-            {name: "topic3", speakers: [{name: "Mac", text: "Hi Mac."}, {name: "Liz", text: "Hi all."}]},
-            {name: "topic4", speakers: [{name: "Liz", text: "Hi Liz."}, {name: "Joe", text: "Hi all."}]},
-        ]
-    }
-*/
-
 /*       
     getMeetingFromFile(): Observable<{}[]> {
         return this.http.get(this._meetingUrl)

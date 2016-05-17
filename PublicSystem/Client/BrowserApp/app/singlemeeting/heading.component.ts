@@ -24,8 +24,10 @@ export class HeadingComponent {
     getMeetingInfo() {
         this._backendService.getMeeting()
         .subscribe(
-        t => this.meetingInfo = t.data.meetingInfo,
-            // console.log(this.meetingInfo);},
+        t => {
+            this.meetingInfo = t.meetingInfo
+            console.log(this.meetingInfo);
+        },
         error => this.errorMessage = <any>error);
     }
 

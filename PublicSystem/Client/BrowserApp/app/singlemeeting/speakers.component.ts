@@ -28,7 +28,10 @@ export class SpeakersComponent {
     getSpeakerNames() {
         this._backendService.getMeeting()
         .subscribe(
-        t => {this.speakerNames = t.data.speakerNames;},
+        t => {
+            this.speakerNames = t.speakerNames;
+            // console.log(this.speakerNames);},
+        },
             // console.log(this.speakerNames);},
         error => this.errorMessage = <any>error);
     }
