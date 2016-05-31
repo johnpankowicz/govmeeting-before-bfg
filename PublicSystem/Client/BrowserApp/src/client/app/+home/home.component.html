@@ -1,0 +1,13 @@
+<p>
+  This is the sample code that came with angular.master.seed. It will be eventually removed.
+</p>
+
+<form (submit)="addName()">
+  <input [(ngModel)]="newName" placeholder="Awesome Computer Scientist">
+  <button type="submit">Add</button>
+</form>
+
+
+<ul>
+  <li *ngFor="let name of nameListService.get() | async">{{name}}</li>
+</ul>
