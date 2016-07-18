@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebApp.Models;
 using WebApp.Services;
+using Microsoft.AspNet.StaticFiles;
+using Microsoft.AspNet.FileProviders;
+using Microsoft.AspNet.Http;
+using System.IO;
 
 namespace WebApp
 {
@@ -87,6 +91,18 @@ namespace WebApp
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             app.UseStaticFiles();
+
+            // Add a PhysicalFileProvider for the BrowserApp folder.
+            string s = Directory.GetCurrentDirectory();     // directory of ...PublicSystem\Server\WebApp\wwwroot
+            int i = s.LastIndexOf("\\");        // go back 1st of three backslashes
+            i = s.LastIndexOf("\\", i - 1);     // second backslash
+            i = s.LastIndexOf("\\", i - 1);     // third backslash
+            string browserAppPath = s.Substring(0, i) + @"\Client\BrowserApp";  // ...PublicSystem\Client\BrowserApp 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(browserAppPath),
+                    RequestPath = new PathString("/ba")
+            });
 
             app.UseIdentity();
 
