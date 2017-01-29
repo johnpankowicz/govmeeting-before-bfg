@@ -11,30 +11,36 @@ Most only produce “minutes”, which is a list of the topics discussed and act
 
 This software will obtain or produces transcripts of government meetings. It will process the transcripts, extract the information and makes it available in a very user friendly way. It will do it as soon as possible after the meetings are held.
 
+## Technical overview
+
+The Front-end is written in Typescript using Angular 2.
+
+The Back-end is written in C# using ASP.NET Core and Entity Framework Core.
+.NET Core is the open-source version of .NET which runs on Windows, Mac and Linux.
+
+
+For more technical details, see: [System Design](https://github.com/govmeeting/govmeeting/wiki/system-design)
+
 
 ## Feature Overview
 
 Shortly after a government meeting takes place, you will be able to:
 * Go online and see what issues were discussed and exactly what was said and by whom.
 * Receive a summary of issues discussed via text or email.
-* Receive notices whenever a specific issues is discussed.
+* Receive notices whenever specific issues are discussed.
 
-At any time, you can go online:
+At any time, you can go online to:
 * See all issues discussed in past meetings.
 * See all that was said in the past on any specific issue.
 * See exactly what any specific official said in the past on any specific issue.
 
-The goal is to first get the software working for towns and small cities. The lessons learned can then be used to implement it for larger city, state or national government entities. People throughout the world deal with the same problems. The software will be designed to be used anywhere, wherever there is democracy and public access to government meetings. 
+The goal is to first get the software working for towns and small cities. The lessons learned can then be used to implement it for larger city, state or national government entities. People throughout the world deal with the same problems. The software will be designed to be used anywhere, wherever there is democracy and public access to government meetings.
 
-More detailed functional design can be found here: [Functional Design](https://github.com/govmeeting/govmeeting/wiki/functional-design)
+For more functional details, see: [Functional Design](https://github.com/govmeeting/govmeeting/wiki/functional-design)
 
-## Technical overview
-
-The Front-end is in Typescript using Angular 2.
-The Back-end is in C# using ASP.NET Core and Entity Framework.
+For a demo of some working code, see:  [govmeeting.org](http://govmeeting.org)
 
 
-More detailed system design can be found here: [System Design](https://github.com/govmeeting/govmeeting/wiki/system-design)
 
 ## Contacts
 [![Join the chat at https://gitter.im/govmeeting/govmeeting](https://badges.gitter.im/govmeeting/govmeeting.svg)](https://gitter.im/govmeeting/govmeeting?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
