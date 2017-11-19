@@ -2,9 +2,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
+<app-root asp-prerender-module="ClientApp/dist/main-server">Loading...</app-root>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
     <script src="~/dist/main-client.js" asp-append-version="true"></script>
 }
+
+<script>
+    // These are flags passed to the Angular app. Loading this file, "index.html", implies
+    // isServerRunning is false and means that the Asp.Net server is not running.
+    // We then use test data contained within the Client's "assets" folder.
+    // If isDataFromMemory is true, we will use test data in memory.
+    window.APP_DATA = { isServerRunning: false, isDataFromMemory: false }
+</script>
+
