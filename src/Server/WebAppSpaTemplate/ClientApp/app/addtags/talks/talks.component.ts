@@ -17,7 +17,7 @@ import { Talk } from './talk';
 export class TalksComponent implements OnInit {
 
   errorMessage: string;
-  talks: Talk[];
+  talks: Talk[] | null;
   addtags: Addtags = {data: null};
   topics: string[];
   highlightedTopic: string;
@@ -92,7 +92,7 @@ export class TalksComponent implements OnInit {
 
   moveSectionUp(talk: Talk, i: number) {
       this.clearShownTopicSelection();
-      if (i>0) {
+      if (this.talks && (i>0)) {
           this.talks[i-1].section = talk.section;
           talk.section = null;
       }
@@ -100,7 +100,7 @@ export class TalksComponent implements OnInit {
 
   moveSectionDown(talk: Talk, i: number) {
      this.clearShownTopicSelection();
-     if (i<this.talks.length-1) {
+     if (this.talks && (i<this.talks.length-1)) {
           this.talks[i+1].section = talk.section;
           talk.section = null;
       }
@@ -112,7 +112,7 @@ export class TalksComponent implements OnInit {
 
   moveTopicUp(talk: Talk, i: number) {
       this.clearShownTopicSelection();
-      if (i>0) {
+      if (this.talks && (i > 0)) {
           this.talks[i-1].topic = talk.topic;
           talk.topic = null;
       }
@@ -120,7 +120,7 @@ export class TalksComponent implements OnInit {
 
   moveTopicDown(talk: Talk, i: number) {
       this.clearShownTopicSelection();
-      if (i<this.talks.length-1) {
+      if (this.talks && (i<this.talks.length-1)) {
           this.talks[i+1].topic = talk.topic;
           talk.topic = null;
       }
@@ -136,8 +136,10 @@ export class TalksComponent implements OnInit {
   clearShownTopicSelection() {
       if (this.shownTopicSelection !== -1) {
 
-      this.talks[this.shownTopicSelection].showSetTopic = false;
-      this.shownTopicSelection = -1;
+          if (this.talks) {
+              this.talks[this.shownTopicSelection].showSetTopic = false;
+              this.shownTopicSelection = -1;
+          }
       }
   }
 }

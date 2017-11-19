@@ -23,8 +23,9 @@ export class MeetingService {
     //private _meetingUrl = 'api/meeting/USA/ME/LincolnCounty/BoothbayHarbor/Selectmen/2014-09-08';
 
     // private _meetingData: any = {};
-    private data: any;
+    private data: any = null;
     private observable: Observable<any>;
+    private requestInProgress: boolean = false;
     private errorMessage: string;
 
 
@@ -50,9 +51,10 @@ export class MeetingService {
         if (this.data) {
             return Observable.of(this.data);
 
-        // else if `this.observable` is set then the request is in progress
-        // return the `Observable` for the ongoing request
-        } else if (this.observable) {
+            // else if `this.observable` is set then the request is in progress
+            // return the `Observable` for the ongoing request
+            // } else if (this.observable) {
+        } else if (this.requestInProgress) {
             return this.observable;
 
         // else create the request, store the `Observable` for subsequent subscribers
@@ -62,7 +64,8 @@ export class MeetingService {
                 .do((val: any) => {
                     this.data = val;
                     // when the cached data is available we don't need the `Observable` reference anymore
-                    this.observable = null;
+                    // this.observable = null;
+                    this.requestInProgress = false;
                 })
                 // make it shared so more than one subscriber can get the result
                 .share();

@@ -1,6 +1,19 @@
 import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { HostListener } from '@angular/core';
 
+/*    MyhighlightDirective
+ *      Add the "myhighlight" attribute to an element.
+ *      When the mouse pointer enters this element, its text will be highlighted.
+ *      When the mouse pointer leaves, the highlight is removed
+ *      The default highlight color is yellow. This can be changed by setting the "highlightColor" attribute.
+ *      If text within the element is selected, the "textSelected" event is emitted.
+ *      This event can be handled within the element. For example:
+ *          <div myhighlight (textSelected)="handleTextSelected($event)"> This is some text. </div>
+ *      The "handleTextSelected(text: string)" method would be defined on the controller.
+ *      The default value of the event will be the text that is selected.
+ */
+
+
 @Directive({
   selector: '[myhighlight]'
 })

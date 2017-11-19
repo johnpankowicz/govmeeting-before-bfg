@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 //import { FormGroup, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'gm-dropdown',
   templateUrl: 'dropdown.component.html',
   styleUrls: ['./dropdown.component.css']

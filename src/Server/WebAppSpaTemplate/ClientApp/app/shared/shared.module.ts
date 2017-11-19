@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms'
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { MyhighlightDirective } from './myhighlight/myhighlight.directive';
-import { ReactiveFormsModule } from '@angular/forms'
+import { TestcompComponent } from './testcomp/testcomp.component';
 
 @NgModule({
   imports: [
@@ -11,11 +12,13 @@ import { ReactiveFormsModule } from '@angular/forms'
   ],
   declarations: [
     DropdownComponent,
-    MyhighlightDirective
+    MyhighlightDirective,
+    TestcompComponent
   ],
   exports: [
     DropdownComponent,
-    MyhighlightDirective
+    MyhighlightDirective,
+    TestcompComponent
   ]
 })
 export class SharedModule { }

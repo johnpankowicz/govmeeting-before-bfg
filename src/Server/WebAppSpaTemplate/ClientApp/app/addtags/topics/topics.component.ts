@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { TopicsService } from './topics.service';
 
 @Component({
-    moduleId: module.id,
     selector: 'gm-topicset',
     templateUrl: 'topics.component.html',
     styleUrls: ['topicset.component.css']
@@ -12,7 +11,7 @@ export class TopicsComponent implements OnInit {
     topics: string[];
 
     errorMessage: string;
-    @Input() newTopicName: string;
+    @Input() newTopicName: string | undefined;
 
     @Output() topicSelect: EventEmitter<string>;
     @Output() topicEnter: EventEmitter<string>;
@@ -20,7 +19,7 @@ export class TopicsComponent implements OnInit {
     constructor(private _topicsService: TopicsService) {
         this.topicSelect = new EventEmitter<string>();
         this.topicEnter = new EventEmitter<string>();
-        this.newTopicName = null;
+        this.newTopicName = undefined;
     }
 
     // Call getTopics after Angular is done creating the component.

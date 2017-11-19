@@ -11,7 +11,7 @@ export class TopicsService {
     // private _topics$: Observable<string[]> = null;
 
     private data: any;
-    private observable: Observable<any>;
+    private observable: Observable<any> | null;
 
 
     constructor (private http: Http) {}

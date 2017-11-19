@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MeetingModule } from './meeting/meeting.module'
 import { AddtagsModule } from './addtags/addtags.module'
-import { FixasrModule } from './fixasr/fixasr.module'
+//import { FixasrModule } from './fixasr/fixasr.module'
 import { SharedModule } from './shared/shared.module'
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
-import { MatsampModule } from './matsamp/matsamp.module';
+//import { MatsampModule } from './matsamp/matsamp.module';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { AppData } from './appdata';
@@ -32,14 +32,16 @@ import { AppData } from './appdata';
         AboutModule,
         MeetingModule,
         AddtagsModule,
-        FixasrModule,
-        MatsampModule,
+//        FixasrModule,
+//        MatsampModule,
         SharedModule
     ],
     providers: [AppData,
         {
             provide: AppData,
-            useValue: window['APP_DATA']
+            useValue: { isServerRunning: false, isDataFromMemory: false }
+            //useValue: window.APPDATA
+            //useValue: window['APP_DATA']
         }
     ],
     bootstrap: [AppComponent]

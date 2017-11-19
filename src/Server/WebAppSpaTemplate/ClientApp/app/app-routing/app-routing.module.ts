@@ -4,8 +4,8 @@ import { HomeComponent } from '../home/home.component'
 import { AboutComponent } from '../about/about.component';
 import { MeetingComponent } from '../meeting/meeting.component'
 import { AddtagsComponent } from '../addtags/addtags.component'
-import { FixasrComponent } from '../fixasr/fixasr.component'
-import { MatsampComponent } from '../matsamp/matsamp.component'
+//import { FixasrComponent } from '../fixasr/fixasr.component'
+//import { MatsampComponent } from '../matsamp/matsamp.component'
 
 const routes: Routes = [
     {
@@ -24,14 +24,14 @@ const routes: Routes = [
       path: 'addtags',
       component: AddtagsComponent,
     },
-    {
-      path: 'fixasr',
-      component: FixasrComponent,
-    },
-    {
-      path: 'matsamp',
-      component: MatsampComponent,
-    },
+    //{
+    //  path: 'fixasr',
+    //  component: FixasrComponent,
+    //},
+    //{
+    //  path: 'matsamp',
+    //  component: MatsampComponent,
+    //},
 ];
 
 @NgModule({

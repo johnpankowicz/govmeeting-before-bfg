@@ -1,7 +1,7 @@
 export class Talk {
-  speaker: string;
+  speaker: string | null;
   said: string;
-  section: string;
-  topic: string;
+  section: string | null;
+  topic: string | null;
   showSetTopic: boolean;
 }
