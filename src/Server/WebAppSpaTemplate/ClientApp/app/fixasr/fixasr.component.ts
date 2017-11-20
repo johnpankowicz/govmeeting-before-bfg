@@ -21,7 +21,6 @@ import { ElementRef } from '@angular/core';
 // This is the "Fix ASR" component for fixing the "Automatic Speech Recognition" errors.
 
 @Component({
-  moduleId: module.id,
   selector: 'gm-fixasr',
   templateUrl: './fixasr.component.html',
   styleUrls: ['./fixasr.component.css'],
@@ -34,7 +33,7 @@ export class FixasrComponent  implements OnInit {
     errorMessage: string;
     lastPhrasePlayed : number = 0;
     currentIndex : number = -1;
-    currentElement: HTMLInputElement = null;
+    currentElement: HTMLInputElement;
     isTyping : boolean = false;
     isFirstSpace : boolean = false;
     isInsertMode: boolean = false;
@@ -75,7 +74,8 @@ export class FixasrComponent  implements OnInit {
 
     ngOnInit() {
         this.getAsr();
-        this._scrollList = document.getElementById('scroll-text');
+        // We cast to avoid a compiler error. It should never be null.
+        this._scrollList = <HTMLElement>document.getElementById('scroll-text');
     }
 
     /* for testing

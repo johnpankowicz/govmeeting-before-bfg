@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MeetingModule } from './meeting/meeting.module'
 import { AddtagsModule } from './addtags/addtags.module'
-//import { FixasrModule } from './fixasr/fixasr.module'
+import { FixasrModule } from './fixasr/fixasr.module'
 import { SharedModule } from './shared/shared.module'
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
@@ -32,7 +32,7 @@ import { AppData } from './appdata';
         AboutModule,
         MeetingModule,
         AddtagsModule,
-//        FixasrModule,
+        FixasrModule,
 //        MatsampModule,
         SharedModule
     ],

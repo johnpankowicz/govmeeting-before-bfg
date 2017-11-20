@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Rx';
 import { AppData } from '../appdata';
 
 @Component({
-  moduleId: module.id,
   selector: 'gm-video',
   templateUrl: 'video.component.html',
   styleUrls: ['video.component.css']

@@ -86,7 +86,8 @@ export class FixasrUtilities {
     gotoNextInputElement(ele : HTMLInputElement, i : number) {
         // ele is this <input> element. ele.parentElement is the <div> enclosing just this <input>.
         // That <div>'s nextSibling is the <div> whose sole child is the next <input>.
-        let nextSibling = <Element> ele.parentElement.nextSibling;
+         // cast to HTMLElement because  we trust it is never null.
+       let nextSibling = <Element> (<HTMLElement>ele.parentElement).nextSibling;
         var next : HTMLInputElement = <HTMLInputElement>(nextSibling.children[0]);
         console.log(next.value);
 
@@ -101,7 +102,8 @@ export class FixasrUtilities {
             this.selectFirstWord(ele);
             return;
         }
-        let previousSibling = <Element> ele.parentElement.previousSibling;
+        // cast to HTMLElement because  we trust it is never null.
+        let previousSibling = <Element>(<HTMLElement>ele.parentElement).previousSibling;
         var prior : HTMLInputElement = <HTMLInputElement>(previousSibling.children[0]);
         if (typeof prior.setSelectionRange !== 'undefined') {
             this.selectFirstWord(prior);
@@ -115,7 +117,8 @@ export class FixasrUtilities {
             return;
         }
 
-        let previousSibling = <Element> ele.parentElement.previousSibling;
+        // cast to HTMLElement because  we trust it is never null.
+        let previousSibling = <Element>(<HTMLElement>ele.parentElement).previousSibling;
         var prior : HTMLInputElement = <HTMLInputElement>(previousSibling.children[0]);
         if (typeof prior.setSelectionRange !== 'undefined') {
             this.selectLastWord(prior);
