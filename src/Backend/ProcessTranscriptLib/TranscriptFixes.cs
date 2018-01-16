@@ -30,6 +30,12 @@ namespace GM.ProcessTranscriptLib
             return text.Substring(start, len);
         }
 
+        // Delete multiple strings. For example:
+        //   string[] ToDelete = {
+        //      "Strehlow & Associates, Inc.",
+        //      "Stated Meeting Invocation",
+        //      "(215) 504-4622" };
+        //   DeleteStrings(ref transcript, ToDelete);
         public void DeleteStrings(ref string text, string[] ToDelete)
         {
             StringBuilder textBuilder = new StringBuilder(text);
@@ -48,6 +54,15 @@ namespace GM.ProcessTranscriptLib
 
         }
 
+        // Remove line numbers.
+        // This includes 1 or 2 digits plus space at start of lines
+        public void RemoveLineNumbers(ref string text)
+        {
+            string pattern = "^[0-9][0-9]?[ ]?";
+            string replacement = "";
+            text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
+            //text = Regex.Replace(text, pattern2, replacement, RegexOptions.Multiline);
+        }
         // Remove page numbers and line numbers.
         // This includes 1 or 2 digits plus space at start of lines and
         // "Page xx" at start of line.
@@ -91,6 +106,13 @@ namespace GM.ProcessTranscriptLib
         public void RemoveLineContainingOnlyThisText(ref string text, string remove)
         {
             string pattern = "^ *" + remove + " *\n";
+            string replacement = "";
+            text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
+        }
+
+        public void RemoveLinesExceptThoseStartingWithLineNumber(ref string text)
+        {
+            string pattern = "^[^1-9].*\n";
             string replacement = "";
             text = Regex.Replace(text, pattern, replacement, RegexOptions.Multiline);
         }

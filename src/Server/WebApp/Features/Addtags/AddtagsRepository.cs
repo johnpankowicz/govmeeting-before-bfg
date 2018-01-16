@@ -19,7 +19,7 @@ namespace WebApp.Models
 
     public class AddtagsRepository : IAddtagsRepository
     {
-        static ConcurrentDictionary<string, Addtags> _addtags = new ConcurrentDictionary<string, Addtags>();
+        //static ConcurrentDictionary<string, Addtags> _addtags = new ConcurrentDictionary<string, Addtags>();
         private TypedOptions _options { get; set; }
 
         // https://www.mikesdotnetting.com/article/302/server-mappath-equivalent-in-asp-net-core
@@ -36,11 +36,22 @@ namespace WebApp.Models
             //      - change to get a default govEntity
             //      - change to get the latest meeting
 
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "\\" + meetingDate + "\\" + "Step 2A - Convert PDF file to JSON.json";
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "\\" + meetingDate + "\\" + "Step 3 - JSON output.json";
 
             return GetByPath(Path.Combine(_options.DatafilesPath, path));
         }
 
+        //public void Put(string value)
+        public void Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate)
+        {
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "\\" + meetingDate + "\\" + "Step 4 - Add tags.json";
+            string fullpath = Path.Combine(_options.DatafilesPath, path);
+
+            string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
+
+            File.WriteAllText(fullpath, stringValue);
+
+        }
         public Addtags GetByPath(string path)
         {
             string addtagsString = Readfile(path);
