@@ -1,0 +1,90 @@
+﻿using GM.ProcessIncoming.Shared;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
+
+namespace GM.ProcessRecordingLib
+{
+    /* Split the fixasr object into smaller sections
+       {
+         "lastedit": 0,
+         "asrsegments": [
+           {"startTime":"0:00","said":"the tuesday october 11 selectmen's"},
+           {"startTime":"0:02","said":"meeting i will apologize apologize for"},
+           {"startTime":"0:06","said":"my voice i can hardly speak i woke up"},
+           {"startTime":"0:08","said":"Saturday with a terrible cold so if you"},
+     */
+
+
+    public class SplitTranscript
+    {
+        CultureInfo culture = CultureInfo.CurrentCulture;
+        string format = "hh\\:mm\\:ss";
+        int sectionNumber;
+        Fixasr[] fixasrSegment = new Fixasr[2];
+
+       public void split(Fixasr fixasr, string outputFolder, int sectionSize, int overlap)
+       {
+            fixasrSegment[0] = new Fixasr();
+            fixasrSegment[1] = new Fixasr();
+            fixasrSegment[0].lastedit = 0;
+            fixasrSegment[1].lastedit = 0;
+            sectionNumber = 1;
+
+            // Since we want the sections to overlap (if overlap is non-zero), we can be addingwo outputs at once
+            // during the overlap. The first output that we start becomes the "primary" output.
+            // When we reach sectionSize for the primary, we open the next output. We now add to both outputs until
+            // we reach "sectionSize + overlap" on the primary. At that time we close the primary and write it to disk.
+            // The output that just started writing to now becomes the primary.
+            int primary = 0; // current primary output
+            int secondary = 1;
+
+            foreach (AsrSegment asrsegment in fixasr.asrsegments)
+            {
+                TimeSpan timespan = TimeSpan.ParseExact(asrsegment.startTime, format, culture);
+                int currentTime = (int) timespan.TotalSeconds;
+
+                // If we are within the overlap time, add to both.
+                if ((currentTime >= (sectionNumber * sectionSize)) && (currentTime <= (sectionNumber * sectionSize + overlap)))
+                {
+                    fixasrSegment[secondary].asrsegments.Add(asrsegment);
+                }
+
+                // If we are past the overlap. Write out the primary to disk and swap primary/secondary.
+                if (currentTime > (sectionNumber * sectionSize + overlap))
+                {
+                    WriteSection(outputFolder, primary, sectionNumber);
+                    sectionNumber++;
+                    fixasrSegment[primary] = new Fixasr();
+
+                    // Swap primary and secondary
+                    int x = primary;
+                    primary = secondary;
+                    secondary = x;
+                }
+
+                fixasrSegment[primary].asrsegments.Add(asrsegment);
+
+            }
+            // Handle end of file
+            if (fixasrSegment[primary].asrsegments.Count > 0)
+            {
+                WriteSection(outputFolder, primary, sectionNumber);
+            }
+        }
+
+        void WriteSection(string outputFolder, int primary, int partNumber)
+        {
+            string stringValue = JsonConvert.SerializeObject(fixasrSegment[primary], Formatting.Indented);
+
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interpolated-strings
+            // https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
+            string outputFile = outputFolder + "\\" + $"part{partNumber:D2}" + "\\fix.json";
+
+            File.WriteAllText(outputFile, stringValue);
+        }
+    }
+}

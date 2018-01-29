@@ -5,24 +5,30 @@ using System.Text;
 using GM.ProcessTranscriptLib;
 using GM.SpecificTranscriptFixes;
 using GM.Utilities;
+using GM.ProcessIncoming.Shared;
 
 namespace GM.ProcessIncoming
 {
     class ProcessTranscripts
     {
-        string datafiles = Environment.CurrentDirectory + @"\..\..\Datafiles";
-        bool TEST = false;
+        string datafiles;
 
-        public ProcessTranscripts(bool _test)
+        public ProcessTranscripts(string _datafiles)
         {
-            TEST = _test;
+            datafiles = _datafiles;
         }
 
-        public void Process(string filename)
+        public bool Process(string filename)
         {
             string meetingFolder;
-
-            CreateMeetingFolder(filename, out meetingFolder);
+            bool created;
+            MeetingFolder mf = new MeetingFolder(datafiles, filename);
+            if (!(created = mf.Create()))
+            {
+                Console.WriteLine("ERROR: Could not create meeting folder. It may already exist.");
+                return false;
+            }
+            meetingFolder = mf.GetName();
 
             // Copy PDF to meeting directory
             FileInfo infile = new FileInfo(filename);
@@ -41,57 +47,8 @@ namespace GM.ProcessIncoming
             string jsonfile = meetingFolder + "\\" + "Step 3 - JSON output.json";
             File.WriteAllText(jsonfile, transcript);
 
-            if (!TEST)
-            {
-                // Move the original PDF to "COMPLETED" folder
-                File.Move(filename, datafiles + "\\" + "COMPLETED");
-            }
-
-        }
-
-        private bool CreateMeetingFolder (string filename, out string meetingFolder)
-        {
-            // If file is "USA_PA_Philadelphia_Philadelphia_CityCouncil 2016-03-17.pdf"
-            //     location = USA_PA_Philadelphia_Philadelphia_CityCouncil
-            //     meetingDate = 2016-03-17
-            //     meetingFolder = USA_PA_Philadelphia_Philadelphia_CityCouncil/2016-03-17
-            string name = Path.GetFileNameWithoutExtension(filename);
-            string location = name.Substring(0, name.Length - 11);
-            string meetingDate = name.Substring(name.Length - 10, 10);
-            meetingFolder = datafiles + "\\" + location + "\\" + meetingDate;
-
-            if (!TEST)
-            {
-                if (Directory.Exists(meetingFolder))
-                {
-                    return false;
-                }
-                else
-                {
-                    Directory.CreateDirectory(meetingFolder);
-                    return true;
-                }
-            }
-
-            // If this is test, delete contents if it exists. Otherwise create folder.
-            if (!Directory.Exists(meetingFolder))
-            {
-                Directory.CreateDirectory(meetingFolder);
-            }
-            else
-            {
-                DirectoryInfo di = new DirectoryInfo(meetingFolder);
-
-                foreach (FileInfo file in di.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo dir in di.GetDirectories())
-                {
-                    dir.Delete(true);
-                }
-            }
             return true;
         }
+
     }
 }

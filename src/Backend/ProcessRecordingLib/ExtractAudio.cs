@@ -8,16 +8,25 @@ namespace GM.ProcessRecordingLib
 {
     public class ExtractAudio
     {
-        // Extract the audio from all files in the folder
-        public void ExtractAll(string inputFolder, string outputFolder)
-        {
-            Directory.CreateDirectory(outputFolder);
-            foreach (string f in Directory.GetFiles(inputFolder, "*.mp4"))
-            {
-                string name = Path.GetFileNameWithoutExtension(f);
-                Console.WriteLine(f);
+        /* Extract the audio from mp4 files in subfolders of specified folder.
+         * In the "Fix" folder for a recording, there will be a subfolder for each
+         * segment of the recording: 00-03-00, 00-06-00, 00=09-00, etc.
+         * Each of these subfolders is initialized with three files:
+         *    "fix.mp4"  - the video of this segment
+         *    "fix.flac" - the audio of this segment
+         *    "fix.json" - the transcription of this segment
+         */
 
-                Extract(inputFolder + "\\" + name + ".mp4", outputFolder + "\\" + name + ".flac");
+
+        public void ExtractAll(string inputFolder)
+        {
+            foreach (string dir in Directory.GetDirectories(inputFolder))
+            {
+                string inputFile = dir + "\\fix.mp4";
+                // Todo-g - convert to mp3 instead of flac.
+                string outputFile = dir + "\\fix.flac";
+
+                Extract(inputFile, outputFile);
             }
         }
 
@@ -29,8 +38,13 @@ namespace GM.ProcessRecordingLib
             string inputFileQuoted = "\"" + inputFile + "\"";
             string outputFileQuoted = "\"" + outputFile + "\"";
 
-            string command = "ffmpeg -i " + inputFileQuoted + " -ab 192000 -vn " + outputFileQuoted + " 2>&1";
+            string command = "ffmpeg -i " + inputFileQuoted + " -ac 1 -ab 192000 -vn " + outputFileQuoted + " 2>&1";
             runCommand.ExecuteCmd(command);
+
+            //// Convert to mono (it's now done in one step above)
+            //string monoFileQuoted = "\"" + monoFile + "\"";
+            //command = "ffmpeg -i " + outputFileQuoted + " -ac 1 " + monoFileQuoted + " 2>&1";
+            //runCommand.ExecuteCmd(command);
         }
     }
 }

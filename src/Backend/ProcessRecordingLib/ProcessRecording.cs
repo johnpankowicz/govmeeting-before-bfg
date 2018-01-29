@@ -1,32 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using GM.ProcessIncoming.Shared;
+using Newtonsoft.Json;
 
 namespace GM.ProcessRecordingLib
 {
     public class ProcessRecording
     {
-        public void Process(string inputFile, string outputFolder)
+        public void Process(string videoFile, string meetingFolder, string language)
         {
-            // Split the recording into 3 minute segments and put them in subfolder "split".
-            SplitRecording split = new SplitRecording();
-            string splitFolder = outputFolder + "\\" + "step 1 split";
-            split.Split(inputFile, splitFolder);
+            // Copy video to meeting folder
+            FileInfo infile = new FileInfo(videoFile);
+            string videofileCopy = meetingFolder + "\\" + "Step 0 video.mp4";
+            //File.Copy(videoFile, videofileCopy);
 
-            // Extract the audio from all the segments and put the audio files in subfolder "extract".
+            // Todo-g Remove this for production and uncomment the above "File.Copy" statement.
+            // #### FOR DEVELOPMENT: WE SHORTEN THE RECORDING FILE. ####
+            SplitRecording splitRecording = new SplitRecording();
+            splitRecording.ExtractPart(videoFile, videofileCopy, 60, 4 * 60);
+
+            // Extract the audio. This will be used to do the trancription.
             ExtractAudio extract = new ExtractAudio();
-            string extractFolder = outputFolder + "\\" + "step 2 extract";
-            extract.ExtractAll(splitFolder, extractFolder);
+            string audioFile = meetingFolder + "\\" + "step 1 audio.flac";
+            extract.Extract(videofileCopy, audioFile);
 
-            // Transcribe the audio files and put the transcriptions in subfolder "transcribe".
-            TranscribeAudio transcribe = new TranscribeAudio();
-            string transcribeFolder = outputFolder + "\\" + "step 3 transcribe";
-            transcribe.TranscribeAll(extractFolder, transcribeFolder, "en");
+            // Transcribe the audio file.
+            TranscribeAudio transcribe = new TranscribeAudio(language);
+            string originalName = Path.GetFileName(videoFile);
+            TranscribeResponse transcript = transcribe.MoveToCloudAndTranscribe(audioFile, originalName, language);
+            string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
+            string outputJsonFile = meetingFolder + "\\" + "step 2 transcript.json";
+            File.WriteAllText(outputJsonFile, stringValue);
 
-            // Convert the transcription files to JSON.
-            CreateJsonFiles convert = new CreateJsonFiles();
-            string jsonFolder = outputFolder + "\\" + "step 4 json";
-            convert.CreateJsonFileAll(transcribeFolder, jsonFolder);
+            // Reformat the JSON transcript file to match what the fixasr routine will use.
+            ModifyTranscriptJson convert = new ModifyTranscriptJson();
+            outputJsonFile = meetingFolder + "\\" + "step 3 fixasr.json";
+            Fixasr fixasr = convert.Modify(transcript);
+            stringValue = JsonConvert.SerializeObject(fixasr, Formatting.Indented);
+            File.WriteAllText(outputJsonFile, stringValue);
+
+            SplitIntoWorkSegments split = new SplitIntoWorkSegments();
+            split.Split(meetingFolder, videofileCopy, outputJsonFile);
         }
     }
 }

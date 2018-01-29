@@ -13,7 +13,7 @@
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/home']">
+                    <a [routerLink]="['/homedemo']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
@@ -34,12 +34,27 @@
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/meeting']">
-                        <span class='glyphicon glyphicon-blackboard '></span> Meeting
+                        <span class='glyphicon glyphicon-blackboard '></span> Meeting Transcript
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/serverdemo']">
+                        <span class='glyphicon glyphicon-cloud'></span> Server Components
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/home']">
+                        <span class='glyphicon glyphicon-home'></span> Home page
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/volunteer']">
+                        <span class='glyphicon glyphicon-gift'></span> Volunteer Page
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/test']">
-                        <span class='glyphicon glyphicon-education'></span> Test
+                        <span class='glyphicon glyphicon-education'></span> Test Area
                     </a>
                 </li>
             </ul>

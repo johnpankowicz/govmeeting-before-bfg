@@ -6,67 +6,101 @@ namespace GM.ProcessRecordingLib
     public class SplitRecording
     {
 
-            public void Split(string inputFile, string outputFolder)
+            public void Split(string inputFile, string outputFolder, int segmentSize, int segmentOverlap)
         {
+
             RunCommand runCommand = new RunCommand();
-
-            string inputFileQuoted = "\"" + inputFile + "\"";
-
-            string command = "ffmpeg -i " + inputFileQuoted + " 2>&1";
-
             Directory.CreateDirectory(outputFolder);
 
-            // Ffmpeg outputs all of its logging data to stderr,
-            //  to leave stdout free for piping the output data to some other program or ffmpeg instance.
+            int videoLength = RecordingLength(inputFile);
+            int numberOfSections = videoLength / segmentSize;
+            int mod = videoLength % segmentSize;
+            // If the last segment is greater than 1/2 segment size, put it in it's own segment.
+            if ( mod > (segmentSize/2))
+            {
+                numberOfSections++;
+            }
+            //string inputFilename = Path.GetFileNameWithoutExtension(inputFile);
 
-            // Get the lenght of the video in seconds. We will run the "ffmpeg -i" command and parse the standard output.
+            // Create subfolders part01, part02, part03, etc
+            for (int x = 1; x <= numberOfSections; x++)
+            {
+                int start = (x - 1) * segmentSize;
+
+                string segmentFolder = outputFolder + $"\\part{x:D2}";
+                Directory.CreateDirectory(segmentFolder);
+
+                string outputFile = segmentFolder + "\\" + "fix.mp4";
+                if (x < numberOfSections)
+                {
+                    ExtractPart(inputFile, outputFile, start, segmentSize + segmentOverlap);
+                }
+                else
+                {
+                    ExtractPart(inputFile, outputFile, start); // extract to end
+                }
+            }
+        }
+        int RecordingLength(string file)
+        {
+            // Get the length of the video in seconds. We will run the "ffmpeg -i" command and parse the standard output.
             // The line containing "Duration: ...." will contain the duration in HH:MM:SS format.
             // We will convert this to a TimeSpan object and then obtain total seconds.
+
+            RunCommand runCommand = new RunCommand();
+            string inputFileQuoted = "\"" + file + "\"";
+            // Ffmpeg outputs all of its logging data to stderr,
+            //  to leave stdout free for piping the output data to some other program or ffmpeg instance.
+            string command = "ffmpeg -i " + inputFileQuoted + " 2>&1";
+
             string result = runCommand.ExecuteCmd(command);
             int y = result.IndexOf("Duration: ");
             int z = result.IndexOf(".", y);
             string duration = result.Substring(y + 10, 8);
             TimeSpan time = TimeSpan.Parse(duration);
-            int vlen = (int) time.TotalSeconds;
-            int videoLength = 53 * 60 + 36;     // length of video in seconds
+            int videoLength = (int)time.TotalSeconds;     // length of video in seconds
+            return videoLength;
+        }
 
-            // We will split the video into 180 (+ 5) second pieces.
-            // There are two reasons for splitting.
-            //  1. The voice recognition software will only allow up to 180 seconds of audio to be processed with one call.
-            //  2. It will improve network delays if we can send only 3 minutes at a time to volunteer who are proof reading
-            //     the results of the voice recognition.
-            // Each piece will start at a 180 second margin: 03:00, 06:00, 09:00, etc.
-            // But we will split the video into 185 second segments.
-            // Thus there will be 5 seconds of overlap between consecutive pieces.
-            // We do this in order to improve the voice recognition. Normally there are the half words and
-            // half phrases at the start and end of segments. By having overlap, these can be ignored and we can
-            // match up proper full words and phrases near the start and end that occur in each segment.
-
-            int numberOfSections = videoLength / 180;
-            // If the last piece is less than 120 seconds, add it to the last piece.
-            if (videoLength - (numberOfSections * 180) < 120)
+        public void ExtractPart(string videofile, string filecopy, string startAsHhmmss, int lengthInSeconds = 0)
+        {
+            RunCommand runCommand = new RunCommand();
+            string length = SecondsToHhmmss(lengthInSeconds);
+            // The comand that we build must contain double quotes around the filenames, since these may contain spaces.
+            string inputFileQuoted = "\"" + videofile + "\"";
+            string outputFileQuoted = "\"" + filecopy + "\"";
+            string lengthOption = (lengthInSeconds > 0) ? " -t " + length : "";
             {
-                numberOfSections--;
-            }
 
-            string outputFile;
-            string outputFileQuoted;
-            string startTime;
-            string filename = Path.GetFileNameWithoutExtension(inputFile);
-
-            TimeSpan ts;
-            for (int x = 0; x <= numberOfSections; x++)
-            {
-                ts = TimeSpan.FromSeconds(x * 180);
-                startTime = ts.ToString("hh\\:mm\\:ss");
-                outputFile = outputFolder + "\\" + filename + startTime.Replace(":", "-") + ".mp4";
-                outputFileQuoted = "\"" + outputFile + "\"";
-                command = "ffmpeg -ss " + startTime + " -i " + inputFileQuoted + " -t 00:03:05 -vcodec copy -acodec copy -y " + outputFileQuoted;
-                runCommand.ExecuteCmd(command);
             }
+            string command = "ffmpeg -ss " + startAsHhmmss + " -i " + inputFileQuoted + lengthOption + " -vcodec copy -acodec copy -y " + outputFileQuoted;
+            runCommand.ExecuteCmd(command);
+        }
+        public void ExtractPart(string videofile, string filecopy, int startTimeInSeconds, int lengthInSeconds = 0)
+        {
+            string timeString = SecondsToHhmmss(startTimeInSeconds);
+            ExtractPart(videofile, filecopy, timeString, lengthInSeconds);
+        }
+
+        public static string SecondsToHhmmss(int seconds)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(seconds);
+            string timeString = timeSpan.ToString("hh\\:mm\\:ss");
+            return timeString;
         }
     }
 }
+
+/*
+ffmpeg -ss [start] -i in.mp4 -t [duration] -c copy out.mp4
+Here, the options mean the following:
+    -ss specifies the start time, e.g. 00:01:23.000 or 83 (in seconds)
+    -t specifies the duration of the clip (same format).
+    Recent ffmpeg also has a flag to supply the end time with -to.
+    -c copy copies the first video, audio, and subtitle bitstream from the input to the output file without re-encoding them.
+    This won't harm the quality and make the command run within seconds.
+    if you don't specify a duration, it will go to the end.
+ */
 
 
 // We can not use the following code to extract segments, since we have overlap.
