@@ -8,20 +8,41 @@ using System.Threading.Tasks;
 namespace GM.ProcessRecordingLib
 {
 
- /*
-    This class is for converting the above format to JSON. This JSON file will then be input
-    to the "fixasr" component within the ClientApp. The field "lastedit" will used to store the next starttime
-    following the last edit that was made by fixasr. For example:
+ /*           === THIS CLASS IS NO LONGER USED. ===
+           
+       Youtube used to have a user option for creating transcriptions of videos.
+       When this project first started, we were using that.
+       We no longer use this method but instead use the GOOGLE Speech API.
 
-      {
-      "lastedit": 0,
-      "asrsegments": [
-        {"startTime":"0:00","said":"the tuesday october 11 selectmen's"},
-        {"startTime":"0:02","said":"meeting i will apologize apologize for"},
-        {"startTime":"0:06","said":"my voice i can hardly speak i woke up"}
-        ...
-        ] }
- */
+       This class is for converting the above format to JSON. This JSON file will then be input
+       to the "fixasr" component within the ClientApp. The field "lastedit" will used to store the next starttime
+       following the last edit that was made by fixasr. For example:
+
+ The Youtube transcription:
+
+       Boothbay Harbor Selectmen - Oct 11, 2016
+       52:36 long
+
+       0:00
+       the tuesday october $YEAR 11 selectmen's
+       0:02
+       meeting i will apologize apologize for
+       0:06
+       my voice i can hardly speak i woke up
+       0:08
+       Saturday with a terrible cold so if you
+
+ The JSON 
+
+         {
+         "lastedit": 0,
+         "asrsegments": [
+           {"startTime":"0:00","said":"the tuesday october 11 selectmen's"},
+           {"startTime":"0:02","said":"meeting i will apologize apologize for"},
+           {"startTime":"0:06","said":"my voice i can hardly speak i woke up"}
+           ...
+           ] }
+    */
 
     public class CreateJsonFiles
     {
