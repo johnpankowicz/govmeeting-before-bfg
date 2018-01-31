@@ -17,6 +17,7 @@ export class VideoComponent {
     onPlayerReady(api:VgAPI) {
         this.api = api;
         console.log('In video OnPlayerReady');
+        api.play();
     }
 
     ngOnInit() {

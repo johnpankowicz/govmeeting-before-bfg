@@ -77,7 +77,7 @@ export class FixasrComponent  implements OnInit {
         this.getAsr();
         // We cast to avoid a compiler error. It should never be null.
         this._scrollList = <HTMLElement>document.getElementById('scroll-text');
-        //this.videoComponent.playPhrase(0, 4);
+        console.log('currentIndex = ' + this.currentIndex);
     }
 
     /* for testing
@@ -365,7 +365,9 @@ export class FixasrComponent  implements OnInit {
             toPlay = this.lastedit;
             // Otherwise start from beginning.
             if (toPlay === -1) {
-                toPlay = 0;
+                this.videoComponent.playPhrase(0, 4);
+                return;
+                //toPlay = 0;
             }
         }
         if (toPlay === this.lastPhrasePlayed) return;
