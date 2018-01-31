@@ -46,22 +46,12 @@ namespace WebApp.Controllers
 
         // public string Get()
         {
-            string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil\2014-09-25";
-            //string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil\2016-03-17"
-            // If our test data is not already in "Datafiles", copy it from testdata folder.
-            string meetingFolder = Path.Combine(_options.DatafilesPath, baseMeetingFolder);
-            string testFolder = Path.Combine(_options.DatafilesPath, @"..\testdata");
-            string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
-
-            if (!Directory.Exists(meetingFolder))
-            {
-                Directory.CreateDirectory(meetingFolder);
-                CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
-            }
+            // If there is no meeting data in the Datafiles folder, copy some from testdata.
+            CopyTestDataIfNeeded();
 
             // Normally Get() would receive the paramaters that we are passing below to addtags.Get(). For now, this is hard-coded.
-            //Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "2016-03-17");
-            Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "2014-09-25");
+            //Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
+            Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2014-09-25");
             return ret;
         }
 
@@ -76,58 +66,27 @@ namespace WebApp.Controllers
             // We need to read the location from the user's claims.
 
             //addtags.Put("johnpank", "USA", "PA", "Philadelphia", "CityCouncil", "2016-03-17");
-            //string path = @"USA_PA_Philadelphia_CityCouncil/2016-03-17\Step 3 - JSON output.pdf";
+            //string path = @"USA_PA_Philadelphia_CityCouncil/2016-03-17\T3-ToBeTagged.pdf";
             //addtags.PutByPath(System.IO.Path.Combine(Common.getDataPath(), path), value);
-            addtags.Put(value, "johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "2016-03-17");
+            addtags.Put(value, "johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
         }
 
-        /*
-         // GET api/addtags/1
-         [HttpGet("{id}")]
-         public Addtags Get(int id)
-         {
-             //return "value";
-             switch (id)
-             {
-                 case 1:
-                 default:
-                     return addtags.Get("johnpank", "Philadelphia", "CityCouncil", "2016-03-17");
-                 case 2:
-                     return addtags.Get("johnpank", "Philadelphia", "CityCouncil", "2014-09-25");
-             }
-         }
-         */
-
-        /*
-        [HttpGet("{city}/{goventity}")]
-        public Addtags Get(string city, string goventity)
+        void CopyTestDataIfNeeded()
         {
-            return addtags.Get("johnpank", city, goventity, "2016-03-17");
-        }
-        */
+            string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2014-09-25";
+            //string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2016-03-17"
+            // If our test data is not already in "Datafiles", copy it from testdata folder.
+            string meetingFolder = Path.Combine(_options.DatafilesPath, baseMeetingFolder);
+            string testFolder = Path.Combine(_options.DatafilesPath, @"..\testdata");
+            string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
 
-        //[HttpGet("{country}/{state}/{city}/{govEntity?}/{meetingDate?}")]
-        //public Addtags Get(string country, string state, string city, string govEntity = null, string meetingDate = null)
-        //{
-        //    return addtags.Get("johnpank", country, state, city, govEntity, meetingDate);
-        //}
-
-
-        /* This is code in progress. I am trying to add authorization to this method.
-        public async Task<IActionResult> Post([FromBody]Addtags value)
-        {
-            if (await _authz.AuthorizeAsync(User, "SalesSenior"))
+            if (!Directory.Exists(meetingFolder))
             {
-                string path = @"Philadelphia_CityCouncil_03_17_2016 - Backup.json";
-                addtags.PutByPath(System.IO.Path.Combine(Common.getDataPath(), path), value);
-                // What do I return?
-            } else
-            {
-               // Is this correct?
-                return new ChallengeResult();
+                Directory.CreateDirectory(meetingFolder);
+                CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
             }
         }
-        */
+
 
         public void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
         {

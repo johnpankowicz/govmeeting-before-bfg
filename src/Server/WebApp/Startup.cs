@@ -50,7 +50,7 @@ namespace WebApp
             {
                 // Modify the DataFilesPath option to be the full path.
                 myOptions.DatafilesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), myOptions.DatafilesPath);
-                Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
+                Console.WriteLine("Startup.cs - Datafile path = " + myOptions.DatafilesPath);
             });
             // All the options in the "TypedOptions" section of appsettings.json (or other config stores)
             // are available as strongly typed values.
@@ -210,8 +210,8 @@ namespace WebApp
             //loggerFactory.AddDebug();
 
             redirect.Start();
-            Console.WriteLine("Time = " + DateTime.Now);
-            Console.WriteLine("connection string = " + Configuration["Data:DefaultConnection:ConnectionString"]);
+            Console.WriteLine("Startup.cs - Time = " + DateTime.Now);
+            Console.WriteLine("Startup.cs - connection string = " + Configuration["Data:DefaultConnection:ConnectionString"]);
 
             if (env.IsDevelopment())
             {

@@ -53,7 +53,7 @@ namespace GM.ProcessRecordingLib
             foreach (string f in Directory.GetFiles(inputFolder, "*.txt"))
             {
                 string name = Path.GetFileNameWithoutExtension(f);
-                Console.WriteLine(f);
+                Console.WriteLine("CreateJsonFiles.cs - " + f);
 
                 CreateJsonFile(inputFolder + "\\" + name + ".txt", outputFolder + "\\" + name + ".json");
             }
@@ -108,7 +108,7 @@ namespace GM.ProcessRecordingLib
                 {
                     if (phrase.startTime != null)
                     {
-                        Console.WriteLine("ERROR: Invalid input data (duplicate starttime) on line " + linenum);
+                        Console.WriteLine("CreateJsonFiles.cs - ERROR: Invalid input data (duplicate starttime) on line " + linenum);
                     };
                     phrase.startTime = nextLine;
                     continue;
@@ -118,7 +118,7 @@ namespace GM.ProcessRecordingLib
                     // Todo-g - check for invalid characters like a double quote.
                     if (phrase.said != null)
                     {
-                        Console.WriteLine("ERROR: Invalid input data (duplicate said) on line " + linenum);
+                        Console.WriteLine("CreateJsonFiles.cs - ERROR: Invalid input data (duplicate said) on line " + linenum);
                     };
                     phrase.said = nextLine;
                 }

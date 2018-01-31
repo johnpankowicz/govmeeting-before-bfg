@@ -30,21 +30,24 @@ namespace WebApp.Models
             //    Add(new Addtags { Name = "Item1" });
         }
 
-        public Addtags Get(string username, string country, string state, string county, string city, string govEntity, string meetingDate)
+        public Addtags Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
         {
             // Todo-g - check permissions
             //      - change to get a default govEntity
             //      - change to get the latest meeting
 
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "\\" + meetingDate + "\\" + "Step 3 - JSON output.json";
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + "T3-ToBeTagged.json";
 
             return GetByPath(Path.Combine(_options.DatafilesPath, path));
         }
 
         //public void Put(string value)
-        public void Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate)
+        public void Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
         {
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "\\" + meetingDate + "\\" + "Step 4 - Add tags.json";
+            // Todo-g We need to implement a circular "file buffer" like was done in FixasrRepository.cs.
+            // Otherwise, we will save edits here. But when the user logs out and returns later, they will not see any of their edits and saving again
+            // will wipe out what they did before.
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + "T4-Tagged.json";
             string fullpath = Path.Combine(_options.DatafilesPath, path);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
@@ -87,7 +90,7 @@ namespace WebApp.Models
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
+                Console.WriteLine("AddtagsRepository.cs - The file could not be read:\n" + e.Message);
                 Console.WriteLine(e.Message);
                 return null;
             }

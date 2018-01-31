@@ -16,7 +16,7 @@ namespace GM.ProcessRecordingLib
             {
                 objectName = objectName ?? Path.GetFileName(localPath);
                 storage.UploadObject(bucketName, objectName, contentType, file);
-                Console.WriteLine($"Uploaded {objectName}.");
+                Console.WriteLine($"GoogleBucket.cs - Uploaded {objectName}.");
             }
         }
         public void DownloadObject(string bucketName, string objectName,
@@ -28,7 +28,7 @@ namespace GM.ProcessRecordingLib
             {
                 storage.DownloadObject(bucketName, objectName, outputFile);
             }
-            Console.WriteLine($"downloaded {objectName} to {localPath}.");
+            Console.WriteLine($"GoogleBucket.cs - downloaded {objectName} to {localPath}.");
         }
 
         void CreateBucket()
@@ -46,13 +46,13 @@ namespace GM.ProcessRecordingLib
             {
                 // Creates the new bucket.
                 storageClient.CreateBucket(projectId, bucketName);
-                Console.WriteLine($"Bucket {bucketName} created.");
+                Console.WriteLine($"GoogleBucket.cs - Bucket {bucketName} created.");
             }
             catch (Google.GoogleApiException e)
             when (e.Error.Code == 409)
             {
                 // The bucket already exists.  That's fine.
-                Console.WriteLine(e.Error.Message);
+                Console.WriteLine("GoogleBucket.cs - " + e.Error.Message);
             }
         }
 

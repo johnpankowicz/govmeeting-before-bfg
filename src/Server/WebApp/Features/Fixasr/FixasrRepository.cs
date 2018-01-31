@@ -15,8 +15,10 @@ namespace WebApp.Models
         static ConcurrentDictionary<string, Fixasr> _fixasr = new ConcurrentDictionary<string, Fixasr>();
         private TypedOptions _options { get; set; }
 
-        private const string STEP2_BASE_NAME = "Step 2 - transcript from Youtube";
-        private const string STEP3_BASE_NAME = "Step 3 - transcript corrected for errors";
+        //private const string STEP2_BASE_NAME = "Step 2 - transcript from Youtube";
+        //private const string STEP3_BASE_NAME = "Step 3 - transcript corrected for errors";
+        private const string STEP2_BASE_NAME = "part";
+        private const string STEP3_BASE_NAME = "part-corrected";
         private const string EXTENSION = "json";
 
         public FixasrRepository(IOptions<TypedOptions> options)
@@ -62,11 +64,11 @@ namespace WebApp.Models
         //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil/2016-03-17"
         // We will likely change this convention once the number of files grows and we need a deeper folder structure.
 
-        public Fixasr Get(string username, string country, string state, string county, string city, string govEntity, string meetingDate)
+        public Fixasr Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
             // Todo-g - check permissions
 
-            string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
+            string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate + $"\\R4-FixText\\part{part:D2}";
             string fullpath = System.IO.Path.Combine(_options.DatafilesPath, subpath);
             string latestCopy = System.IO.Path.Combine(fullpath, STEP3_BASE_NAME + "." + EXTENSION);
 
@@ -109,7 +111,7 @@ namespace WebApp.Models
             }
         }
 
-        public void Put(Fixasr value, string username, string country, string state, string county, string city, string govEntity, string meetingDate)
+        public void Put(Fixasr value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
             string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
             string fullpath = System.IO.Path.Combine(_options.DatafilesPath, subpath);

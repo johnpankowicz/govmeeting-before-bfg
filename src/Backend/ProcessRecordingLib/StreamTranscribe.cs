@@ -50,7 +50,7 @@ namespace GM.ProcessRecordingLib
                     {
                         foreach (var alternative in result.Alternatives)
                         {
-                            Console.WriteLine(alternative.Transcript);
+                            Console.WriteLine("StreamTranscribe.cs - " + alternative.Transcript);
                             responseText = responseText + alternative.Transcript + "\n";
                         }
                     }
@@ -86,7 +86,7 @@ namespace GM.ProcessRecordingLib
         {
             if (NAudio.Wave.WaveIn.DeviceCount < 1)
             {
-                Console.WriteLine("No microphone!");
+                Console.WriteLine("StreamTranscribe.cs - No microphone!");
                 return -1;
             }
             var speech = SpeechClient.Create();
@@ -118,7 +118,7 @@ namespace GM.ProcessRecordingLib
                     {
                         foreach (var alternative in result.Alternatives)
                         {
-                            Console.WriteLine(alternative.Transcript);
+                            Console.WriteLine("StreamTranscribe.cs - " + alternative.Transcript);
                         }
                     }
                 }
@@ -144,7 +144,7 @@ namespace GM.ProcessRecordingLib
                     }
                 };
             waveIn.StartRecording();
-            Console.WriteLine("Speak now.");
+            Console.WriteLine("StreamTranscribe.cs - Speak now.");
             await Task.Delay(TimeSpan.FromSeconds(seconds));
             // Stop recording and shut down.
             waveIn.StopRecording();

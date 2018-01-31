@@ -28,7 +28,7 @@ namespace GM.ProcessRecordingLib
         //    foreach (string f in Directory.GetFiles(inputFolder, "*.flac"))
         //    {
         //        string name = Path.GetFileNameWithoutExtension(f);
-        //        Console.WriteLine(f);
+        //        Console.WriteLine("TranscribeAudio.cs - " + f);
 
         //        TranscribeToFile(inputFolder + "\\" + name + ".flac", outputFolder + "\\" + name + ".txt", false);
         //    }
@@ -52,7 +52,6 @@ namespace GM.ProcessRecordingLib
             string objectName = Path.GetFileNameWithoutExtension(videoFileName) + ".flac";
             GoogleBucket gb = new GoogleBucket();
             gb.UploadFile("govmeeting-transcribe", audiofilePath, objectName, "audio/x-flac");
-            string filename = Path.GetFileName(audiofilePath);
             TranscribeResponse transcript = TranscribeInCloud(objectName, language);
             return transcript;
         }

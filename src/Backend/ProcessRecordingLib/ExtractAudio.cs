@@ -22,9 +22,9 @@ namespace GM.ProcessRecordingLib
         {
             foreach (string dir in Directory.GetDirectories(inputFolder))
             {
-                string inputFile = dir + "\\fix.mp4";
+                string inputFile = dir + "\\part.mp4";
                 // Todo-g - convert to mp3 instead of flac.
-                string outputFile = dir + "\\fix.flac";
+                string outputFile = dir + "\\part.flac";
 
                 Extract(inputFile, outputFile);
             }
