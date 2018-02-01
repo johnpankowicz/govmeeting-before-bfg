@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
+using WebApp.Features.Shared;
 using WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -46,9 +47,6 @@ namespace WebApp.Controllers
 
         // public string Get()
         {
-            // If there is no meeting data in the Datafiles folder, copy some from testdata.
-            CopyTestDataIfNeeded();
-
             // Normally Get() would receive the paramaters that we are passing below to addtags.Get(). For now, this is hard-coded.
             //Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
             Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2014-09-25");
@@ -69,31 +67,6 @@ namespace WebApp.Controllers
             //string path = @"USA_PA_Philadelphia_CityCouncil/2016-03-17\T3-ToBeTagged.pdf";
             //addtags.PutByPath(System.IO.Path.Combine(Common.getDataPath(), path), value);
             addtags.Put(value, "johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
-        }
-
-        void CopyTestDataIfNeeded()
-        {
-            string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2014-09-25";
-            //string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2016-03-17"
-            // If our test data is not already in "Datafiles", copy it from testdata folder.
-            string meetingFolder = Path.Combine(_options.DatafilesPath, baseMeetingFolder);
-            string testFolder = Path.Combine(_options.DatafilesPath, @"..\testdata");
-            string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
-
-            if (!Directory.Exists(meetingFolder))
-            {
-                Directory.CreateDirectory(meetingFolder);
-                CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
-            }
-        }
-
-
-        public void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
-        {
-            foreach (DirectoryInfo dir in source.GetDirectories())
-                CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
-            foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(target.FullName, file.Name));
         }
     }
 }

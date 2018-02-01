@@ -2,27 +2,44 @@
     <br /><h1> Server Components </h1>
 <p>
 
-<p>The pages on this site only demo components that run in the browser on the front end.
-    They don't demo the components that run in the backend on the server.
+<p>The pages on this demo site only show the user interface that will run in the browser.
+    It doesn't show the processing that happens in the backend on the server.
     </p>
 
-<p> Some of these components run on scheduled times. Others runs as a result of actions on the front end. </p>
+<h3> Video recordings </h3>
 
+<p> The following processing occurs for a video recording. </p>
 <ul>
-    <li> Handle user registration and login. </li>
-    <li> Handle registration of a government entity. </li>
-    <li> Watch a URL for new meeting transripts or recordings to be posted. </li>
-    <li> Retrieve new new meeting transripts or recordings. </li>
-    <li> Convert transcipts in other formats (EG: PDF) to text files. </li>
-    <li> Extract information from transcripts like speaker and section names. </li>
-    <li> Re-format transcripts into a common format. </li>
-    <li> Convert video recordings into a common format. </li>
-    <li> Extra the audio from the video recording. Merge stereo channels into one mono channel. </li>
-    <li> Call the Google Auto Speech Recognition API to convert the audio to text. </li>
-    <li> Split the video into segments that will be served to users for correction of ASR text. </li>
-    <li> Put the transcripts into a JSON format. </li>
-    <li> Populate the database with the data extracted from the final corrected and tagged transcripts. </li>
-    <li> Watch for database changes and alert users who have signed up for alerts. </li>
+  <li> The recording is retrieved from the site where it resides. </li>
+  <li> It's converted to the primary web formats (mp4, ogg and webm). </li>
+  <li> The audio tracks are extracted, merged to a mono track and converted to FLAC format. </li>
+  <li> The audio file is uploaded to a Google cloud storage bucket. </li>
+  <li> The Google Speech API is called to create a transcript using auto voice recognition. </li>
+  <li> The transcript is put into a JSON format for further processing. </li>
+  <li> The video, audio and trancript files are split into sets of 3 minute segments. </li>
+  <li> The sets of segments are organized into a workflow system. </li>
+  <li> The backend will then serve the work items to the front end. </li>
+</ul>
+
+<h3> Existing Transcripts </h3>
+
+<p> Some government entities already produce transcpts. These will be processed as follows. </p>
+<ul>
+    <li> Retrieve the meeting transript from the source site. </li>
+    <li> Convert the transcipts from other formats (EG: PDF) into text files. </li>
+    <li> Extract information such as speaker and section names. </li>
+    <li> The transcript is put into a JSON format for further processing. </li>
+
+</ul>
+
+<h3> Post processing </h3>
+
+<p> Whether the original information came from a recording or an exisiting transcript, the following post processing occurs. </p>
+<ul>
+    <li> Transform the data into an object representation that is used to populate a database. </li>
+    <li> Provide a variety of ways to search, access and display the information. </li>
+    <li> Accept personal search requests that it will store for a user and run against future data that it adds to the database. </li>
+    <li> Alert users when their personal search requests yield results on new data. </li>
 </ul>
 
 

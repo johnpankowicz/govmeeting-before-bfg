@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
+using WebApp.Features.Shared;
 
 namespace WebApp.Models
 {
@@ -36,9 +37,15 @@ namespace WebApp.Models
             //      - change to get a default govEntity
             //      - change to get the latest meeting
 
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + "T3-ToBeTagged.json";
+            string datafiles = _options.DatafilesPath;
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate;
 
-            return GetByPath(Path.Combine(_options.DatafilesPath, path));
+            // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
+            UseTestData.CopyIfNeeded(path, datafiles);
+
+            string toBeTagged = path + "\\" + "T3-ToBeTagged.json";
+
+            return GetByPath(Path.Combine(_options.DatafilesPath, toBeTagged));
         }
 
         //public void Put(string value)

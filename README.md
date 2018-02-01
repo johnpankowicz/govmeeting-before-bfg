@@ -42,15 +42,66 @@ For a detailed system design, see: [System Design
 
 ## Quickstart
 
-### Visual Studio
-  * Opening the "govmeeting.sln" will load all the projects
-  * Opening src\Server\WebApp\WebApp.sln will load just the Angular - Asp.Net Core app.
+* Clone the repo: `git clone https://github.com/govmeeting/govmeeting.git`
+or download zip file:`https://github.com/govmeeting/govmeeting/archive/master.zip`
 
-### Visual Studio Code
+#### If using Visual Studio
 
-Install the following extensions:
+  * Open solution "govmeeting.sln"
+
+To run the front-end (the code you see running at govmeeting.org):
+
+  * Set startup project to Server/WebApp. Press F5.
+
+To run the back-end (the code that processes incoming video and transript file)
+
+  * Set the startup project in Visual Studio to `Backend/ProcessingIncoming`. Press F5.
+
+  * Copy (don't move) one of either the sample MP4 or PDF files from testdata to Datafiles/INCOMING.
+
+  The program will recognize that a new file has appeared and start processing it.
+  The test file will be moved to "COMPLETED" when done.
+
+  You will see the results in new subfolders of Datafiles and Server/wwwroot/assets which were created.
+  EXCEPT: If it is an MP4 file and you do not have a Google Cloud Platform project set up, you will see an error.
+  For instructions, on setting up a GCP project, see: `https://github.com/govmeeting/govmeeting/wiki`
+
+
+### If using Visual Studio Code
+
+Install the following VS Code extensions:
 * "Debugger for Chrome" by Microsoft
 * "C# for Visual Studio Code" by Microsoft
+
+For how to debug both Typescript and C# together in VS Code, see:
+  https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
+
+Open the repository folder in VS Code.
+
+### Process new meeting recordings
+
+The backend can be used to process recordings of your own.
+
+* First name the file in this format:
+
+    [county]_[state]_[county]_[municipality]_[goverment body]_[language]_[date].mp4
+
+    For example: "USA_NJ_Hudson_JerseyCity_CityCouncil_en_2018-02-24"
+
+    "country" is the standard country abbeviation.
+    "state" is an abbreviation for the second level sub-division for that country.
+    "county" is whatever is the third level sub-division for that country.
+    "municipality" is lowest level government division.
+    "language" is the ISO 639 language code. This is used during transcription.
+    "date" is the date of the meeting in the format localized for that country.
+
+    Some countries may need more levels of sub-divsion. In that case include the 3rd up to the lowest level,
+    in the "county" field and put "-" between the included names.
+
+* Then copy the file into the Datafiles/INCOMING folder and run the Backend/ProcessIncoming process.
+
+
+
 
 ## Contacts
 [![Join the chat at https://gitter.im/govmeeting/govmeeting](https://badges.gitter.im/govmeeting/govmeeting.svg)](https://gitter.im/govmeeting/govmeeting?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

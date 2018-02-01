@@ -5,31 +5,36 @@ using System.Threading.Tasks;
 using WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using WebApp.Features.Shared;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-    // Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
+// Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
 namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     public class FixasrController : Controller
     {
-        private readonly IAuthorizationService _authz;
+        private readonly IAuthorizationService authz;
+        private readonly IHostingEnvironment env;
 
         public IFixasrRepository fixasr { get; set; }
 
-        public FixasrController(IAuthorizationService authz, IFixasrRepository fixasr)
+        public FixasrController(IAuthorizationService _authz, IFixasrRepository _fixasr, IHostingEnvironment _env)
         //public FixasrController(IAuthorizationService authz)
         {
-            _authz = authz;
-            this.fixasr = fixasr;
+            authz = _authz;
+            fixasr = _fixasr;
+            env = _env;
         }
 
         // GET: api/fixasr
         [HttpGet]
         public Fixasr Get()
         {
-            //Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2016-10-11", 1);
+            fixasr.SetAssets(env.WebRootPath + "\\assets");
             Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
             return ret;
         }

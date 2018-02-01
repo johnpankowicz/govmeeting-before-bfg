@@ -32,7 +32,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
         static string testdata = Environment.CurrentDirectory + @"\..\..\testdata";
 
         // Todo-g We need to get the location of the credentials file path from configuration.
-        public static string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio-876a856590b4.json";
+        public static string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
 
         static void Main(string[] args)
         {

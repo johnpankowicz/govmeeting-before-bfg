@@ -22,5 +22,6 @@ namespace WebApp.Models
         Fixasr Find(string key);
         //Fixasr Remove(string key);
         void Update(Fixasr item);
+        void SetAssets(string _wwwroot);
     }
 }

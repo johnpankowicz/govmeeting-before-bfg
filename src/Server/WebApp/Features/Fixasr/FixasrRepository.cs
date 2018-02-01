@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
+using WebApp.Features.Shared;
 
 namespace WebApp.Models
 {
@@ -15,11 +16,31 @@ namespace WebApp.Models
         static ConcurrentDictionary<string, Fixasr> _fixasr = new ConcurrentDictionary<string, Fixasr>();
         private TypedOptions _options { get; set; }
 
-        //private const string STEP2_BASE_NAME = "Step 2 - transcript from Youtube";
-        //private const string STEP3_BASE_NAME = "Step 3 - transcript corrected for errors";
-        private const string STEP2_BASE_NAME = "part";
-        private const string STEP3_BASE_NAME = "part-corrected";
+        string assets;
+
+        const int MAX_BACKUPS = 20;
+        private const string BASE_NAME = "part";        // base name of the file as produced by the Backend processing.
+        private const string BASE_NAME_CORRECTED = "part-corrected";    // Base name of the file which has corrections.
         private const string EXTENSION = "json";
+
+        // Whenever the user clicks "SAVE" after making corrections, we save the corrected text to a new file.
+        // The original file containing the uncorrected text for each of the parts is named "part.json"
+        // When the user clicks "SAVE" for the first time, the changed text is saved to "part-corrected-01-LAST.json".
+        //    "01" indicates that this is the first set of corrections.
+        //    "LAST" indicates this is most recent set of corrections.
+        // When the user makes more corrections and clicks "SAVE" again, two things happen:
+        //   The new second set of corrections are saved to "part-corrected-02-LAST.json".
+        //   "part-corrected-01-LAST.json" is renamed "part-corrected-01.json"
+        // If the user logs out and logs in again later to continue working, they get the file whose name ends with "LAST.json".
+
+        // After "MAX_BACKUPS" files are created (currently 20), the latest file written will wipe out the older file.
+        // Thus instead of the 21th file being named ""part-corrected-21-LAST.json", it is named "part-corrected-01-LAST.json".
+        // Thus this arrangement acts like a circular buffer, where the newest entry wipes out the oldest one.
+
+        // WE can provide the user an "Undo" function which will go back to a prior set of corrections.
+
+        // It is possible to use a more sophisticated approach, like using mediawiki software to track revisions. But
+        // this current approach only uses about 30 lines of code and it may be sufficient for our purposes.
 
         public FixasrRepository(IOptions<TypedOptions> options)
         //public FixasrRepository()
@@ -57,20 +78,26 @@ namespace WebApp.Models
 
         // We are currently storing the data under the following structure. Directories under Datafiles are
         // named as follows: 
-        //    <country>_<state>_<county>_<town-or-city>_<gov-entity>/<date>
+        //    <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>/<date>/R4-FixText/<part>
         // Example, calling:
-        //     Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "2016-03-17")
+        //     Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17",2)
         // gets data from:
-        //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil/2016-03-17"
+        //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2016-03-17/R4-FixText"/part02"
         // We will likely change this convention once the number of files grows and we need a deeper folder structure.
 
         public Fixasr Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
-            // Todo-g - check permissions
+            string datafiles = _options.DatafilesPath;
 
-            string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate + $"\\R4-FixText\\part{part:D2}";
-            string fullpath = System.IO.Path.Combine(_options.DatafilesPath, subpath);
-            string latestCopy = System.IO.Path.Combine(fullpath, STEP3_BASE_NAME + "." + EXTENSION);
+            string baseMeetingFolder = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate + $"\\R4-FixText\\part{part:D2}";
+
+            // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
+            //UseTestData.CopyIfNeeded(path, datafiles);
+            UseTestData.CopyIfNeeded(baseMeetingFolder, datafiles);
+            CopyToAssets(baseMeetingFolder, datafiles);
+
+            string fullpath = Path.Combine(datafiles, baseMeetingFolder);
+            string latestCopy = Path.Combine(fullpath, BASE_NAME_CORRECTED + "." + EXTENSION);
 
             // If we already edited it, return the latest edit.
             if (File.Exists(latestCopy))
@@ -80,7 +107,7 @@ namespace WebApp.Models
             // Otherwise return the unedited one from step 2.
             else
             {
-                string filename = System.IO.Path.Combine(fullpath, STEP2_BASE_NAME + "." + EXTENSION);
+                string filename = Path.Combine(fullpath, BASE_NAME + "." + EXTENSION);
                 return GetByPath(filename);
             }
         }
@@ -136,14 +163,14 @@ namespace WebApp.Models
             string numOfNextLatest = "01";          // Assume the next latest is "01".
 
             // Find out what the current latest is.
-            string latestCopy = getLatestFile(fullpath, STEP3_BASE_NAME, EXTENSION);
+            string latestCopy = getLatestFile(fullpath, BASE_NAME_CORRECTED, EXTENSION);
             if (latestCopy != null)
             {
                 numOfNextLatest = getNumberOfNextLatest(latestCopy, SUFFIX, EXTENSION);
                 RenameLatestCopy(latestCopy, SUFFIX);
             }
 
-            string nextLatestCopy = fullpath + "/" + STEP3_BASE_NAME + SEPERATOR + numOfNextLatest + SUFFIX + "." + EXTENSION;
+            string nextLatestCopy = fullpath + "/" + BASE_NAME_CORRECTED + SEPERATOR + numOfNextLatest + SUFFIX + "." + EXTENSION;
             File.WriteAllText(nextLatestCopy, stringValue);
         }
 
@@ -169,8 +196,6 @@ namespace WebApp.Models
         // get number of next latest copy (as string)
         private string getNumberOfNextLatest(string latestCopy, string suffix, string extension)
         {
-            const int MAX_BACKUPS = 20;
-
             int numLast;
             int startOfnumLast = latestCopy.Length - suffix.Length - extension.Length - 3;
 
@@ -222,5 +247,27 @@ namespace WebApp.Models
             ] }";
         }
 
+        public void SetAssets(string _assets)
+        {
+            assets = _assets;
+        }
+
+        void CopyToAssets(string baseMeetingFolder, string datafiles)
+        {
+            // Copy the data also to wwwroot/assets. We need this until we figure out how to return media files to vidogular via the MVC API.
+            if (assets != null)
+            {
+                string meetingFolder = Path.Combine(datafiles, baseMeetingFolder);
+                string testFolder = Path.Combine(datafiles, @"..\testdata");
+                string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
+
+                string assetsMeetingFolder = assets + "\\" + baseMeetingFolder;
+                if (!Directory.Exists(assetsMeetingFolder))
+                {
+                    Directory.CreateDirectory(assetsMeetingFolder);
+                    FileSystem.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(assetsMeetingFolder));
+                }
+            }
+        }
     }
 }
