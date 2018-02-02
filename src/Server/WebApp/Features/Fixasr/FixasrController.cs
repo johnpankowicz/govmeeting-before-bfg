@@ -23,18 +23,18 @@ namespace WebApp.Controllers
         public IFixasrRepository fixasr { get; set; }
 
         public FixasrController(IAuthorizationService _authz, IFixasrRepository _fixasr, IHostingEnvironment _env)
-        //public FixasrController(IAuthorizationService authz)
         {
             authz = _authz;
             fixasr = _fixasr;
             env = _env;
         }
 
+        // We haven't yet implemented the calls on the client side to provide us the arguments that are hard-coded below.
+
         // GET: api/fixasr
         [HttpGet]
         public Fixasr Get()
         {
-            fixasr.SetAssets(env.WebRootPath + "\\assets");
             Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
             return ret;
         }
@@ -44,8 +44,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public void Post([FromBody]Fixasr value)
         {
-            fixasr.PutByPath(value);
-            //fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2016-10-11");
+            bool success = fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
         }
     }
 }

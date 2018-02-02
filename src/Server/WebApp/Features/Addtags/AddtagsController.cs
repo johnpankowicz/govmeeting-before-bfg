@@ -17,29 +17,18 @@ namespace WebApp.Controllers
     [Route("api/[controller]")]
     public class AddtagsController : Controller
     {
-        private readonly IAuthorizationService _authz;
-
         // JP: ### Conversion to ASP.NET Core ###
         // JP: FromServices attribute is no longer valid on a property. I moved this DI service to constructor
         // [FromServices]
+        //private readonly IAuthorizationService authz;
         public IAddtagsRepository addtags { get; set; }
-        private readonly TypedOptions _options;
 
-        public AddtagsController(IAuthorizationService authz, IAddtagsRepository addtags,
-            IOptions<TypedOptions> optionsAccessor)
+        //public AddtagsController(IAuthorizationService _authz, IAddtagsRepository addtags)
+        public AddtagsController(IAddtagsRepository addtags)
         {
-            _authz = authz;
+            //authz = _authz;
             this.addtags = addtags;
-            _options = optionsAccessor.Value;
         }
-
-        /*
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
-        */
 
         // GET: api/addtags
         [HttpGet]
@@ -48,7 +37,6 @@ namespace WebApp.Controllers
         // public string Get()
         {
             // Normally Get() would receive the paramaters that we are passing below to addtags.Get(). For now, this is hard-coded.
-            //Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
             Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2014-09-25");
             return ret;
         }
@@ -63,9 +51,6 @@ namespace WebApp.Controllers
             //Todo-g Add authorization check that user's location matches that of the government entity.
             // We need to read the location from the user's claims.
 
-            //addtags.Put("johnpank", "USA", "PA", "Philadelphia", "CityCouncil", "2016-03-17");
-            //string path = @"USA_PA_Philadelphia_CityCouncil/2016-03-17\T3-ToBeTagged.pdf";
-            //addtags.PutByPath(System.IO.Path.Combine(Common.getDataPath(), path), value);
             addtags.Put(value, "johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17");
         }
     }

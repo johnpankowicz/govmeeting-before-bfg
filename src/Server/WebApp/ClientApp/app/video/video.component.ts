@@ -49,7 +49,7 @@ export class VideoComponent {
         this.sources = [
             {
                 //src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).mp4',
-                src: location + 'part.mp4',
+                src: location + 'ToFix.mp4',
               type: 'video/mp4'
             }
 /*            {

@@ -11,97 +11,49 @@ using WebApp.Features.Shared;
 
 namespace WebApp.Models
 {
-    // We are currently storing the data under the following structure.
-    // Directories under Datafiles are named as follows: <country>_<state>_<town-or-city>_<gov-entity>/<date>
-    // Example: Get("johnpank", "USA", "PA", "Philadelphia", "CityCouncil", "2016-03-17")
-    // will get the file in the directory "Datafiles/USA_PA_Philadelphia_CityCouncil/2016-03-17".
-    // We will likely change this convention once the number of files grows and we need a deeper folder structure.
-
-
     public class AddtagsRepository : IAddtagsRepository
     {
-        //static ConcurrentDictionary<string, Addtags> _addtags = new ConcurrentDictionary<string, Addtags>();
-        private TypedOptions _options { get; set; }
+        string datafiles;
+        const string WORK_FOLDER = "T3-ToTag";
+        const string WORK_FILE = "ToTag.json";
+        const int MAX_BACKUPS = 20;   // maximum backups
 
         // https://www.mikesdotnetting.com/article/302/server-mappath-equivalent-in-asp-net-core
         //private IHostingEnvironment _env;
         public AddtagsRepository(IOptions<TypedOptions> options)
         {
-            _options = options.Value;
-            //    Add(new Addtags { Name = "Item1" });
+            datafiles = options.Value.DatafilesPath;
         }
 
         public Addtags Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
         {
-            // Todo-g - check permissions
-            //      - change to get a default govEntity
-            //      - change to get the latest meeting
-
-            string datafiles = _options.DatafilesPath;
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate;
+            string toTagFolder = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(path, datafiles);
+            UseTestData.CopyIfNeeded(toTagFolder, datafiles);
 
-            string toBeTagged = path + "\\" + "T3-ToBeTagged.json";
+            string toTagFolderPath = Path.Combine(datafiles, toTagFolder);
 
-            return GetByPath(Path.Combine(_options.DatafilesPath, toBeTagged));
+            CircularBuffer cb = new CircularBuffer(toTagFolderPath, WORK_FILE, MAX_BACKUPS);
+
+            string latestFixes = cb.GetLatest();
+            Addtags addtags = JsonConvert.DeserializeObject<Addtags>(latestFixes);
+            return addtags;
         }
 
         //public void Put(string value)
-        public void Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
+        public bool Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
         {
-            // Todo-g We need to implement a circular "file buffer" like was done in FixasrRepository.cs.
-            // Otherwise, we will save edits here. But when the user logs out and returns later, they will not see any of their edits and saving again
-            // will wipe out what they did before.
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + "T4-Tagged.json";
-            string fullpath = Path.Combine(_options.DatafilesPath, path);
+            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
+            string meetingTotagFolder = Path.Combine(datafiles, path);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
 
-            File.WriteAllText(fullpath, stringValue);
-
-        }
-        public Addtags GetByPath(string path)
-        {
-            string addtagsString = Readfile(path);
-            //string addtagsString = getTagEditsString();
-            if (addtagsString != null)
-            {
-                Addtags addtags = JsonConvert.DeserializeObject<Addtags>(addtagsString);
-                return addtags;
-            } else
-            {
-                return null;
-            }
+            CircularBuffer cb = new CircularBuffer(meetingTotagFolder, WORK_FILE, MAX_BACKUPS);
+            bool success = cb.WriteLatest(stringValue);
+            return success;
         }
 
-        //public void PutByPath(string path, string value)
-        public void PutByPath(string path, Addtags value)
-        {
-            string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
-
-            //var webRoot = _env.WebRootPath;
-            //var fullpath = Path.Combine(webRoot, path);
-
-            File.WriteAllText(path, stringValue);
-
-        }
-
-        private string Readfile(string path)
-        {
-            try
-            {
-                string text = System.IO.File.ReadAllText(path);
-                return text;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("AddtagsRepository.cs - The file could not be read:\n" + e.Message);
-                Console.WriteLine(e.Message);
-                return null;
-            }
-        }
         public static string getTagEditsString()
         {
             return @"{ 'data': [
@@ -119,26 +71,5 @@ namespace WebApp.Models
             {speaker: 'Jo', said: '33333333', section: null, topic: null, showSetTopic: false}
             ] }";
         }
-
-        //public string GetStringByPath(string path)
-        //{
-        //    string addtagsString = Readfile(path);
-        //    if (addtagsString != null)
-        //    {
-        //        return addtagsString;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //public void Update(Addtags item)
-        //{
-        //    Write out JSON data.
-        //    string output = JsonConvert.SerializeObject(gto, Formatting.Indented);
-        //        _transcriptEdits[item.key] = item;
-        //}
-
     }
 }

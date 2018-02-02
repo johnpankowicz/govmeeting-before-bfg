@@ -16,16 +16,10 @@ namespace WebApp.Models
         static ConcurrentDictionary<string, Meeting> _meetings = new ConcurrentDictionary<string, Meeting>();
         private const string STEP4_BASE_NAME = "T4-tagged";
         private const string EXTENSION = "json";
-        private TypedOptions _options { get; set; }
-
-        public MeetingRepository(IOptions<TypedOptions> options)
-        {
-            _options = options.Value;
-        }
 
         public Meeting Get(string country, string state, string county, string city, string govEntity, string language, string meetingDate)
         {
-            string datafiles = _options.DatafilesPath;
+            string datafiles = SharedConfiguration.DatafilesPath;
 
             string path = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate;
 
@@ -56,19 +50,5 @@ namespace WebApp.Models
                 return null;
             }
         }
-        void CopyTestDataIfNeeded(string baseMeetingFolder)
-        {
-            // If our test data is not already in "Datafiles", copy it from testdata folder.
-            string meetingFolder = Path.Combine(_options.DatafilesPath, baseMeetingFolder);
-            string testFolder = Path.Combine(_options.DatafilesPath, @"..\testdata");
-            string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
-
-            if (!Directory.Exists(meetingFolder))
-            {
-                Directory.CreateDirectory(meetingFolder);
-                FileSystem.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
-            }
-        }
-
     }
 }

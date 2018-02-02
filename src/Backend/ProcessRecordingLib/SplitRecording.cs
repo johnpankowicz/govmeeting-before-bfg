@@ -30,7 +30,7 @@ namespace GM.ProcessRecordingLib
                 string segmentFolder = outputFolder + $"\\part{x:D2}";
                 Directory.CreateDirectory(segmentFolder);
 
-                string outputFile = segmentFolder + "\\" + "part.mp4";
+                string outputFile = segmentFolder + "\\" + "ToFix.mp4";
                 if (x < numberOfSections)
                 {
                     ExtractPart(inputFile, outputFile, start, segmentSize + segmentOverlap);
