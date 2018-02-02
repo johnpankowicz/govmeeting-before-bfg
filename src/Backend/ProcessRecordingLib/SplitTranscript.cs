@@ -26,7 +26,7 @@ namespace GM.ProcessRecordingLib
         int sectionNumber;
         Fixasr[] fixasrSegment = new Fixasr[2];
 
-       public void split(Fixasr fixasr, string outputFolder, int sectionSize, int overlap)
+       public void split(Fixasr fixasr, string outputFolder, int sectionSize, int overlap, int parts)
        {
             fixasrSegment[0] = new Fixasr();
             fixasrSegment[1] = new Fixasr();
@@ -41,23 +41,28 @@ namespace GM.ProcessRecordingLib
             // The output that just started writing to now becomes the primary.
             int primary = 0; // current primary output
             int secondary = 1;
+            int currentPart = 1;
 
             foreach (AsrSegment asrsegment in fixasr.asrsegments)
             {
                 TimeSpan timespan = TimeSpan.ParseExact(asrsegment.startTime, format, culture);
                 int currentTime = (int) timespan.TotalSeconds;
 
-                // If we are within the overlap time, add to both.
-                if ((currentTime >= (sectionNumber * sectionSize)) && (currentTime <= (sectionNumber * sectionSize + overlap)))
+                // If we are within the overlap time, add to both. Unless we are on the last part.
+                if ((currentTime >= (sectionNumber * sectionSize)) && (currentTime <= (sectionNumber * sectionSize + overlap)) 
+                    && (currentPart != parts))
                 {
                     fixasrSegment[secondary].asrsegments.Add(asrsegment);
                 }
 
                 // If we are past the overlap. Write out the primary to disk and swap primary/secondary.
-                if (currentTime > (sectionNumber * sectionSize + overlap))
+                //  Unless we are on the last part.
+                if (currentTime > (sectionNumber * sectionSize + overlap)
+                    && (currentPart != parts))
                 {
                     WriteSection(outputFolder, primary, sectionNumber);
                     sectionNumber++;
+                    currentPart++;
                     fixasrSegment[primary] = new Fixasr();
 
                     // Swap primary and secondary
@@ -82,7 +87,7 @@ namespace GM.ProcessRecordingLib
 
             // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interpolated-strings
             // https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
-            string outputFile = outputFolder + "\\" + $"part{partNumber:D2}" + "\\fix.json";
+            string outputFile = outputFolder + "\\" + $"part{partNumber:D2}" + "\\ToFix.json";
 
             File.WriteAllText(outputFile, stringValue);
         }

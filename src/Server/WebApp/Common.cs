@@ -15,7 +15,7 @@ namespace WebApp
             // "Datafiles" folder is at same level with "WebApp"
             // Todo-g Use better way to locate Datafiles than traversing relative to current project folder.
             string appfolder = Directory.GetCurrentDirectory();
-            Console.WriteLine("GetCurrentDirectory=" + appfolder);
+            Console.WriteLine("Common.cs - GetCurrentDirectory=" + appfolder);
             return System.IO.Path.Combine(appfolder, "..\\..\\Datafiles");
 
             // We used to have the data in wwwroot\assets/data
@@ -32,7 +32,7 @@ namespace WebApp
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
+                Console.WriteLine("Common.cs - The file could not be read:");
                 Console.WriteLine(e.Message);
                 return null;
             }

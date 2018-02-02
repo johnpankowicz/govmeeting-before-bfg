@@ -23,7 +23,7 @@ namespace GM.SpecificTranscriptFixes
 
         protected void LOGPROGRESS(string fix_step)
         {
-            string outputFile = logDirectory + "\\" + "Step 2-" + step + " " + fix_step + ".txt";
+            string outputFile = logDirectory + "\\" + "T2-" + step + " " + fix_step + ".txt";
             step++;
 
             File.WriteAllText(outputFile, meetingInfo + "-----------------------------\n" + officersNames + "-----------------------------\n" + transcript);

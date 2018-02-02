@@ -32,7 +32,7 @@ namespace Govmeeting.Backend.LoadTranscriptIntoDb
 
             if (args.Length == 0)
             {
-                Console.WriteLine("Usage: LoadTranscriptIntoDb filename [debug]");
+                Console.WriteLine("Program.cs - Usage: LoadTranscriptIntoDb filename [debug]");
                 return -1;
             }
             string filename = args[0];

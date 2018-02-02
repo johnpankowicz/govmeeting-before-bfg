@@ -17,6 +17,7 @@ export class VideoComponent {
     onPlayerReady(api:VgAPI) {
         this.api = api;
         console.log('In video OnPlayerReady');
+        api.play();
     }
 
     ngOnInit() {
@@ -42,20 +43,20 @@ export class VideoComponent {
         //var location: string = appData.isServerRunning ? 'http://localhost:58880/assets/video/' : 'assets/video/';
         //var location: string = appData.isServerRunning ? 'http://localhost:58880/assets/video/' : 'assets/shortvideo/';
         //var location: string = 'assets/shortvideo/';
-        var location: string = 'assets/';
         //var location: string = 'api/video/';
+        var location: string = "datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/R4-FixText/part01/"
 
         this.sources = [
             {
-              src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).mp4',
-              //src: location,
+                //src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).mp4',
+                src: location + 'ToFix.mp4',
               type: 'video/mp4'
-            },
-            {
-              src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).ogg',
-              type: 'video/ogg'
             }
 /*            {
+              src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).ogg',
+              type: 'video/ogg'
+            },
+            {
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
                 type: 'video/mp4'
             },

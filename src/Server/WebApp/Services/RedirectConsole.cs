@@ -27,7 +27,7 @@ namespace WebApp.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine("Cannot open DebugLogRedirectConsole.txt for writing");
+                Console.WriteLine("RedirectConsole.cs - Cannot open DebugLogRedirectConsole.txt for writing");
                 Console.WriteLine(e.Message);
                 return;
             }
@@ -42,7 +42,7 @@ namespace WebApp.Services
             Console.SetOut(oldOut);
             writer.Close();
             ostrm.Close();
-            Console.WriteLine("Done");
+            Console.WriteLine("RedirectConsole.cs - Done");
         }
 
     }

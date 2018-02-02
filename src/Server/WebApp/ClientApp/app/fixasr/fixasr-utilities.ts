@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
 @Injectable()
+
+// These are routines used navigating the text to be edited:
+//      selectFirstWord
+//      selectLastWord
+//      insertAtStartCurrentWord
+//      insertAtEndCurrentWord
+//      insertText
+//      getStartCurrentWord
+//      getEndCurrentWord
+//      insertIntoString
+
 export class FixasrUtilities {
 
     public selectWord(ele: HTMLInputElement) {
@@ -68,13 +79,36 @@ export class FixasrUtilities {
       ele.value = this.insertIntoString(content, pos, t);
     }
 
-    gotoNextWord(ele : HTMLInputElement) {
+    public getStartCurrentWord(ele: HTMLInputElement): number {
+        var start = ele.selectionStart;
+        var content = ele.value;
+        while (start > 0 && this.isNotSpace(content.charAt(start - 1))) {
+            start--;
+        }
+        return start;
+    }
+
+    public getEndCurrentWord(ele: HTMLInputElement): number {
+        var end = ele.selectionEnd;
+        var content = ele.value;
+        var contentLen = content.length;
+        while (end < contentLen && this.isNotSpace(content.charAt(end))) {
+            end++;
+        }
+        return end;
+    }
+
+    public insertIntoString(s: string, pos: number, i: string): string {
+        return s.slice(0, pos) + i + s.slice(pos);
+    }
+
+   public gotoNextWord(ele : HTMLInputElement) {
         var end : number = ele.selectionEnd;
         ele.setSelectionRange(end + 2, end + 2);
         this.selectWord(ele);
     }
 
-    gotoPriorWord(ele : HTMLInputElement) {
+   public gotoPriorWord(ele : HTMLInputElement) {
         var start : number = ele.selectionStart;
         ele.setSelectionRange(start - 2, start - 2);
         this.selectWord(ele);
@@ -83,7 +117,7 @@ export class FixasrUtilities {
     // For the casting being done in the next 3 methods, see:
     //  https://stackoverflow.com/questions/45415000/typescript-children-on-nodes
 
-    gotoNextInputElement(ele : HTMLInputElement, i : number) {
+   public gotoNextInputElement(ele : HTMLInputElement, i : number) {
         // ele is this <input> element. ele.parentElement is the <div> enclosing just this <input>.
         // That <div>'s nextSibling is the <div> whose sole child is the next <input>.
          // cast to HTMLElement because  we trust it is never null.
@@ -96,7 +130,7 @@ export class FixasrUtilities {
         }
     }
 
-    gotoPriorInputElement(ele : HTMLInputElement, i : number) {
+   public gotoPriorInputElement(ele : HTMLInputElement, i : number) {
         // if on first element, just return
         if (i === 0) {
             this.selectFirstWord(ele);
@@ -110,7 +144,7 @@ export class FixasrUtilities {
         }
     }
 
-    gotoLastWordInPriorInputElement(ele : HTMLInputElement, i : number) {
+   public gotoLastWordInPriorInputElement(ele : HTMLInputElement, i : number) {
         // if on first element, select first word in this element
         if (i === 0) {
             this.selectFirstWord(ele);
@@ -125,34 +159,11 @@ export class FixasrUtilities {
         }
     }
 
-   public getStartCurrentWord(ele: HTMLInputElement) : number {
-        var start = ele.selectionStart;
-        var content = ele.value;
-        while (start > 0 && this.isNotSpace(content.charAt(start -1))) {
-          start--;
-        }
-        return start;
-   }
-
-   public getEndCurrentWord(ele: HTMLInputElement) : number {
-        var end = ele.selectionEnd;
-        var content = ele.value;
-        var contentLen = content.length;
-        while (end < contentLen && this.isNotSpace(content.charAt(end))) {
-          end++;
-        }
-        return end;
-   }
-
-   public insertIntoString(s: string, pos: number, i: string): string {
-     return s.slice(0, pos) + i + s.slice(pos);
-   }
-
-   private isNotSpace(ch: string) {
+   public isNotSpace(ch: string) {
         return (ch !== ' ');
    }
 
-   private isAlphaNum(ch: string) {
+   public isAlphaNum(ch: string) {
        var code = ch.charCodeAt(0);
         if (!(code > 47 && code < 58) && // numeric (0-9)
             !(code > 64 && code < 91) && // upper alpha (A-Z)

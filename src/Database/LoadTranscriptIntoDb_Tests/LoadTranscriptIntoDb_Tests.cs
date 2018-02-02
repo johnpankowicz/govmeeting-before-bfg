@@ -129,7 +129,7 @@ We need to consider the costs involved in purchasing this equipment.
 
             catch (Exception Ex)
             {
-                Console.WriteLine(Ex.ToString());
+                Console.WriteLine("LoadTranscriptIntoDb_Tests.cs - " + Ex.ToString());
                 return null;
             }
             return fi.FullName;

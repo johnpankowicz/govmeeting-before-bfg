@@ -6,7 +6,7 @@ namespace GM.ProcessRecordingLib
     public class SplitRecording
     {
 
-            public void Split(string inputFile, string outputFolder, int segmentSize, int segmentOverlap)
+        public int Split(string inputFile, string outputFolder, int segmentSize, int segmentOverlap)
         {
 
             RunCommand runCommand = new RunCommand();
@@ -30,7 +30,7 @@ namespace GM.ProcessRecordingLib
                 string segmentFolder = outputFolder + $"\\part{x:D2}";
                 Directory.CreateDirectory(segmentFolder);
 
-                string outputFile = segmentFolder + "\\" + "fix.mp4";
+                string outputFile = segmentFolder + "\\" + "ToFix.mp4";
                 if (x < numberOfSections)
                 {
                     ExtractPart(inputFile, outputFile, start, segmentSize + segmentOverlap);
@@ -40,6 +40,7 @@ namespace GM.ProcessRecordingLib
                     ExtractPart(inputFile, outputFile, start); // extract to end
                 }
             }
+            return numberOfSections;
         }
         int RecordingLength(string file)
         {

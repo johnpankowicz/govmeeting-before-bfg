@@ -70,7 +70,7 @@ namespace WebApp.Services
             catch (Exception ex)
             {
                 // Todo: Use logging.
-                Console.WriteLine("Exception in SendEmailAsync: " + ex.Message);
+                Console.WriteLine("MessageServices.cs - Exception in SendEmailAsync: " + ex.Message);
                 //return (false, ex.Message);
             }
         }

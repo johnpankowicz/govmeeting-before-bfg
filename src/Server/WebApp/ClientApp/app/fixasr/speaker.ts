@@ -1,5 +1,7 @@
 import { DropdownValue } from '../shared/dropdown/dropdown.value';
 
+// This is the dropdown box used for selecting a speaker.
+
 export class Speaker extends DropdownValue {
   abbreviation:string;
 

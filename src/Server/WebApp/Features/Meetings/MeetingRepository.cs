@@ -7,28 +7,26 @@ using Newtonsoft.Json;
 using System.IO;
 using WebApp.Services;
 using Microsoft.Extensions.Options;
+using WebApp.Features.Shared;
 
 namespace WebApp.Models
 {
     public class MeetingRepository : IMeetingRepository
     {
         static ConcurrentDictionary<string, Meeting> _meetings = new ConcurrentDictionary<string, Meeting>();
-        private const string STEP5_BASE_NAME = "Step 5 - processed transcript";
+        private const string STEP4_BASE_NAME = "T4-tagged";
         private const string EXTENSION = "json";
-        private TypedOptions _options { get; set; }
 
-        public MeetingRepository(IOptions<TypedOptions> options)
+        public Meeting Get(string country, string state, string county, string city, string govEntity, string language, string meetingDate)
         {
-            _options = options.Value;
-        }
+            string datafiles = SharedConfiguration.DatafilesPath;
 
-        public Meeting Get(string country, string state, string county, string city, string govEntity, string meetingDate)
-        {
-            // Todo-g - check permissions
+            string path = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate;
 
-            string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
+            // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
+            UseTestData.CopyIfNeeded(path, datafiles);
 
-            string latestCopy = Path.Combine(_options.DatafilesPath, subpath, STEP5_BASE_NAME + "." + EXTENSION);
+            string latestCopy = Path.Combine(datafiles, path, STEP4_BASE_NAME + "." + EXTENSION);
 
             if (File.Exists(latestCopy))
             {

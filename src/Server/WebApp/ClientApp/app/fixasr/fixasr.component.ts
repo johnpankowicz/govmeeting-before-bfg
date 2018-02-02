@@ -19,6 +19,7 @@ import { ElementRef } from '@angular/core';
 
 
 // This is the "Fix ASR" component for fixing the "Automatic Speech Recognition" errors.
+// This component is way too long. Code needs to be factored out.
 
 @Component({
   selector: 'gm-fixasr',
@@ -76,6 +77,7 @@ export class FixasrComponent  implements OnInit {
         this.getAsr();
         // We cast to avoid a compiler error. It should never be null.
         this._scrollList = <HTMLElement>document.getElementById('scroll-text');
+        console.log('currentIndex = ' + this.currentIndex);
     }
 
     /* for testing
@@ -101,6 +103,9 @@ export class FixasrComponent  implements OnInit {
     }
 
 // #########################  Event Handlers ################################################
+
+
+// ########  Handle speaker selection
 
     selectSpeaker(index: any) {
         console.log('selected index=' + index);
@@ -148,6 +153,8 @@ export class FixasrComponent  implements OnInit {
       return  answer;
     }
 
+    // ########
+
     onFocus(event: any, i : number) {
         console.log('onFocus index=' + i + '  size=' + this.asrsegments.length);
         this.currentIndex = i;
@@ -166,9 +173,10 @@ export class FixasrComponent  implements OnInit {
         this._Utilities.selectWord(ele);
     }
 
-    onKeyDown(event: any, i : number) {
-        // When we enter punctuation while in "Replace" mode (some text is selected),
-        // put the puntuation at the end of the word and do NOT replace the text.
+    // When we enter punctuation while some text is selected,
+    // put the puntuation at the end of the word and do NOT replace the text.
+    // Therefore we remove the selection of the word, so that it does not get replaced.
+   onKeyDown(event: any, i : number) {
         switch (event.key) {
           case '.':
           case ',':
@@ -180,31 +188,35 @@ export class FixasrComponent  implements OnInit {
         }
     }
 
-    onKey(event: any, i : number) {
-      // After inserting punctuation while in "Replace" mode, go to next word.
-      if (!this.isInsertMode) {
-        switch (event.key) {
-          case '.':
-          case ',':
-          case ';':
-          case '?':
-            var ele : HTMLInputElement = (<HTMLInputElement>event.target);
-            this._Utilities.gotoNextWord(ele);
-            return;
-        }
-      }
+   onKey(event: any, i: number) {
 
+        // After inserting punctuation while in "Replace" mode, go to next word.
+        if (!this.isInsertMode) {
+            switch (event.key) {
+                case '.':
+                case ',':
+                case ';':
+                case '?':
+                var ele : HTMLInputElement = (<HTMLInputElement>event.target);
+                this._Utilities.gotoNextWord(ele);
+                return;
+            }
+        }
+
+        // If the key is "Insert", toggle Insert mode
         if (event.key === 'Insert') {
             this.toggleInsertMode();
             return;
         }
 
+        // If the key is "Enter", play the recording the text.
         if (event.key === 'Enter') {
             this.playPhrase();
             return;
         }
 
         if (this.isInsertMode) return;
+
 
         var key = event.key;   // get key value
         var ele : HTMLInputElement = (<HTMLInputElement>event.target);
@@ -353,7 +365,9 @@ export class FixasrComponent  implements OnInit {
             toPlay = this.lastedit;
             // Otherwise start from beginning.
             if (toPlay === -1) {
-                toPlay = 0;
+                this.videoComponent.playPhrase(0, 4);
+                return;
+                //toPlay = 0;
             }
         }
         if (toPlay === this.lastPhrasePlayed) return;
@@ -379,6 +393,7 @@ export class FixasrComponent  implements OnInit {
             duration = this.convertToSeconds(endTime) - start + beforeTime + afterTime;
         }
         this.videoComponent.playPhrase(start, duration);
+        this.currentElement.focus();
     }
 
    convertToSeconds(time: string) {

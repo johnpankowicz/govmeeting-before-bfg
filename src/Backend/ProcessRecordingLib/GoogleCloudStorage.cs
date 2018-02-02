@@ -197,7 +197,7 @@ namespace ProcessRecordingLib
 //    }
 //    catch (Exception ex)
 //    {
-//        Console.WriteLine(ex.Message);
+//        Console.WriteLine("GoogleCloudStorage.cs - " + ex.Message);
 //    }
 //    finally
 //    {
@@ -267,7 +267,7 @@ namespace ProcessRecordingLib
 //    }
 //    catch (Exception ex)
 //    {
-//        Console.WriteLine(ex.Message);
+//        Console.WriteLine("GoogleCloudStorage.cs - " + ex.Message);
 //    }
 //    finally
 //    {

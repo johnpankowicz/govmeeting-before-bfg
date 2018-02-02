@@ -5,31 +5,37 @@ using System.Threading.Tasks;
 using WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using WebApp.Features.Shared;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-    // Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
+// Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
 namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     public class FixasrController : Controller
     {
-        private readonly IAuthorizationService _authz;
+        private readonly IAuthorizationService authz;
+        private readonly IHostingEnvironment env;
 
         public IFixasrRepository fixasr { get; set; }
 
-        public FixasrController(IAuthorizationService authz, IFixasrRepository fixasr)
-        //public FixasrController(IAuthorizationService authz)
+        public FixasrController(IAuthorizationService _authz, IFixasrRepository _fixasr, IHostingEnvironment _env)
         {
-            _authz = authz;
-            this.fixasr = fixasr;
+            authz = _authz;
+            fixasr = _fixasr;
+            env = _env;
         }
+
+        // We haven't yet implemented the calls on the client side to provide us the arguments that are hard-coded below.
 
         // GET: api/fixasr
         [HttpGet]
         public Fixasr Get()
         {
-            Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2016-10-11");
+            Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
             return ret;
         }
 
@@ -38,8 +44,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public void Post([FromBody]Fixasr value)
         {
-            fixasr.PutByPath(value);
-            //fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2016-10-11");
+            bool success = fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
         }
     }
 }

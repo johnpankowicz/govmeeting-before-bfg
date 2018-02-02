@@ -3,7 +3,6 @@ using GM.ProcessRecordingLib;
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using GM.ProcessRecordingLib;
 
 namespace GM.ProcessIncoming
 {
@@ -33,12 +32,10 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
         static string testdata = Environment.CurrentDirectory + @"\..\..\testdata";
 
         // Todo-g We need to get the location of the credentials file path from configuration.
-        public static string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio-876a856590b4.json";
+        public static string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
 
         static void Main(string[] args)
         {
-            string language = "en";
-
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
 
             // FOR DEVELOPMENT
@@ -52,21 +49,55 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
             //return;
             //TestReformatOfTranscribeResponse();
             //return;
-            TestSplitIntoWorkSegments();
-            return;
+            //TestSplitIntoWorkSegments();
+            //return;
+            //CopyMediaToAssets();
+            //return;
+            //TestSplitTranscript();
+            //return;
 
-            ProcessFiles processFiles = new ProcessFiles(language);
+            ProcessFiles processFiles = new ProcessFiles();
             processFiles.WatchIncoming();
             string s = Console.ReadLine();
+        }
+
+        static void CopyMediaToAssets()
+        {
+            MeetingInfo mi = new MeetingInfo("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-02-15.mp4");
+            string meetingFolder = mi.MeetingFolder(datafiles);
+            string source = meetingFolder + "\\parts";
+            string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
+            string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
+
+            Directories.Copy(source, destination);
+        }
+
+        static void TestSplitTranscript()
+        {
+            string fixasrFile = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2017-02-15\R3-ToBeFixed.json";
+            string stringValue = File.ReadAllText(fixasrFile);
+            Fixasr fixasr = JsonConvert.DeserializeObject<Fixasr>(stringValue);
+            string outputFolder = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2017-02-15\R4-FixText";
+            int sectionSize = 180;
+            int overlap = 5;
+            int parts = 4;
+
+            SplitTranscript st = new SplitTranscript();
+            st.split(fixasr, outputFolder, sectionSize, overlap, parts);
+
         }
         static void TestSplitIntoWorkSegments()
         {
 
-            string videoFile = testdata + @"\TestMoveToCloudAndTranscribe - Copy\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15.mp4";
-            string transcriptFile = testdata + @"\TestMoveToCloudAndTranscribe - Copy\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15.json";
+            //string videoFile = testdata + @"\TestMoveToCloudAndTranscribe - Copy\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.mp4";
+            //string transcriptFile = testdata + @"\TestMoveToCloudAndTranscribe - Copy\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
-            string outputFolder = testdata + "\\" + "TestSplitIntoWorkSegments";
-            DeleteAndCreateDirectory(outputFolder);
+            //string outputFolder = testdata + "\\" + "TestSplitIntoWorkSegments";
+            //DeleteAndCreateDirectory(outputFolder);
+
+            string outputFolder = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN\2017-01-09";
+            string videoFile = outputFolder + "\\" + "R0-Video.mp4";
+            string transcriptFile = outputFolder + "\\" + "R3-ToBeFixed.json";
 
             SplitIntoWorkSegments split = new SplitIntoWorkSegments();
             split.Split(outputFolder, videoFile, transcriptFile);
@@ -74,11 +105,11 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
         static void TestReformatOfTranscribeResponse()
         {
-            string inputFile = testdata + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15-rsp.json";
+            string inputFile = testdata + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
 
             string outputFolder = testdata + "\\" + "TestReformatOfTranscribeResponse";
             DeleteAndCreateDirectory(outputFolder);
-            string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15.json";
+            string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
             string stringValue = File.ReadAllText(inputFile);
             var transcript = JsonConvert.DeserializeObject<TranscribeResponse>(stringValue);
@@ -92,7 +123,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
         static void TestMoveToCloudAndTranscribe(string language)
         {
-            string baseName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15";
+            string baseName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15";
             string videoFile = testdata + "\\" + baseName + ".mp4";
             string outputFolder = testdata + "\\" + "TestMoveToCloudAndTranscribe";
 
@@ -133,7 +164,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
             TranscribeAudio ta = new TranscribeAudio(language);
 
             // Test transcription of a file already in the cloud storage bucket
-            TranscribeResponse transcript = ta.TranscribeInCloud("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_2017-01-09_00-01-40.flac", "en");
+            TranscribeResponse transcript = ta.TranscribeInCloud("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-01-09_00-01-40.flac", "en");
             //TranscribeResponse transcript = ta.TranscribeInCloud("Step 0 original#00-06-40.flac", "en");
 
             string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
@@ -145,7 +176,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
             // Test transcription on a local file. We will use sychronous calls to the Google Speech API. These allow a max of 1 minute per request.
             string folder = datafiles + @"..\testdata\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2017-01-09\step 2 extract\";
-            TranscribeResponse transcript = ta.TranscribeFile(folder + "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-01-09#00-01-40.flac", language);
+            TranscribeResponse transcript = ta.TranscribeFile(folder + "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-01-09#00-01-40.flac", language);
 
             string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
         }
@@ -154,14 +185,15 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
         {
             // Todo - This should come from configuration when this code is called from WebApp
             string testdata = Environment.CurrentDirectory + @"\..\..\testdata\";
-            string videoFileName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen 2017-02-15.mp4";
+            string videoFileName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.mp4";
             string videoFile = testdata + videoFileName;
 
             // Delete the prior data if it exists.
-            MeetingFolder mf = new MeetingFolder(datafiles, videoFileName);
-            mf.Delete();
+            MeetingInfo mi = new MeetingInfo(videoFileName);
+            string meetingFolder = mi.MeetingFolder(datafiles);
+            Directories.Delete(meetingFolder);
 
-            ProcessFiles processFiles = new ProcessFiles(language);
+            ProcessFiles processFiles = new ProcessFiles();
             processFiles.ProcessVideo(videoFile);
         }
 

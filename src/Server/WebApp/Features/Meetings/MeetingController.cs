@@ -29,14 +29,14 @@ namespace Webapp.Controllers
         {
             //return meetings.GetByPath("assets/BoothbayHarbor_Selectmen_2014-09-08.json");
 
-            Meeting ret = meetings.Get("USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2014-09-08");
+            Meeting ret = meetings.Get("USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2014-09-08");
             return ret;
         }
 
         [HttpGet("{country}/{state}/{county}/{city}/{govEntity?}/{meetingDate?}")]
-        public Meeting Get(string country, string state, string county, string city, string govEntity = null, string meetingDate = null)
+        public Meeting Get(string country, string state, string county, string city, string govEntity = "Selectmen", string language = "en", string meetingDate = null)
         {
-            return meetings.Get(country, state, county, city, govEntity, meetingDate);
+            return meetings.Get(country, state, county, city, govEntity, language, meetingDate);
         }
 
         // POST api/meeting

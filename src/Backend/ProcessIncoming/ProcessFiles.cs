@@ -13,13 +13,6 @@ namespace GM.ProcessIncoming
         // Todo - This should come from configuration when this code is called from WebApp
         string datafiles = Environment.CurrentDirectory + @"\..\..\Datafiles";
 
-        string language;
-
-        public ProcessFiles(string _language)
-        {
-            language = _language;
-        }
-
         // Watch the "Datafiles\INCOMING" folder for the arrival of new files
         // and process them as they arrive.
         public void WatchIncoming()
@@ -44,10 +37,15 @@ namespace GM.ProcessIncoming
 
         public void doWork(string filename)
         {
+            MeetingInfo mi = new MeetingInfo(filename);
+            if (!mi.valid)
+            {
+                Console.WriteLine($"ProcessFiles.cs - filename is invalid: {filename}");
+                return;
+            }
             // Todo--g Remove for production
-            // FOR DEVELOPMENT: DELETE PRIOR MEETING FOLDER IF IT EXISTS.
-            MeetingFolder mf = new MeetingFolder(datafiles, filename);
-            mf.Delete();
+            // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
+            mi.MeetingFolder(datafiles);
 
 
             FileInfo file = new FileInfo(filename);
@@ -62,13 +60,19 @@ namespace GM.ProcessIncoming
                     break;
             }
 
-            // Move the original files to "COMPLETED" folder
+            // Move the original file to "COMPLETED" folder
+            MoveFileToCompletedFolder(filename);
+        }
+
+        private void MoveFileToCompletedFolder(string filename)
+        {
             string completed = datafiles + @"\COMPLETED";
             if (!Directory.Exists(completed))
             {
                 Directory.CreateDirectory(completed);
             }
-            File.Move(filename, completed);
+            string newFile = completed + "\\" + Path.GetFileName(filename);
+            File.Move(filename, newFile);
         }
 
         private void ProcessTranscript(string filename, bool test)
@@ -80,14 +84,14 @@ namespace GM.ProcessIncoming
 
         public void ProcessVideo(string filename)
         {
-            string meetingFolder;
-            MeetingFolder mf = new MeetingFolder(datafiles, filename);
-            meetingFolder = mf.GetName();
-            if (!mf.Create())
+            MeetingInfo mi = new MeetingInfo(filename);
+            string language = mi.language;
+            string meetingFolder = mi.MeetingFolder(datafiles);
+            if (!Directories.Create(meetingFolder))
             {
                 // We were not able to create a folder for processing this video.
                 // This can be because the folder already exists. (actually this is the only way, as of now)
-                Console.WriteLine("ERROR: could not create meeting folder");
+                Console.WriteLine("ProcessFiles.cs - ERROR: could not create meeting folder");
                 return;
             }
                 

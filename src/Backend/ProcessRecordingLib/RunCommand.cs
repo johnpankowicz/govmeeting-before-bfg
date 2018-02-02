@@ -27,7 +27,7 @@ namespace GM.ProcessRecordingLib
 
               // and only then read the result
               string result = process.StandardOutput.ReadToEnd();
-              Console.WriteLine(result);
+              Console.WriteLine("RunCommand.cs - " + result);
               return result;
             }
         }

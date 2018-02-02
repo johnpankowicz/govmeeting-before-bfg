@@ -12,9 +12,9 @@ namespace GM.ProcessRecordingLib
          * In the "Fix" folder for a recording, there will be a subfolder for each
          * segment of the recording: 00-03-00, 00-06-00, 00=09-00, etc.
          * Each of these subfolders is initialized with three files:
-         *    "fix.mp4"  - the video of this segment
-         *    "fix.flac" - the audio of this segment
-         *    "fix.json" - the transcription of this segment
+         *    "ToFix.mp4"  - the video of this segment
+         *    "ToFix.flac" - the audio of this segment
+         *    "ToFix.json" - the transcription of this segment
          */
 
 
@@ -22,9 +22,9 @@ namespace GM.ProcessRecordingLib
         {
             foreach (string dir in Directory.GetDirectories(inputFolder))
             {
-                string inputFile = dir + "\\fix.mp4";
+                string inputFile = dir + "\\ToFix.mp4";
                 // Todo-g - convert to mp3 instead of flac.
-                string outputFile = dir + "\\fix.flac";
+                string outputFile = dir + "\\ToFix.flac";
 
                 Extract(inputFile, outputFile);
             }

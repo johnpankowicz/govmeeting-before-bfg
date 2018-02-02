@@ -28,7 +28,7 @@ namespace GM.ProcessRecordingLib
         //    foreach (string f in Directory.GetFiles(inputFolder, "*.flac"))
         //    {
         //        string name = Path.GetFileNameWithoutExtension(f);
-        //        Console.WriteLine(f);
+        //        Console.WriteLine("TranscribeAudio.cs - " + f);
 
         //        TranscribeToFile(inputFolder + "\\" + name + ".flac", outputFolder + "\\" + name + ".txt", false);
         //    }
@@ -52,7 +52,6 @@ namespace GM.ProcessRecordingLib
             string objectName = Path.GetFileNameWithoutExtension(videoFileName) + ".flac";
             GoogleBucket gb = new GoogleBucket();
             gb.UploadFile("govmeeting-transcribe", audiofilePath, objectName, "audio/x-flac");
-            string filename = Path.GetFileName(audiofilePath);
             TranscribeResponse transcript = TranscribeInCloud(objectName, language);
             return transcript;
         }
@@ -189,7 +188,7 @@ namespace GM.ProcessRecordingLib
             // variable "GOOGLE_APPLICATION_CREDENTIALS" and instead directly access the this file ourselves.
 
             // Todo-g The following is a hack. We need to get the location of the credentials file from configuration.
-            string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio-876a856590b4.json";
+            string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
 
             GoogleCredential googleCredential;
             using (Stream m = new FileStream(credentialsFilePath, FileMode.Open))
