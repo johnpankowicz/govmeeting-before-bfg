@@ -41,8 +41,7 @@ namespace WebApp.Models
 
 
             // Todo-g - Remove later - for development: If the data is not in Datafiles folder, copy it from testdata.
-            bool copyToAssets = true;
-            UseTestData.CopyIfNeeded(workFolder, datafiles, copyToAssets);
+            UseTestData.CopyIfNeeded(workFolder, datafiles);
 
             string partFolderPathr = Path.Combine(datafiles, partFolder);
 

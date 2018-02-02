@@ -281,6 +281,16 @@ namespace WebApp
             //    });
             //}
 
+            // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
+            // videogular via the API, we need to allow these to be accessed as static files.
+            string datafiles = Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]);
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(datafiles),
+                RequestPath = new PathString("/datafiles")
+            });
+
+
             // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             app.UseAuthentication();
 

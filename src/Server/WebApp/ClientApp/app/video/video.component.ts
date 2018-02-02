@@ -44,7 +44,7 @@ export class VideoComponent {
         //var location: string = appData.isServerRunning ? 'http://localhost:58880/assets/video/' : 'assets/shortvideo/';
         //var location: string = 'assets/shortvideo/';
         //var location: string = 'api/video/';
-        var location: string = "assets/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/R4-FixText/part01/"
+        var location: string = "datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/R4-FixText/part01/"
 
         this.sources = [
             {

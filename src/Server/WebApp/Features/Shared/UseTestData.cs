@@ -18,7 +18,7 @@ namespace WebApp.Features.Shared
 
     public static class UseTestData
     {
-        public static void CopyIfNeeded(string baseMeetingFolder, string datafiles, bool copyToAssets = false)
+        public static void CopyIfNeeded(string baseMeetingFolder, string datafiles)
         {
             //string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2016-03-17"
             // If our test data is not already in "Datafiles", copy it from testdata folder.
@@ -30,33 +30,7 @@ namespace WebApp.Features.Shared
             {
                 Directory.CreateDirectory(meetingFolder);
                 FileSystem.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
-                if (copyToAssets)
-                {
-                    CopyToAssets(baseMeetingFolder, datafiles);
-                }
             }
         }
-        static void CopyToAssets(string baseMeetingFolder, string datafiles)
-        {
-            string assets = SharedConfiguration.Assets;
-
-            // Copy the data also to wwwroot/assets. We need this until we figure out how to return media files to vidogular via the MVC API.
-            if (assets != null)
-            {
-                string meetingFolder = Path.Combine(datafiles, baseMeetingFolder);
-                string testFolder = Path.Combine(datafiles, @"..\testdata");
-                string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
-
-                string assetsMeetingFolder = assets + "\\" + baseMeetingFolder;
-                if (!Directory.Exists(assetsMeetingFolder))
-                {
-                    Directory.CreateDirectory(assetsMeetingFolder);
-                    FileSystem.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(assetsMeetingFolder));
-                }
-            }
-        }
-
-
-
     }
 }
