@@ -33,8 +33,6 @@ namespace WebApp.Controllers
         // GET: api/addtags
         [HttpGet]
         public Addtags Get()
-
-        // public string Get()
         {
             // Normally Get() would receive the paramaters that we are passing below to addtags.Get(). For now, this is hard-coded.
             Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2014-09-25");

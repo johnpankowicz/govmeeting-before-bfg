@@ -1,0 +1,91 @@
+{ 
+  "workToDo": {
+    "locationId": 5633,
+    "meetingId": 24356,
+    "workItems": [
+      {
+        "workItemId": 343402,
+        "partId": 1,
+        "isDone": false,
+        "volnteerId": 43,
+        "lastEdit": 420,
+        "lastEditTime": "2017-04-23T18:25:43.511Z",
+        "length": 600
+      },
+      {
+        "workItemId": 343403,
+        "partId": 2,
+        "isDone": true,
+        "volnteerId": null,
+        "lastEdit": null,
+        "lastEditTime": null,
+        "length": 600
+      },
+      {
+        "workItemId": 343404,
+        "partId": 3,
+        "isDone": false,
+        "volnteerId": 88,
+        "lastEdit": 322,
+        "lastEditTime": "2017-04-22T15:25:12.332Z",
+        "length": 600
+      },
+      {
+        "workItemId": 343405,
+        "partId": 4,
+        "isDone": false,
+        "volnteerId": null,
+        "lastEdit": 0,
+        "lastEditTime": null,
+        "length": 600
+      },
+      {
+        "workItemId": 343406,
+        "partId": 5,
+        "isDone": false,
+        "volnteerId": null,
+        "lastEdit": 0,
+        "lastEditTime": null,
+        "length": 433
+      }
+    ]
+  },
+  "meeting": {
+    "locationId": 5633,
+    "meetingId": 24356,
+    "governmentBody": "CityCouncil",
+    "language": "en",
+    "date": "2017-04-21",
+    "meetingLength": 2833
+  },
+  "volunteers": [
+    {
+      "volunteerId": 43,
+      "userName": "JillS",
+      "locationId": 5633,
+      "workItemId": 992
+    },
+    {
+      "volunteerId": 88,
+      "userName": "Chineye",
+      "locationId": 8723,
+      "workItemId": 343402
+    }
+  ],
+  "locations": [
+    {
+      "locationId": 5633,
+      "country": "USA",
+      "state": "NJ",
+      "county": "Union",
+      "municipality": "Linden"
+    },
+    {
+      "locationId": 8723,
+      "country": "KE",
+      "state": "",
+      "county": "Nakuru",
+      "municipality": "Nakuru"
+    }
+  ]
+}

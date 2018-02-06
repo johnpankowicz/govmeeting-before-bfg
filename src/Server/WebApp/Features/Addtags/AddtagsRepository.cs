@@ -8,21 +8,24 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using WebApp.Features.Shared;
+using WebApp.Services;
 
 namespace WebApp.Models
 {
     public class AddtagsRepository : IAddtagsRepository
     {
-        string datafiles;
         const string WORK_FOLDER = "T3-ToTag";
         const string WORK_FILE = "ToTag.json";
         const int MAX_BACKUPS = 20;   // maximum backups
 
+        string DatafilesPath;
+        string TestdatPath;
+
         // https://www.mikesdotnetting.com/article/302/server-mappath-equivalent-in-asp-net-core
-        //private IHostingEnvironment _env;
-        public AddtagsRepository(IOptions<TypedOptions> options)
+        public AddtagsRepository(ISharedConfig config)
         {
-            datafiles = options.Value.DatafilesPath;
+            DatafilesPath = config.DatafilesPath;
+            TestdatPath = config.TestdataPath;
         }
 
         public Addtags Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
@@ -30,9 +33,9 @@ namespace WebApp.Models
             string toTagFolder = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(toTagFolder, datafiles);
+            UseTestData.CopyIfNeeded(toTagFolder, DatafilesPath, TestdatPath);
 
-            string toTagFolderPath = Path.Combine(datafiles, toTagFolder);
+            string toTagFolderPath = Path.Combine(DatafilesPath, toTagFolder);
 
             CircularBuffer cb = new CircularBuffer(toTagFolderPath, WORK_FILE, MAX_BACKUPS);
 
@@ -45,7 +48,7 @@ namespace WebApp.Models
         public bool Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
         {
             string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
-            string meetingTotagFolder = Path.Combine(datafiles, path);
+            string meetingTotagFolder = Path.Combine(DatafilesPath, path);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
 
