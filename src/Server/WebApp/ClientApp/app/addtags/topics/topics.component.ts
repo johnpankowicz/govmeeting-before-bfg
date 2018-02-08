@@ -28,7 +28,7 @@ export class TopicsComponent implements OnInit {
     getTopics() {
         this._topicsService.getTopics()
         .subscribe(
-        topics => this.topics = topics.data,
+        topics => this.topics = topics,
         error => this.errorMessage = <any>error);
     }
 /*

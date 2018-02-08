@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.TypeScript.Compiler" Version="2.7.1" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="2.7.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +21,14 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\dist\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ClientApp\dist\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="ClientApp\dist\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>

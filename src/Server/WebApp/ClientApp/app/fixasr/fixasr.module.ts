@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule  } from '@angular/common/http';
 import { FixasrComponent } from './fixasr.component';
 import { VideoModule } from '../video/video.module';
 import { SharedModule } from '../shared/shared.module'
@@ -16,7 +16,7 @@ import { SharedModule } from '../shared/shared.module'
 //    ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     VideoModule,
     SharedModule
     //MaterialModule.forRoot(),

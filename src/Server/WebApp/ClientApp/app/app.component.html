@@ -7,7 +7,6 @@
             her  head  in  the  crook  of  his arm.</p>
     </div>
 -->
-
 <!-- Experiment with ng2-material-dropdown
     <ng2-dropdown>
         <ng2-dropdown-button>
@@ -26,10 +25,6 @@
         </ng2-dropdown-menu>
     </ng2-dropdown>
 -->
-
-
-
-
 <!--<div class="container-fluid">
   <div class="hide-webapp">
       <div class="row fixed-l">
@@ -42,14 +37,16 @@
 </div>-->
 
 <div class='container-fluid'>
-    <div class='row'>
-        <div class='col-sm-3'>
-            <gm-navbar></gm-navbar>
-        </div>
-        <div class='col-sm-9 body-content'>
-            <router-outlet></router-outlet>
-        </div>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <gm-navbar></gm-navbar>
     </div>
+    <div class='col-sm-9 body-content'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
+<div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed"> </div>
+
 
 

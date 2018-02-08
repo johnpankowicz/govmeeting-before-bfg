@@ -9,7 +9,7 @@ import { Talk } from './talk';
   templateUrl: './talks.component.html',
   styleUrls: ['./talks.component.css'],
   providers: [
-    TalksService,
+    //TalksService,
     TopicsService
 ]
 

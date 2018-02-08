@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TestComponent } from './test.component';
 import { FetchDataComponent } from './fetchdata/fetchdata.component';
@@ -16,7 +16,7 @@ import { CounterComponent } from './counter/counter.component';
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     //SharedModule
  ],
   //declarations: [MeetingComponent, BrowsemeetingComponent,
