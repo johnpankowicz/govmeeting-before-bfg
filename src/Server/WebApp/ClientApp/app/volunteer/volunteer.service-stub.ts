@@ -9,7 +9,6 @@ import { Location } from '../shared/models/location';
 @Injectable()
 export class FixasrService {
 
-    //constructor(private http: Http, private appData: AppData) {
     constructor() {
         console.log('VolunteerService stub constructor');
     }

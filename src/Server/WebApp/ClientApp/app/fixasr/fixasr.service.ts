@@ -29,24 +29,21 @@ export class FixasrService {
     }
 
     // Todo-g - What should we return from the postChanges call?
-    postChanges(asrtext : AsrText) {
-        //postChanges(asrtext : AsrText): Observable < any > {
+        postChanges(asrtext : AsrText): Observable < any > {
         //return Observable.of(this.asrtext);
         console.log('postChanges in fixasr.service  ' + this._UrlServer);
-        //return this.postData(this._UrlServer, asrtext);
-        this.postData(this._UrlServer, asrtext);
+        return this.postData(this._UrlServer, asrtext);
     }
 
-    private postData(url: string, asrtext: AsrText) {
-    //private postData(url: string, asrtext: AsrText): Observable<AsrText> {
+    private postData(url: string, asrtext: AsrText): Observable<AsrText> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
             })
         };
         console.log('postData in fixasr.service');
-        this.http.post<AsrText>(url, asrtext, httpOptions)
-        //return this.http.post<AsrText>(url, asrtext, httpOptions)
+        return this.http.post<AsrText>(url, asrtext, httpOptions)
+            .pipe(catchError(this.handleError));
     }
 
     // This method is copied from https://angular.io/guide/http

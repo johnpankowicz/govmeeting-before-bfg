@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NavMenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app.component';
-
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MeetingModule } from './meeting/meeting.module'
 import { AddtagsModule } from './addtags/addtags.module'
@@ -22,8 +21,10 @@ import { TestModule } from './test/test.module';
 
 import { MeetingService } from './meeting/meeting.service';
 import { MeetingServiceStub } from './meeting/meeting.service-stub';
-import { TalksService } from './addtags/talks/talks.service';
-import { TalksServiceStub } from './addtags/talks/talks.service-stub';
+import { AddtagsService } from './addtags/addtags.service';
+import { AddtagsServiceStub } from './addtags/addtags.service-stub';
+import { FixasrService } from './fixasr/fixasr.service';
+import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
 
 import { AppData } from './appdata';
 
@@ -51,11 +52,17 @@ import { AppData } from './appdata';
         TestModule
     ],
     providers: [
-        // To use the stub services, uncomment the stubs and comment the actual.
-        { provide: MeetingService, useClass: MeetingService },        // actual
-        { provide: TalksService, useClass: TalksService },            // actual
-        //{ provide: MeetingService, useClass: MeetingServiceStub },   // stub
-        //{ provide: TalksService, useClass: TalksServiceStub },       // stub
+        // To use the stubs, uncomment the stubs and comment out the real.
+
+        // The real services
+        { provide: MeetingService, useClass: MeetingService },
+        { provide: AddtagsService, useClass: AddtagsService},
+        { provide: FixasrService, useClass: FixasrService },
+
+        // The stub services
+        //{ provide: MeetingService, useClass: MeetingServiceStub },
+        //{ provide: AddtagsService, useClass: AddtagsServiceStub },
+        //{ provide: FixasrService, useClass: FixasrServiceStub },
 
         // AppData is no longer used. It was used at one time to pass config
         // values from index.html and/or _Layout.cshtml into the Angular App.
@@ -66,6 +73,8 @@ import { AppData } from './appdata';
         //    import { AppData } from '../appdata';
         //    ...
         //    constructor(private appData: AppData) { .... }
+        // We will leave the code in for this, in case we need to pass
+        // in arguments later.
         AppData,
         {
             provide: AppData,

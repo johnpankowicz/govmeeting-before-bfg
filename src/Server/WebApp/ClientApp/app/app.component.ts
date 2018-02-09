@@ -16,6 +16,8 @@ import 'rxjs/Subject';
 export class AppComponent {
   title = 'app';
 
+// Alternate way of passing arguments from index.html to the Angular app.
+// It retrieves an attribute of the root Angular element.
 //  constructor(private eltRef:ElementRef) {
 //    //let prop = eltRef.getAttribute('clientonly');
 //    let native = this.eltRef.nativeElement;
@@ -23,6 +25,7 @@ export class AppComponent {
 //    console.log( 'clientonly - ', test);
 //  }
 
+  // AppData is no longer used. See the notes in app.module.shared.ts.
   constructor(appData:AppData) {
     console.log('AppComponent - ', appData);
   }

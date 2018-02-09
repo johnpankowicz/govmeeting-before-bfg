@@ -353,10 +353,10 @@ export class FixasrComponent  implements OnInit {
         //asrtext.lastedit = this.getScrollPosition();
         //asrtext.asrsegments = this.asrsegments;
         //this._asrService.postChanges(asrtext)
-        this._fixasrService.postChanges({ 'lastedit': lastedit, 'asrsegments': this.asrsegments });
-            //.subscribe (
-            //    t => t
-            //);
+        this._fixasrService.postChanges({ 'lastedit': lastedit, 'asrsegments': this.asrsegments })
+            .subscribe (
+                t => t
+            );
         //error => this.errorMessage = <any>error);
     }
 

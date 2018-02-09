@@ -4,7 +4,7 @@ import { AsrText } from './asrtext';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class FixasrService {
+export class FixasrServiceStub {
     private asrtext: AsrText = {
         'lastedit': 0,
         'asrsegments':     [

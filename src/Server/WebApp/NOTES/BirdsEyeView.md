@@ -1,8 +1,7 @@
+### Overview of how the Angular app gets started. ###
+
+
 Features\Shared\_Layout.cshtml
-    <script>
-        window.APP_DATA = { isServerRunning: true, isDataFromMemory: false }
-    </script>
-	...
     <div class="container body-content">
         @RenderBody()
     </div>
@@ -16,22 +15,13 @@ WebApp\ClientApp\boot.browser.ts
 WebApp\ClientApp\app\app.module.browser.ts
 	    bootstrap: [ AppComponent ],
 
-WebApp\ClientApp\app\app.module.shared.ts
-	providers: [AppData,
-        {
-            provide: AppData,
-            useValue: { isServerRunning: false, isDataFromMemory: false }
-	}
-
 WebApp\ClientApp\app\app.component.ts
 	selector: 'app-root',
-	constructor(appData:AppData) {
-    		console.log('AppComponent - ', appData);
 	}
 
 WebApp\ClientApp\app\app.component.html
 	<gm-navbar></gm-navbar>
-        <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 
 WebApp\ClientApp\app\navmenu\navmenu.component.ts
 	selector: 'gm-navbar',

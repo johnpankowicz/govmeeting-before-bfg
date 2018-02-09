@@ -1,12 +1,52 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { Talk } from './talk';
+import { Talk } from './talks/talk';
 import { Observable } from 'rxjs/Observable';
-import { Addtags } from '../addtags';
+import { Addtags } from './addtags';
 
 @Injectable()
-export class TalksServiceStub {
+export class AddtagsServiceStub {
+
+    getTalks(): Observable<Addtags> {
+        console.log('getAsr from memory');
+        return Observable.of(this.addtags);
+    }
+
+    postChanges(addtags: Addtags): Observable<Addtags> {
+        console.log('postChanges in talks.service stub');
+        return Observable.of(this.addtags);
+    }
+
+    getSections(): Observable<string[]>  {
+        return Observable.of(this.sections);
+    }
+
+    getTopics(): Observable<string[]> {
+        return Observable.of(this.topics);
+    }
+
+    private topics: string[] = [
+        "Topic1",
+        "Topic2",
+        "Topic3",
+        "Topic4"
+    ];
+
+    private sections: string[] = [
+        'Invocation',
+        'Approval of Journal',
+        'Leaves of Absense',
+        'Presentations',
+        'Communications',
+        'Introductions of Bills',
+        'Reports',
+        'Bills on Second Reading',
+        'Public Comment',
+        'Second Reading',
+        'Speeches',
+        'Adjournment'
+    ];
 
     private addtags: Addtags = {
         data: [
@@ -25,13 +65,5 @@ export class TalksServiceStub {
         ]
     };
 
-    getTalks(): Observable<Addtags> {
-        console.log('getAsr from memory');
-        return Observable.of(this.addtags);
-    }
 
-    postChanges(addtags: Addtags): Observable<Addtags> {
-        console.log('postChanges in talks.service stub');
-        return Observable.of(this.addtags);
-    }
 }
