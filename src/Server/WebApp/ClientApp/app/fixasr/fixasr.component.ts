@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { AsrSegment } from './asrsegment';
 import { AsrText } from './asrtext';
+
+// Use fixasr.service-stub to return test data and not call the server.
 import { FixasrService } from './fixasr.service';
+//import { FixasrService } from './fixasr.service-stub';
+
 import { VideoComponent } from '../video/video.component';
 import { FixasrUtilities } from './fixasr-utilities';
 import { Observable } from 'rxjs/Rx';
@@ -336,8 +340,9 @@ export class FixasrComponent  implements OnInit {
                 // to yield for an instant to let it first do the update.
                 let timer = Observable.timer(100);   // yield for 100 milliseconds
                 timer.subscribe(t=>this.setScrollPosition(this.lastedit));
-            },
-            error => this.errorMessage = <any>error);
+                },
+                error => this.errorMessage = <any>error
+            );
     }
 
     saveChanges() {
@@ -348,7 +353,7 @@ export class FixasrComponent  implements OnInit {
         //asrtext.lastedit = this.getScrollPosition();
         //asrtext.asrsegments = this.asrsegments;
         //this._asrService.postChanges(asrtext)
-        this._fixasrService.postChanges({'lastedit': lastedit, 'asrsegments': this.asrsegments})
+        this._fixasrService.postChanges({ 'lastedit': lastedit, 'asrsegments': this.asrsegments })
             .subscribe (
                 t => t
             );

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { MeetingService } from '../meeting.service-stub';
 import { MeetingService } from '../meeting.service';
 import { UserchoiceService } from '../userchoice.service';
 

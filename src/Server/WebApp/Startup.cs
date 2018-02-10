@@ -40,33 +40,16 @@ namespace WebApp
             // We will redirect console output to a file during production.
             services.AddSingleton<IRedirectConsole, RedirectConsole>();
 
-            DebugStartup("In ConfigureServices");
+            // Put directory locations in a singleton
+            string datafilesPath = GetFullPath(Configuration["DataPaths:DatafilesPath"]);
+            string testdataPath = GetFullPath(Configuration["DataPaths:TestdataPath"]);
+            // https://cmatskas.com/net-core-dependency-injection-with-constructor-parameters-2/
+            services.AddSingleton<ISharedConfig>(s => new SharedConfig(datafilesPath, testdataPath));
 
-            // Add services required for using strongly typed options.
-            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration
-            // https://weblog.west-wind.com/posts/2016/may/23/strongly-typed-configuration-settings-in-aspnet-core
-            services.AddOptions();
-            services.Configure<TypedOptions>(Configuration.GetSection("TypedOptions"));
-            services.Configure<TypedOptions>(myOptions =>
-            {
-                // Modify the DataFilesPath option to be the full path.
-                string dataFilesPath = Path.Combine(Directory.GetCurrentDirectory(), myOptions.DatafilesPath);
-                myOptions.DatafilesPath = dataFilesPath;
-                Console.WriteLine("Startup.cs - Datafile path = " + dataFilesPath);
-            });
-            // All the options in the "TypedOptions" section of appsettings.json (or other config stores)
-            // are available as strongly typed values.
-            // Example of use:
-            //   public class AddtagsRepository : IAddtagsRepository {
-            //     private TypedOptions _options { get; set; }
-            //     public AddtagsRepository(IOptions<TypedOptions> settings)
-            //          {_options = settings.Value;}
-            //   private void foo() {
-            //      string s = _options.DatafilesPath;
-            // One disadvantage of using strongly typed values is that you can't reload these
-            // configuration values without restarting. 
 
-            DebugStartup("In ConfigureServices - after DataFileOptions");
+            ///////////////////////////////////////////////////////////////////////
+            DebugStartup("In ConfigureServices - Configure Identity Services");
+            ///////////////////////////////////////////////////////////////////////
 
             // Here we add our ApplicationDbContext to the service container. This allows us to do this:
             //    public MyController(ApplicationDbContext context) { ... }
@@ -75,7 +58,7 @@ namespace WebApp
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             // In development, we get configuration settings from appsettings.json and appsettings.Development.json.
-            // In production, we get them from appsettings.json and appsettings.production.json.
+            // In production, we get them from appsettings.json and appsettings.Production.json.
 
             DebugStartup("In ConfigureServices - after AddDbContext");
             DebugStartup("ConnectionString: " + Configuration["Data:DefaultConnection:ConnectionString"]);
@@ -87,7 +70,9 @@ namespace WebApp
                 options.ClientSecret = Configuration["ExternalAuth:Google:ClientSecret"];
             });
 
-            DebugStartup("In ConfigureServices - after AddAuthentication");
+            ///////////////////////////////////////////////////////////////////////
+            DebugStartup("In ConfigureServices - Configure Identity Services");
+            ///////////////////////////////////////////////////////////////////////
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -116,8 +101,7 @@ namespace WebApp
             //    options.IterationCount = 20000;
             //});
 
-
-            // https://docs.asp.net/en/latest/security/authorization/claims.html
+                        // https://docs.asp.net/en/latest/security/authorization/claims.html
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Administrator", policy =>
@@ -145,27 +129,6 @@ namespace WebApp
                     policy.RequireClaim("role", "editor");
                     policy.RequireClaim("location", "Boothbay Harbor");
                 });
-
-                //options.AddPolicy("DevInterns", policy =>
-                //{
-                //    policy.AddRequirements(new StatusRequirement("development", "intern"));
-
-                //    // ..or using an extension method
-                //    //policy.RequireStatus("development", "intern");
-                //});
-
-                /* Other way of doing the above without an external class:
-                // inline policies
-                options.AddPolicy("SalesOnly", policy =>
-                {
-                    policy.RequireClaim("department", "sales");
-                });
-                options.AddPolicy("SalesSenior", policy =>
-                {
-                    policy.RequireClaim("department", "sales");
-                    policy.RequireClaim("status", "senior");
-                });
-                */
             });
 
             DebugStartup("In ConfigureServices - after second AddAuthorization");
@@ -211,13 +174,6 @@ namespace WebApp
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
 
-            // I was experimenting with two ways of storing a subset of the configuration.
-            // The first is having dependency injection resolve the "TypedOptions".
-            //       public MeetingRepository(IOptions<TypedOptions> options)
-            // The second is the one below, a "write once" static configuration class.
-            SharedConfiguration.DatafilesPath = Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]);
-            SharedConfiguration.Assets = Path.Combine(env.WebRootPath , "assets");
-
             redirect.Start();
             Console.WriteLine("Startup.cs - Time = " + DateTime.Now);
             Console.WriteLine("Startup.cs - connection string = " + Configuration["Data:DefaultConnection:ConnectionString"]);
@@ -261,19 +217,7 @@ namespace WebApp
             DebugStartup("In Configure - after UseStaticFiles");
 
             // When the client code was in src\Client\BrowserApp, we created a FileProvider for that folder.
-            //if (env.IsDevelopment())
-            //{
-            //    // Add a PhysicalFileProvider for the BrowserApp folder.
-            //    string s = Directory.GetCurrentDirectory();     // directory of ...PublicSystem\Server\WebApp\wwwroot
-            //    int i = s.LastIndexOf("\\");        // go back 1st of three backslashes
-            //    i = s.LastIndexOf("\\", i - 1);     // second backslash
-
-            //    // JP: ### Conversion to ASP.NET Core ###
-            //    // JP: GetCurrentDIrectory no longer gets ...PublicSystem\Server\WebApp\wwwroot but it gets ...PublicSystem\Server\WebApp
-            //    // JP: Why is this?
-            //    // i = s.LastIndexOf("\\", i - 1);     // third backslash
-
-            //    string browserAppPath = s.Substring(0, i) + @"\Client\BrowserApp";  // ...PublicSystem\Client\BrowserApp 
+            //string browserApp = GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\Client\BrowserApp"));
             //    app.UseStaticFiles(new StaticFileOptions()
             //    {
             //        FileProvider = new PhysicalFileProvider(browserAppPath),
@@ -281,14 +225,26 @@ namespace WebApp
             //    });
             //}
 
+
             // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
             // videogular via the API, we need to allow these to be accessed as static files.
-            string datafiles = Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]);
+            //string datafilesPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]));
+            //datafilesPath = @"C:\ClientSites\govmeeting.org\Datafiles";
+            string datafilesPath = Configuration["DataPaths:DatafilesPath"];
+            datafilesPath = GetFullPath(datafilesPath);
+            if (!Directory.Exists(datafilesPath))
+                {
+                Directory.CreateDirectory(datafilesPath);
+                Directory.CreateDirectory(datafilesPath + "\\INCOMING");
+                Directory.CreateDirectory(datafilesPath + "\\INPROGRESS");
+                Directory.CreateDirectory(datafilesPath + "\\COMPLETED");
+            }
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(datafiles),
+                FileProvider = new PhysicalFileProvider(datafilesPath),
                 RequestPath = new PathString("/datafiles")
             });
+            DebugStartup("In Configure - datafiles = " + datafilesPath);
 
 
             // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
@@ -321,6 +277,16 @@ namespace WebApp
 
             DebugStartup("In Configure - after DbInitializer.Initialize");
 
+        }
+
+        // Modify the path to be the full path, if it is a relative path.
+        string GetFullPath(string path)
+        {
+            if (!Path.IsPathRooted(path))
+            {
+                path = Path.Combine(Directory.GetCurrentDirectory(), path);
+            }
+            return Path.GetFullPath(path);
         }
 
         private void DebugStartup(string message)

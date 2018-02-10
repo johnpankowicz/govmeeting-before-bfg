@@ -1,24 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { SectionsService } from './sections.service';
+import { AddtagsService } from '../addtags.service';
 
 @Component({
   selector: 'gm-sections',
   templateUrl: './sections.component.html',
   styleUrls: ['./sections.component.css'],
-  providers: [SectionsService]
 })
 export class SectionsComponent implements OnInit {
+    errorMessage: string;
+    sections : string[];
 
-  sections : string[];
-
-  constructor(sectionsService: SectionsService) {
-      this.sections = sectionsService.getSections();
+  constructor(private _addtagsService: AddtagsService) {
   }
 
-  ngOnInit() {
-  }
+    ngOnInit() { this.getSections(); }
 
-  OnChange(newValue: any) {
+getSections() {
+    this._addtagsService.getSections()
+        .subscribe(
+        sections => this.sections = sections,
+            error => this.errorMessage = <any>error);
+}
+
+ OnChange(newValue: any) {
       console.log(newValue);
   }
 }

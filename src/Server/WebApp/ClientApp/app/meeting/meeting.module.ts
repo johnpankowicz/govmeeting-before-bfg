@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { MeetingComponent } from './meeting.component';
 import { BrowsemeetingComponent } from './browsemeeting/browsemeeting.component';
@@ -12,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    RouterModule,
+    HttpClientModule,
     SharedModule
  ],
   declarations: [MeetingComponent, BrowsemeetingComponent,

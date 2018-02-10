@@ -21,6 +21,20 @@ namespace WebApp
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    if (env.IsDevelopment())
+                    {
+                        // If development include _SECRETS/appsettings.Development.json in the configuration.
+                        // This file contains the keys for using reCaptcha and Google external authorization.
+                        string devSettingFile = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\" + $"appsettings.{env.EnvironmentName}.json";
+                        if (File.Exists(devSettingFile))
+                        {
+                            config.AddJsonFile(devSettingFile, optional: true, reloadOnChange: true);
+                        }
+                    }
+                })
                 .Build();
     }
 }

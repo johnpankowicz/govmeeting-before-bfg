@@ -1,11 +1,11 @@
-// import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule  } from '@angular/common/http';
 import { FixasrComponent } from './fixasr.component';
 import { VideoModule } from '../video/video.module';
 import { SharedModule } from '../shared/shared.module'
+import { RouterModule } from '@angular/router';
 //import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
@@ -13,13 +13,13 @@ import { SharedModule } from '../shared/shared.module'
     FixasrComponent,
   ],
   imports: [
-//    ReactiveFormsModule,
+    //ReactiveFormsModule,
     CommonModule,
+    RouterModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     VideoModule,
     SharedModule
-    //MaterialModule.forRoot(),
   ],
   providers: [],
 })

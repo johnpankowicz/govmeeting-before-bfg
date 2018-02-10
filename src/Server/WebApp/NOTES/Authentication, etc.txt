@@ -2,7 +2,7 @@
 
 	Security involves two primary functions:
 
-		1. Authentication - Determine someone's identity.
+		1. Authentication -Determine someone's identity.
 		2. Authorization - Determine what that person can do and enforce those rules.
 
 Code

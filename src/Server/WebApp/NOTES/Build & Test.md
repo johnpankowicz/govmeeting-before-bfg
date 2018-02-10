@@ -1,6 +1,5 @@
 # Start Debugging
 
-* Configured to use Firefox?
 * Hit F12 in browser to bring up tools.
 * Go to Console to see any loading errors.
 

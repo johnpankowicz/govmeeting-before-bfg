@@ -8,6 +8,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using WebApp.Features.Shared;
+using WebApp.Services;
 
 namespace WebApp.Models
 {
@@ -17,12 +18,13 @@ namespace WebApp.Models
         const string WORK_FILE = "ToFix.json";
         const int MAX_BACKUPS = 20;   // maximum backups
 
-        string datafiles;
+        string DatafilesPath;
+        string TestdataPath;
 
-        public FixasrRepository(IOptions<TypedOptions> options)
-        //public FixasrRepository()
+        public FixasrRepository(ISharedConfig config)
         {
-            datafiles = options.Value.DatafilesPath;
+            DatafilesPath = config.DatafilesPath;
+            TestdataPath = config.TestdataPath;
         }
 
         // Directories under Datafiles are named as follows:
@@ -39,13 +41,12 @@ namespace WebApp.Models
             string workFolder = meetingFolder + "\\" + WORK_FOLDER;
             string partFolder = workFolder + $"\\part{part:D2}";
 
-
             // Todo-g - Remove later - for development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(workFolder, datafiles);
+            UseTestData.CopyIfNeeded(workFolder, DatafilesPath, TestdataPath);
 
-            string partFolderPathr = Path.Combine(datafiles, partFolder);
+            string partFolderPath = Path.Combine(DatafilesPath, partFolder);
 
-            CircularBuffer cb = new CircularBuffer(partFolderPathr, WORK_FILE, MAX_BACKUPS);
+            CircularBuffer cb = new CircularBuffer(partFolderPath, WORK_FILE, MAX_BACKUPS);
 
             string latestFixes = cb.GetLatest();
             Fixasr fixasr = JsonConvert.DeserializeObject<Fixasr>(latestFixes);
@@ -54,12 +55,17 @@ namespace WebApp.Models
 
         public bool Put(Fixasr value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
-            string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
-            string meetingSegmentFolder = System.IO.Path.Combine(datafiles, subpath);
+            //string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
+            //string meetingSegmentFolder = System.IO.Path.Combine(DatafilesPath, subpath);
+
+            string meetingFolder = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate;
+            string workFolder = meetingFolder + "\\" + WORK_FOLDER;
+            string partFolder = workFolder + $"\\part{part:D2}";
+            string partFolderPath = Path.Combine(DatafilesPath, partFolder);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
 
-            CircularBuffer cb = new CircularBuffer(meetingSegmentFolder, WORK_FILE, MAX_BACKUPS);
+            CircularBuffer cb = new CircularBuffer(partFolderPath, WORK_FILE, MAX_BACKUPS);
             bool success = cb.WriteLatest(stringValue);
             return success;
         }

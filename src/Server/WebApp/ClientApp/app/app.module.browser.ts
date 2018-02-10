@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { AppModuleShared } from './app.module.shared';
-//import { AppComponent } from './components/app/app.component';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
     imports: [
         BrowserModule,
+        HttpClientModule, // import HttpClientModule after BrowserModule. (from docs)
         AppModuleShared
     ],
     providers: [

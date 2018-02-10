@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { TopicsService } from './topics.service';
+//import { TopicsService } from './topics.service';
+import { AddtagsService } from '../addtags.service';
 
 @Component({
     selector: 'gm-topicset',
@@ -7,16 +8,15 @@ import { TopicsService } from './topics.service';
     styleUrls: ['topicset.component.css']
 })
 export class TopicsComponent implements OnInit {
-    // topics: string[] = ["abc", "def"]; // DEBUG
     topics: string[];
-
     errorMessage: string;
+
     @Input() newTopicName: string | undefined;
 
     @Output() topicSelect: EventEmitter<string>;
     @Output() topicEnter: EventEmitter<string>;
 
-    constructor(private _topicsService: TopicsService) {
+    constructor(private _addtagsService: AddtagsService) {
         this.topicSelect = new EventEmitter<string>();
         this.topicEnter = new EventEmitter<string>();
         this.newTopicName = undefined;
@@ -26,19 +26,12 @@ export class TopicsComponent implements OnInit {
     ngOnInit() {this.getTopics();}
 
     getTopics() {
-        this._topicsService.getTopics()
-        .subscribe(
-        topics => this.topics = topics.data,
-        error => this.errorMessage = <any>error);
-    }
-/*
-    getTopics() {
-        this._topicsService.getTopicsFromFile()
+        this._addtagsService.getTopics()
         .subscribe(
         topics => this.topics = topics,
         error => this.errorMessage = <any>error);
     }
-*/
+
     // When the user select a topic, we raise the "topicSelect" event.
     // The parent component (TalksComponent) can then capture this event.
     OnChange(newValue: string) {
@@ -52,12 +45,4 @@ export class TopicsComponent implements OnInit {
         this.topicSelect.emit(this.newTopicName);
         console.log('topic.component--topicSelect ' + this.newTopicName);
     }
-
-    /* For debugging
-    GetTopicsBtn(){
-        this._topicsService.getTopics()
-        .subscribe(
-        t => {this.xtopics = t.data; console.log(t.data);},
-        error => this.errorMessage = <any>error);
-    }*/
 }

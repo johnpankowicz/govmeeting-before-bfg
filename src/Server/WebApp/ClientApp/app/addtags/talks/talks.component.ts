@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TalksService } from './talks.service';
-import { TopicsService } from '../topics/topics.service';
+//import { TalksService } from './talks.service';
+//import { TopicsService } from '../topics/topics.service';
+import { AddtagsService } from '../addtags.service';
 import { Addtags } from '../addtags';
 import { Talk } from './talk';
 
@@ -8,11 +9,10 @@ import { Talk } from './talk';
   selector: 'gm-talks',
   templateUrl: './talks.component.html',
   styleUrls: ['./talks.component.css'],
-  providers: [
-    TalksService,
-    TopicsService
-]
-
+  //providers: [
+    //TalksService,
+    //TopicsService
+//]
 })
 export class TalksComponent implements OnInit {
 
@@ -23,8 +23,12 @@ export class TalksComponent implements OnInit {
   highlightedTopic: string;
   shownTopicSelection: number = -1; // index of where we are displaying topic choice.
 
-  constructor(private _talkService: TalksService, private _topicsService: TopicsService) {
-  }
+  //constructor(private _talkService: TalksService, private _topicsService: TopicsService) {
+  //}
+
+    constructor(private _addtagsService: AddtagsService) {
+        //this.talks = addtagsService.getTalks();
+    }
 
 ///////////////////////////////////////////////////////////////
 //  Get the data that we need.
@@ -40,7 +44,7 @@ export class TalksComponent implements OnInit {
   }
 
   getTalks() {
-      this._talkService.getTalks()
+      this._addtagsService.getTalks()
       .subscribe(
       //talks => this.addtags.data = this.talks = talks,
       addtags => (this.addtags = addtags, this.talks = addtags.data),
@@ -49,21 +53,13 @@ export class TalksComponent implements OnInit {
 
   saveChanges() {
       console.log('saveTranscript');
-      this._talkService.postChanges(this.addtags)
+      this._addtagsService.postChanges(this.addtags)
           .subscribe(
           t => t
           );
       //error => this.errorMessage = <any>error);
   }
 
-/*
-  getTopics() {
-      this._topicsService.getTopicsFromFile()
-      .subscribe(
-      topics => this.topics = topics,
-      error => this.errorMessage = <any>error);
-  }
-*/
 
 ///////////////////////////////////////////////////////////////
 //  Handle user entry of new topic

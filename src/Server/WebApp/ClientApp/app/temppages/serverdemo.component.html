@@ -1,0 +1,50 @@
+<p>
+  <br /><h1> Server Components </h1>
+<p>
+
+<p>
+  The other demo pages only show the user interface components that run in the browser.
+  They don't show the components that run on the backend server computer. This page explains some
+   of the server side processing that occurs.
+</p>
+<p>
+  Those components marked with an asterisk * are currently working to some extent.
+</p>
+
+<h3> Process Video recordings </h3>
+
+<p> The following processing occurs for a video recording. </p>
+<ul>
+  <li> The recording is retrieved from the site where it resides. </li>
+  <li> It's converted to the primary web formats (mp4, ogg and webm). </li>
+  <li> The audio tracks are extracted, merged to a mono track and converted to FLAC format. * </li>
+  <li> The audio file is uploaded to a Google cloud storage bucket. * </li>
+  <li> The Google Speech API is called to create a transcript using auto voice recognition. * </li>
+  <li> The transcript is put into a JSON format for further processing. * </li>
+  <li> The video, audio and trancript files are split into sets of 3 minute segments. * </li>
+  <li> The sets of segments are organized into a workflow system. </li>
+  <li> The backend will then serve the work items to the front end. * </li>
+</ul>
+
+<h3> Process Existing Transcripts </h3>
+
+<p> Some government entities already produce transcpts. These will be processed as follows. </p>
+<ul>
+  <li> Retrieve the meeting transript from the source site. </li>
+  <li> Convert the transcipts from other formats (EG: PDF) into text files. * </li>
+  <li> Extract information such as speaker and section names. * (partially)</li>
+  <li> The transcript is put into a JSON format for further processing. </li>
+
+</ul>
+
+<h3> Post processing </h3>
+
+<p> Whether the original information came from a recording or an exisiting transcript, the following post processing occurs. </p>
+<ul>
+  <li> Transform the data into an object representation that is used to populate a database. </li>
+  <li> Provide a variety of ways to search, access and display the information. </li>
+  <li> Accept personal search requests that it will store for a user and run against future data that it adds to the database. </li>
+  <li> Alert users when their personal search requests yield results on new data. </li>
+</ul>
+
+
