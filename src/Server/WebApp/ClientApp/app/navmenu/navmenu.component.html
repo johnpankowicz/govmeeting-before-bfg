@@ -56,6 +56,11 @@
                 </a>
               </li>
               <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/otherfeatures']">
+                  <span class='glyphicon glyphicon-cloud'></span> Other Features
+                </a>
+              </li>
+              <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
                 <a [routerLink]="['/test']">
                   <span class='glyphicon glyphicon-education'></span> Test Area
                 </a>

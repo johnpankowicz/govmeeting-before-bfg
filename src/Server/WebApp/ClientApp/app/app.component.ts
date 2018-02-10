@@ -1,10 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { AppData } from './appdata';
 
-// This import was here from before the conversion to use angular-cli
-// I am not sure if we still need it.
-// import './operators';
-
 // See aumentations.ts for the explanation of the following.
 import 'rxjs/Subject';
 
@@ -14,7 +10,8 @@ import 'rxjs/Subject';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+    title = 'app';
+    public isCollapsed = true;
 
 // Alternate way of passing arguments from index.html to the Angular app.
 // It retrieves an attribute of the root Angular element.

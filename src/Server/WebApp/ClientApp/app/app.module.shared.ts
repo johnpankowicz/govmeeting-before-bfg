@@ -12,10 +12,9 @@ import { AddtagsModule } from './addtags/addtags.module'
 import { FixasrModule } from './fixasr/fixasr.module'
 import { SharedModule } from './shared/shared.module'
 import { HomeModule } from './home/home.module';
-import { HomedemoModule } from './homedemo/homedemo.module';
 import { AboutModule } from './about/about.module';
 import { VolunteerModule } from './volunteer/volunteer.module';
-import { ServerdemoModule } from './serverdemo/serverdemo.module';
+import { TemppagesModule } from './temppages/temppages.module';
 import { TestModule } from './test/test.module';
 //import { MatsampModule } from './matsamp/matsamp.module
 
@@ -40,13 +39,12 @@ import { AppData } from './appdata';
 
         AppRoutingModule,
         HomeModule,
-        HomedemoModule,
         AboutModule,
         MeetingModule,
         AddtagsModule,
         FixasrModule,
         VolunteerModule,
-        ServerdemoModule,
+        TemppagesModule,
         //MatsampModule,
         SharedModule,
         TestModule

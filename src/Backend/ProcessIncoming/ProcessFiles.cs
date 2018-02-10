@@ -13,11 +13,11 @@ namespace GM.ProcessIncoming
         // Todo - This should come from configuration when this code is called from WebApp
         string datafiles = Environment.CurrentDirectory + @"\..\..\Datafiles";
 
-        // Watch the "Datafiles\INCOMING" folder for the arrival of new files
+        // Watch the "Datafiles\INPROGRESS" folder for the arrival of new files
         // and process them as they arrive.
         public void WatchIncoming()
         {
-            string incoming = datafiles + @"\INCOMING";
+            string incoming = datafiles + @"\INPROGRESS";
             if (!Directory.Exists(incoming))
             {
                 Directory.CreateDirectory(incoming);
@@ -31,7 +31,7 @@ namespace GM.ProcessIncoming
 
             DirectoryWatcher watcher = new DirectoryWatcher();
 
-            // "doWork" will get called when a new file is written to Datafiles\INCOMING.
+            // "doWork" will get called when a new file is written to Datafiles\INPROGRESS.
             watcher.watch(incoming, "", doWork);
         }
 

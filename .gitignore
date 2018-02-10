@@ -35,8 +35,6 @@ bld/
 .synkron.syncdb
 **/desktop.ini
 src/Datafiles/*
-!src/Datafiles/INCOMING/
-!src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2016-10-11
 
 # Visual Studio 2015 cache/options directory
 .vs/

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component'
-import { HomedemoComponent } from '../homedemo/homedemo.component'
 import { AboutComponent } from '../about/about.component';
 import { MeetingComponent } from '../meeting/meeting.component'
 import { AddtagsComponent } from '../addtags/addtags.component'
 import { FixasrComponent } from '../fixasr/fixasr.component'
 import { VolunteerComponent } from '../volunteer/volunteer.component'
-import { ServerdemoComponent } from '../serverdemo/serverdemo.component'
+import { HomedemoComponent } from '../temppages/homedemo.component'
+import { ServerdemoComponent } from '../temppages/serverdemo.component'
+import { OtherfeaturesComponent } from '../temppages/otherfeatures.component'
 //import { MatsampComponent } from '../matsamp/matsamp.component'
 
 import { TestComponent } from '../test/test.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'volunteer', component: VolunteerComponent },
     { path: 'serverdemo', component: ServerdemoComponent },
+    { path: 'otherfeatures', component: OtherfeaturesComponent },
     //{ path: 'matsamp', component: MatsampComponent },
     { path: 'test', component: TestComponent },
     { path: '**', redirectTo: 'homedemo' }

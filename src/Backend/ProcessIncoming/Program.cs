@@ -28,14 +28,22 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
     class Program
     {
         // Todo-g - These should come from configuration
-        static string datafiles = Environment.CurrentDirectory + @"\..\..\Datafiles";
-        static string testdata = Environment.CurrentDirectory + @"\..\..\testdata";
+        static string datafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
+        static string testdataPath = Environment.CurrentDirectory + @"\..\..\testdata";
 
         // Todo-g We need to get the location of the credentials file path from configuration.
         public static string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
 
         static void Main(string[] args)
         {
+            if (!Directory.Exists(datafilesPath))
+            {
+                Directory.CreateDirectory(datafilesPath);
+                Directory.CreateDirectory(datafilesPath + "\\INCOMING");
+                Directory.CreateDirectory(datafilesPath + "\\INPROGRESS");
+                Directory.CreateDirectory(datafilesPath + "\\COMPLETED");
+            }
+
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
 
             // FOR DEVELOPMENT
@@ -64,7 +72,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
         static void CopyMediaToAssets()
         {
             MeetingInfo mi = new MeetingInfo("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-02-15.mp4");
-            string meetingFolder = mi.MeetingFolder(datafiles);
+            string meetingFolder = mi.MeetingFolder(datafilesPath);
             string source = meetingFolder + "\\parts";
             string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
             string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
@@ -105,9 +113,9 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
         static void TestReformatOfTranscribeResponse()
         {
-            string inputFile = testdata + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
+            string inputFile = testdataPath + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
 
-            string outputFolder = testdata + "\\" + "TestReformatOfTranscribeResponse";
+            string outputFolder = testdataPath + "\\" + "TestReformatOfTranscribeResponse";
             DeleteAndCreateDirectory(outputFolder);
             string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
@@ -124,8 +132,8 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
         static void TestMoveToCloudAndTranscribe(string language)
         {
             string baseName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15";
-            string videoFile = testdata + "\\" + baseName + ".mp4";
-            string outputFolder = testdata + "\\" + "TestMoveToCloudAndTranscribe";
+            string videoFile = testdataPath + "\\" + baseName + ".mp4";
+            string outputFolder = testdataPath + "\\" + "TestMoveToCloudAndTranscribe";
 
             DeleteAndCreateDirectory(outputFolder);
 
@@ -175,7 +183,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
             TranscribeAudio ta = new TranscribeAudio(language);
 
             // Test transcription on a local file. We will use sychronous calls to the Google Speech API. These allow a max of 1 minute per request.
-            string folder = datafiles + @"..\testdata\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2017-01-09\step 2 extract\";
+            string folder = datafilesPath + @"..\testdata\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2017-01-09\step 2 extract\";
             TranscribeResponse transcript = ta.TranscribeFile(folder + "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-01-09#00-01-40.flac", language);
 
             string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
@@ -190,7 +198,7 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
             // Delete the prior data if it exists.
             MeetingInfo mi = new MeetingInfo(videoFileName);
-            string meetingFolder = mi.MeetingFolder(datafiles);
+            string meetingFolder = mi.MeetingFolder(datafilesPath);
             Directories.Delete(meetingFolder);
 
             ProcessFiles processFiles = new ProcessFiles();

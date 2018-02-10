@@ -57,7 +57,7 @@ To run the back-end (the code that processes incoming video and transript file)
 
   * Set the startup project in Visual Studio to `Backend/ProcessingIncoming`. Press F5.
 
-  * Copy (don't move) one of either the sample MP4 or PDF files from testdata to Datafiles/INCOMING.
+  * Copy (don't move) one of either the sample MP4 or PDF files from testdata to Datafiles/INPROGRESS.
 
   The program will recognize that a new file has appeared and start processing it.
   The test file will be moved to "COMPLETED" when done.
@@ -98,7 +98,7 @@ The backend can be used to process recordings of your own.
     Some countries may need more levels of sub-divsion. In that case include the 3rd up to the lowest level,
     in the "county" field and put "-" between the included names.
 
-* Then copy the file into the Datafiles/INCOMING folder and run the Backend/ProcessIncoming process.
+* Then copy the file into the Datafiles/INPROGRESS folder and run the Backend/ProcessIncoming process.
 
 
 
