@@ -40,7 +40,7 @@ namespace WebApp.Controllers
         }
 
         // POST api/fixasr
-        //[Authorize(Policy = "Proofreader")]
+        [Authorize(Policy = "Proofreader")]
         [HttpPost]
         public void Post([FromBody]Fixasr value)
         {

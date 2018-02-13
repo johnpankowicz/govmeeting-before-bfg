@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module'
+import { GmSharedModule } from '../gmshared/gmshared.module'
 import { ServerdemoComponent } from './serverdemo.component';
 import { HomedemoComponent } from './homedemo.component';
 import { OtherfeaturesComponent } from './otherfeatures.component';
@@ -10,7 +10,7 @@ import { OtherfeaturesComponent } from './otherfeatures.component';
   imports: [
         CommonModule,
         RouterModule,
-        SharedModule
+        GmSharedModule
   ],
     declarations: [
         ServerdemoComponent,

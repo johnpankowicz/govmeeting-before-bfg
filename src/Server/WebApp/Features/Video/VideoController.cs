@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+// This is preliminary work on a controller that will serve video files.
+// THis would allow us to:
+//   * not need to configure the Datafiles folder as a static file provider.
+//   * not require the ClientApp to know the exact file location of all video files that it requests.
+
 namespace WebApp.Features.Video
 {
     //[Produces("application/json")]
@@ -23,10 +28,6 @@ namespace WebApp.Features.Video
             string videoPath = "assets/shortvideo/" + "2016 - 10 - 11 Boothbay Harbor Selectmen(3 minutes).mp4";
             return File(videoPath, "video/mp4");
         }
-
-
-
-
 
     }
 }

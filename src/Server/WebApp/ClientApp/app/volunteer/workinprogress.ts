@@ -1,7 +1,7 @@
 ﻿import { WorkItem } from './workitem';
-import { Meeting } from '../shared/models/meeting'
+import { Meeting } from '../models/meeting'
 import { Volunteer } from './volunteer';
-import { Location } from '../shared/models/location';
+import { Location } from '../models/location';
 
 export class WorkInProgress {
     locationId: number;

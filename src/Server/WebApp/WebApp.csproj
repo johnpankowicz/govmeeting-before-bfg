@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.TypeScript.Compiler" Version="2.7.1" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="2.7.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,28 +19,10 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="ClientApp\dist\**" />
-    <Compile Remove="wwwroot\**" />
+    <Compile Remove="ClientApp\app\models\models\**" />
     <Content Remove="ClientApp\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="ClientApp\dist\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="ClientApp\dist\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\app\shared\meeting.ts" />
-    <None Remove="ClientApp\app\shared\models\models.ts" />
-    <None Remove="ClientApp\app\shared\models\test.ts" />
-    <None Remove="ClientApp\app\shared\municipality.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\shared\models\meeting.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\models\models.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\models\municipality.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\models\test.ts" />
+    <EmbeddedResource Remove="ClientApp\app\models\models\**" />
+    <None Remove="ClientApp\app\models\models\**" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

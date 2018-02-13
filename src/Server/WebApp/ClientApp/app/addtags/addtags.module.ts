@@ -8,7 +8,7 @@ import { AddtagsComponent } from './addtags.component';
 import { TalksComponent } from './talks/talks.component';
 import { TopicsComponent } from './topics/topics.component';
 import { SectionsComponent } from './sections/sections.component';
-import { SharedModule } from '../shared/shared.module';
+import { GmSharedModule } from '../gmshared/gmshared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     RouterModule,
     //ReactiveFormsModule
-    SharedModule
+    GmSharedModule
   ],
   declarations: [AddtagsComponent, TalksComponent, TopicsComponent, SectionsComponent]
 })

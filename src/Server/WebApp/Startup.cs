@@ -233,11 +233,8 @@ namespace WebApp
             string datafilesPath = Configuration["DataPaths:DatafilesPath"];
             datafilesPath = GetFullPath(datafilesPath);
             if (!Directory.Exists(datafilesPath))
-                {
+            {
                 Directory.CreateDirectory(datafilesPath);
-                Directory.CreateDirectory(datafilesPath + "\\INCOMING");
-                Directory.CreateDirectory(datafilesPath + "\\INPROGRESS");
-                Directory.CreateDirectory(datafilesPath + "\\COMPLETED");
             }
             app.UseStaticFiles(new StaticFileOptions()
             {

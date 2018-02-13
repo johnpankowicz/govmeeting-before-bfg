@@ -18,4 +18,4 @@ import { MyhighlightDirective } from './myhighlight/myhighlight.directive';
     MyhighlightDirective,
   ]
 })
-export class SharedModule { }
+export class GmSharedModule { }

@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MeetingModule } from './meeting/meeting.module'
 import { AddtagsModule } from './addtags/addtags.module'
 import { FixasrModule } from './fixasr/fixasr.module'
-import { SharedModule } from './shared/shared.module'
+import { GmSharedModule } from './gmshared/gmshared.module'
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { VolunteerModule } from './volunteer/volunteer.module';
@@ -46,7 +46,7 @@ import { AppData } from './appdata';
         VolunteerModule,
         TemppagesModule,
         //MatsampModule,
-        SharedModule,
+        GmSharedModule,
         TestModule
     ],
     providers: [

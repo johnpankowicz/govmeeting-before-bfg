@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { WorkInProgress } from './workinprogress';
 import { WorkItem } from './workitem';
 import { Volunteer } from './volunteer';
-import { Meeting } from '../shared/models/meeting'
-import { Location } from '../shared/models/location';
+import { Meeting } from '../models/meeting'
+import { Location } from '../models/location';
 
 @Injectable()
 export class FixasrService {

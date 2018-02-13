@@ -1,12 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home Page";
 }
 
-<app-root asp-prerender-module="ClientApp/dist/main-server">Loading...</app-root>
+
+@*The upgrade to Angular5 instructions asked for this change to the app-root element.
+  http://www.talkingdotnet.com/upgrade-angular-4-app-angular-5-visual-studio-2017/*@
+@*<app-root asp-prerender-module="ClientApp/dist/main-server">Loading...</app-root>*@
+<app-root>Loading...</app-root>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
-    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+  <script src="~/dist/main-client.js" asp-append-version="true"></script>
 }
 
 <!-- This was from before switching to SPATemplates
@@ -18,9 +22,8 @@
     </div>
 </div>
 --->
-
 @*Code from ASP.NET Identity 3 for ASP.NET CORE - Brock Allen
-Note that "User" is automatically available. This is the UserManager.*@
+  Note that "User" is automatically available. This is the UserManager.*@
 <!--
 <h1>Claims</h1>
 <dl>
@@ -31,7 +34,6 @@ Note that "User" is automatically available. This is the UserManager.*@
     }
 </dl>
 -->
-
 <!--
 <markdown>
 # First level header
@@ -43,7 +45,6 @@ normal text
 ## level 3
 </markdown>
 -->
-
 <!-- This was from before switching to SPATemplates
 <script type="text/javascript" src="ba/last-build/inline.bundle.js" asp-append-version="true"></script>
     <script type="text/javascript" src="ba/last-build/polyfills.bundle.js" asp-append-version="true"></script>

@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApp</title>
 
-    <!-- "ba" is defined in startup.cs as a new PhysicalFileProvider and points to the Client/BrowserApp folder. -->
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        @*<link rel="stylesheet" href="~/css/site.css" />*@
-        <!-- <link rel="stylesheet" href="ba/node_modules/@@angular/material/prebuilt-themes/indigo-pink.css?1486498971055">-->
+      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+      <!-- Back when we were using angular-seed, the Angular app was in its own project, BrowserApp, separate from  WebApp. -->
+      <!-- "ba" was defined in startup.cs as a new PhysicalFileProvider pointing to the Client/BrowserApp folder. -->
+      <!-- <link rel="stylesheet" href="ba/node_modules/@@angular/material/prebuilt-themes/indigo-pink.css?1486498971055">-->
+
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -38,49 +40,17 @@
 </head>
 
 <body>
+  <!-- APP_DATA is no longer used. We are leaving this code in case we need to pass arguments this way in the future. -->
     <script>
         window.APP_DATA = { isServerRunning: true, isDataFromMemory: false }
     </script>
 
-    <!--<div class="navbar navbar-inverse navbar-fixed-top">-->
-    <!--<div class="navbar navbar-inverse fixed-r">-->
-        @*<div class="navbar fixed-r">
-            <div class="container">*@
-                @*<div class="navbar-header">*@
-                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar">===</span>
-                        <span class="icon-bar">===</span>
-                        <span class="icon-bar">===</span>
-                    </button>*@
-                    <!--<a asp-controller="Home" asp-action="Index" class="navbar-brand">
-                        <environment names="Development">
-                            Govmeeting (dev)
-                        </environment>
-                        <environment names="Staging,Production">
-                            Govmeeting
-                        </environment>
-                    </a>-->
-                @*</div>*@
-                @*<div class="navbar-collapse collapse">*@
-                    <!--<ul class="nav navbar-nav">
-                        <li><a href="/">HOME</a></li>
-                    </ul>-->
-                    <!--This was where the await Html.PartialAsync call was.-->
                 <div class="fixed-r showme">
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
-                @*</div>
-            </div>
-        </div>*@
-
-    <!-- This was previously embedded in the navbar -->
-    @*<div class="div.fixed-r">
-    </div>*@
 
     <div class="container body-content">
         @RenderBody()
-        <!-- <footer> <p>&copy; 2016 - WebApp</p> </footer> -->
     </div>
 
     <environment names="Development">
