@@ -27,7 +27,13 @@ At any time, you can go online and:
 
 For a detailed functional design, see: [Functional Design](https://github.com/govmeeting/govmeeting/wiki/functional-design)
 
-For a demo of some working code, see:  [govmeeting.org](http://govmeeting.org)
+[[https://github.com/govmeeting/govmeeting/blob/master/images/mr-t-mrt-36834265-320-254-24kb.png|alt=PhotoMr.T]]
+
+ “Enough with the jibber-jabber, fool!
+ Show me how it works!”
+
+Well, the work is in progress. But here is a [Demo of some working code](http://govmeeting.org).
+
 
 ## Technical overview
 
@@ -49,22 +55,22 @@ or download zip file:`https://github.com/govmeeting/govmeeting/archive/master.zi
 
   * Open solution "govmeeting.sln"
 
-To run the front-end (the code you see running at govmeeting.org):
+The front-end is the code that you see running at [govmeeting.org](govmeeting.org). To run this:
 
-  * Set startup project to Server/WebApp. Press F5.
+  * Set startup project in Visual Studio to Server/WebApp. Press F5.
 
-To run the back-end (the code that processes incoming video and transript file)
+The back-end is the code that processes incoming video recordings and existing transript files.
 
-  * Set the startup project in Visual Studio to `Backend/ProcessingIncoming`. Press F5.
+* To do the auto transcription required on the recording, you will first need to  set up a Google Cloud Platform project. Instructions are here:  [Create GCP project](https://github.com/govmeeting/govmeeting/wiki)
 
-  * Copy (don't move) one of either the sample MP4 or PDF files from testdata to Datafiles/INPROGRESS.
+* Set the startup project in Visual Studio to `Backend/ProcessingIncoming`. Press F5.
+
+* Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INPROGRESS.
 
   The program will recognize that a new file has appeared and start processing it.
   The test file will be moved to "COMPLETED" when done.
 
-  You will see the results in new subfolders of Datafiles and Server/wwwroot/assets which were created.
-  EXCEPT: If it is an MP4 file and you do not have a Google Cloud Platform project set up, you will see an error.
-  For instructions, on setting up a GCP project, see: `https://github.com/govmeeting/govmeeting/wiki`
+  
 
 
 ### If using Visual Studio Code

@@ -9,20 +9,27 @@ import { MeetingService } from '../meeting.service';
 })
 export class HeadingComponent implements OnInit {
 
-  meetingInfo: any = {name: '', date: ''};
+    meeting: any = {
+        meetingId: 0,
+        locationId: 0,
+        governmentBody: '',
+        language: "",
+        date: '',
+        meetingLength: 0
+    };
 
   errorMessage: string;
 
   constructor(private _meetingService: MeetingService) { }
 
-  ngOnInit() {this.getMeetingInfo();}
+  ngOnInit() {this.getMeeting();}
 
-  getMeetingInfo() {
+  getMeeting() {
     this._meetingService.getMeeting()
     .subscribe(
-    (meeting: any) => {
-        this.meetingInfo = meeting.meetingInfo;
-        //console.log(this.meetingInfo);
+    (viewMeeting: any) => {
+        this.meeting = viewMeeting.meeting;
+        //console.log(this.meeting);
     },
     (error: any) => this.errorMessage = <any>error);
 }

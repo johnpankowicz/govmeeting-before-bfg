@@ -17,9 +17,13 @@ export class MeetingServiceStub {
     }
 
     private viewMeeting: ViewMeeting = {
-        "meetingInfo": {
-            "name": "Boothbay Harbor Selectmen meeting",
-            "date": "Sept. 8, 2014"
+        "meeting": {
+            "meetingId": 1,
+            "locationId": 1,
+            "governmentBody": "Selectmen",
+            "language": "en",
+            "date": "Sept. 8, 2014",
+            "meetingLength": 1800
         },
         "topicNames": [
             "SHOW ALL",

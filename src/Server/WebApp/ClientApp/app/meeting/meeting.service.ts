@@ -6,35 +6,41 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { ViewMeeting } from './viewmeeting';
+import { share } from 'rxjs/operator/share';
 
 @Injectable()
 export class MeetingService {
 
-// The code outlined in main.ts for checking the Name argument need to be used here.
-  private _meetingUrl_NoServer = 'assets/BoothbayHarbor_Selectmen_2014-09-08.json';
-    //private _meetingUrl = 'assets/data/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen/2014-09-08/Step 5 - processed transcript.json';
-    private _meetingUrl = 'api/meeting';
-    //private _meetingUrl = 'api/meeting/BoothbayHarbor/Selectmen/2014-09-08';
-    //private _meetingUrl = 'api/meeting/USA/ME/LincolnCounty/BoothbayHarbor/Selectmen/2014-09-08';
-
-    // private _meetingData: any = {};
-    //private data: any = null;
-    private observable: Observable<any>;
+    private meetingUrl = 'api/meeting';
+    private observable: Observable<ViewMeeting>;
     private requestInProgress: boolean = false;
     private requestComplete: boolean = false;
-
     private errorMessage: string;
 
+    // Normally the meetingId will be passed to the getMeeting method.
+    // But we did not yet write the component for the user to select a meeting.
+    // We will use id "1" for now.
+    private meetingId: number = 1;
 
     constructor(private http: HttpClient) {
       console.log('MeetingService - constructor');
     }
 
     getMeeting(): Observable<ViewMeeting> {
-        return this.http.get<ViewMeeting>(this._meetingUrl)
-            .pipe(catchError(this.handleError));
-    }
-
+        if (this.observable != null) {
+            return this.observable
+        }
+        // See notes above for "meetingId".
+        let url: string = this.meetingUrl;
+        url = url + "/" + this.meetingId;
+        //return this.http.get<ViewMeeting>(url)
+        //    .pipe(catchError(this.handleError))
+        //    .share();     // make it shared so more than one subscriber can get the same result.
+         this.observable = this.http.get<ViewMeeting>(url)
+            .pipe(catchError(this.handleError))
+            .share();     // make it shared so more than one subscriber can get the same result.
+        return this.observable;
+   }
 
     // This method is copied from https://angular.io/guide/http
     private handleError(error: HttpErrorResponse) {

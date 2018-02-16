@@ -42,8 +42,14 @@
         <div class="g-recaptcha" data-sitekey="@(configuration["ReCaptcha:SiteKey"])"></div>
         <br>
 
-        @*<button disabled type="submit" class="btn btn-default">Register</button>*@
-        <button type="submit" class="btn btn-default">Register</button>
+        <!--  Disable registration  except for development, until we are ready. -->
+        <!-- Todo - remove this when ready -->
+        <environment names="Development">
+          <button type="submit" class="btn btn-default">Register</button>
+        </environment>
+        <environment names="Staging,Production">
+          <button disabled type="submit" class="btn btn-default">Register</button>
+        </environment>
       </div>
     </div>
 </form>

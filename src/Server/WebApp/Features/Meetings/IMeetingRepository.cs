@@ -7,6 +7,8 @@ namespace WebApp.Models
 {
     public interface IMeetingRepository
     {
-        Meeting Get(string country, string state, string county, string city, string govEntity, string language, string meetingDate);
+        ViewMeeting GetViewmeeting(long meetingId);
+        Meeting GetById(long meetingId);
+
     }
 }

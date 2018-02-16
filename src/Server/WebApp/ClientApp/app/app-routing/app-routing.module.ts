@@ -9,6 +9,8 @@ import { VolunteerComponent } from '../volunteer/volunteer.component'
 import { HomedemoComponent } from '../temppages/homedemo.component'
 import { ServerdemoComponent } from '../temppages/serverdemo.component'
 import { OtherfeaturesComponent } from '../temppages/otherfeatures.component'
+import { SearchComponent } from '../temppages/search.component'
+import { ExistingComponent } from '../temppages/existing.component'
 //import { MatsampComponent } from '../matsamp/matsamp.component'
 
 import { TestComponent } from '../test/test.component';
@@ -25,6 +27,8 @@ const routes: Routes = [
     { path: 'volunteer', component: VolunteerComponent },
     { path: 'serverdemo', component: ServerdemoComponent },
     { path: 'otherfeatures', component: OtherfeaturesComponent },
+    { path: 'search', component: SearchComponent },
+    { path: 'existing', component: ExistingComponent },
     //{ path: 'matsamp', component: MatsampComponent },
     { path: 'test', component: TestComponent },
     { path: '**', redirectTo: 'homedemo' }

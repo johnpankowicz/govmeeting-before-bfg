@@ -1,8 +1,12 @@
 {
-	"meetingInfo":{
-		"name":"Boothbay Harbor Selectmen meeting",
-		"date":"Sept. 8, 2014"
-	}, 
+  "meeting": {
+    "meetingId": 1,
+    "locationId": 1,
+    "governmentBody": "Selectmen",
+    "language": "en",
+    "date": "Sept. 8, 2016",
+    "meetingLength": 1800
+  }, 
 	"topicNames":[
 		"SHOW ALL",
 		"Introductions",

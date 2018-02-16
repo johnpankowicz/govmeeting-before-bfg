@@ -36,13 +36,23 @@
                 </a>
               </li>
               <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/existing']">
+                  <span class='glyphicon glyphicon-home'></span> Existing Transcripts
+                </a>
+              </li>
+              <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
                 <a [routerLink]="['/meeting']">
-                  <span class='glyphicon glyphicon-blackboard '></span> Browse Meeting *
+                  <span class='glyphicon glyphicon-blackboard '></span> View Meeting *
+                </a>
+              </li>
+              <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/search']">
+                  <span class='glyphicon glyphicon-blackboard '></span> Search Meetings
                 </a>
               </li>
               <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
                 <a [routerLink]="['/home']">
-                  <span class='glyphicon glyphicon-home'></span> Home page
+                  <span class='glyphicon glyphicon-home'></span> New Home page
                 </a>
               </li>
               <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
@@ -60,11 +70,11 @@
                   <span class='glyphicon glyphicon-cloud'></span> Other Features
                 </a>
               </li>
-              <li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/test']">
-                  <span class='glyphicon glyphicon-education'></span> Test Area
-                </a>
-              </li>
+              <!--<li (click)="isCollapsed = true" [routerLinkActive]="['link-active']">
+    <a [routerLink]="['/test']">
+      <span class='glyphicon glyphicon-education'></span> Test Area
+    </a>
+  </li>-->
             </ul>
           </div>
         </div>

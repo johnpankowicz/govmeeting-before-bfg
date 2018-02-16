@@ -5,6 +5,8 @@ import { GmSharedModule } from '../gmshared/gmshared.module'
 import { ServerdemoComponent } from './serverdemo.component';
 import { HomedemoComponent } from './homedemo.component';
 import { OtherfeaturesComponent } from './otherfeatures.component';
+import { SearchComponent } from './search.component';
+import { ExistingComponent } from './existing.component';
 
 @NgModule({
   imports: [
@@ -15,12 +17,16 @@ import { OtherfeaturesComponent } from './otherfeatures.component';
     declarations: [
         ServerdemoComponent,
         HomedemoComponent,
-        OtherfeaturesComponent
+        OtherfeaturesComponent,
+        SearchComponent,
+        ExistingComponent
     ],
     exports: [
         ServerdemoComponent,
         HomedemoComponent,
-        OtherfeaturesComponent
+        OtherfeaturesComponent,
+        SearchComponent,
+        ExistingComponent
     ]
 })
 export class TemppagesModule { }

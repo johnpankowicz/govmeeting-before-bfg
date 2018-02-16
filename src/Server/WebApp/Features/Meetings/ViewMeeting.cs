@@ -5,19 +5,20 @@ using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
-    public class Meeting
+    public class ViewMeeting
     {
-        public Meetinginfo meetingInfo { get; set; }
+        public Meeting meeting { get; set; }
         public string[] topicNames { get; set; }
         public string[] speakerNames { get; set; }
         public Topicdiscussion[] topicDiscussions { get; set; }
     }
 
-    public class Meetinginfo
-    {
-        public string name { get; set; }
-        public string date { get; set; }
-    }
+    //public class MeetingInfo
+    //{
+    //    public string name { get; set; }
+    //    public string date { get; set; }
+    //    public string xxx { get; set; }
+    //}
 
     public class Topicdiscussion
     {

@@ -1,19 +1,21 @@
 ﻿//import { WorkItem } from './workitem';
-//import { Meeting } from '../models/meeting'
+import { Meeting } from '../models/meeting'
 //import { Volunteer } from './volunteer';
 //import { Location } from '../models/location';
 
 export class ViewMeeting {
-    meetingInfo: MeetingInfo;
+    //meetingInfo: MeetingInfo;
+    meeting: Meeting;
     topicNames: string[];
     speakerNames: string[];
     topicDiscussions: TopicDiscussion[];
 }
 
-export class MeetingInfo {
-    name: string;
-    date: string;
-}
+//export class MeetingInfo {
+//    name: string;
+//    date: string;
+//    xxx: string;
+//}
 
 export class TopicDiscussion {
     name: string;               // change field name to "topicName".
