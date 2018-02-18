@@ -7,6 +7,7 @@ import { HomedemoComponent } from './homedemo.component';
 import { OtherfeaturesComponent } from './otherfeatures.component';
 import { SearchComponent } from './search.component';
 import { ExistingComponent } from './existing.component';
+import { RegisterGovComponent } from './registergov.component';
 
 @NgModule({
   imports: [
@@ -19,14 +20,16 @@ import { ExistingComponent } from './existing.component';
         HomedemoComponent,
         OtherfeaturesComponent,
         SearchComponent,
-        ExistingComponent
+        ExistingComponent,
+        RegisterGovComponent
     ],
     exports: [
         ServerdemoComponent,
         HomedemoComponent,
         OtherfeaturesComponent,
         SearchComponent,
-        ExistingComponent
+        ExistingComponent,
+        RegisterGovComponent
     ]
 })
 export class TemppagesModule { }

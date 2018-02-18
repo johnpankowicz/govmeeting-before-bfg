@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Govmeeting.Backend.Model
 {
-    /// <summary>
-    /// A Citizen is one type of speaker at a meeting.
-    /// </summary>
+    // A Citizen is one type of speaker at a meeting.
     public class Citizen : Speaker
     {
         // public int Id { get; set; }

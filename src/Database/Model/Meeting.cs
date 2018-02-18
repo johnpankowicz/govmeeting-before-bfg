@@ -11,44 +11,11 @@ namespace Govmeeting.Backend.Model
     /// </summary>
     public class Meeting
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date.
-        /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public DateTime Date { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic discussions.
-        /// </summary>
-        /// <value>
-        /// The topic discussions.
-        /// </value>
+        public int Length { get; set; }
         public List<TopicDiscussion> TopicDiscussions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the foreign key to containing government entity.
-        /// </summary>
-        /// <value>
-        /// The government body identifier.
-        /// </value>
         public int GovernmentBodyId { get; set; }
 
         /*

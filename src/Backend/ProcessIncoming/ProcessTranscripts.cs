@@ -29,13 +29,19 @@ namespace GM.ProcessIncoming
                 return false;
             }
 
-            // Copy PDF to meeting directory
+            // Step 1 - Copy PDF to meeting directory
+
             FileInfo infile = new FileInfo(filename);
             string outfile = meetingFolder + "\\" + "T1-PDF.pdf";
             File.Copy(filename, outfile);
 
-            // Convert the PDF file to text
+            // Step 2 - Convert the PDF file to text
+
             string text = ConvertPdfToText.Convert(outfile);
+            outfile = meetingFolder + "\\" + "T2-TXT.txt";
+            File.WriteAllText(outfile, text);
+
+            // Step 3 - Fix the transcript: Put in common format
 
             // Make the specific fixes to the philly data
             Philadelphia_PA_USA philly = new Philadelphia_PA_USA("2016-03-17", meetingFolder);
@@ -43,8 +49,8 @@ namespace GM.ProcessIncoming
 
             // Convert the fixed transcript to JSON
             ConvertToJson.Convert(ref transcript);
-            string jsonfile = meetingFolder + "\\" + "T3-ToBeTagged.json";
-            File.WriteAllText(jsonfile, transcript);
+            outfile = meetingFolder + "\\" + "T3-ToBeTagged.json";
+            File.WriteAllText(outfile, transcript);
 
             return true;
         }

@@ -147,8 +147,10 @@ namespace WebApp
             });
 
 
-            // Add our repository type
+            // Add our repository types
+            services.AddSingleton<IGovBodyRepository, GovBodyRepository>();
             services.AddSingleton<IMeetingRepository, MeetingRepository>();
+            services.AddSingleton<IViewMeetingRepository, ViewMeetingRepository>();
             services.AddSingleton<IAddtagsRepository, AddtagsRepository>();
             services.AddSingleton<IFixasrRepository, FixasrRepository>();
 

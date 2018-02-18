@@ -12,19 +12,19 @@ using Govmeeting.Backend.Model;
 namespace Webapp.Controllers
 {
     [Route("api/[controller]")]
-    public class MeetingController : Controller
+    public class GovernmentBodyController : Controller
     {
-        public IMeetingRepository meetings { get; set; }
+        public IGovBodyRepository govBodies { get; set; }
 
-        public MeetingController(IMeetingRepository meetings)
+        public GovernmentBodyController(IGovBodyRepository govBodies)
         {
-            this.meetings = meetings;
+            this.govBodies = govBodies;
         }
 
         [HttpGet("{meetingId}")]
-        public Meeting Get(int meetingId)
+        public GovernmentBody Get(int govBodyId)
         {
-            Meeting ret = meetings.Get(meetingId);
+            GovernmentBody ret = govBodies.Get(govBodyId);
             return ret;
         }
 

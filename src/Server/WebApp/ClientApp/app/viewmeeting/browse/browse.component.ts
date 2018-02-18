@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 //import { MeetingService } from '../meeting.service-stub';
-import { MeetingService } from '../meeting.service';
+import { ViewMeetingService } from '../viewmeeting.service';
 import { UserchoiceService } from '../userchoice.service';
+import { TopicDiscussion } from '../viewmeeting'
 
 @Component({
-  selector: 'gm-browsemeeting',
-  templateUrl: './browsemeeting.component.html',
-  styleUrls: ['./browsemeeting.component.css']
+  selector: 'gm-browse',
+  templateUrl: './browse.component.html',
+  styleUrls: ['./browse.component.css']
 })
-export class BrowsemeetingComponent implements OnInit {
+export class BrowseComponent implements OnInit {
 
-  topicDiscussions: any;
+  topicDiscussions: TopicDiscussion[];
   topics: string[];
   errorMessage: string;
 
@@ -19,23 +20,23 @@ export class BrowsemeetingComponent implements OnInit {
 
     /**
      * <summary>
-     *  BrowseMeetingCtrl Constructor.
+     *  BrowseComponent Constructor.
      * </summary>
      * <param name="_meetingService">       The meeting service. </param>
      * <param name="_userChoiceSrv"> The user choice service. </param>
     **/
-    constructor(private _meetingService: MeetingService,
+    constructor(private _viewMeetingService: ViewMeetingService,
       private _userChoice: UserchoiceService) {
   }
 
   ngOnInit() {this.getTopicDiscussions();}
 
   getTopicDiscussions() {
-      this._meetingService.getMeeting()
+      this._viewMeetingService.getMeeting()
       .subscribe(
       t => {
           this.topicDiscussions = t.topicDiscussions;
-           //console.log(this.topicDiscussions);
+           console.log(this.topicDiscussions);
       },
       error => this.errorMessage = <any>error);
   }

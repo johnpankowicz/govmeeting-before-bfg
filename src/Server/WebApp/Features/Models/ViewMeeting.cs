@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Govmeeting.Backend.Model;
 
 namespace WebApp.Models
 {
@@ -13,23 +14,16 @@ namespace WebApp.Models
         public Topicdiscussion[] topicDiscussions { get; set; }
     }
 
-    //public class MeetingInfo
-    //{
-    //    public string name { get; set; }
-    //    public string date { get; set; }
-    //    public string xxx { get; set; }
-    //}
-
     public class Topicdiscussion
     {
         public string name { get; set; }
-        public Speaker[] speakers { get; set; }
+        public Talk[] talks { get; set; }
     }
 
-    public class Speaker
+    public class Talk
     {
-        public string name { get; set; }
-        public string text { get; set; }
+        public string Speaker { get; set; }
+        public string Text { get; set; }
     }
 
 

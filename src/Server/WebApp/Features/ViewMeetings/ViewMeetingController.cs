@@ -5,26 +5,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Govmeeting.Backend.Model;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Webapp.Controllers
 {
     [Route("api/[controller]")]
-    public class MeetingController : Controller
+    public class ViewMeetingController : Controller
     {
-        public IMeetingRepository meetings { get; set; }
+        public IViewMeetingRepository meetings { get; set; }
 
-        public MeetingController(IMeetingRepository meetings)
+        public ViewMeetingController(IViewMeetingRepository meetings)
         {
             this.meetings = meetings;
         }
 
         [HttpGet("{meetingId}")]
-        public Meeting Get(int meetingId)
+        public ViewMeeting Get(int meetingId)
         {
-            Meeting ret = meetings.Get(meetingId);
+            ViewMeeting ret = meetings.Get(meetingId);
             return ret;
         }
 

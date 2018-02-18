@@ -20,8 +20,6 @@ namespace GM.SpecificTranscriptFixes
         {
             transcript = _transcript;
 
-            LOGPROGRESS("TXT of transcript");
-
             // Delete the date of the meeting that appears on each page
             //            DeleteDateLine(ref transcript);
 

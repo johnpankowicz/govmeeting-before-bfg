@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { MeetingComponent } from './meeting.component';
-import { BrowsemeetingComponent } from './browsemeeting/browsemeeting.component';
+import { ViewMeetingComponent } from './viewmeeting.component';
+import { BrowseComponent } from './browse/browse.component';
 import { HeadingComponent } from './heading/heading.component';
 import { SpeakersComponent } from './speakers/speakers.component';
 import { TopicsComponent } from './topics/topics.component';
@@ -17,7 +17,7 @@ import { GmSharedModule } from '../gmshared/gmshared.module';
     HttpClientModule,
     GmSharedModule
  ],
-  declarations: [MeetingComponent, BrowsemeetingComponent,
+  declarations: [ViewMeetingComponent, BrowseComponent,
      HeadingComponent, SpeakersComponent, TopicsComponent]
 })
-export class MeetingModule { }
+export class ViewMeetingModule { }

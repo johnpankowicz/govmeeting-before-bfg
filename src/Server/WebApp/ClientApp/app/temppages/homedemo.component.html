@@ -9,11 +9,11 @@
   Pages with an asterisk * show parts partially completed. Other pages describe parts to be built.
 </p>
 
-  <h3> <a [routerLink]="['/about']">About</a> </h3>
+<h3> <a [routerLink]="['/about']">About</a> </h3>
 
   The <a [routerLink]="['/about']">About</a> page explains more about the goals of project.
 
-  <h3> <a [routerLink]="['/fixasr']">Fix ASR *</a> </h3>
+<h3> <a [routerLink]="['/fixasr']">Fix ASR *</a> </h3>
 <p>
   Govmeeting will retrieve meeting recordings, extract the audio and use the Google <b>A</b>uto <b>S</b>peech <b>R</b>ecognition to create a transcript.
   However, not all the processing is automatic. A couple of steps need the help of community volunteers.
@@ -70,14 +70,14 @@
 
 <h3> <a [routerLink]="['/existing']">Existing Transcripts</a> </h3>
 
-  Some larger cities provide transcipts. But they are usually not user friendly.
+  Some larger cities provide transcripts. But they are often not user friendly.
   They first need to be processed and put in the same format as those created from recordings.
-  Then, like with the others, we need to add tags.
+  Then, like the others, we need to add tags.
   The <a [routerLink]="['/existing']">Existing Transcripts</a> page shows an example of a transcript provided by larger city.
 
-<h3> <a [routerLink]="['/meeting']">View Meeting *</a> </h3>
+<h3> <a [routerLink]="['/viewmeeting']">View Meeting *</a> </h3>
   After a transcript is processed, a browsable transcript is made available. There are many ways to display it.
-  The <a [routerLink]="['/meeting']">View Meeting </a> page is a quick and easy demo that was built that allows you to:
+  The <a [routerLink]="['/viewmeeting']">View Meeting </a> page is a quick and easy demo that was built that allows you to:
 <ul>
   <li>
     Click on a topic and see only what was said about that topic during the meeting.
@@ -108,17 +108,22 @@ also allow you to choose the section of the meeting that you want to view (Readi
 <h3> <a [routerLink]="['/home']">New Home Page</a> </h3>
 
   This current home page is just for demo. The
-<a [routerLink]="['/home']">New Home Page</a> link shows what components will eventually be on the Home page. But these component have not yet been built.
+<a [routerLink]="['/home']">New Home Page</a> page shows what components will eventually be on the Home page. But these component have not yet been built.
 
 <h3> <a [routerLink]="['/volunteer']">Volunteer Page</a> </h3>
 
   This will be a page where volunteers can collaborate on getting the data ready for publishing. The
-<a [routerLink]="['/volunteer']">Volunteer Page</a> link shows what components will appear on it. But these component have not yet been built.
+<a [routerLink]="['/volunteer']">Volunteer Page</a> page shows what components will appear on it. But these component have not yet been built.
+
+<h3> <a [routerLink]="['/registergov']">Register Entity</a> </h3>
+
+  This will be a page for registering a government entity to take part in Govmeeting. The
+<a [routerLink]="['/registergov']">Register Entity</a> page shows what information needs to be captured.
 
 <h3> <a [routerLink]="['/serverdemo']">Server Components</a> </h3>
 
   The other pages demo the parts of the system that the user sees in user sees in the browser.  The
-<a [routerLink]="['/serverdemo']">Server Components</a> link shows the processing that occurs in the backend on the server.
+<a [routerLink]="['/serverdemo']">Server Components</a> page shows the processing that occurs in the backend on the server.
 
 <h3> <a [routerLink]="['/otherfeatures']">Other Features</a> </h3>
 

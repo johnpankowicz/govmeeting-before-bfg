@@ -7,24 +7,20 @@ using System.IO;
 namespace GM.ProcessIncoming
 {
 
+    /*  This program processes raw transcripts and recordings of government meetings.
+        Currently it is a separate process from the WebApp. But it will eventually become a child process
+        or a library that loaded by WebApp.
 
-/* CURRENT DATA USED BY FRONT-END - Leave this in Datafile folder
- * 
-Meeting ret = meetings.Get("USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2014-09-08");
-	private const string STEP5_BASE_NAME = "Step 5 - processed transcript";
+        It watches the "INPROCESS" folder for new files and processes them.
+        It creates a meeting folder in the Datafiles folder based on the name of the file.
 
-Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "2016-10-11");
-        private const string STEP2_BASE_NAME = "Step 2 - transcript from Youtube";
-        private const string STEP3_BASE_NAME = "Step 3 - transcript corrected for errors";
+        For transcript files, it produces a file in the subfolder "T3-ToTag" of the meeting folder.
+        This file becomes input for the next step (step 4) of the transcript processing, adding tags.
 
-Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "2014-09-25");
-	"Step 3 - JSON output.json";
-	"Step 4 - Add tags.json";
-*/
-
-    // This console program processes transcripts in PDF format as they are produced by the government entity itself.
-    // It produces a JSON file of the transcript, usable by the next step in the transcript editing process .
-    // The next step is the insertion of topic (and section tags, if missing) by a volunteer using the "addtags" feature.
+        For recordings, it produces a group of files in the subfolder "R4-FixText" of the meeting folder.
+        Each of these files contain a segment of the meeting text which are ready for the next step (step 5) of
+        the recording processings, fixing the voice recognition text.
+     */
     class Program
     {
         // Todo-g - These should come from configuration
@@ -36,13 +32,9 @@ Addtags ret = addtags.Get("johnpank", "USA", "PA", "Philadelphia", "Philadelphia
 
         static void Main(string[] args)
         {
-            if (!Directory.Exists(datafilesPath))
-            {
-                Directory.CreateDirectory(datafilesPath);
-                Directory.CreateDirectory(datafilesPath + "\\INCOMING");
-                Directory.CreateDirectory(datafilesPath + "\\INPROGRESS");
-                Directory.CreateDirectory(datafilesPath + "\\COMPLETED");
-            }
+            Directory.CreateDirectory(datafilesPath + "\\INCOMING");
+            Directory.CreateDirectory(datafilesPath + "\\INPROGRESS");
+            Directory.CreateDirectory(datafilesPath + "\\COMPLETED");
 
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
 

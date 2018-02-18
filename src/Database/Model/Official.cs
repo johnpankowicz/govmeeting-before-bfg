@@ -12,20 +12,7 @@ namespace Govmeeting.Backend.Model
     /// </summary>
     public class Official : Speaker
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public string Identifier { get; set; }
-
-        /// <summary>
-        /// Gets or sets the foreign key to containing government entity.
-        /// </summary>
-        /// <value>
-        /// The government body identifier.
-        /// </value>
         public int GovernmentBodyId { get; set; }
     }
 }

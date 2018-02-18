@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Govmeeting.Backend.Model;
 
 namespace WebApp.Models
 {
-    public interface IMeetingRepository
+    public interface IViewMeetingRepository
     {
-        Meeting Get(long meetingId);
+        ViewMeeting Get(long meetingId);
     }
 }

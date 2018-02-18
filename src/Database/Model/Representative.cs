@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Govmeeting.Backend.Model
 {
-    /// <summary>
-    /// A government Representative - a person elected by citizens.
-    /// </summary>
+    // A government Representative - a person elected by citizens.
     public class Representative : Official
     {
     }

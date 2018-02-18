@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //import { MeetingService } from '../meeting.service-stub';
-import { MeetingService } from '../meeting.service';
+import { ViewMeetingService } from '../viewmeeting.service';
 import { UserchoiceService } from '../userchoice.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class TopicsComponent implements OnInit {
   errorMessage: string;
   selected: number = 0;
 
-  constructor(private _meetingService: MeetingService,
+  constructor(private _meetingService: ViewMeetingService,
     private _userChoice: UserchoiceService) { }
 
   ngOnInit() {

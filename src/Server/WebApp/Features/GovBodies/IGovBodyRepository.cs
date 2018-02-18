@@ -6,8 +6,8 @@ using Govmeeting.Backend.Model;
 
 namespace WebApp.Models
 {
-    public interface IMeetingRepository
+    public interface IGovBodyRepository
     {
-        Meeting Get(long meetingId);
+        GovernmentBody Get(long govBodyId);
     }
 }

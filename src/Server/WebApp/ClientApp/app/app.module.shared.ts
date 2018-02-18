@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavMenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MeetingModule } from './meeting/meeting.module'
+import { ViewMeetingModule } from './viewmeeting/viewmeeting.module'
 import { AddtagsModule } from './addtags/addtags.module'
 import { FixasrModule } from './fixasr/fixasr.module'
 import { GmSharedModule } from './gmshared/gmshared.module'
@@ -18,8 +18,8 @@ import { TemppagesModule } from './temppages/temppages.module';
 import { TestModule } from './test/test.module';
 //import { MatsampModule } from './matsamp/matsamp.module
 
-import { MeetingService } from './meeting/meeting.service';
-import { MeetingServiceStub } from './meeting/meeting.service-stub';
+import { ViewMeetingService } from './viewmeeting/viewmeeting.service';
+import { ViewMeetingServiceStub } from './viewmeeting/viewmeeting.service-stub';
 import { AddtagsService } from './addtags/addtags.service';
 import { AddtagsServiceStub } from './addtags/addtags.service-stub';
 import { FixasrService } from './fixasr/fixasr.service';
@@ -40,7 +40,7 @@ import { AppData } from './appdata';
         AppRoutingModule,
         HomeModule,
         AboutModule,
-        MeetingModule,
+        ViewMeetingModule,
         AddtagsModule,
         FixasrModule,
         VolunteerModule,
@@ -53,12 +53,12 @@ import { AppData } from './appdata';
         // To use the stubs, uncomment the stubs and comment out the real.
 
         // The real services
-        { provide: MeetingService, useClass: MeetingService },
+        { provide: ViewMeetingService, useClass: ViewMeetingService },
         { provide: AddtagsService, useClass: AddtagsService},
         { provide: FixasrService, useClass: FixasrService },
 
         // The stub services
-        //{ provide: MeetingService, useClass: MeetingServiceStub },
+        //{ provide: ViewMeetingService, useClass: ViewMeetingServiceStub },
         //{ provide: AddtagsService, useClass: AddtagsServiceStub },
         //{ provide: FixasrService, useClass: FixasrServiceStub },
 

@@ -11,18 +11,12 @@ export class ViewMeeting {
     topicDiscussions: TopicDiscussion[];
 }
 
-//export class MeetingInfo {
-//    name: string;
-//    date: string;
-//    xxx: string;
-//}
-
 export class TopicDiscussion {
     name: string;               // change field name to "topicName".
-    speakers: Contribution[];   // change field name to "contributions".
+    talks: Talk[];
 }
 
-export class Contribution {
-    name: string;              // change field name to "speaker".
-    text: string;
+export class Talk {
+    Speaker: string;
+    Text: string;
 }
