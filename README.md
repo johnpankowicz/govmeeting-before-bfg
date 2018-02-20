@@ -29,7 +29,7 @@ At any time, you can go online and:
 
 For a detailed functional design, see: [Functional Design](https://github.com/govmeeting/govmeeting/wiki/functional-design)
 
-<img src="images/mr-t-mrt-36834265-320-254-24kb.png" alt"Photo of Mr.T">
+<img src="images/mr-t-mrt-36834265-320-254-24kb.png" alt="Photo of Mr.T">
 <!--This also works: ![Photo of Mr.T](images/mr-t-mrt-36834265-320-254-24kb.png) -->
 
  “Enough with the jibber-jabber, fool!
