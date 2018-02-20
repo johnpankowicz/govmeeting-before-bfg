@@ -1,16 +1,18 @@
 # Govmeeting
 
-Meetings are the heart and soul of democracy. They are where people can present opposing opinions on important issues and formally vote on how to resolve these issues. 
+Meetings are the heart and soul of democracy. They are where people  present opposing opinions on important issues and formally make final decisions. 
 
 In the Athenian Assembly of 500 BC, a quorum of 6,000 of the 43,000 citizens was needed to conduct business. In the 10th century, the Icelandic Althing was held in a natural outdoor amphitheater and all citizens could attend.
 
 Today it is rare to see more than a dozen attendees at a council meeting in a town of 30,000 people. Is this still democracy?
 
-Some public meetings are broadcast on local TV.  But a very small percent of people actually watch. Sometimes very contentious issues are debated and voted on. But there is usually no public record kept of what was said.
+Some public meetings are broadcast on local TV.  But a very small percent of people actually watch. Local newspaper report on some issues. But they choose what to report and a small percentage read their local paper.
 
-Sometimes many people at the meeting, including some council members, may strongly oppose some decision. But it is too easy today for the majority of the council to totally ignore them. They know that less than one percent of the voters will ever hear what they said.
+The few attending a meeting, including some council members, may strongly oppose a decision. But it is too easy for the council majority to totally ignore them. They know that less than one percent of the voters will ever hear what they said.
 
-The purpose of this project is to preserve those discussions and make them easily available to all citizens of the community. It will do this through a combination of intelligent software and community volunteer effort.
+The purpose of this project is to preserve those discussions and make them easily available to all. It uses a combination of intelligent software and community volunteer effort.
+
+Disillusion with government starts at the local level. Fixing this requires a grassroots effort at that level.
 
 ## Functional overview
 
@@ -27,13 +29,13 @@ At any time, you can go online and:
 
 For a detailed functional design, see: [Functional Design](https://github.com/govmeeting/govmeeting/wiki/functional-design)
 
-[[https://github.com/govmeeting/govmeeting/blob/master/images/mr-t-mrt-36834265-320-254-24kb.png|alt=PhotoMr.T]]
+<img src="images/mr-t-mrt-36834265-320-254-24kb.png" alt"Photo of Mr.T">
+<!--This also works: ![Photo of Mr.T](images/mr-t-mrt-36834265-320-254-24kb.png) -->
 
  “Enough with the jibber-jabber, fool!
  Show me how it works!”
 
-Well, the work is in progress. But here is a [Demo of some working code](http://govmeeting.org).
-
+Well, the work is in progress. But here you can find [Demos of working code](http://govmeeting.org).
 
 ## Technical overview
 

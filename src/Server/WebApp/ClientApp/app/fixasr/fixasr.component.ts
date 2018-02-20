@@ -28,6 +28,7 @@ import { ElementRef } from '@angular/core';
 @Component({
   selector: 'gm-fixasr',
   templateUrl: './fixasr.component.html',
+  //templateUrl: './fixasr.component-Copy.html',
   styleUrls: ['./fixasr.component.css'],
     providers: [
         FixasrService,
@@ -45,6 +46,9 @@ export class FixasrComponent  implements OnInit {
     isSpeakerSelectVisible: boolean = false;
     modeButtonText: string = 'REPLACE';
     _scrollList: HTMLElement;
+
+    showhelp: boolean = true;
+    showhidehelp: string = "Hide";
 
     // Todo-g - Fix problem with asrtext.
     // We should just use asrtext, which contains both asrsegments & lastedit.
@@ -83,6 +87,15 @@ export class FixasrComponent  implements OnInit {
         this._scrollList = <HTMLElement>document.getElementById('scroll-text');
         console.log('currentIndex = ' + this.currentIndex);
     }
+
+    CheckShowHelp(): boolean {
+        return this.showhelp;
+    }
+    ToggleHelp() {
+        this.showhidehelp = this.showhelp ? "Show" : "Hide";
+        this.showhelp = !this.showhelp;
+    }
+
 
     /* for testing
     getpos() {

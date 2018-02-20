@@ -10,7 +10,6 @@ import { HomedemoComponent } from '../temppages/homedemo.component'
 import { ServerdemoComponent } from '../temppages/serverdemo.component'
 import { OtherfeaturesComponent } from '../temppages/otherfeatures.component'
 import { SearchComponent } from '../temppages/search.component'
-import { ExistingComponent } from '../temppages/existing.component'
 import { RegisterGovComponent } from '../temppages/registergov.component'
 //import { MatsampComponent } from '../matsamp/matsamp.component'
 
@@ -29,7 +28,6 @@ const routes: Routes = [
     { path: 'serverdemo', component: ServerdemoComponent },
     { path: 'otherfeatures', component: OtherfeaturesComponent },
     { path: 'search', component: SearchComponent },
-    { path: 'existing', component: ExistingComponent },
     { path: 'registergov', component: RegisterGovComponent },
     //{ path: 'matsamp', component: MatsampComponent },
     { path: 'test', component: TestComponent },

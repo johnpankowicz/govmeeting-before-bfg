@@ -1,39 +1,47 @@
 <p>
-  <br /><h1> Server Components </h1>
+  <br /><h1> Server Processing </h1>
 <p>
 
 <p>
-  The other demo pages only show the user interface components that run in the browser.
-  They don't show the components that run on the backend server computer. This page explains some
-   of the server side processing that occurs.
-</p>
-<p>
-  Those components marked with an asterisk * are currently working to some extent.
+  This is the first step in processing existing recording and transcripts.
 </p>
 
 <h3> Process Video recordings </h3>
 
-<p> The following processing occurs for a video recording. </p>
+<p> The following processing occurs for video recording of meetings.  [An asterisk * means code is written for this.]</p>
 <ul>
-  <li> The recording is retrieved from the site where it resides. </li>
-  <li> It's converted to the primary web formats (mp4, ogg and webm). </li>
-  <li> The audio tracks are extracted, merged to a mono track and converted to FLAC format. * </li>
-  <li> The audio file is uploaded to a Google cloud storage bucket. * </li>
-  <li> The Google Speech API is called to create a transcript using auto voice recognition. * </li>
-  <li> The transcript is put into a JSON format for further processing. * </li>
-  <li> The video, audio and trancript files are split into sets of 3 minute segments. * </li>
-  <li> The sets of segments are organized into a workflow system. </li>
-  <li> The backend will then serve the work items to the front end. * </li>
+  <li> Retrieve new recordings as they become available. </li>
+  <li> Convert to the primary web video formats (mp4, ogg and webm). </li>
+  <li> Extract and merge the audio tracks. * </li>
+  <li> Uploaded the audio file to the Google cloud. * </li>
+  <li> Call the Google Speech API to do auto voice recognition. * </li>
+  <li> Split the video, audio and trancript files into 3 minute work segments. * </li>
+  <li> Serve the work segments to the second step - Correcting errors. * </li>
 </ul>
 
 <h3> Process Existing Transcripts </h3>
 
-<p> Some government entities already produce transcpts. These will be processed as follows. </p>
+<p>
+  Some large cities make transcripts available.  But they are often not user friendly.
+  Click below to see a sample page from a Philadelphia, PA, USA transcript.
+  It is 154 pages of double-spaced lines, 10-words-per-line. It is in PDF format,
+  which makes it unusable on a small screen like a smartphone.
+  <button (click)="ToggleTranscript()"> {{showhidetranscript}} Sample Transcript </button>
+</p>
+<img [hidden]="!CheckShowTranscript()" (click)="ToggleTranscript()" src="Philly transcript page.png" width="900" alt="Philadelphia transcript page">
+
+<p>
+  Finding information is difficult. There is no table of contents. Click below to see a sample page of the index.
+  It is meant more for a legal researcher than the average person.
+  <button (click)="ToggleIndex()"> {{showhideindex}} Sample Index </button>
+</p>
+<img [hidden]="!CheckShowIndex()" (click)="ToggleIndex()" src="Philly transcript index.png" width="900" alt="Philadelphia transcript index">
+
+<p> These transcripts need to be processed as follows. </p>
 <ul>
-  <li> Retrieve the meeting transript from the source site. </li>
   <li> Convert the transcipts from other formats (EG: PDF) into text files. * </li>
   <li> Extract information such as speaker and section names. * (partially)</li>
-  <li> The transcript is put into a JSON format for further processing. </li>
+  <li> Put the information into a JSON format for further processing. </li>
 
 </ul>
 

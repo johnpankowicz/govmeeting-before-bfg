@@ -36,6 +36,10 @@
   flex: 1;
 }
 
+.edit-help {
+    margin: 10px 10px 0 10px;
+}
+
 .mode-button {
   margin: 10px 20px 0 20px;
 }
@@ -48,8 +52,8 @@
   margin: 10px 10px 0 20px;
 }
 
-.edit-help {
-  margin: 10px 10px 0 10px;
+.show-help-button {
+    margin: 5px 10px 0 10px;
 }
 
 .speaker-input {

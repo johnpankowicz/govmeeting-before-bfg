@@ -2,18 +2,23 @@
   <br /><h1> Govmeeting - under construction </h1>
 <p>
 <p>
-  This is an open source project whose goal is to involve people more in their local governments. <br>
+  This is an open source project whose goal is to involve people more in their local governments.
   The Github project is at: <a href="https://github.com/govmeeting/govmeeting"> Govmeeting Github Project </a>
 </p>
 <p>
-  Pages with an asterisk * show parts partially completed. Other pages describe parts to be built.
+  These pages describe the project and the workflow steps. Those with an asterisk* are working demos.
 </p>
 
 <h3> <a [routerLink]="['/about']">About</a> </h3>
-
   The <a [routerLink]="['/about']">About</a> page explains more about the goals of project.
 
-<h3> <a [routerLink]="['/fixasr']">Fix ASR *</a> </h3>
+
+<h3> <a [routerLink]="['/serverdemo']">1. Pre-processing</a> </h3>
+  Govmeeting will retrieve existing recording and transcripts of meetings. And it will then pre-process them.  The
+<a [routerLink]="['/serverdemo']">Pre-processings</a> page explains this step in more detail.
+
+
+<h3> <a [routerLink]="['/fixasr']">2. Fix ASR *</a> </h3>
 <p>
   Govmeeting will retrieve meeting recordings, extract the audio and use the Google <b>A</b>uto <b>S</b>peech <b>R</b>ecognition to create a transcript.
   However, not all the processing is automatic. A couple of steps need the help of community volunteers.
@@ -33,8 +38,8 @@
 </ul>
   The software assigns small portions of a meeting to multiple volunteers.<br>
 
-<h3> <a [routerLink]="['/addtags']">Add Tags *</a> </h3>
 
+<h3> <a [routerLink]="['/addtags']">3. Add Tags *</a> </h3>
   The second manual step that must be done is to assign "tags" to parts of the meeting:
 <ul>
   <li>
@@ -68,14 +73,7 @@
   </li>
 </ul>
 
-<h3> <a [routerLink]="['/existing']">Existing Transcripts</a> </h3>
-
-  Some larger cities provide transcripts. But they are often not user friendly.
-  They first need to be processed and put in the same format as those created from recordings.
-  Then, like the others, we need to add tags.
-  The <a [routerLink]="['/existing']">Existing Transcripts</a> page shows an example of a transcript provided by larger city.
-
-<h3> <a [routerLink]="['/viewmeeting']">View Meeting *</a> </h3>
+<h3> <a [routerLink]="['/viewmeeting']">4. View Meeting *</a> </h3>
   After a transcript is processed, a browsable transcript is made available. There are many ways to display it.
   The <a [routerLink]="['/viewmeeting']">View Meeting </a> page is a quick and easy demo that was built that allows you to:
 <ul>
@@ -89,7 +87,7 @@
 To be more useful, it should display some of the surrounding context to what they said. It should
 also allow you to choose the section of the meeting that you want to view (Reading of Minutes, Public Discourse, etc.)
 
-<h3> <a [routerLink]="['/search']">Search Meetings</a> </h3>
+<h3> <a [routerLink]="['/search']">5. Search Meetings</a> </h3>
 
   After the meeting information is completely processed, the data is extracted and used to populate a relational database.
   Then it becomes easy to use the data in many ways.
@@ -119,11 +117,6 @@ also allow you to choose the section of the meeting that you want to view (Readi
 
   This will be a page for registering a government entity to take part in Govmeeting. The
 <a [routerLink]="['/registergov']">Register Entity</a> page shows what information needs to be captured.
-
-<h3> <a [routerLink]="['/serverdemo']">Server Components</a> </h3>
-
-  The other pages demo the parts of the system that the user sees in user sees in the browser.  The
-<a [routerLink]="['/serverdemo']">Server Components</a> page shows the processing that occurs in the backend on the server.
 
 <h3> <a [routerLink]="['/otherfeatures']">Other Features</a> </h3>
 

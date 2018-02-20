@@ -6,7 +6,6 @@ import { ServerdemoComponent } from './serverdemo.component';
 import { HomedemoComponent } from './homedemo.component';
 import { OtherfeaturesComponent } from './otherfeatures.component';
 import { SearchComponent } from './search.component';
-import { ExistingComponent } from './existing.component';
 import { RegisterGovComponent } from './registergov.component';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { RegisterGovComponent } from './registergov.component';
         HomedemoComponent,
         OtherfeaturesComponent,
         SearchComponent,
-        ExistingComponent,
         RegisterGovComponent
     ],
     exports: [
@@ -28,7 +26,6 @@ import { RegisterGovComponent } from './registergov.component';
         HomedemoComponent,
         OtherfeaturesComponent,
         SearchComponent,
-        ExistingComponent,
         RegisterGovComponent
     ]
 })
