@@ -35,18 +35,18 @@ For a detailed functional design, see: [Functional Design](https://github.com/go
  “Enough with the jibber-jabber, fool!
  Show me how it works!”
 
-Well, the work is in progress. But here you can find [Demos of working code](http://govmeeting.org).
+Well, the work is in progress. But here you can find some [Demos of working code](http://govmeeting.org).
 
 ## Technical overview
 
-* The front-end is written in Typescript and Angular.
-* The web server and backend is based on ASP.NET Core and C#.
-* SQL database using Entity Framework Core as an ORM.
+* Client application in Typescript and Angular(5).
+* Server in C# and ASP.NET Core 2.0.
+* Google Cloud and Speech API for voice recognition
+* SQL database uses Entity Framework Core, code-first object model.
 
 The "Core"version of ASP.NET Core and Entity Framework is open-source and runs on Windows, Mac and Linux.
 
-For a detailed system design, see: [System Design
-](https://github.com/govmeeting/govmeeting/wiki/system-design)
+For a detailed system design, see: [System Design](https://github.com/govmeeting/govmeeting/wiki/system-design)
 
 ## Quickstart
 

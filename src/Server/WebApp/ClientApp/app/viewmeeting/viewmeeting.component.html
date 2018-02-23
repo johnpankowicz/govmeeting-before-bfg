@@ -8,11 +8,30 @@
      padding: 1px;
      /* margin: 1; */
   }
+    .edit-help {
+      border: 2px solid red;
+      padding: 4px;
+    }
   </style>
 
 <p>
     <br /><h1> View meeting </h1>
 <p>
+
+<br /> <button md-raised-button class="show-help-button" (click)="ToggleHelp()"> {{showhidehelp}} Help </button>
+       <div class="edit-help" [hidden]="!CheckShowHelp()" (click)="ToggleHelp()">
+         This is a first try at a component to display the meeting.
+         <ul>
+           <li> Click on a topic and see only what was said about that topic. </li>
+           <li> Click on a speaker name and see only what that person said. </li>
+         </ul>
+         To be more useful, it should 
+         <ul>
+           <li> Display  surrounding context to what a speaker said.</li>
+           <li> Have options for both topic and section. </li>
+         </ul>
+       </div>
+
     <div id="wrap" class="row">
         <!-- <div class="col-sm-12"> -->
 

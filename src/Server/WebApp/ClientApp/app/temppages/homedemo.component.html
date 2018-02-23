@@ -2,125 +2,44 @@
   <br /><h1> Govmeeting - under construction </h1>
 <p>
 <p>
-  This is an open source project whose goal is to involve people more in their local governments.
-  The Github project is at: <a href="https://github.com/govmeeting/govmeeting"> Govmeeting Github Project </a>
-</p>
-<p>
-  These pages describe the project and the workflow steps. Those with an asterisk* are working demos.
+  This is an open source project. It's goal is to enable more involvement in local democracy.
+  See: <a href="https://github.com/govmeeting/govmeeting"> Govmeeting Github Project </a>
+  These pages demo some parts already built (those with *) and describe others to be built.
 </p>
 
 <h3> <a [routerLink]="['/about']">About</a> </h3>
-  The <a [routerLink]="['/about']">About</a> page explains more about the goals of project.
+  This page explains more about the goals of project.
 
 
 <h3> <a [routerLink]="['/serverdemo']">1. Pre-processing</a> </h3>
-  Govmeeting will retrieve existing recording and transcripts of meetings. And it will then pre-process them.  The
-<a [routerLink]="['/serverdemo']">Pre-processings</a> page explains this step in more detail.
-
+  Govmeeting will retrieve existing recording and transcripts of meetings and then pre-process them.
 
 <h3> <a [routerLink]="['/fixasr']">2. Fix ASR *</a> </h3>
 <p>
-  Govmeeting will retrieve meeting recordings, extract the audio and use the Google <b>A</b>uto <b>S</b>peech <b>R</b>ecognition to create a transcript.
-  However, not all the processing is automatic. A couple of steps need the help of community volunteers.
-  The first step is fixing errors in the generated text.
+  A couple of steps need the help of community volunteers.
+  One is fixing errors in the generated text.
 </p>
-  The <a [routerLink]="['/fixasr']">Fix ASR</a> page demos a program for making corrections.
-  A user watches a section of the meeting and corrects the corresponding text.
-  There are two edit modes to facilitate this:
-<ul>
-  <li>
-    Insert Mode: A cursor appears when clicking in the text. What you type is inserted.
-  </li>
-  <li>
-    Replace Mode: Click to highlight a word. What you type replaces the word. A space deletes it.
-    The next word is then highlighted. This mode makes it easier to replace of delete incorrect words.
-  </li>
-</ul>
-  The software assigns small portions of a meeting to multiple volunteers.<br>
-
 
 <h3> <a [routerLink]="['/addtags']">3. Add Tags *</a> </h3>
-  The second manual step that must be done is to assign "tags" to parts of the meeting:
-<ul>
-  <li>
-    Section tags: For example: Reading of Minutes, Reading of Bills, Public Comments, etc.
-    Pre-processing attempts to insert these but sometimes it is not entirely accurate.
-  </li>
-  <li>
-    Topic Tags: These indicate the start of a new topic of discussion. For example: "Repaving of Main St.", "Hiring of two policemen", etc.
-  </li>
-</ul>
-  The <a [routerLink]="['/addtags']">Add Tags</a> page shows a program that tries to provide a quick and easy way to do this:
-<ul>
-  <li>
-    Highlight a phrase of the text to use it as the topic name.
-  </li>
-  <li>
-    Select a topic name from a drop-down combo box.
-    These are the topics from other recent meetings.
-  </li>
-  <li>
-    The user can click the up or down arrows to move section or topic names.
-  </li>
-</ul>
-  It is important to assign clear topic names. The topic names are be used for:
-<ul>
-  <li>
-    Searching the text of prior meetings for discussion on ths this topic.
-  </li>
-  <li>
-    Setting alerts for when this topic is discussed at future meetings.
-  </li>
-</ul>
+  The other manual step is to assign "tags" to parts of the meeting:
 
 <h3> <a [routerLink]="['/viewmeeting']">4. View Meeting *</a> </h3>
-  After a transcript is processed, a browsable transcript is made available. There are many ways to display it.
-  The <a [routerLink]="['/viewmeeting']">View Meeting </a> page is a quick and easy demo that was built that allows you to:
-<ul>
-  <li>
-    Click on a topic and see only what was said about that topic during the meeting.
-  </li>
-  <li>
-    Click on a speaker name and see only what that person said during the meeting.
-  </li>
-</ul>
-To be more useful, it should display some of the surrounding context to what they said. It should
-also allow you to choose the section of the meeting that you want to view (Reading of Minutes, Public Discourse, etc.)
+  After the pre-processing, fixing and tagging, we now have a browsable transcript. 
 
 <h3> <a [routerLink]="['/search']">5. Search Meetings</a> </h3>
-
-  After the meeting information is completely processed, the data is extracted and used to populate a relational database.
-  Then it becomes easy to use the data in many ways.
-<ul>
-  <li>
-    You can search by issues, topics, speakers, bills, words said or any other category that we choose to save.
-  </li>
-  <li>
-    You can have the system alert us when specific events occur.
-  </li>
-  <li>
-    You can compare how similar issues are handled by other communities around the world.
-  </li>
-</ul>
+  The next step is to populate a relational database. Then we can search it in many ways.
 
 <h3> <a [routerLink]="['/home']">New Home Page</a> </h3>
-
-  This current home page is just for demo. The
-<a [routerLink]="['/home']">New Home Page</a> page shows what components will eventually be on the Home page. But these component have not yet been built.
+  This current home page is temporary. A new page needs to be built.
 
 <h3> <a [routerLink]="['/volunteer']">Volunteer Page</a> </h3>
-
-  This will be a page where volunteers can collaborate on getting the data ready for publishing. The
-<a [routerLink]="['/volunteer']">Volunteer Page</a> page shows what components will appear on it. But these component have not yet been built.
+  Volunteers need a page to aid in collaboration.
 
 <h3> <a [routerLink]="['/registergov']">Register Entity</a> </h3>
-
-  This will be a page for registering a government entity to take part in Govmeeting. The
-<a [routerLink]="['/registergov']">Register Entity</a> page shows what information needs to be captured.
+  A page is needed for registering a government entity to take part in Govmeeting
 
 <h3> <a [routerLink]="['/otherfeatures']">Other Features</a> </h3>
-
-  This page lists a couple of other features we will want to build.
+  This page talks of other features we will want to build.
 
 <!--<h3> <a [routerLink]="['/test']">Test Area</a> </h3>
 

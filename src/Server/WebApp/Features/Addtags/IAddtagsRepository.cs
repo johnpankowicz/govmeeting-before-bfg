@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Models
+namespace WebApp.Features.Addtags
 {
     /* This is the repository for the transcripts which are being
      * edited. The edits mostly involve adding tags to the "tags".
@@ -14,8 +14,8 @@ namespace WebApp.Models
      */
     public interface IAddtagsRepository
     {
-        Addtags Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
+        AddtagsView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
 
-        bool Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
+        bool Put(AddtagsView value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
     }
 }

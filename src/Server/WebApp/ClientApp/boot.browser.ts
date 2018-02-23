@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import './polyfills';   // polyfills mostly for IE11
 import 'zone.js';
 import 'bootstrap';
 import { enableProdMode } from '@angular/core';

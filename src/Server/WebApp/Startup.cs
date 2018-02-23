@@ -20,7 +20,14 @@ using System.IO;
 using WebApp.StartupCustomizations;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
-using WebApp.Features.Shared;
+using WebApp.Features.Addtags;
+using WebApp.Features.Fixasr;
+using Webapp.Features.Govbodies;
+using WebApp.Features.Meetings;
+using WebApp.Features.Viewmeetings;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using NLog;
 
 namespace WebApp
 {
@@ -169,12 +176,30 @@ namespace WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IRedirectConsole redirect, IDbInitializer dbInitializer)
-            //ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) // added for call to DbInitializer
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            IRedirectConsole redirect,
+            IDbInitializer dbInitializer,
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext db
+            )
+            //RoleManager<IdentityRole> roleManager,
         {
             // Logging configuration is now part of the "WebHost.CreateDefaultBuilder(args)" call in Program.cs
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
+
+            // Configure NLog
+            //loggerFactory.AddNLog();        //add NLog to ASP.NET Core
+            //app.AddNLogWeb();               //add NLog.Web
+            ////needed for non-NETSTANDARD platforms: configure nlog.config in your project root. 
+            //// NB: you need NLog.Web.AspNetCore package for this.         
+            //env.ConfigureNLog("nlog.config");
+
+            var appBasePath = System.IO.Directory.GetCurrentDirectory();
+            NLog.GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
+            var logger = LogManager.LoadConfiguration("NLog.config").GetCurrentClassLogger();
 
             redirect.Start();
             Console.WriteLine("Startup.cs - Time = " + DateTime.Now);
@@ -200,16 +225,14 @@ namespace WebApp
                 // Using migrations with asp.net core: https://dzone.com/articles/how-to-use-migration-with-entity-framework-core 
                 try
                 {
-                    // Todo-g - We should be able to replace all the code below with:
-                    //          db.Database.Migrate();
-                    // if we add another argument to the Configure() argument list:
-                    //          public void Configure( ...... , ApplicationDbContext db)
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                        .CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
-                    }
+                    // This is from before we add ApplicationDbContext to Congigure() arguments:
+                    //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                    //    .CreateScope())
+                    //{
+                    //    serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                    //         .Database.Migrate();
+                    //}
+                    db.Database.Migrate();
                 }
                 catch { }
             }

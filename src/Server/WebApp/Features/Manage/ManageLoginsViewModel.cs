@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 //using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace WebApp.Models.ManageViewModels
+namespace WebApp.Features.Manage
 {
     public class ManageLoginsViewModel
     {

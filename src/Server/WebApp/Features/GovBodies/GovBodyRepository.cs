@@ -4,7 +4,7 @@ using System.Linq;
 using WebApp.Services;
 using Govmeeting.Backend.Model;
 
-namespace WebApp.Models
+namespace Webapp.Features.Govbodies
 {
     public class GovBodyRepository : IGovBodyRepository
     {
@@ -41,7 +41,7 @@ namespace WebApp.Models
                 State = "ME",
                 County = "LincolnCounty",
                 Municipality = "BoothbayHarbor",
-                Languages = new List<string> {"en"}
+                Languages = new List<Language> {new Language {Id = 1, Name = "en"} }
             },
             new GovernmentBody()
             {
@@ -51,7 +51,7 @@ namespace WebApp.Models
                 State = "PA",
                 County = "Philadelphia",
                 Municipality = "Philadelphia",
-                Languages = new List<string> {"en"}
+                Languages = new List<Language> {new Language {Id = 1, Name = "en"} }
             }
         };
 

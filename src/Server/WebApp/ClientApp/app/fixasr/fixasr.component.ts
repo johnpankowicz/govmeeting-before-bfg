@@ -43,7 +43,7 @@ export class FixasrComponent  implements OnInit {
     isTyping : boolean = false;
     isFirstSpace : boolean = false;
     isInsertMode: boolean = false;
-    isSpeakerSelectVisible: boolean = false;
+    isSpeakerSelectVisible: boolean = true;
     modeButtonText: string = 'REPLACE';
     _scrollList: HTMLElement;
 
@@ -176,7 +176,7 @@ export class FixasrComponent  implements OnInit {
         console.log('onFocus index=' + i + '  size=' + this.asrsegments.length);
         this.currentIndex = i;
         this.currentElement = (<HTMLInputElement>event.target);
-        this.isSpeakerSelectVisible = true;
+        //this.isSpeakerSelectVisible = true;
         this.isTyping = false;
         this.isFirstSpace = false;
     }

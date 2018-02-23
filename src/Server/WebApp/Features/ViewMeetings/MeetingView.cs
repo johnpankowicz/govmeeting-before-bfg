@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Govmeeting.Backend.Model;
 
-namespace WebApp.Models
+namespace WebApp.Features.Viewmeetings
 {
-    public class ViewMeeting
+    public class MeetingView
     {
         public Meeting meeting { get; set; }
         public string[] topicNames { get; set; }

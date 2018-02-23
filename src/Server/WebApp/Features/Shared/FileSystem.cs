@@ -15,5 +15,19 @@ namespace WebApp.Features.Shared
             foreach (FileInfo file in source.GetFiles())
                 file.CopyTo(Path.Combine(target.FullName, file.Name));
         }
+        public static string Readfile(string path)
+        {
+            try
+            {
+                string text = System.IO.File.ReadAllText(path);
+                return text;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Common.cs - The file could not be read:");
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
     }
 }

@@ -22,9 +22,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 
-# NOTE: We need to incorporate the .gitignore entries of BrowserApp angular-seed
-
-# JP: My changes
+# Govmeeting
 **/[Bb]in/
 **/[Oo]bj/
 **/node_modules/
@@ -35,6 +33,7 @@ bld/
 .synkron.syncdb
 **/desktop.ini
 src/Datafiles/*
+**/server/logs/
 
 # Visual Studio 2015 cache/options directory
 .vs/

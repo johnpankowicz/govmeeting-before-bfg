@@ -4,7 +4,7 @@ using WebApp.Services;
 using Govmeeting.Backend.Model;
 using System.Linq;
 
-namespace WebApp.Models
+namespace WebApp.Features.Meetings
 {
     public class MeetingRepository : IMeetingRepository
     {

@@ -11,7 +11,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Data;
 
-namespace WebApp.Controllers
+namespace WebApp.Features.Admin
 {
     [Authorize(Policy = "Administrator")]
 
@@ -37,7 +37,7 @@ namespace WebApp.Controllers
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<ManageController>();
+            _logger = loggerFactory.CreateLogger<AdminController>();
         }
 
         //

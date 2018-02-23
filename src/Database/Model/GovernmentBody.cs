@@ -17,7 +17,7 @@ namespace Govmeeting.Backend.Model
         public string State { get; set; }
         public string County { get; set; }
         public string Municipality { get; set; }
-        public List<string> Languages { get; set; }
+        public List<Language> Languages { get; set; }
         public List<Meeting> Meetings { get; set; }
         public List<Topic> Topics { get; set; }
     }

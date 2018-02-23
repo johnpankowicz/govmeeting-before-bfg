@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 using WebApp.Features.Shared;
 using WebApp.Services;
 
-namespace WebApp.Models
+namespace WebApp.Features.Addtags
 {
     public class AddtagsRepository : IAddtagsRepository
     {
@@ -28,7 +28,7 @@ namespace WebApp.Models
             TestdatPath = config.TestdataPath;
         }
 
-        public Addtags Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
+        public AddtagsView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
         {
             string toTagFolder = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
 
@@ -40,12 +40,12 @@ namespace WebApp.Models
             CircularBuffer cb = new CircularBuffer(toTagFolderPath, WORK_FILE, MAX_BACKUPS);
 
             string latestFixes = cb.GetLatest();
-            Addtags addtags = JsonConvert.DeserializeObject<Addtags>(latestFixes);
+            AddtagsView addtags = JsonConvert.DeserializeObject<AddtagsView>(latestFixes);
             return addtags;
         }
 
         //public void Put(string value)
-        public bool Put(Addtags value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
+        public bool Put(AddtagsView value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
         {
             string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
             string meetingTotagFolder = Path.Combine(DatafilesPath, path);

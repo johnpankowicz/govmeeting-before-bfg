@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 using WebApp.Features.Shared;
 using WebApp.Services;
 
-namespace WebApp.Models
+namespace WebApp.Features.Fixasr
 {
     public class FixasrRepository : IFixasrRepository
     {
@@ -35,7 +35,7 @@ namespace WebApp.Models
         //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2016-03-17/R4-FixText"/part02"
         // We will likely change this convention once the number of files grows and we need a deeper folder structure.
 
-        public Fixasr Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
+        public FixasrView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
             string meetingFolder = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "_" + language + "\\" + meetingDate;
             string workFolder = meetingFolder + "\\" + WORK_FOLDER;
@@ -50,11 +50,11 @@ namespace WebApp.Models
             CircularBuffer cb = new CircularBuffer(partFolderPath, WORK_FILE, MAX_BACKUPS);
 
             string latestFixes = cb.GetLatest();
-            Fixasr fixasr = JsonConvert.DeserializeObject<Fixasr>(latestFixes);
+            FixasrView fixasr = JsonConvert.DeserializeObject<FixasrView>(latestFixes);
             return fixasr;
         }
 
-        public bool Put(Fixasr value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
+        public bool Put(FixasrView value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part)
         {
             string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
             string meetingSegmentFolder = System.IO.Path.Combine(DatafilesPath, subpath);

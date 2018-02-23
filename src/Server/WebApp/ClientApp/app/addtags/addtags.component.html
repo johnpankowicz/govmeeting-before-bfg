@@ -1,7 +1,36 @@
 <p>
   <br /><h1> Add topic & section tags </h1>
 <p>
-  Section and topic names can be moved by clicking on the up/down arrows.
-  Clicking on text opens a dialog box for entering a topic name. Highlighing words in the text pre-populates the input box.<br>
-  Right now you can add topic names anywhere. But it makes more sense to limit this option to certain sections of the meeting.
-  <br> <gm-talks></gm-talks>
+
+  <style>
+    .edit-help {
+      border: 2px solid red;
+      padding: 4px;
+    }
+  </style>
+
+<br /> <button md-raised-button class="show-help-button" (click)="ToggleHelp()"> {{showhidehelp}} Help </button>
+<div class="edit-help" [hidden]="!CheckShowHelp()" (click)="ToggleHelp()">
+  Step 3 is to assign "tags" to parts of the meeting:
+  <ul>
+    <li>
+      SECTION TAGS: Read Minutes, Introduce Bills, Public Comment, etc.
+    </li>
+    <li>
+      TOPIC TAGS: "Pave Main St.", "Hire policemen", "Parking fees", etc.
+    </li>
+  </ul>
+   To add a topic tag:
+  <ul>
+    <li> Highlight a text phrase to use it as the topic. </li>
+    <li> Or select a topic name from recent past toics. </li>
+    <li> Click up/down arrows to move tag.</li>
+  </ul>
+  Section tags:
+  <ul>
+    <li> Pre-processing attempts to assign these. </li>
+    <li> Click up/down arrows to move if incorect.</li>
+  </ul>
+</div>
+
+<br> <gm-talks></gm-talks>

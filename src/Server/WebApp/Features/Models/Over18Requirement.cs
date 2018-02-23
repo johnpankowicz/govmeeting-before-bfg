@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Admin
+namespace WebApp.Models
+
 {
     /*
      * I found this code on stackoverflow. http://stackoverflow.com/questions/31464359/custom-authorizeattribute-in-asp-net-5-mvc-6

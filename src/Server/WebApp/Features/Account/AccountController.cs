@@ -14,6 +14,9 @@ using WebApp.Models.AccountViewModels;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
+using WebApp.Data;
+using WebApp.Features.Home;
+using WebApp.Features.Manage;
 
 namespace WebApp.Controllers
 {
@@ -115,7 +118,7 @@ namespace WebApp.Controllers
                 Debug.WriteLine("Register: Validating Email Address");
                 if (!IsValidEmail(model.Email))
                 {
-                    Debug.WriteLine(string.Format("Register: Email Address {0} is not valid"));
+                    Debug.WriteLine(string.Format("Register: Email Address {0} is not valid", model.Email));
                     ModelState.AddModelError("", "Invalid email address");
                     return View(model);
                 }

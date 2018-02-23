@@ -43,6 +43,7 @@ namespace WebApp.Services
         public async Task Initialize()
         {
             // Ensure that the database exists and all pending migrations are applied.
+            // Todo - Remove this when we have real data and use SQL scripts instead.
             _context.Database.Migrate();
 
             // The following was from before we switch to using claims.

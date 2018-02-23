@@ -26,20 +26,26 @@
               <gm-dropdown [values]="speakers" (selectSpeaker)="selectSpeaker($event)" (addSpeaker)="addSpeaker($event)"></gm-dropdown>
       </p>
 
+      <style>
+        .edit-help {
+          border: 2px solid red;
+          padding: 4px;
+        }
+      </style>
 
       <br /> <button md-raised-button class="show-help-button" (click)="ToggleHelp()"> {{showhidehelp}} Help </button>
       <div class="edit-help" [hidden]="!CheckShowHelp()" (click)="ToggleHelp()" >
-            <h3> Edit Modes </h3>
-            <ul>
-              <li>REPLACE: Click to highlight a word. Type to replace it (or space to delete).</li>
-              <li>INSERT: Click within text. Enter new text.</li>
-            </ul>
-            <h3> Keys </h3>
-            <ul>
-              <li>Arrow keys: Navigate Up/Down/Right/Left</li>
-              <li>Enter key:  Play current portion of  meeting</li>
-              <li>Insert key: Change edit mode</li>
-            </ul>
+        <p>
+          Step 2 is to fix errors in generated text and mark each start of new speaker.
+          The text is split into small work segments for multiple volunteers.
+          There are two edit modes. 
+        </p>
+          <ul>
+            <li> INSERT: Text is inserted at cursor. </li>
+            <li> REPLACE: Click to highlight a word. Type to replace or hit space to delete. </li>
+        </ul>
+        Press "PLAY" (or 'enter') to play recording at cursor.<br />
+        Select or enter new speaker at cursor position.
       </div>
 
          <!--For testing

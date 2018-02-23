@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Models
+namespace WebApp.Features.Addtags
 {
     /* This class is used in the browser AddTags module for adding
      * tags to the transcript. Each time a new speaker says something
      * the topic of discussion, meeting section, etc. may change.
      */
-    public class Talks
+    public class TalksView
     {
         public string speaker;     // speaker name
         public string said;        // what they said

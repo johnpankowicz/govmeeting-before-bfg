@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Webapp.Controllers
+namespace WebApp.Features.Viewmeetings
 {
     [Route("api/[controller]")]
     public class ViewMeetingController : Controller
@@ -21,9 +21,9 @@ namespace Webapp.Controllers
         }
 
         [HttpGet("{meetingId}")]
-        public ViewMeeting Get(int meetingId)
+        public MeetingView Get(int meetingId)
         {
-            ViewMeeting ret = meetings.Get(meetingId);
+            MeetingView ret = meetings.Get(meetingId);
             return ret;
         }
 

@@ -54,6 +54,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="Citizen.cs" />
     <Compile Include="GovernmentBody.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="Official.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

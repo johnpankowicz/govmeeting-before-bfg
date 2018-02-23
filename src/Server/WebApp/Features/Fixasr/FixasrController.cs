@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 // Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
-namespace WebApp.Controllers
+namespace WebApp.Features.Fixasr
 {
     [Route("api/[controller]")]
     public class FixasrController : Controller
@@ -33,16 +33,16 @@ namespace WebApp.Controllers
 
         // GET: api/fixasr
         [HttpGet]
-        public Fixasr Get()
+        public FixasrView Get()
         {
-            Fixasr ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
+            FixasrView ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
             return ret;
         }
 
         // POST api/fixasr
         [Authorize(Policy = "Proofreader")]
         [HttpPost]
-        public void Post([FromBody]Fixasr value)
+        public void Post([FromBody]FixasrView value)
         {
             bool success = fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
         }
