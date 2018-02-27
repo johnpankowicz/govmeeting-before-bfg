@@ -19,8 +19,7 @@ namespace WebApp.Features.Fixasr
     {
         private readonly IAuthorizationService authz;
         private readonly IHostingEnvironment env;
-
-        public IFixasrRepository fixasr { get; set; }
+        private IFixasrRepository fixasr { get; set; }
 
         public FixasrController(IAuthorizationService _authz, IFixasrRepository _fixasr, IHostingEnvironment _env)
         {
@@ -29,22 +28,19 @@ namespace WebApp.Features.Fixasr
             env = _env;
         }
 
-        // We haven't yet implemented the calls on the client side to provide us the arguments that are hard-coded below.
-
-        // GET: api/fixasr
-        [HttpGet]
-        public FixasrView Get()
+        [HttpGet("{meetingId}/{part}")]        // GET: api/fixasr
+        public FixasrView Get(int meetingId, int part)
         {
-            FixasrView ret = fixasr.Get("johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
+            FixasrView ret = fixasr.Get(meetingId, part);
             return ret;
         }
 
         // POST api/fixasr
         [Authorize(Policy = "Proofreader")]
-        [HttpPost]
-        public void Post([FromBody]FixasrView value)
+        [HttpPost("{meetingId}/{part}")]
+        public void Post([FromBody]FixasrView value, int meetingId, int part)
         {
-            bool success = fixasr.Put(value, "johnpank", "USA", "ME", "LincolnCounty", "BoothbayHarbor", "Selectmen", "en", "2017-02-15", 1);
+            bool success = fixasr.Put(value, meetingId, part);
         }
     }
 }

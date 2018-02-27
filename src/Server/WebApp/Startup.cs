@@ -164,6 +164,7 @@ namespace WebApp
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IMeetingWorkFolder, MeetingWorkFolder>();
 
             DebugStartup("In ConfigureServices - after AddTransient");
 

@@ -20,22 +20,25 @@ namespace WebApp.Features.Addtags
 
         string DatafilesPath;
         string TestdatPath;
+        IMeetingWorkFolder meetingWorkFolder;
 
-        // https://www.mikesdotnetting.com/article/302/server-mappath-equivalent-in-asp-net-core
-        public AddtagsRepository(ISharedConfig config)
+        public AddtagsRepository(ISharedConfig config, IMeetingWorkFolder _meetingWorkFolder)
         {
             DatafilesPath = config.DatafilesPath;
             TestdatPath = config.TestdataPath;
+            meetingWorkFolder = _meetingWorkFolder;
         }
 
-        public AddtagsView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate)
+        public AddtagsView Get(long meetingId)
         {
-            string toTagFolder = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
+            string meetingFolder = meetingWorkFolder.GetPath(meetingId);
+            //string toTagFolder = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
+            string workFolder = meetingFolder + "\\" + WORK_FOLDER;
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(toTagFolder, DatafilesPath, TestdatPath);
+            UseTestData.CopyIfNeeded(workFolder, DatafilesPath, TestdatPath);
 
-            string toTagFolderPath = Path.Combine(DatafilesPath, toTagFolder);
+            string toTagFolderPath = Path.Combine(DatafilesPath, workFolder);
 
             CircularBuffer cb = new CircularBuffer(toTagFolderPath, WORK_FILE, MAX_BACKUPS);
 
@@ -45,34 +48,19 @@ namespace WebApp.Features.Addtags
         }
 
         //public void Put(string value)
-        public bool Put(AddtagsView value, string username, string country, string state, string county, string city, string govEntity, string meetingDate, string language)
+        public bool Put(AddtagsView value, long meetingId)
         {
-            string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
-            string meetingTotagFolder = Path.Combine(DatafilesPath, path);
+            string meetingFolder = meetingWorkFolder.GetPath(meetingId);
+            string workFolder = meetingFolder + "\\" + WORK_FOLDER;
+
+            //string path = country + "_" + state + "_" + city + "_" + county + "_" + govEntity + "_" + language + "\\" + meetingDate + "\\" + WORK_FOLDER;
+            string meetingTotagFolder = Path.Combine(DatafilesPath, workFolder);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
 
             CircularBuffer cb = new CircularBuffer(meetingTotagFolder, WORK_FILE, MAX_BACKUPS);
             bool success = cb.WriteLatest(stringValue);
             return success;
-        }
-
-        public static string getTagEditsString()
-        {
-            return @"{ 'data': [
-            {speaker: 'Joe', said: 'Waz up', section: 'Invocation', topic: null, showSetTopic: false},
-            {speaker: 'Mary', said: 'nutten', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Jo', said: 'haiyall', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Joe', said: '1111', section: 'Reports', topic: null, showSetTopic: false},
-            {speaker: 'Mary', said: '1111111', section: null, topic: 'Topic1', showSetTopic: false},
-            {speaker: 'Jo', said: '11111111', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Jose', said: '22', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Mary', said: '2222', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Jo', said: '2222222', section: null, topic: null, showSetTopic: false},
-            {speaker: 'Joe', said: '33', section: 'Public Comment', topic: null, showSetTopic: false},
-            {speaker: 'Mary', said: '33333', section: null, topic: 'Topic2', showSetTopic: false},
-            {speaker: 'Jo', said: '33333333', section: null, topic: null, showSetTopic: false}
-            ] }";
         }
     }
 }

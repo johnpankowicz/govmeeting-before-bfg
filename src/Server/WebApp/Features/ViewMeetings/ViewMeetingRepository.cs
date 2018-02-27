@@ -25,27 +25,18 @@ namespace WebApp.Features.Viewmeetings
 
         string DatafilesPath;
         string TestdataPath;
-        IMeetingRepository meetingRepository;
-        IGovBodyRepository govBodyRepository;
+        IMeetingWorkFolder meetingWorkFolder;
 
-        public ViewMeetingRepository(ISharedConfig config, IMeetingRepository _meetingRepository, IGovBodyRepository _locationRepository)
+        public ViewMeetingRepository(ISharedConfig config, IMeetingWorkFolder _meetingWorkFolder)
         {
             DatafilesPath = config.DatafilesPath;
             TestdataPath = config.TestdataPath;
-            meetingRepository = _meetingRepository;
-            govBodyRepository = _locationRepository;
+            meetingWorkFolder = _meetingWorkFolder;
         }
 
         public MeetingView Get(long meetingId)
         {
-            Meeting meeting = meetingRepository.Get(meetingId);
-            GovernmentBody govBody = govBodyRepository.Get(meeting.GovernmentBodyId);
-
-            //DateTime dt = DateTime.Parse(meeting.date, null, System.Globalization.DateTimeStyles.RoundtripKind);
-            string date = string.Format("{0:yyyy-MM-dd}", meeting.Date);
-
-            string path = govBody.Country + "_" + govBody.State + "_" + govBody.County + "_" + govBody.Municipality + 
-                "_" + govBody.Name + "_" + govBody.Languages[0].Name + "\\" + date;
+            string path = meetingWorkFolder.GetPath(meetingId);
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
             UseTestData.CopyIfNeeded(path, DatafilesPath, TestdataPath);

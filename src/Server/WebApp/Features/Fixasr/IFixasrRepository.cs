@@ -10,8 +10,8 @@ namespace WebApp.Features.Fixasr
      */
     public interface IFixasrRepository
     {
-        FixasrView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part);
+        FixasrView Get(long meetingIde, int part);
 
-        bool Put(FixasrView value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate, int part);
+        bool Put(FixasrView value, long meetingId, int part);
     }
 }

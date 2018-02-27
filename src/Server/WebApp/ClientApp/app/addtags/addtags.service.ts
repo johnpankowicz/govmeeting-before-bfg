@@ -11,26 +11,31 @@ import { Talk } from './talks/talk';
 
 @Injectable()
 export class AddtagsService {
-
-    // Todo-g - change to use this query string.
-    //private getUrl = 'api/addtags/USA/PA/Philadelphia/Philadelphia/CityCouncil/2014-09-25';
-    private getUrl: string = 'api/addtags';
-    private putUrl: string = 'api/addtags';
+    private addtagsUrl: string = 'api/addtags';
     private addtags: Addtags;
+
+    // Normally the meetingId will be passed to the getTalks method.
+    // But we did not yet write the component for the user to select a meeting.
+    // We will use id "2" for now. This maps to a meeting of Philadelphia on the server.
+    private meetingId: number = 2;
 
     constructor(private http: HttpClient) {
         console.log('TalksService - constructor');
     }
 
     getTalks(): Observable<Addtags> {
-        return this.http.get<Addtags>(this.getUrl)
+        // See notes above for "meetingId".
+        let url: string = this.addtagsUrl;
+        url = url + "/" + this.meetingId;
+
+        return this.http.get<Addtags>(url)
             .pipe(catchError(this.handleError));
     }
 
     postChanges(addtags: Addtags): Observable<any> {
         console.log('postChanges in talks.service');
         //return Observable.of(this.addtags);
-        return this.postData(this.putUrl, addtags);
+        return this.postData(this.addtagsUrl, addtags);
     }
 
     private postData(url: string, addtags: Addtags): Observable<Addtags> {
@@ -43,7 +48,6 @@ export class AddtagsService {
         return this.http.post<Addtags>(url, addtags, httpOptions)
             .pipe(catchError(this.handleError));
     }
-
 
     // Todo - This needs to call the WebApi for the data.
     getSections(): Observable<string[]> {

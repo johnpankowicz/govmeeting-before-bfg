@@ -14,8 +14,8 @@ namespace WebApp.Features.Addtags
      */
     public interface IAddtagsRepository
     {
-        AddtagsView Get(string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
+        AddtagsView Get(long meetingId);
 
-        bool Put(AddtagsView value, string username, string country, string state, string county, string city, string govEntity, string language, string meetingDate);
+        bool Put(AddtagsView value, long meetingId);
     }
 }

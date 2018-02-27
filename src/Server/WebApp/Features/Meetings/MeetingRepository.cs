@@ -8,11 +8,9 @@ namespace WebApp.Features.Meetings
 {
     public class MeetingRepository : IMeetingRepository
     {
-        string DatafilesPath;
 
         public MeetingRepository(ISharedConfig config)
         {
-            DatafilesPath = config.DatafilesPath;
         }
 
         public Meeting Get(long meetingId)
@@ -33,7 +31,7 @@ namespace WebApp.Features.Meetings
 
         private List<Meeting> testMeetings = new List<Meeting>
         {
-            new Meeting()
+            new Meeting()           // Boothbay Harbor 9/8/2014
             {
                 Id = 1,
                 Name = "Monthly Regular",
@@ -41,9 +39,8 @@ namespace WebApp.Features.Meetings
                 Length = 1810,
                 TopicDiscussions = null,
                 GovernmentBodyId = 1
-                //Date = "2014-09-08T18:10:22.112Z",
            },
-            new Meeting()
+            new Meeting()           // Philadelphia 9/25/2014
             {
                 Id = 2,
                 Name = "Monthly Regular",
@@ -51,9 +48,24 @@ namespace WebApp.Features.Meetings
                 Length = 3550,
                 TopicDiscussions = null,
                 GovernmentBodyId = 2
-                //governmentBody = "City Council",
-                //language = "en",
-                //date = "2014-09-25T18:25:43.511Z",
+           },
+            new Meeting()           // Boothbay Harbor 2/15/2017
+            {
+                Id = 3,
+                Name = "Monthly Regular",
+                Date = new DateTime(2017,2, 15),
+                Length = 2109,
+                TopicDiscussions = null,
+                GovernmentBodyId = 1
+           },
+            new Meeting()           // Philadelphia 3/175/2016
+            {
+                Id = 4,
+                Name = "Monthly Regular",
+                Date = new DateTime(2017,2, 15),
+                Length = 3466,
+                TopicDiscussions = null,
+                GovernmentBodyId = 2
             }
         };
     }

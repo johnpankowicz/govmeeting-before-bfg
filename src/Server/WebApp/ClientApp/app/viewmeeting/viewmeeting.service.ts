@@ -10,30 +10,28 @@ import { share } from 'rxjs/operator/share';
 
 @Injectable()
 export class ViewMeetingService {
-
     private meetingUrl = 'api/viewmeeting';
     private observable: Observable<ViewMeeting>;
     private requestInProgress: boolean = false;
     private requestComplete: boolean = false;
     private errorMessage: string;
 
+    // Normally the meetingId will be passed to the getMeeting method.
+    // But we did not yet write the component for the user to select a meeting.
+    // We will use id "1" for now. This maps to a meeting of BBH on the server.
+    private meetingId: number = 1;
 
     constructor(private http: HttpClient) {
       console.log('ViewMeetingService - constructor');
     }
 
     getMeeting(): Observable<ViewMeeting> {
-        // Normally the meetingId will be passed to the getMeeting method.
-        // But we did not yet write the component for the user to select a meeting.
-        // We will use id "1" for now.
-        let meetingId: number = 1;
-
         if (this.observable != null) {
             return this.observable
         }
         // See notes above for "meetingId".
         let url: string = this.meetingUrl;
-        url = url + "/" + meetingId;
+        url = url + "/" + this.meetingId;
          this.observable = this.http.get<ViewMeeting>(url)
             .pipe(catchError(this.handleError))
             .share();     // make it shared so more than one subscriber can get the same result.
