@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace WebApp.Features.Home
+namespace GM.WebApp.Features.Home
 {
     public class HomeController : Controller
     {

@@ -8,7 +8,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApp.Services
+namespace GM.WebApp.Services
 {
     // This class is used by the application to send Email and SMS
     // when you turn on two-factor authentication in ASP.NET Identity.

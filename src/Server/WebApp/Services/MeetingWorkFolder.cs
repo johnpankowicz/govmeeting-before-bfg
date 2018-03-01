@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Govmeeting.Backend.Model;
 using Webapp.Features.Govbodies;
-using WebApp.Features.Meetings;
+using GM.WebApp.Features.Meetings;
 
 
 // Work folders under Datafiles are named as follows:
@@ -16,7 +16,7 @@ using WebApp.Features.Meetings;
 //
 
 
-namespace WebApp.Services
+namespace GM.WebApp.Services
 {
     public interface IMeetingWorkFolder
     {

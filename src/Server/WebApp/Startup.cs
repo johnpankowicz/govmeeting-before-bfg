@@ -10,26 +10,26 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WebApp.Data;
-using WebApp.Models;
-using WebApp.Services;
+using GM.WebApp.Data;
+using GM.WebApp.Models;
+using GM.WebApp.Services;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using WebApp.StartupCustomizations;
+using GM.WebApp.StartupCustomizations;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
-using WebApp.Features.Addtags;
-using WebApp.Features.Fixasr;
+using GM.WebApp.Features.Addtags;
+using GM.WebApp.Features.Fixasr;
 using Webapp.Features.Govbodies;
-using WebApp.Features.Meetings;
-using WebApp.Features.Viewmeetings;
+using GM.WebApp.Features.Meetings;
+using GM.WebApp.Features.Viewmeetings;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLog;
 
-namespace WebApp
+namespace GM.WebApp
 {
     public class Startup
     {

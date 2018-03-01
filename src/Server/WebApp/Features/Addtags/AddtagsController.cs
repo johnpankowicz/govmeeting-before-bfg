@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models;
-using WebApp.Features.Shared;
-using WebApp.Services;
+using GM.WebApp.Models;
+using GM.WebApp.Features.Shared;
+using GM.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System.IO;
 
-namespace WebApp.Features.Addtags
+namespace GM.WebApp.Features.Addtags
 {
     [Route("api/[controller]")]
     public class AddtagsController : Controller

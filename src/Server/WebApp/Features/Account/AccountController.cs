@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using WebApp.Models;
-using WebApp.Services;
-using WebApp.Models.AccountViewModels;
+using GM.WebApp.Models;
+using GM.WebApp.Services;
+using GM.WebApp.Models.AccountViewModels;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
-using WebApp.Data;
-using WebApp.Features.Home;
-using WebApp.Features.Manage;
+using GM.WebApp.Data;
+using GM.WebApp.Features.Home;
+using GM.WebApp.Features.Manage;
 
-namespace WebApp.Controllers
+namespace GM.WebApp.Controllers
 {
     [Authorize]
     public class AccountController : Controller

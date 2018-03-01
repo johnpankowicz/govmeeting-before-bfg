@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebApp.Services;
+using GM.WebApp.Services;
 using Govmeeting.Backend.Model;
 using System.Linq;
 
-namespace WebApp.Features.Meetings
+namespace GM.WebApp.Features.Meetings
 {
     public class MeetingRepository : IMeetingRepository
     {

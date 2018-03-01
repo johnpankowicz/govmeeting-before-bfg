@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using WebApp.Features.Shared;
-using WebApp.Services;
+using GM.WebApp.Features.Shared;
+using GM.WebApp.Services;
 using Govmeeting.Backend.Model;
 
-namespace WebApp.Features.Fixasr
+namespace GM.WebApp.Features.Fixasr
 {
     public class FixasrRepository : IFixasrRepository
     {

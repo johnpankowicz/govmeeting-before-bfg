@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApp.Models;
-using WebApp.Services;
-using WebApp.Data;
+using GM.WebApp.Models;
+using GM.WebApp.Services;
+using GM.WebApp.Data;
 
-namespace WebApp.Features.Admin
+namespace GM.WebApp.Features.Admin
 {
     [Authorize(Policy = "Administrator")]
 

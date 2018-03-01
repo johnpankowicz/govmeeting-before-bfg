@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models;
+using GM.WebApp.Models;
 
-namespace WebApp.Features.Shared
+namespace GM.WebApp.Features.Shared
 {
     // This class implements a circular buffer of files, where each new set of fixes is saved to a new file.
     // After max files is reached, the latest one will overwrite the oldest one.

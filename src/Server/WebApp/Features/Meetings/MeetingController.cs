@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Models;
+using GM.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Govmeeting.Backend.Model;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApp.Features.Meetings
+namespace GM.WebApp.Features.Meetings
 {
     [Route("api/[controller]")]
     public class MeetingController : Controller

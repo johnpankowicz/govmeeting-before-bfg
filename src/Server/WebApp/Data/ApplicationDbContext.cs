@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Govmeeting.Backend.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Models;
+using GM.WebApp.Models;
 
-namespace WebApp.Data
+namespace GM.WebApp.Data
 {
 
     // See here for extending this class:

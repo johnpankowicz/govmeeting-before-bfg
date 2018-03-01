@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Addtags
+namespace GM.WebApp.Features.Addtags
 {
     /* This is the repository for the transcripts which are being
      * edited. The edits mostly involve adding tags to the "tags".

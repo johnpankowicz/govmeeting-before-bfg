@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Viewmeetings
+namespace GM.WebApp.Features.Viewmeetings
 {
     public interface IViewMeetingRepository
     {

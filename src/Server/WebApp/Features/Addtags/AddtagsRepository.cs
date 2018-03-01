@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using WebApp.Features.Shared;
-using WebApp.Services;
+using GM.WebApp.Features.Shared;
+using GM.WebApp.Services;
 
-namespace WebApp.Features.Addtags
+namespace GM.WebApp.Features.Addtags
 {
     public class AddtagsRepository : IAddtagsRepository
     {

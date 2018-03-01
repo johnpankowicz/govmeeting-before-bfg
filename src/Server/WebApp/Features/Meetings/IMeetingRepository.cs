@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Govmeeting.Backend.Model;
 
-namespace WebApp.Features.Meetings
+namespace GM.WebApp.Features.Meetings
 {
     public interface IMeetingRepository
     {

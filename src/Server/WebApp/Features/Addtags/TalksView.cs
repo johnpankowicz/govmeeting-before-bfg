@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Addtags
+namespace GM.WebApp.Features.Addtags
 {
     /* This class is used in the browser AddTags module for adding
      * tags to the transcript. Each time a new speaker says something

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace WebApp.Models.AccountViewModels
+namespace GM.WebApp.Models.AccountViewModels
 {
     // Govmeeting: We added this file for the new ConfirmEmailPrompt view.
     public class ConfirmEmailPromptViewModel

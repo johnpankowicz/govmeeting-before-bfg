@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-namespace WebApp.Services
+namespace GM.WebApp.Services
 {
     public class ValidateReCaptchaAttribute : ActionFilterAttribute
     {

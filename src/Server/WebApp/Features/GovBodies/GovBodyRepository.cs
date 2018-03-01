@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApp.Services;
+using GM.WebApp.Services;
 using Govmeeting.Backend.Model;
 
 namespace Webapp.Features.Govbodies

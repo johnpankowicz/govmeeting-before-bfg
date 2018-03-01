@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Fixasr
+namespace GM.WebApp.Features.Fixasr
 {
     public class FixasrView
     {

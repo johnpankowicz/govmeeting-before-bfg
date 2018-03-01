@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Shared
+namespace GM.WebApp.Features.Shared
 {
     public static class FileSystem
     {

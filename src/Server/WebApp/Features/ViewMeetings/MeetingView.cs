@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Govmeeting.Backend.Model;
 
-namespace WebApp.Features.Viewmeetings
+namespace GM.WebApp.Features.Viewmeetings
 {
     public class MeetingView
     {

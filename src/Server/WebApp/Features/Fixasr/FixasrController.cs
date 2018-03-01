@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models;
+using GM.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
-using WebApp.Features.Shared;
+using GM.WebApp.Features.Shared;
 using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 // Todo-g #### Change all namespace names from "Models", "Controllers", etc to feature name.
-namespace WebApp.Features.Fixasr
+namespace GM.WebApp.Features.Fixasr
 {
     [Route("api/[controller]")]
     public class FixasrController : Controller

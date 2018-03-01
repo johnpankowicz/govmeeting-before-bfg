@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Addtags
+namespace GM.WebApp.Features.Addtags
 {
     public class AddtagsView
     {

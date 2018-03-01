@@ -9,10 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WebApp.Data;
-using WebApp.Models;
+using GM.WebApp.Data;
+using GM.WebApp.Models;
 
-namespace WebApp.Services
+namespace GM.WebApp.Services
 {
     public interface IDbInitializer
     {

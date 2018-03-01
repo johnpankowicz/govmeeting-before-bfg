@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Features.Shared
+namespace GM.WebApp.Features.Shared
 {
     // This class is for development time and also in production until we have real data to use.
     // If the front end ask for data (for "fixasr" and "addtags" and there is none yet available,

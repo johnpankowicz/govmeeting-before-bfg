@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
-namespace WebApp.Services
+namespace GM.WebApp.Services
 {
 
     /* This method of authorization is taken from:

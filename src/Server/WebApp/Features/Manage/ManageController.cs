@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApp.Data;
-using WebApp.Models;
-using WebApp.Services;
+using GM.WebApp.Data;
+using GM.WebApp.Models;
+using GM.WebApp.Services;
 
 // Instructions for upgrading from ASP.NET 5 RC1 to ASP.NET Core 1.0
 // https://docs.microsoft.com/en-us/aspnet/core/migration/rc1-to-rtm
 
-namespace WebApp.Features.Manage
+namespace GM.WebApp.Features.Manage
 {
     [Authorize]
     public class ManageController : Controller
