@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { MyhighlightDirective } from './myhighlight/myhighlight.directive';
+//import { ErrorHandlingService } from './error-handling/error-handling.service';
 
 @NgModule({
   imports: [
@@ -10,12 +11,13 @@ import { MyhighlightDirective } from './myhighlight/myhighlight.directive';
     CommonModule
   ],
   declarations: [
-    DropdownComponent,
-    MyhighlightDirective,
-  ],
+      DropdownComponent,
+      MyhighlightDirective,
+      //ErrorHandlingService
+    ],
   exports: [
-    DropdownComponent,
-    MyhighlightDirective,
-  ]
+      DropdownComponent,
+      MyhighlightDirective,
+    ]
 })
 export class GmSharedModule { }

@@ -18,7 +18,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     // http://deepinsightsdotnet.blogspot.com/2014/12/tutorial-using-google-cloud-storage.html
 

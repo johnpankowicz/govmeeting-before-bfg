@@ -2,37 +2,52 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using GM.ProcessIncoming.Shared;
-using GM.ProcessRecordingLib;
-using GM.Utilities;
+using GM.Backend.ProcessRecordingLib;
+using GM.Backend.ProcessTranscriptLib;
+using GM.Shared.Models;
+using GM.Shared.Utilities;
 
-namespace GM.ProcessIncoming
+namespace GM.Backend.ProcessIncoming
 {
-    class ProcessFiles
+    public class ProcessFiles
     {
-        // Todo - This should come from configuration when this code is called from WebApp
-        string datafiles = Environment.CurrentDirectory + @"\..\..\Datafiles";
+        private string datafilesPath;
+        private string incomingPath;
+        private string completedPath;
+        bool deleteMeetingFolderIfExists; // For development, we delete the processing results each time.
 
-        // Watch the "Datafiles\INPROGRESS" folder for the arrival of new files
-        // and process them as they arrive.
+        public ProcessFiles(bool _deleteMeetingFolderIfExists)
+        {
+            deleteMeetingFolderIfExists = _deleteMeetingFolderIfExists;
+
+            // Todo-g We need to get the location of the credentials file path from configuration.
+            string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
+
+            // Todo-g - datafiles should come from configuration when this code is called from WebApp
+            datafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
+
+            incomingPath = datafilesPath + @"\INCOMING";
+            Directory.CreateDirectory(incomingPath);
+
+            completedPath = datafilesPath + @"\COMPLETED";
+            Directory.CreateDirectory(completedPath);
+        }
+
+        // Watch the incoming folder and process new files as they arrive.
         public void WatchIncoming()
         {
-            string incoming = datafiles + @"\INPROGRESS";
-            if (!Directory.Exists(incoming))
-            {
-                Directory.CreateDirectory(incoming);
-            }
 
             // Process any existing files in the folder
-            foreach (string f in Directory.GetFiles(incoming))
+            foreach (string f in Directory.GetFiles(incomingPath))
             {
                 doWork(f);
             }
 
             DirectoryWatcher watcher = new DirectoryWatcher();
 
-            // "doWork" will get called when a new file is written to Datafiles\INPROGRESS.
-            watcher.watch(incoming, "", doWork);
+            // Call "doWork" for new file.
+            watcher.watch(incomingPath, "", doWork);
         }
 
         public void doWork(string filename)
@@ -43,10 +58,14 @@ namespace GM.ProcessIncoming
                 Console.WriteLine($"ProcessFiles.cs - filename is invalid: {filename}");
                 return;
             }
-            // Todo--g Remove for production
-            // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
-            mi.MeetingFolder(datafiles);
 
+            // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
+            if (deleteMeetingFolderIfExists)
+            {
+                string meetingFolder = mi.MeetingFolder(datafilesPath);
+                Directories.Delete(meetingFolder);
+
+            }
 
             FileInfo file = new FileInfo(filename);
             string extension = file.Extension;
@@ -66,18 +85,13 @@ namespace GM.ProcessIncoming
 
         private void MoveFileToCompletedFolder(string filename)
         {
-            string completed = datafiles + @"\COMPLETED";
-            if (!Directory.Exists(completed))
-            {
-                Directory.CreateDirectory(completed);
-            }
-            string newFile = completed + "\\" + Path.GetFileName(filename);
+            string newFile = completedPath + "\\" + Path.GetFileName(filename);
             File.Move(filename, newFile);
         }
 
         private void ProcessTranscript(string filename, bool test)
         {
-            ProcessTranscripts pt = new ProcessTranscripts(datafiles);
+            ProcessTranscripts pt = new ProcessTranscripts(datafilesPath);
             pt.Process(filename);
 
         }
@@ -86,7 +100,7 @@ namespace GM.ProcessIncoming
         {
             MeetingInfo mi = new MeetingInfo(filename);
             string language = mi.language;
-            string meetingFolder = mi.MeetingFolder(datafiles);
+            string meetingFolder = mi.MeetingFolder(datafilesPath);
             if (!Directories.Create(meetingFolder))
             {
                 // We were not able to create a folder for processing this video.

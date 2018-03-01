@@ -1,12 +1,12 @@
-﻿using GM.ProcessIncoming.Shared;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using GM.Shared.Models;
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     /* Split the fixasr object into smaller sections
        {

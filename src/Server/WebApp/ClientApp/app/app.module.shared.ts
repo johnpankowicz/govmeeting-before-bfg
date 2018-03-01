@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NavMenuComponent } from './navmenu/navmenu.component';
+import { ErrorHandlingService } from './gmshared/error-handling/error-handling.service';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { ViewMeetingModule } from './viewmeeting/viewmeeting.module'
@@ -50,6 +52,8 @@ import { AppData } from './appdata';
         TestModule
     ],
     providers: [
+        ErrorHandlingService,
+
         // To use the stubs, uncomment the stubs and comment out the real.
 
         // The real services

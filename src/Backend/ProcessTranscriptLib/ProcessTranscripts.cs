@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using GM.ProcessTranscriptLib;
-using GM.SpecificTranscriptFixes;
-using GM.Utilities;
-using GM.ProcessIncoming.Shared;
+using GM.Shared.Models;
+using GM.Shared.Utilities;
 
-namespace GM.ProcessIncoming
+namespace GM.Backend.ProcessTranscriptLib
 {
-    class ProcessTranscripts
+    public class ProcessTranscripts
     {
         string datafiles;
 
@@ -44,7 +40,7 @@ namespace GM.ProcessIncoming
             // Step 3 - Fix the transcript: Put in common format
 
             // Make the specific fixes to the philly data
-            Philadelphia_PA_USA philly = new Philadelphia_PA_USA("2016-03-17", meetingFolder);
+            Specific_Philadelphia_PA_USA philly = new Specific_Philadelphia_PA_USA("2016-03-17", meetingFolder);
             string transcript = philly.Fix(text);
 
             // Convert the fixed transcript to JSON

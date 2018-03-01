@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
-namespace GM.SpecificTranscriptFixes
+namespace GM.Backend.ProcessTranscriptLib
 {
     public class SpecificFixesBase
     {

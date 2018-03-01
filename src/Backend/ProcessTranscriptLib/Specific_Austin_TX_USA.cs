@@ -1,12 +1,8 @@
-﻿using GM.ProcessTranscriptLib;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
-namespace GM.SpecificTranscriptFixes
+namespace GM.Backend.ProcessTranscriptLib
 {
-    class Austin_TX_USA
+    class Specific_Austin_TX_USA
     {
         TranscriptFixes tf = new TranscriptFixes();
         string basefilename;

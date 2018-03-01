@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace GM.ProcessTranscriptLib
+namespace GM.Backend.ProcessTranscriptLib
 {
     // Todo-g All methods in TranscriptFixes are in need of unit tests.
 

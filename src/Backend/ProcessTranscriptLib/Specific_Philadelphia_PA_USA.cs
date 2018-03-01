@@ -1,18 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using GM.ProcessTranscriptLib;
 
 
-namespace GM.SpecificTranscriptFixes
+namespace GM.Backend.ProcessTranscriptLib
 {
-    public class Philadelphia_PA_USA : SpecificFixesBase
+    public class Specific_Philadelphia_PA_USA : SpecificFixesBase
     {
         // original PDF sources at: http://legislation.phila.gov/council-transcriptroom/
 
         TranscriptFixes tf = new TranscriptFixes();
 
-        public Philadelphia_PA_USA(string meetingDate, string logDirectory) : base(logDirectory)
+        public Specific_Philadelphia_PA_USA(string meetingDate, string logDirectory) : base(logDirectory)
         {
         }
 

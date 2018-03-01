@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     public class SplitRecording
     {

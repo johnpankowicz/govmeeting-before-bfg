@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace GM.ProcessIncoming.Shared
+namespace GM.Shared.Utilities
 {
     public static class Directories
     {
@@ -81,6 +81,15 @@ namespace GM.ProcessIncoming.Shared
             }
 
         }
+        public static void DeleteAndCreateDirectory(string folder)
+        {
+            if (Directory.Exists(folder))
+            {
+                Directory.Delete(folder, true);
+            }
+            Directory.CreateDirectory(folder);
+        }
+
 
     }
 }

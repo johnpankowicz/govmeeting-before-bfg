@@ -1,7 +1,7 @@
-using  System;
+using System;
 using System.IO;
 
-namespace GM.Utilities {
+namespace GM.Backend.ProcessIncoming {
     public class DirectoryWatcher {
 
         public delegate void DoWorkOnFile(string filename);

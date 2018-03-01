@@ -11,7 +11,7 @@ using Google.Protobuf.Collections;
 
 // This is in the process of being written.  
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     public class TranscribeAudio
     {

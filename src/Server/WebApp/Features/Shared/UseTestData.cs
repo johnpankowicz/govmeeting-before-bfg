@@ -20,8 +20,6 @@ namespace WebApp.Features.Shared
     {
         public static void CopyIfNeeded(string baseMeetingFolder, string datafiles, string testFolder)
         {
-            //string baseMeetingFolder = @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2016-03-17"
-            // If our test data is not already in "Datafiles", copy it from testdata folder.
             string meetingFolder = Path.Combine(datafiles, baseMeetingFolder);
             string testMeetingFolder = Path.Combine(testFolder, baseMeetingFolder);
 

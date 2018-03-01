@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     public class TranscribeResponse
     {

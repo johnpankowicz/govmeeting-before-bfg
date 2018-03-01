@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GM.ProcessIncoming.Shared
+namespace GM.Shared.Models
 {
     public class Fixasr
     {

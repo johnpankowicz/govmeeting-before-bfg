@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GM.ProcessIncoming.Shared
+namespace GM.Shared.Models
 {
     // If file is "USA_PA_Philadelphia_Philadelphia_CityCouncil_EN_2016-03-17.pdf"
     //

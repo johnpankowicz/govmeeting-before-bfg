@@ -53,21 +53,22 @@ For a detailed system design, see: [System Design](https://github.com/govmeeting
 * Clone the repo: `git clone https://github.com/govmeeting/govmeeting.git`
 or download zip file:`https://github.com/govmeeting/govmeeting/archive/master.zip`
 
-#### If using Visual Studio
+### In Visual Studio
+
+#### To run Angular front-end and Asp.Net server:
+
+The front-end is what you see at [govmeeting.org](govmeeting.org).
 
   * Open solution "govmeeting.sln"
+  * Set startup project to `Server/WebApp`. Press F5.
 
-The front-end is the code that you see running at [govmeeting.org](govmeeting.org). To run this:
+#### To run back-end processing of recordings and and existing transcripts.
 
-  * Set startup project in Visual Studio to Server/WebApp. Press F5.
+This uses Google Speech API for transcription. You would need to first:  [Create GCP project](https://github.com/govmeeting/govmeeting/wiki) Then:
 
-The back-end is the code that processes incoming video recordings and existing transript files.
+* Set startup project to `Backend/ProcessingIncoming`. Press F5.
 
-* To do the auto transcription required on the recording, you will first need to  set up a Google Cloud Platform project. Instructions are here:  [Create GCP project](https://github.com/govmeeting/govmeeting/wiki)
-
-* Set the startup project in Visual Studio to `Backend/ProcessingIncoming`. Press F5.
-
-* Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INPROGRESS.
+* Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INCOMING.
 
   The program will recognize that a new file has appeared and start processing it.
   The test file will be moved to "COMPLETED" when done.
@@ -75,7 +76,7 @@ The back-end is the code that processes incoming video recordings and existing t
   
 
 
-### If using Visual Studio Code
+### In Visual Studio Code
 
 Install the following VS Code extensions:
 * "Debugger for Chrome" by Microsoft
@@ -86,27 +87,7 @@ For how to debug both Typescript and C# together in VS Code, see:
 
 Open the repository folder in VS Code.
 
-### Process new meeting recordings
 
-The backend can be used to process recordings of your own.
-
-* First name the file in this format:
-
-    [county]_[state]_[county]_[municipality]_[goverment body]_[language]_[date].mp4
-
-    For example: "USA_NJ_Hudson_JerseyCity_CityCouncil_en_2018-02-24"
-
-    "country" is the standard country abbeviation.
-    "state" is an abbreviation for the second level sub-division for that country.
-    "county" is whatever is the third level sub-division for that country.
-    "municipality" is lowest level government division.
-    "language" is the ISO 639 language code. This is used during transcription.
-    "date" is the date of the meeting in the format localized for that country.
-
-    Some countries may need more levels of sub-divsion. In that case include the 3rd up to the lowest level,
-    in the "county" field and put "-" between the included names.
-
-* Then copy the file into the Datafiles/INPROGRESS folder and run the Backend/ProcessIncoming process.
 
 
 

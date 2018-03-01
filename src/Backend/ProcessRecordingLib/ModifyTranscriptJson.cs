@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GM.ProcessIncoming.Shared;
+using GM.Shared.Models;
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
 
     /*

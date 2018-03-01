@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using GM.ProcessIncoming.Shared;
 using Newtonsoft.Json;
+using GM.Shared.Models;
+using GM.Shared.Utilities;
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     public class ProcessRecording
     {

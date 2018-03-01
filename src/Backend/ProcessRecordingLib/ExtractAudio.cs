@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 
 
-namespace GM.ProcessRecordingLib
+namespace GM.Backend.ProcessRecordingLib
 {
     public class ExtractAudio
     {
