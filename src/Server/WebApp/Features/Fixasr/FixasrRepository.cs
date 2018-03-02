@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
 using Newtonsoft.Json;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using GM.WebApp.Features.Shared;
 using GM.WebApp.Services;
-using Govmeeting.Backend.Model;
+using GM.WebApp.Features.Meetings;
 
 namespace GM.WebApp.Features.Fixasr
 {
@@ -19,29 +14,30 @@ namespace GM.WebApp.Features.Fixasr
         const string WORK_FILE = "ToFix.json";
         const int MAX_BACKUPS = 20;   // maximum backups
 
-        string DatafilesPath;
-        string TestdataPath;
-        IMeetingWorkFolder meetingWorkFolder;
+        private readonly AppSettings _config;
+        IMeetingRepository _meetingRepository;
 
-        public FixasrRepository(ISharedConfig config, IMeetingWorkFolder _meetingWorkFolder)
+        public FixasrRepository(
+            IOptions<AppSettings> config,
+            IMeetingRepository meetingRepository
+            )
         {
-            DatafilesPath = config.DatafilesPath;
-            TestdataPath = config.TestdataPath;
-            meetingWorkFolder = _meetingWorkFolder;
+            _config = config.Value;
+            _meetingRepository = meetingRepository;
         }
 
         public FixasrView Get(long meetingId, int part)
         {
-            string meetingFolder = meetingWorkFolder.GetPath(meetingId);
+            string meetingFolder = _meetingRepository.GetMeetingFolder(meetingId);
 
             string workFolder = meetingFolder + "\\" + SEGMENT_WORK_FOLDER;
             string partFolder = workFolder + $"\\part{part:D2}";
 
 
             // Todo-g - Remove later - for development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(workFolder, DatafilesPath, TestdataPath);
+            UseTestData.CopyIfNeeded(workFolder, _config.DatafilesPath, _config.TestfilesPath);
 
-            string partFolderPath = Path.Combine(DatafilesPath, partFolder);
+            string partFolderPath = Path.Combine(_config.DatafilesPath, partFolder);
 
             CircularBuffer cb = new CircularBuffer(partFolderPath, WORK_FILE, MAX_BACKUPS);
 
@@ -52,11 +48,10 @@ namespace GM.WebApp.Features.Fixasr
 
         public bool Put(FixasrView value, long meetingId, int part)
         {
-            string meetingFolder = meetingWorkFolder.GetPath(meetingId);
+            string meetingFolder = _meetingRepository.GetMeetingFolder(meetingId);
 
-            //string subpath = country + "_" + state + "_" + county + "_" + city + "_" + govEntity + "\\" + meetingDate;
 
-            string meetingSegmentFolder = System.IO.Path.Combine(DatafilesPath, meetingFolder);
+            string meetingSegmentFolder = System.IO.Path.Combine(_config.DatafilesPath, meetingFolder);
 
             string stringValue = JsonConvert.SerializeObject(value, Formatting.Indented);
 

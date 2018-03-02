@@ -9,7 +9,7 @@ using Govmeeting.Backend.Model;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Webapp.Features.Govbodies
+namespace GM.Webapp.Features.Govbodies
 {
     [Route("api/[controller]")]
     public class GovernmentBodyController : Controller

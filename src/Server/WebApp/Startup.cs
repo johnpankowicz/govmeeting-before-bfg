@@ -10,21 +10,20 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using GM.WebApp.Data;
-using GM.WebApp.Models;
-using GM.WebApp.Services;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using GM.WebApp.StartupCustomizations;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
+using GM.WebApp.StartupCustomizations;
 using GM.WebApp.Features.Addtags;
 using GM.WebApp.Features.Fixasr;
-using Webapp.Features.Govbodies;
+using GM.Webapp.Features.Govbodies;
 using GM.WebApp.Features.Meetings;
 using GM.WebApp.Features.Viewmeetings;
+using GM.WebApp.Data;
+using GM.WebApp.Services;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLog;
@@ -41,31 +40,29 @@ namespace GM.WebApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // ConfigureServices is called by the runtime. It adds services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // We will redirect console output to a file during production.
             services.AddSingleton<IRedirectConsole, RedirectConsole>();
 
-            // Put directory locations in a singleton
-            string datafilesPath = GetFullPath(Configuration["DataPaths:DatafilesPath"]);
-            string testdataPath = GetFullPath(Configuration["DataPaths:TestdataPath"]);
-            // https://cmatskas.com/net-core-dependency-injection-with-constructor-parameters-2/
-            services.AddSingleton<ISharedConfig>(s => new SharedConfig(datafilesPath, testdataPath));
-
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("DataPaths"));
+            services.Configure<AppSettings>(myOptions =>
+            {
+                // Modify the DataFilesPath option to be the full path.
+                //myOptions.DatafilesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), myOptions.DatafilesPath);
+                Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
+            });
 
             ///////////////////////////////////////////////////////////////////////
             DebugStartup("In ConfigureServices - Configure Identity Services");
             ///////////////////////////////////////////////////////////////////////
 
-            // Here we add our ApplicationDbContext to the service container. This allows us to do this:
+            // We will be able to access ApplicationDbContext in a controller with:
             //    public MyController(ApplicationDbContext context) { ... }
-            // and then have access to the context within the controller.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
-            // In development, we get configuration settings from appsettings.json and appsettings.Development.json.
-            // In production, we get them from appsettings.json and appsettings.Production.json.
 
             DebugStartup("In ConfigureServices - after AddDbContext");
             DebugStartup("ConnectionString: " + Configuration["Data:DefaultConnection:ConnectionString"]);
@@ -154,7 +151,7 @@ namespace GM.WebApp
             });
 
 
-            // Add our repository types
+            // Add repositories
             services.AddSingleton<IGovBodyRepository, GovBodyRepository>();
             services.AddSingleton<IMeetingRepository, MeetingRepository>();
             services.AddSingleton<IViewMeetingRepository, ViewMeetingRepository>();
@@ -164,14 +161,12 @@ namespace GM.WebApp
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<IMeetingWorkFolder, MeetingWorkFolder>();
 
             DebugStartup("In ConfigureServices - after AddTransient");
 
             services.AddTransient<IDbInitializer, DbInitializer>();
 
-            //services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
 
             services.AddScoped<ValidateReCaptchaAttribute>();
         }
@@ -199,7 +194,7 @@ namespace GM.WebApp
             //env.ConfigureNLog("nlog.config");
 
             var appBasePath = System.IO.Directory.GetCurrentDirectory();
-            NLog.GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
+            GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
             var logger = LogManager.LoadConfiguration("NLog.config").GetCurrentClassLogger();
 
             redirect.Start();

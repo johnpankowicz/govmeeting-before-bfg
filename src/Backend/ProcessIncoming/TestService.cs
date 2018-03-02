@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
-namespace ConsoleApp1
+namespace GM.Backend.ProcessIncoming
 {
     public interface ITestService
     {
@@ -13,10 +14,13 @@ namespace ConsoleApp1
     class TestService : ITestService
     {
         private readonly ILogger<TestService> _logger;
+        private readonly AppSettings _config;
 
-        public TestService(ILogger<TestService> logger)
+        public TestService(ILogger<TestService> logger,
+        IOptions<AppSettings> config)
         {
             _logger = logger;
+            _config = config.Value;
         }
 
         public void Run()

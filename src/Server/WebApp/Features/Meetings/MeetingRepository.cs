@@ -3,20 +3,45 @@ using System.Collections.Generic;
 using GM.WebApp.Services;
 using Govmeeting.Backend.Model;
 using System.Linq;
+using GM.Webapp.Features.Govbodies;
 
 namespace GM.WebApp.Features.Meetings
 {
     public class MeetingRepository : IMeetingRepository
     {
+        IGovBodyRepository _govBodyRepository;
 
-        public MeetingRepository(ISharedConfig config)
+        public MeetingRepository(IGovBodyRepository govBodyRepository)
         {
+            _govBodyRepository = govBodyRepository;
         }
 
         public Meeting Get(long meetingId)
         {
             Meeting meeting = GetTestMeeting(meetingId);
             return meeting;
+        }
+
+        // Work folders under Datafiles are named as follows:
+        //    <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>/<date>
+        // Example:
+        //     "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17"
+        // uses this folder:
+        //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2016-03-17"
+        //
+
+        public string GetMeetingFolder(long meetingId)
+        {
+            Meeting meeting = Get(meetingId);
+            GovernmentBody govBody = _govBodyRepository.Get(meeting.GovernmentBodyId);
+
+            //DateTime dt = DateTime.Parse(meeting.date, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            string date = string.Format("{0:yyyy-MM-dd}", meeting.Date);
+
+            string path = govBody.Country + "_" + govBody.State + "_" + govBody.County + "_" + govBody.Municipality +
+                "_" + govBody.Name + "_" + govBody.Languages[0].Name + "\\" + date;
+
+            return path;
         }
 
         //////////////////////////////////////////////////

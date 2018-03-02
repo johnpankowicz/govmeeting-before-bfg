@@ -4,17 +4,10 @@ using System.Linq;
 using GM.WebApp.Services;
 using Govmeeting.Backend.Model;
 
-namespace Webapp.Features.Govbodies
+namespace GM.Webapp.Features.Govbodies
 {
     public class GovBodyRepository : IGovBodyRepository
     {
-        string DatafilesPath;
-
-        public GovBodyRepository(ISharedConfig config)
-        {
-            DatafilesPath = config.DatafilesPath;
-        }
-
         public GovernmentBody Get(long locationId)
         {
             GovernmentBody location = GetTestMeeting(locationId);

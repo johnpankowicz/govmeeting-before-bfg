@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
 using Newtonsoft.Json;
 using System.IO;
-using GM.WebApp.Services;
 using Microsoft.Extensions.Options;
 using GM.WebApp.Features.Shared;
-using System.Globalization;
-using Govmeeting.Backend.Model;
-using Webapp.Features.Govbodies;
 using GM.WebApp.Features.Meetings;
 
 namespace GM.WebApp.Features.Viewmeetings
@@ -23,25 +15,26 @@ namespace GM.WebApp.Features.Viewmeetings
         private const string STEP4_BASE_NAME = "T4-tagged";
         private const string EXTENSION = "json";
 
-        string DatafilesPath;
-        string TestdataPath;
-        IMeetingWorkFolder meetingWorkFolder;
+        private readonly AppSettings _config;
+        IMeetingRepository _meetingRepository;
 
-        public ViewMeetingRepository(ISharedConfig config, IMeetingWorkFolder _meetingWorkFolder)
+        public ViewMeetingRepository(
+            IOptions<AppSettings> config,
+            IMeetingRepository meetingRepository
+            )
         {
-            DatafilesPath = config.DatafilesPath;
-            TestdataPath = config.TestdataPath;
-            meetingWorkFolder = _meetingWorkFolder;
+            _config = config.Value;
+            _meetingRepository = meetingRepository;
         }
 
         public MeetingView Get(long meetingId)
         {
-            string path = meetingWorkFolder.GetPath(meetingId);
+            string path = _meetingRepository.GetMeetingFolder(meetingId);
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(path, DatafilesPath, TestdataPath);
+            UseTestData.CopyIfNeeded(path, _config.DatafilesPath, _config.TestfilesPath);
 
-            string latestCopy = Path.Combine(DatafilesPath, path, STEP4_BASE_NAME + "." + EXTENSION);
+            string latestCopy = Path.Combine(_config.DatafilesPath, path, STEP4_BASE_NAME + "." + EXTENSION);
 
             if (File.Exists(latestCopy))
             {

@@ -9,5 +9,6 @@ namespace GM.WebApp.Features.Meetings
     public interface IMeetingRepository
     {
         Meeting Get(long meetingId);
+        string GetMeetingFolder(long meetingId);
     }
 }
