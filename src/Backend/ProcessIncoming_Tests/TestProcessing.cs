@@ -2,8 +2,8 @@
 using System.IO;
 using Newtonsoft.Json;
 using GM.Backend.ProcessRecordingLib;
-using GM.Shared.Models;
-using GM.Shared.Utilities;
+using GM.DataAccess.FileDataModel;
+using GM.DataAccess.FileRepositories;
 
 namespace GM.Backend.ProcessIncoming
 {
@@ -24,19 +24,19 @@ namespace GM.Backend.ProcessIncoming
         public void CopyMediaToAssets()
         {
             MeetingInfo mi = new MeetingInfo("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-02-15.mp4");
-            string meetingFolder = mi.MeetingFolder(datafilesPath);
+            string meetingFolder = mi.MeetingFolderFullPath(datafilesPath);
             string source = meetingFolder + "\\parts";
             string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
             string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
 
-            Directories.Copy(source, destination);
+            FileSystem.CopyDirectories(source, destination);
         }
 
         public void TestSplitTranscript()
         {
             string fixasrFile = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2017-02-15\R3-ToBeFixed.json";
             string stringValue = File.ReadAllText(fixasrFile);
-            Fixasr fixasr = JsonConvert.DeserializeObject<Fixasr>(stringValue);
+            FixasrView fixasr = JsonConvert.DeserializeObject<FixasrView>(stringValue);
             string outputFolder = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2017-02-15\R4-FixText";
             int sectionSize = 180;
             int overlap = 5;
@@ -68,14 +68,14 @@ namespace GM.Backend.ProcessIncoming
             string inputFile = testdataPath + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
 
             string outputFolder = testdataPath + "\\" + "TestReformatOfTranscribeResponse";
-            Directories.DeleteAndCreateDirectory(outputFolder);
+            FileSystem.DeleteAndCreateDirectory(outputFolder);
             string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
             string stringValue = File.ReadAllText(inputFile);
             var transcript = JsonConvert.DeserializeObject<TranscribeResponse>(stringValue);
 
             ModifyTranscriptJson convert = new ModifyTranscriptJson();
-            Fixasr fixasr = convert.Modify(transcript);
+            FixasrView fixasr = convert.Modify(transcript);
 
             stringValue = JsonConvert.SerializeObject(fixasr, Formatting.Indented);
             File.WriteAllText(outputFile, stringValue);

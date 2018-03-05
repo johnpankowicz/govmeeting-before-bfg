@@ -54,17 +54,19 @@ import { AppData } from './appdata';
     providers: [
         ErrorHandlingService,
 
-        // To use the stubs, uncomment the stubs and comment out the real.
-
-        // The real services
+        // If you use the stubs for these services, it will not call the Asp.Net
+        // server , but will instead return static data from the stub.
+        // To use them, uncomment the stub and comment out the real.
+        //
         { provide: ViewMeetingService, useClass: ViewMeetingService },
+        //{ provide: ViewMeetingService, useClass: ViewMeetingServiceStub },
+        //
         { provide: AddtagsService, useClass: AddtagsService},
+        //{ provide: AddtagsService, useClass: AddtagsServiceStub },
+        //
+        //{ provide: FixasrService, useClass: FixasrServiceStub },
         { provide: FixasrService, useClass: FixasrService },
 
-        // The stub services
-        //{ provide: ViewMeetingService, useClass: ViewMeetingServiceStub },
-        //{ provide: AddtagsService, useClass: AddtagsServiceStub },
-        //{ provide: FixasrService, useClass: FixasrServiceStub },
 
         // AppData is no longer used. It was used at one time to pass config
         // values from index.html and/or _Layout.cshtml into the Angular App.

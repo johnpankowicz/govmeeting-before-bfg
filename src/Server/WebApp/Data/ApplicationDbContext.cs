@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Govmeeting.Backend.Model;
+using GM.DataAccess.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using GM.WebApp.Models;
 
 namespace GM.WebApp.Data
 {
-
     // See here for extending this class:
     //   https://stackoverflow.com/a/40579369/1978840
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -28,24 +25,14 @@ namespace GM.WebApp.Data
         }
 
         public DbSet<GovernmentBody> GovernmentBodies { get; set; }
-
         public DbSet<Meeting> Meetings { get; set; }
-
-        public DbSet<Govmeeting.Backend.Model.Talk> Talks { get; set; }
-
+        public DbSet<GM.DataAccess.Model.Talk> Talks { get; set; }
         public DbSet<TopicDiscussion> TopicDiscussions { get; set; }
-
         public DbSet<Topic> Topics { get; set; }
-
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Speaker> Speakers { get; set; }
-
         public DbSet<Representative> Representatives { get; set; }
-
         public DbSet<Citizen> Citizens { get; set; }
-
         public DbSet<Language> Languages { get; set; }
-
     }
 }

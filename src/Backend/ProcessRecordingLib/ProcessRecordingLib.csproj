@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Models\Models.csproj" />
-    <ProjectReference Include="..\..\Shared\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\..\DataAccess\FileDataModel\FileDataModel.csproj" />
+    <ProjectReference Include="..\..\DataAccess\FileRepositories\FileRepositories.csproj" />
   </ItemGroup>
 
 </Project>

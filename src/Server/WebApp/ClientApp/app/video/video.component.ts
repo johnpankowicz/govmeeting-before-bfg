@@ -26,7 +26,7 @@ export class VideoComponent {
         //var location: string = 'api/video/';
 
         // Todo - location is now just hardcoded. This will be chosen by user.
-        var location: string = "datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/R4-FixText/part01/"
+        var location: string = "datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/Fixasr/part01/"
         var fileBasename: string = "ToFix"
 
         this.sources = [

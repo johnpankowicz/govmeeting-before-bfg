@@ -2,8 +2,8 @@
 using System.IO;
 using Newtonsoft.Json;
 using GM.Backend.ProcessRecordingLib;
-using GM.Shared.Models;
-using GM.Shared.Utilities;
+using GM.DataAccess.FileDataModel;
+using GM.DataAccess.FileRepositories;
 
 namespace GM.Backend.ProcessIncoming
 {
@@ -27,7 +27,7 @@ namespace GM.Backend.ProcessIncoming
             string videoFile = testdataPath + "\\" + baseName + ".mp4";
             string outputFolder = testdataPath + "\\" + "TestMoveToCloudAndTranscribe";
 
-            Directories.DeleteAndCreateDirectory(outputFolder);
+            FileSystem.DeleteAndCreateDirectory(outputFolder);
 
             string outputBasePath = outputFolder + "\\" + baseName;
             string shortFile = outputBasePath + ".mp4";
@@ -52,7 +52,7 @@ namespace GM.Backend.ProcessIncoming
 
             // Modify Transcript json format
             ModifyTranscriptJson mt = new ModifyTranscriptJson();
-            Fixasr fixasr = mt.Modify(response);
+            FixasrView fixasr = mt.Modify(response);
 
             // Create JSON file
             stringValue = JsonConvert.SerializeObject(fixasr, Formatting.Indented);

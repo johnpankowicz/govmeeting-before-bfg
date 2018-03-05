@@ -18,7 +18,7 @@ export class TalksComponent implements OnInit {
 
   errorMessage: string;
   talks: Talk[] | null;
-  addtags: Addtags = {data: null};
+  addtags: Addtags = {sections: [""], topics: [""], talks: null};
   topics: string[];
   highlightedTopic: string;
   shownTopicSelection: number = -1; // index of where we are displaying topic choice.
@@ -46,8 +46,7 @@ export class TalksComponent implements OnInit {
   getTalks() {
       this._addtagsService.getTalks()
       .subscribe(
-      //talks => this.addtags.data = this.talks = talks,
-      addtags => (this.addtags = addtags, this.talks = addtags.data),
+      addtags => (this.addtags = addtags, this.talks = addtags.talks),
       error => this.errorMessage = <any>error);
   }
 

@@ -16,10 +16,13 @@ export class SectionsComponent implements OnInit {
     ngOnInit() { this.getSections(); }
 
 getSections() {
-    this._addtagsService.getSections()
+    this._addtagsService.getTalks()
         .subscribe(
-        sections => this.sections = sections,
-            error => this.errorMessage = <any>error);
+        addtags => {
+            this.sections = addtags.sections;
+             console.log(this.sections);
+        },
+        error => this.errorMessage = <any>error);
 }
 
  OnChange(newValue: any) {

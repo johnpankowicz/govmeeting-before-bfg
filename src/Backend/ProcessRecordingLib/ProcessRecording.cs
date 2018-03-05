@@ -3,33 +3,55 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using GM.Shared.Models;
-using GM.Shared.Utilities;
+using Microsoft.Extensions.Options;
+using GM.Shared.Configuration;
+using GM.DataAccess.FileDataModel;
 
 namespace GM.Backend.ProcessRecordingLib
 {
     public class ProcessRecording
     {
+        /*     ProcessRecording processes new MP4 recording files that arrive.
+         *     It performs the following steps:
+         *       1. Extract the audio.
+         *       2. Calls Google's Speech API to transcribe the text
+         *       3. Convert the returned JSON data to a format more usable by the next processing step (Fixasr).
+         *       4. Split the video, audio and text files into small segments. Each of these
+         *          segments can then be worked on separately by multiple volunteers.
+         */
+
+        bool _isDevelopment;
+
+        public ProcessRecording(
+            IOptions<AppSettings> config
+            )
+        {
+            _isDevelopment = config.Value.IsDevelopment;
+        }
+
         public void Process(string videoFile, string meetingFolder, string language)
         {
-            // Copy video to meeting folder
+            /////// Copy video to meeting folder  /////////
 
             FileInfo infile = new FileInfo(videoFile);
             string videofileCopy = meetingFolder + "\\" + "R0-Video.mp4";
-            File.Copy(videoFile, videofileCopy);
 
-            // Todo-g Remove this for production and uncomment the above "File.Copy" statement.
-            // #### FOR DEVELOPMENT: WE SHORTEN THE RECORDING FILE. ####
-            //SplitRecording splitRecording = new SplitRecording();
-            //splitRecording.ExtractPart(videoFile, videofileCopy, 60, 4 * 60);
+            if (!_isDevelopment)
+            {
+                File.Copy(videoFile, videofileCopy);
+            } else {
+                // #### FOR DEVELOPMENT: WE SHORTEN THE RECORDING FILE. ####
+                SplitRecording splitRecording = new SplitRecording();
+                splitRecording.ExtractPart(videoFile, videofileCopy, 60, 4 * 60);
+            }
 
-            // Extract the audio.
+            /////// Extract the audio. ////////////////////////
 
             ExtractAudio extract = new ExtractAudio();
             string audioFile = meetingFolder + "\\" + "R1-Audio.flac";
             extract.Extract(videofileCopy, audioFile);
 
-            // Transcribe the audio file.
+            /////// Transcribe the audio file. /////////////
 
             // We want the object name in the cloud to be the original video file name with ".flac" extension.
             string objectName = Path.GetFileNameWithoutExtension(videoFile) + ".flac";
@@ -43,37 +65,20 @@ namespace GM.Backend.ProcessRecordingLib
             string outputJsonFile = meetingFolder + "\\" + "R2-Transcribed.json";
             File.WriteAllText(outputJsonFile, stringValue);
 
-            // Reformat the JSON transcript to match what the fixasr routine will use.
+            /////// Reformat the JSON transcript to match what the fixasr routine will use.
 
             ModifyTranscriptJson convert = new ModifyTranscriptJson();
             outputJsonFile = meetingFolder + "\\" + "R3-ToBeFixed.json";
-            Fixasr fixasr = convert.Modify(transcript);
+            FixasrView fixasr = convert.Modify(transcript);
             stringValue = JsonConvert.SerializeObject(fixasr, Formatting.Indented);
             File.WriteAllText(outputJsonFile, stringValue);
 
-            // Split the video, audio and transcript into multiple work segments
+            /////// Split the video, audio and transcript into multiple work segments
 
             SplitIntoWorkSegments split = new SplitIntoWorkSegments();
             split.Split(meetingFolder, videofileCopy, outputJsonFile);
-
-            // Copy the media files into the server's wwwroot/assets folder.
-            CopyMediaToAssets(meetingFolder, videoFile);
         }
 
-        // It will be best if all the datafiles can be kept in src/Datafiles.
-        // However, it has not yet been figured out how to serve the video files to the 
-        // the videoangular component in the client app via the API.
-        // cSo until this is solved, we will copy the media files
-        // into src/Server/Webapp/wwwroot/assets.
-        void CopyMediaToAssets(string meetingFolder, string videoFile)
-        {
-            MeetingInfo mi = new MeetingInfo("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-01-09.mp4");
-            string source = meetingFolder + "\\R4-FixText";
-            string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
-            string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
-
-            Directories.Copy(source, destination);
-        }
 
     }
 }

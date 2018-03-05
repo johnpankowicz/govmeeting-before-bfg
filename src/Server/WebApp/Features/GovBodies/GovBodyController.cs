@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GM.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Govmeeting.Backend.Model;
+using GM.DataAccess.Model;
+using GM.DataAccess.DatabaseRepositories;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

@@ -1,29 +1,34 @@
 ﻿using System;
 using System.IO;
-using GM.Shared.Models;
-using GM.Shared.Utilities;
+using GM.DataAccess.FileDataModel;
+using GM.DataAccess.FileRepositories;
 
 namespace GM.Backend.ProcessTranscriptLib
 {
-    public class ProcessTranscripts
+    public class ProcessTranscript
     {
-        string datafiles;
+        /*     ProcessTranscript process new PDF transcript files that arrive.
+         *     It performs the following steps:
+         *       1. Convert the PDF file to plain text.
+         *       2. Make location specific fixes to convert it to a standard format.
+         *          For example: fixes for Philadelphia, PA, USA
+         *       3. Convert the file to JSON format.
+         */
 
-        public ProcessTranscripts(string _datafiles)
-        {
-            datafiles = _datafiles;
-        }
+        //public ProcessTranscript()
+        //{
+        //}
 
-        public bool Process(string filename)
+        public bool Process(string filename, string meetingFolder)
         {
-            bool created;
-            MeetingInfo mi = new MeetingInfo(filename);
-            string meetingFolder = mi.MeetingFolder(datafiles);
-            if (!(created = Directories.Create(meetingFolder)))
-            {
-                Console.WriteLine("ProcessTranscripts.cs - ERROR: Could not create meeting folder. It may already exist.");
-                return false;
-            }
+            //bool created;
+            //MeetingInfo mi = new MeetingInfo(filename);
+            //string meetingFolder = mi.MeetingFolder(datafiles);
+            //if (!(created = FileSystem.CreateDirectory(meetingFolder)))
+            //{
+            //    Console.WriteLine("ProcessTranscripts.cs - ERROR: Could not create meeting folder. It may already exist.");
+            //    return false;
+            //}
 
             // Step 1 - Copy PDF to meeting directory
 

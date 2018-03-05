@@ -1,4 +1,7 @@
 import { Talk } from './talks/talk';
+
 export class Addtags {
-    data: Talk[] | null;
+    sections: string[];
+    topics: string[];
+    talks: Talk[] | null;
 }

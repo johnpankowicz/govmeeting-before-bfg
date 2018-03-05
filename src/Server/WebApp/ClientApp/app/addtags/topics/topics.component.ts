@@ -26,9 +26,11 @@ export class TopicsComponent implements OnInit {
     ngOnInit() {this.getTopics();}
 
     getTopics() {
-        this._addtagsService.getTopics()
+        this._addtagsService.getTalks()
         .subscribe(
-        topics => this.topics = topics,
+            addtags => {
+                this.topics = addtags.topics;
+            console.log(this.topics);        },
         error => this.errorMessage = <any>error);
     }
 

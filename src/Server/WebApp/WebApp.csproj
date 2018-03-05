@@ -40,12 +40,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Database\Model\Model.csproj" />
+    <Folder Include="Features\Models\" />
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Models\" />
-    <Folder Include="wwwroot\assets\" />
+    <ProjectReference Include="..\..\DataAccess\DatabaseModel\DatabaseModel.csproj" />
+    <ProjectReference Include="..\..\DataAccess\DatabaseRepositories\DatabaseRepositories.csproj" />
+    <ProjectReference Include="..\..\DataAccess\FileDataModel\FileDataModel.csproj" />
+    <ProjectReference Include="..\..\DataAccess\FileRepositories\FileRepositories.csproj" />
+    <ProjectReference Include="..\..\Shared\Configuration\Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

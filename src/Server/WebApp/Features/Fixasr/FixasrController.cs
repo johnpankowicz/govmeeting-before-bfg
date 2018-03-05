@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using GM.WebApp.Features.Shared;
 using Microsoft.AspNetCore.Hosting;
+using GM.DataAccess.FileRepositories;
+using GM.DataAccess.FileDataModel;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

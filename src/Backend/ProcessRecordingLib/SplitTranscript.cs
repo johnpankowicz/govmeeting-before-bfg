@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using GM.Shared.Models;
+using GM.DataAccess.FileDataModel;
 
 namespace GM.Backend.ProcessRecordingLib
 {
@@ -24,12 +24,12 @@ namespace GM.Backend.ProcessRecordingLib
         CultureInfo culture = CultureInfo.CurrentCulture;
         string format = "hh\\:mm\\:ss";
         int sectionNumber;
-        Fixasr[] fixasrSegment = new Fixasr[2];
+        FixasrView[] fixasrSegment = new FixasrView[2];
 
-       public void split(Fixasr fixasr, string outputFolder, int sectionSize, int overlap, int parts)
+       public void split(FixasrView fixasr, string outputFolder, int sectionSize, int overlap, int parts)
        {
-            fixasrSegment[0] = new Fixasr();
-            fixasrSegment[1] = new Fixasr();
+            fixasrSegment[0] = new FixasrView();
+            fixasrSegment[1] = new FixasrView();
             fixasrSegment[0].lastedit = 0;
             fixasrSegment[1].lastedit = 0;
             sectionNumber = 1;
@@ -63,7 +63,7 @@ namespace GM.Backend.ProcessRecordingLib
                     WriteSection(outputFolder, primary, sectionNumber);
                     sectionNumber++;
                     currentPart++;
-                    fixasrSegment[primary] = new Fixasr();
+                    fixasrSegment[primary] = new FixasrView();
 
                     // Swap primary and secondary
                     int x = primary;

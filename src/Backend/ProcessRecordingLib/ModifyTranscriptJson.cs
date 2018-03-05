@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GM.Shared.Models;
+using GM.DataAccess.FileDataModel;
 
 namespace GM.Backend.ProcessRecordingLib
 {
@@ -44,10 +44,10 @@ namespace GM.Backend.ProcessRecordingLib
 
     public class ModifyTranscriptJson
     {
-        public Fixasr Modify(TranscribeResponse transcript)
+        public FixasrView Modify(TranscribeResponse transcript)
         {
             int MaxCharactersPerRecord = 40;
-            Fixasr fixasr = new Fixasr();
+            FixasrView fixasr = new FixasrView();
             string line = "";
             int startTime = 0;
 

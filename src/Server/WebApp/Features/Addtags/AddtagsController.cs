@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System.IO;
+using  GM.DataAccess.FileRepositories;
+using GM.DataAccess.FileDataModel;
 
 namespace GM.WebApp.Features.Addtags
 {

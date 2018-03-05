@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using GM.Shared.Models;
+using GM.DataAccess.FileDataModel;
 
 namespace GM.Backend.ProcessRecordingLib
 {
@@ -25,7 +25,7 @@ namespace GM.Backend.ProcessRecordingLib
             //   2. Less video or audio data needs to be downloaded to the user at one time.
 
             string stringValue = File.ReadAllText(fixasrFile);
-            Fixasr fixasr = JsonConvert.DeserializeObject<Fixasr>(stringValue);
+            FixasrView fixasr = JsonConvert.DeserializeObject<FixasrView>(stringValue);
 
             // Split the recording into parts and put them each in subfolders of subfolder "parts".
             SplitRecording splitRecording = new SplitRecording();

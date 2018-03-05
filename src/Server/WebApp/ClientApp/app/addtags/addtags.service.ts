@@ -61,10 +61,10 @@ export class AddtagsService {
     }
 
     private topics: string[] = [
-        "Topic1",
-        "Topic2",
-        "Topic3",
-        "Topic4"
+        "Pave 4th St.",
+        "Hire business manager",
+        "Parking ordinaces",
+        "Ice skating rink"
     ];
 
     private sections: string[] = [
