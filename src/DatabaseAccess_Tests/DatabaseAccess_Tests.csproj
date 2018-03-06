@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseAccessLib\DatabaseAccessLib.csproj" />
-    <ProjectReference Include="..\DatabaseModelLib\DatabaseModelLib.csproj" />
+    <ProjectReference Include="..\DatabaseAccess_Lib\DatabaseAccess_Lib.csproj" />
+    <ProjectReference Include="..\DatabaseModel_Lib\DatabaseModel_Lib.csproj" />
   </ItemGroup>
 
 </Project>

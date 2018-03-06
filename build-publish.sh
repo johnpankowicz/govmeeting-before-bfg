@@ -1,14 +1,14 @@
-# This script is outdated. It was valid when WebApp and BrowserApp were
+# This script is outdated. It was valid when WebApp and ClientrApp were
 # in separate Visual Studio projects.
 
 GOV="/C/GOVMEETING/_SOURCECODE"
 GOV_SER="${GOV}/src/Server/WebApp"
-GOV_CLI="${GOV}/src/Client/BrowserApp"
+GOV_CLI="${GOV}/src/Client/ClientApp"
 
 PUBLISH="${GOV_SER}/bin/Release/PublishOutput"
 
 cd ${GOV_CLI}
-echo "Run production build of BrowserApp"
+echo "Run production build of ClientApp"
 npm run build.prod
 
 cd ${GOV_CLI}/dist/prod

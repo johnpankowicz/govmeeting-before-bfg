@@ -60,18 +60,17 @@ or download zip file:`https://github.com/govmeeting/govmeeting/archive/master.zi
 The front-end is what you see at [govmeeting.org](govmeeting.org).
 
   * Open solution "govmeeting.sln"
-  * Set startup project to `Server/WebApp`. Press F5.
+  * Set startup project to `Web_App`. Press F5.
 
 #### To run back-end processing of recordings and and existing transcripts.
 
 This uses Google Speech API for transcription. You would need to first:  [Create GCP project](https://github.com/govmeeting/govmeeting/wiki) Then:
 
-* Set startup project to `Backend/ProcessingIncoming`. Press F5.
+* Set startup project to `WorkFlow_App`. Press F5.
 
 * Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INCOMING.
 
   The program will recognize that a new file has appeared and start processing it.
-  The test file will be moved to "COMPLETED" when done.
 
   
 
