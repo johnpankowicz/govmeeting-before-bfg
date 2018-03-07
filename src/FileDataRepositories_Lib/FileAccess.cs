@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GM.FileDataRepositories
 {
-    public static class FileSystem
+    public static class FileAccess
     {
         public static void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
         {

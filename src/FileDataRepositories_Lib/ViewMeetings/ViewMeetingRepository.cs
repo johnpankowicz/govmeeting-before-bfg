@@ -49,7 +49,7 @@ namespace GM.FileDataRepositories
 
         private MeetingView GetViewMeetingByPath(string path)
         {
-            string meetingString = FileSystem.Readfile(path);
+            string meetingString = FileAccess.Readfile(path);
             if (meetingString != null)
             {
                 MeetingView meeting = JsonConvert.DeserializeObject<MeetingView>(meetingString);

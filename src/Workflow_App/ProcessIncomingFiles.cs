@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using GM.Configuration;
 using GM.FileDataRepositories;
 
-namespace GM.WebFlow
+namespace GM.WorkFlow
 {
     public class ProcessIncomingFiles
     {
@@ -56,7 +56,7 @@ namespace GM.WebFlow
         }
 
         // Watch the incoming folder and process new files as they arrive.
-        public void WatchIncoming()
+        public void Run()
         {
             // Process any existing files in the folder
             foreach (string f in Directory.GetFiles(incomingPath))
@@ -84,11 +84,11 @@ namespace GM.WebFlow
             // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
             if (_isDevelopment)
             {
-                FileSystem.DeleteDirectoryRecursively(meetingFolder);
+                FileDataRepositories.FileAccess.DeleteDirectoryRecursively(meetingFolder);
 
             }
 
-            if (!FileSystem.CreateDirectory(meetingFolder))
+            if (!FileDataRepositories.FileAccess.CreateDirectory(meetingFolder))
             {
                 // We were not able to create a folder for processing this video.
                 // Probably because the folder already exists.
@@ -133,7 +133,7 @@ namespace GM.WebFlow
             string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
             string destination = _meetingInfo.MeetingFolderFullPath(assets) + "\\Fixasr";
 
-            FileSystem.CopyDirectories(source, destination);
+            FileDataRepositories.FileAccess.CopyDirectories(source, destination);
         }
 
     }

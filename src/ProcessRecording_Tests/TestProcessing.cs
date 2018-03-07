@@ -29,7 +29,7 @@ namespace GM.ProcessRecording_Tests
             string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
             string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
 
-            FileSystem.CopyDirectories(source, destination);
+            FileDataRepositories.FileAccess.CopyDirectories(source, destination);
         }
 
         public void TestSplitTranscript()
@@ -68,7 +68,7 @@ namespace GM.ProcessRecording_Tests
             string inputFile = testdataPath + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
 
             string outputFolder = testdataPath + "\\" + "TestReformatOfTranscribeResponse";
-            FileSystem.DeleteAndCreateDirectory(outputFolder);
+            FileDataRepositories.FileAccess.DeleteAndCreateDirectory(outputFolder);
             string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
             string stringValue = File.ReadAllText(inputFile);

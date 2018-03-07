@@ -72,7 +72,7 @@ namespace GM.FileDataRepositories
         {
             try
             {
-                string fixasrString = FileSystem.Readfile(path);
+                string fixasrString = FileAccess.Readfile(path);
                 if (fixasrString != null)
                 {
                     return fixasrString;

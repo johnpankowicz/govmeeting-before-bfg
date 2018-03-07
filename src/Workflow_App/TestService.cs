@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using GM.Configuration;
 
 
-namespace GM.WebFlow
+namespace GM.WorkFlow
 {
     public interface ITestService
     {

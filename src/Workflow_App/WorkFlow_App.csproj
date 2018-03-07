@@ -25,6 +25,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration_Lib\Configuration_Lib.csproj" />
+    <ProjectReference Include="..\DatabaseRepositories_Lib\DatabaseRepositories_Lib.csproj" />
+    <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+    <ProjectReference Include="..\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj" />
     <ProjectReference Include="..\ProcessRecording_Lib\ProcessRecording_Lib.csproj" />
     <ProjectReference Include="..\ProcessTranscript_Lib\ProcessTranscript_Lib.csproj" />
   </ItemGroup>

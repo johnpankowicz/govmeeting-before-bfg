@@ -8,8 +8,10 @@ using NLog.Web;
 using GM.Configuration;
 using GM.ProcessRecording;
 using GM.ProcessTranscript;
+using GM.FileDataRepositories;
+using GM.DatabaseRepositories;
 
-namespace GM.WebFlow
+namespace GM.WorkFlow
 {
     /* Eventually This will become part of WebApp. It is in a separate proceess
      * for development. We want to start it in the same way that WebApp will start it.
@@ -30,7 +32,7 @@ namespace GM.WebFlow
             var serviceProvider = services.BuildServiceProvider();
 
             // entry to run app
-            serviceProvider.GetService<WorkFlow>().Run();
+            serviceProvider.GetService<WorkFlowController>().Run();
         }
         private static void ConfigureServices(IServiceCollection services)
         {
@@ -56,9 +58,16 @@ namespace GM.WebFlow
             services.AddTransient<ProcessIncomingFiles>();
             services.AddTransient<RecordingProcess>();
             services.AddTransient<TranscriptProcess>();
+            //services.AddTransient<LoadTranscript>();
+            services.AddTransient<ProcessTaggedTranscriptions>();
+            services.AddTransient<ProcessFixedTranscriptions>();
+            services.AddTransient<AddtagsRepository>();
+            services.AddTransient<FixasrRepository>();
+            services.AddTransient<IMeetingRepository, MeetingRepository>();
+            services.AddTransient<IGovBodyRepository, GovBodyRepository>();
 
             // add app
-            services.AddTransient<WorkFlow>();
+            services.AddTransient<WorkFlowController>();
         }
     }
 }

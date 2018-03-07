@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GM.DatabaseModel;
 using GM.DatabaseAccess;
+using GM.FileDataModel;
 
 namespace GM.LoadDatabase
 {
@@ -18,6 +19,14 @@ namespace GM.LoadDatabase
         {
             ApplicationDbContext appContext = new ApplicationDbContext();
             appContext.Database.EnsureCreated();
+        }
+
+        // This method would load transcripts for which the Addtags processing has completed.
+        public void LoadCompletedTranscripts()
+        {
+            // For now we will use a single test transcript.
+            AddtagsView addtags = new AddtagsView(); 
+
         }
 
         /// <summary>

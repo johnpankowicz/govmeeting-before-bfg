@@ -13,9 +13,9 @@ namespace GM.FileDataModel
 
     public class AddtagsView
     {
-        public string[] sections { get; set; }
-        public string[] topics { get; set; }
-        public TalksView[] talks { get; set; }
+        public List<string> sections { get; set; }
+        public List<string> topics { get; set; }
+        public List<TalksView> talks { get; set; }
     }
 
     public class TalksView

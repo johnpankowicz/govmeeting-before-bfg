@@ -5,27 +5,34 @@ using System.Threading.Tasks;
 
 namespace GM.FileDataModel
 {
+    /* The model of the meeting data for the JSON
+     * data is different from that of the database
+     * model. The types "TopicDiscussion", "Talk" &
+     * "Meeting" are also defined in the database model.
+     */
+
+
     public class MeetingView
     {
-        public Meeting meeting { get; set; }
-        public string[] topicNames { get; set; }
-        public string[] speakerNames { get; set; }
-        public Topicdiscussion[] topicDiscussions { get; set; }
+        Meeting meeting { get; set; }
+        string[] topicNames { get; set; }
+        string[] speakerNames { get; set; }
+        Topicdiscussion[] topicDiscussions { get; set; }
     }
 
-    public class Topicdiscussion
+    class Topicdiscussion
     {
         public string name { get; set; }
         public Talk[] talks { get; set; }
     }
 
-    public class Talk
+    class Talk
     {
         public string Speaker { get; set; }
         public string Text { get; set; }
     }
 
-    public class Meeting
+    class Meeting
     {
         public long meetingId { get; set; }
         public long locationId { get; set; }

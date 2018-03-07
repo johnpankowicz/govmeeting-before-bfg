@@ -7,7 +7,12 @@ namespace GM.ProcessRecording
 {
 
     /*
-     * Modify the trancription output from Google speech format:
+     * Modify the trancription output from Google speech format to our own "FixasrView" format.
+     * The Google data contains start and end times for every word. We do not need such
+     * fine grained data for the process that will fix errors in the transcription.
+     * We will include timestamps for approximately every 40 characters of text.
+     * 
+     ******* Google Format:
 
            {
              "alternatives": [
@@ -28,7 +33,7 @@ namespace GM.ProcessRecording
                      "position": 2
                    },
 
-    * To the format expected by the "fixasr" component, where the user fixes errors in the Auto Speech Recognition text:
+    ****** Our "Fixasr" data format:
 
        {
          "lastedit": 0,
@@ -39,7 +44,7 @@ namespace GM.ProcessRecording
            {"startTime":"0:08","said":"Saturday with a terrible cold so if you"},
 
 
-    * Roughly we are displaying up to 40 characters of text per line. This format will likely change as the fixasr user interface changes. 
+    * Roughly we are displaying up to 40 characters of text per line. 
     */
 
     public class ModifyTranscriptJson

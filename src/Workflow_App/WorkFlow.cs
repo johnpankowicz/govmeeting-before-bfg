@@ -4,44 +4,58 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using GM.Configuration;
+//using GM.LoadDatabase;
 
-
-namespace GM.WebFlow
+namespace GM.WorkFlow
 {
 
-    public class WorkFlow
+    public class WorkFlowController
     {
-        /*  The "WorkFlow" component will eventually become the "controller" for the 
-         *  Govmeeting process steps.
-         *  At this moment, it only handles one step: that of pre-processing new files.
+        /*  WorkFlowController is the "controller" for the Govmeeting processing steps:
+         *  (1) It watches for new recording and transcript files that are either uploaded
+         *      or retrieved automatically from YouTube, etc. and calls the pre-processing routines.
+         *  (2) When the corrections are completed of the auto voice recognition text,
+         *      it transforms the JSON format for the next step in the process: adding tags.
+         *  (3) When the addition of tags is completed, it loads the completed transcript into
+         *      the database.
          */
 
 
         //private readonly ITestService _testService;
-        private readonly ILogger<WorkFlow> _logger;
+        private readonly ILogger<WorkFlowController> _logger;
         private readonly AppSettings _config;
         private readonly ProcessIncomingFiles _processIncomingFiles;
+        private ProcessFixedTranscriptions _processFixedTranscriptions;
+        private ProcessTaggedTranscriptions _processTaggedTranscriptions;
 
-        public WorkFlow(
+        public WorkFlowController(
             //ITestService testService,
             IOptions<AppSettings> config,
-            ILogger<WorkFlow> logger,
-            ProcessIncomingFiles processIncomingFiles
+            ILogger<WorkFlowController> logger,
+            ProcessIncomingFiles processIncomingFiles,
+            ProcessFixedTranscriptions processFixedTranscriptions,
+            ProcessTaggedTranscriptions processTaggedTranscriptions
             )
         {
             //_testService = testService;
             _logger = logger;
             _config = config.Value;
             _processIncomingFiles = processIncomingFiles;
+            _processFixedTranscriptions = processFixedTranscriptions;
+            _processTaggedTranscriptions = processTaggedTranscriptions;
         }
 
         public void Run()
         {
-            _logger.LogInformation($"Start watching the incoming folder for work. datafilesPath = {_config.DatafilesPath}");
+            _logger.LogInformation($"Start Workflow - datafilesPath = {_config.DatafilesPath}");
 
             //_testService.Run();
 
-            _processIncomingFiles.WatchIncoming();
+            //_processIncomingFiles.Run();
+
+            _processFixedTranscriptions.Run();
+
+            _processTaggedTranscriptions.Run();
 
             System.Console.ReadKey();
         }
