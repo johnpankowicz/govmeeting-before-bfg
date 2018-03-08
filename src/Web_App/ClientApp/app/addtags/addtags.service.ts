@@ -6,8 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 
-import { Addtags } from './addtags';
-import { Talk } from './talks/talk';
+import { Addtags, Talk } from '../models/addtags';
 
 
 @Injectable()

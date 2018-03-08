@@ -12,7 +12,7 @@ namespace GM.WorkFlow
 {
     public class ProcessFixedTranscriptions
     {
-        int MEETINGID = 1;      // FOR DEVELOPMENT
+        //int MEETINGID = 1;      // FOR DEVELOPMENT
 
         AddtagsRepository _addtagsRepository;
         FixasrRepository _fixasrRepository;

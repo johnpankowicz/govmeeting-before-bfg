@@ -72,6 +72,27 @@ namespace GM.DatabaseAccess
             applicationDbContext.SaveChanges();
         }
 
+        public Meeting GetMeeting(long meetingId)
+        {
+            Meeting meeting;
+            var query = from m in applicationDbContext.Meetings
+                        where m.Id == meetingId
+                        select m;
+            meeting = query.SingleOrDefault();
+            return meeting;
+
+        }
+
+        public GovernmentBody GetGovernmentBody(long governmentBodyId)
+        {
+            GovernmentBody gBody;
+            var query = from g in applicationDbContext.GovernmentBodies
+                        where g.Id == governmentBodyId
+                        select g;
+            gBody = query.SingleOrDefault();
+            return gBody;
+        }
+
         /// <summary>
         /// Gets the existing government bodies.
         /// </summary>

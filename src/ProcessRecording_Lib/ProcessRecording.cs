@@ -20,13 +20,13 @@ namespace GM.ProcessRecording
          *          segments can then be worked on separately by multiple volunteers.
          */
 
-        bool _isDevelopment;
+        private readonly AppSettings _config;
 
         public RecordingProcess(
             IOptions<AppSettings> config
             )
         {
-            _isDevelopment = config.Value.IsDevelopment;
+            _config = config.Value;
         }
 
         public void Process(string videoFile, string meetingFolder, string language)
@@ -36,13 +36,13 @@ namespace GM.ProcessRecording
             FileInfo infile = new FileInfo(videoFile);
             string videofileCopy = meetingFolder + "\\" + "R0-Video.mp4";
 
-            if (!_isDevelopment)
+            if (!_config.IsDevelopment)
             {
                 File.Copy(videoFile, videofileCopy);
             } else {
                 // #### FOR DEVELOPMENT: WE SHORTEN THE RECORDING FILE. ####
                 SplitRecording splitRecording = new SplitRecording();
-                splitRecording.ExtractPart(videoFile, videofileCopy, 60, 4 * 60);
+                splitRecording.ExtractPart(videoFile, videofileCopy, 0, _config.RecordingSizeForDevelopment);
             }
 
             /////// Extract the audio. ////////////////////////
@@ -76,7 +76,8 @@ namespace GM.ProcessRecording
             /////// Split the video, audio and transcript into multiple work segments
 
             SplitIntoWorkSegments split = new SplitIntoWorkSegments();
-            split.Split(meetingFolder, videofileCopy, outputJsonFile);
+            split.Split(meetingFolder, videofileCopy, outputJsonFile, _config.FixasrSegmentSize,
+                _config.FixasrSegmentOverlap);
         }
 
 

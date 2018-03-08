@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AsrSegment } from './asrsegment';
-import { AsrText } from './asrtext';
+import { FixasrText, AsrSegment } from '../models/fixasr';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class FixasrServiceStub {
-    private asrtext: AsrText = {
+    private asrtext: FixasrText = {
         'lastedit': 0,
         'asrsegments':     [
         { startTime: '0:00', said: 'the tuesday october $YEAR 11 selectmen' },
@@ -22,12 +21,12 @@ export class FixasrServiceStub {
         { startTime: '0:30', said: 'Trish Warren wendy wolf myself Denise' }
    ]};
 
-    getAsr(): Observable<AsrText> {
+    getAsr(): Observable<FixasrText> {
         console.log('getAsr from memory');
         return Observable.of(this.asrtext);
     }
 
-    postChanges(asrtext : AsrText): Observable<any> {
+    postChanges(asrtext : FixasrText): Observable<any> {
         console.log('postChanges in fixasr.service stub');
         return Observable.of(this.asrtext);
     }

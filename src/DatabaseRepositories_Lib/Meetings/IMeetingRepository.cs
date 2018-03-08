@@ -9,6 +9,5 @@ namespace GM.DatabaseRepositories
     public interface IMeetingRepository
     {
         Meeting Get(long meetingId);
-        string GetMeetingFolder(long meetingId);
     }
 }

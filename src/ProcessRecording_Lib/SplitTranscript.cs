@@ -8,17 +8,15 @@ using GM.FileDataModel;
 
 namespace GM.ProcessRecording
 {
-    /* Split the fixasr object into smaller sections
-       {
-         "lastedit": 0,
-         "asrsegments": [
-           {"startTime":"0:00","said":"the tuesday october 11 selectmen's"},
-           {"startTime":"0:02","said":"meeting i will apologize apologize for"},
-           {"startTime":"0:06","said":"my voice i can hardly speak i woke up"},
-           {"startTime":"0:08","said":"Saturday with a terrible cold so if you"},
+    /* Split the fixasr JSON object into segments.
+     *  {
+     *    "lastedit": 0,
+     *    "asrsegments": [
+     *      {"startTime":"0:00","said":"the tuesday october 11 selectmen's"},
+     *      {"startTime":"0:02","said":"meeting i will apologize apologize for"},
+     *      {"startTime":"0:06","said":"my voice i can hardly speak i woke up"},
+     *      {"startTime":"0:08","said":"Saturday with a terrible cold so if you"},
      */
-
-
     public class SplitTranscript
     {
         CultureInfo culture = CultureInfo.CurrentCulture;
@@ -34,7 +32,7 @@ namespace GM.ProcessRecording
             fixasrSegment[1].lastedit = 0;
             sectionNumber = 1;
 
-            // Since we want the sections to overlap (if overlap is non-zero), we can be addingwo outputs at once
+            // Since we want the sections to overlap (if overlap is non-zero), we can be adding to 2 outputs at once
             // during the overlap. The first output that we start becomes the "primary" output.
             // When we reach sectionSize for the primary, we open the next output. We now add to both outputs until
             // we reach "sectionSize + overlap" on the primary. At that time we close the primary and write it to disk.

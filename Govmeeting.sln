@@ -50,6 +50,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeepWebsiteAlive_App", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileDataRepositories_Lib", "src\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj", "{36714CA8-70F5-4773-812C-E4AC6DA09944}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xConsoleApp1", "src\xConsoleApp1\xConsoleApp1.csproj", "{5173F7C6-76A1-4F67-9153-9D27CC193E42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,10 @@ Global
 		{36714CA8-70F5-4773-812C-E4AC6DA09944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36714CA8-70F5-4773-812C-E4AC6DA09944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36714CA8-70F5-4773-812C-E4AC6DA09944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5173F7C6-76A1-4F67-9153-9D27CC193E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5173F7C6-76A1-4F67-9153-9D27CC193E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5173F7C6-76A1-4F67-9153-9D27CC193E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5173F7C6-76A1-4F67-9153-9D27CC193E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +142,7 @@ Global
 		{776B1EC0-11F8-4E95-8472-E2A5C49EC43C} = {7A7C0DE4-8F51-4FB3-BD90-798B925739B3}
 		{813AFAC4-6D47-4588-B1C9-5028AFA6C202} = {7A7C0DE4-8F51-4FB3-BD90-798B925739B3}
 		{36714CA8-70F5-4773-812C-E4AC6DA09944} = {7A7C0DE4-8F51-4FB3-BD90-798B925739B3}
+		{5173F7C6-76A1-4F67-9153-9D27CC193E42} = {7A7C0DE4-8F51-4FB3-BD90-798B925739B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD5F3662-C3BA-4207-8B9B-AFCB14399401}

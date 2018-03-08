@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
-import { ViewMeeting } from './viewmeeting';
+import { ViewMeeting } from '../models/viewmeeting';
 
 @Injectable()
 export class ViewMeetingServiceStub {

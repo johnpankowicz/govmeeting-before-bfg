@@ -101,13 +101,10 @@ namespace GM.WorkFlow
             switch (extension)
             {
                 case ".pdf":
-                    //ProcessTranscript pt = new ProcessTranscript(meetingFolder);
                     _processTranscript.Process(filename, meetingFolder);
                     break;
                 case ".mp4":
-                    //ProcessRecording processRec = new ProcessRecording(meetingFolder);
                     _processRecording.Process(filename, meetingFolder, language);
-                    CopyMediaToAssets();
                     break;
             }
 
@@ -120,21 +117,5 @@ namespace GM.WorkFlow
             string newFile = processedPath + "\\" + Path.GetFileName(filename);
             File.Move(filename, newFile);
         }
-
-        // Copy the media files into the server's wwwroot/assets folder.
-        // We need to write a asp.net video controller which will serve video files via the Web API.
-        // That will allow us to leave these files in the "Datafiles" folder.
-        // Until then, we need to copy the media files into src/Server/Webapp/wwwroot/assets,
-        // so that they can be retrieve as static assets.
-        void CopyMediaToAssets()
-        {
-            string source = _meetingInfo.MeetingFolderFullPath(_datafilesPath) + "\\Fixasr";
-
-            string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
-            string destination = _meetingInfo.MeetingFolderFullPath(assets) + "\\Fixasr";
-
-            FileDataRepositories.FileAccess.CopyDirectories(source, destination);
-        }
-
     }
 }

@@ -9,11 +9,13 @@ namespace GM.ProcessRecording
 {
     public class SplitIntoWorkSegments
     {
-        public void Split(string meetingFolder, string videofile, string fixasrFile)
+        /*   Split the video, audio and JSON data for this meeting into smaller
+         *   segments. This allows multiple people to work on the fixes to 
+         *   the text at the same time.
+         */
+        public void Split(string meetingFolder, string videofile, string fixasrFile,
+            int segmentSize, int segmentOverlap)
         {
-            int segmentSize = 180; // segment size in seconds to split the recording into.
-            int segmentOverlap = 5; // amount in seconds to overlap the sections.
-
             string splitFolder = meetingFolder + "\\" + "R4-FixText";
 
             // The processed recording will next go through the following workflow:

@@ -17,25 +17,25 @@ namespace GM.FileDataRepositories
         private const string EXTENSION = "json";
 
         private readonly AppSettings _config;
-        IMeetingRepository _meetingRepository;
+        private readonly MeetingFolder _meetingFolder;
 
         public ViewMeetingRepository(
             IOptions<AppSettings> config,
-            IMeetingRepository meetingRepository
+            MeetingFolder meetingFolder
             )
         {
             _config = config.Value;
-            _meetingRepository = meetingRepository;
+            _meetingFolder = meetingFolder;
         }
 
         public MeetingView Get(long meetingId)
         {
-            string path = _meetingRepository.GetMeetingFolder(meetingId);
+            string meetingFolder = _meetingFolder.Get(meetingId);
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(path, _config.DatafilesPath, _config.TestfilesPath);
+            UseTestData.CopyIfNeeded(meetingFolder, _config.DatafilesPath, _config.TestfilesPath);
 
-            string latestCopy = Path.Combine(_config.DatafilesPath, path, STEP4_BASE_NAME + "." + EXTENSION);
+            string latestCopy = Path.Combine(_config.DatafilesPath, meetingFolder, STEP4_BASE_NAME + "." + EXTENSION);
 
             if (File.Exists(latestCopy))
             {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { AsrSegment } from './asrsegment';
-import { AsrText } from './asrtext';
+import { FixasrText, AsrSegment } from '../models/fixasr';
 
 // Use fixasr.service-stub to return test data and not call the server.
 import { FixasrService } from './fixasr.service';
@@ -359,7 +358,7 @@ export class FixasrComponent  implements OnInit {
     }
 
     saveChanges() {
-        var asrtext : AsrText;
+        var asrtext : FixasrText;
         var lastedit = this.getScrollPosition();
         console.log('saveTranscript');
         // Todo-g - See notes under getAsr().

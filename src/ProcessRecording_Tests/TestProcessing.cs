@@ -11,25 +11,13 @@ namespace GM.ProcessRecording_Tests
     {
         // Todo-g - These should come from configuration
         private string testdataPath = Environment.CurrentDirectory + @"\..\..\testdata";
-        private string datafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
+        //private string datafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
 
         public void TestAll()
         {
             TestReformatOfTranscribeResponse();
             TestSplitIntoWorkSegments();
-            CopyMediaToAssets();
             TestSplitTranscript();
-        }
-
-        public void CopyMediaToAssets()
-        {
-            MeetingInfo mi = new MeetingInfo("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-02-15.mp4");
-            string meetingFolder = mi.MeetingFolderFullPath(datafilesPath);
-            string source = meetingFolder + "\\parts";
-            string assets = Environment.CurrentDirectory + @"\..\..\Server\Webapp\wwwroot\assets";
-            string destination = assets + "\\" + mi.location + "\\" + mi.date + "\\R4-FixText";
-
-            FileDataRepositories.FileAccess.CopyDirectories(source, destination);
         }
 
         public void TestSplitTranscript()
@@ -58,9 +46,11 @@ namespace GM.ProcessRecording_Tests
             string outputFolder = @"C:\GOVMEETING\_SOURCECODE\src\Datafiles\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN\2017-01-09";
             string videoFile = outputFolder + "\\" + "R0-Video.mp4";
             string transcriptFile = outputFolder + "\\" + "R3-ToBeFixed.json";
+            int segmentSize = 180;
+            int overlap = 5;
 
             SplitIntoWorkSegments split = new SplitIntoWorkSegments();
-            split.Split(outputFolder, videoFile, transcriptFile);
+            split.Split(outputFolder, videoFile, transcriptFile, segmentSize, overlap);
         }
 
         public void TestReformatOfTranscribeResponse()

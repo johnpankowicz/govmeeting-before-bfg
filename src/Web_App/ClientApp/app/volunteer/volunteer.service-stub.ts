@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { WorkInProgress } from './workinprogress';
-import { WorkItem } from './workitem';
-import { Volunteer } from './volunteer';
+import { WorkInProgress, WorkItem } from '../models/workinprogress';
+import { Volunteer } from '../models/volunteer';
 import { Meeting } from '../models/meeting'
 import { Location } from '../models/location';
 

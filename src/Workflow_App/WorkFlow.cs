@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using GM.Configuration;
+using GM.LoadDatabase;
 //using GM.LoadDatabase;
 
 namespace GM.WorkFlow
@@ -27,6 +28,7 @@ namespace GM.WorkFlow
         private readonly ProcessIncomingFiles _processIncomingFiles;
         private ProcessFixedTranscriptions _processFixedTranscriptions;
         private ProcessTaggedTranscriptions _processTaggedTranscriptions;
+        private LoadTranscript _loadTranscript;
 
         public WorkFlowController(
             //ITestService testService,
@@ -34,7 +36,8 @@ namespace GM.WorkFlow
             ILogger<WorkFlowController> logger,
             ProcessIncomingFiles processIncomingFiles,
             ProcessFixedTranscriptions processFixedTranscriptions,
-            ProcessTaggedTranscriptions processTaggedTranscriptions
+            ProcessTaggedTranscriptions processTaggedTranscriptions,
+            LoadTranscript loadTranscript
             )
         {
             //_testService = testService;
@@ -43,19 +46,20 @@ namespace GM.WorkFlow
             _processIncomingFiles = processIncomingFiles;
             _processFixedTranscriptions = processFixedTranscriptions;
             _processTaggedTranscriptions = processTaggedTranscriptions;
+            _loadTranscript = loadTranscript;
         }
 
         public void Run()
         {
             _logger.LogInformation($"Start Workflow - datafilesPath = {_config.DatafilesPath}");
 
-            //_testService.Run();
-
-            //_processIncomingFiles.Run();
+            _processIncomingFiles.Run();
 
             _processFixedTranscriptions.Run();
 
             _processTaggedTranscriptions.Run();
+
+            _loadTranscript.Run();
 
             System.Console.ReadKey();
         }

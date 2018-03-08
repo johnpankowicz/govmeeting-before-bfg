@@ -26,7 +26,6 @@ using GM.FileDataRepositories;
 using GM.DatabaseRepositories;
 using GM.Configuration;
 
-
 namespace GM.WebApp
 {
     public class Startup
@@ -46,7 +45,7 @@ namespace GM.WebApp
             services.AddSingleton<IRedirectConsole, RedirectConsole>();
 
             services.AddOptions();
-            services.Configure<AppSettings>(Configuration.GetSection("DataPaths"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<AppSettings>(myOptions =>
             {
                 // Modify the DataFilesPath option to be the full path.
@@ -151,8 +150,8 @@ namespace GM.WebApp
 
 
             // Add repositories
-            services.AddSingleton<IGovBodyRepository, GovBodyRepository>();
-            services.AddSingleton<IMeetingRepository, MeetingRepository>();
+            services.AddSingleton<IGovBodyRepository, GovBodyRepositoryStub>();     // use stub
+            services.AddSingleton<IMeetingRepository, MeetingRepositoryStub>();     // use stub
             services.AddSingleton<IViewMeetingRepository, ViewMeetingRepository>();
             services.AddSingleton<IAddtagsRepository, AddtagsRepository>();
             services.AddSingleton<IFixasrRepository, FixasrRepository>();
@@ -164,6 +163,7 @@ namespace GM.WebApp
             DebugStartup("In ConfigureServices - after AddTransient");
 
             services.AddTransient<IDbInitializer, DbInitializer>();
+            services.AddTransient<MeetingFolder>();
 
             services.AddSingleton(Configuration);
 
@@ -250,7 +250,7 @@ namespace GM.WebApp
             // videogular via the API, we need to allow these to be accessed as static files.
             //string datafilesPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]));
             //datafilesPath = @"C:\ClientSites\govmeeting.org\Datafiles";
-            string datafilesPath = Configuration["DataPaths:DatafilesPath"];
+            string datafilesPath = Configuration["AppSettings:DatafilesPath"];
             datafilesPath = GetFullPath(datafilesPath);
             if (!Directory.Exists(datafilesPath))
             {

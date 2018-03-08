@@ -1,9 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { Talk } from './talks/talk';
 import { Observable } from 'rxjs/Observable';
-import { Addtags } from './addtags';
+import { Addtags, Talk } from '../models/addtags';
 
 @Injectable()
 export class AddtagsServiceStub {

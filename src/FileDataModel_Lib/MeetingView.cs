@@ -14,25 +14,25 @@ namespace GM.FileDataModel
 
     public class MeetingView
     {
-        Meeting meeting { get; set; }
-        string[] topicNames { get; set; }
-        string[] speakerNames { get; set; }
-        Topicdiscussion[] topicDiscussions { get; set; }
+        public MeetingForView meeting { get; set; }
+        public string[] topicNames { get; set; }
+        public string[] speakerNames { get; set; }
+        public TopicdiscussionForView[] topicDiscussions { get; set; }
     }
 
-    class Topicdiscussion
+    public class TopicdiscussionForView
     {
         public string name { get; set; }
-        public Talk[] talks { get; set; }
+        public TalkForView[] talks { get; set; }
     }
 
-    class Talk
+    public class TalkForView
     {
         public string Speaker { get; set; }
         public string Text { get; set; }
     }
 
-    class Meeting
+    public class MeetingForView
     {
         public long meetingId { get; set; }
         public long locationId { get; set; }

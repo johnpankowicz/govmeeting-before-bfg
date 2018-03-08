@@ -10,6 +10,7 @@ using GM.ProcessRecording;
 using GM.ProcessTranscript;
 using GM.FileDataRepositories;
 using GM.DatabaseRepositories;
+using GM.LoadDatabase;
 
 namespace GM.WorkFlow
 {
@@ -46,19 +47,18 @@ namespace GM.WorkFlow
 
             // build configuration
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\..\Web_App")
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 
             services.AddOptions();
-            services.Configure<AppSettings>(configuration.GetSection("DataPaths"));
+            services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 
             // add services
-            //services.AddTransient<ITestService, TestService>();
             services.AddTransient<ProcessIncomingFiles>();
             services.AddTransient<RecordingProcess>();
             services.AddTransient<TranscriptProcess>();
-            //services.AddTransient<LoadTranscript>();
+            services.AddTransient<LoadTranscript>();
             services.AddTransient<ProcessTaggedTranscriptions>();
             services.AddTransient<ProcessFixedTranscriptions>();
             services.AddTransient<AddtagsRepository>();
