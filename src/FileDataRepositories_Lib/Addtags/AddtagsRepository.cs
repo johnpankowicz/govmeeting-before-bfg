@@ -26,7 +26,7 @@ namespace GM.FileDataRepositories
 
         public AddtagsView Get(long meetingId)
         {
-            string meetingFolder = _meetingFolder.Get(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
             string workFolder = meetingFolder + "\\" + WORK_FOLDER;
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
@@ -44,7 +44,7 @@ namespace GM.FileDataRepositories
         //public void Put(string value)
         public bool Put(AddtagsView value, long meetingId)
         {
-            string meetingFolder = _meetingFolder.Get(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
             string workFolder = meetingFolder + "\\" + WORK_FOLDER;
 
             string meetingTotagFolder = Path.Combine(_config.DatafilesPath, workFolder);

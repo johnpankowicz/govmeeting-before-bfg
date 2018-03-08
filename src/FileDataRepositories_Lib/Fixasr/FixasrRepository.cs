@@ -27,7 +27,7 @@ namespace GM.FileDataRepositories
 
         public FixasrView Get(long meetingId, int part)
         {
-            string meetingFolder = _meetingFolder.Get(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
 
             string workFolder = meetingFolder + "\\" + WORK_FOLDER;
             string partFolder = workFolder + $"\\part{part:D2}";
@@ -47,7 +47,7 @@ namespace GM.FileDataRepositories
 
         public bool Put(FixasrView value, long meetingId, int part)
         {
-            string meetingFolder = _meetingFolder.Get(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
 
             string meetingSegmentFolder = System.IO.Path.Combine(_config.DatafilesPath, meetingFolder);
 

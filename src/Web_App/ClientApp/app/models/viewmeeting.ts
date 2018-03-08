@@ -1,7 +1,4 @@
-﻿//import { WorkItem } from './workitem';
-import { Meeting } from './meeting'
-//import { Volunteer } from './volunteer';
-//import { Location } from '../models/location';
+﻿import { Meeting } from './meeting'
 
 export class ViewMeeting {
     //meetingInfo: MeetingInfo;

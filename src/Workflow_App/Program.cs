@@ -63,6 +63,7 @@ namespace GM.WorkFlow
             services.AddTransient<ProcessFixedTranscriptions>();
             services.AddTransient<AddtagsRepository>();
             services.AddTransient<FixasrRepository>();
+            services.AddTransient<MeetingFolder>();
             services.AddTransient<IMeetingRepository, MeetingRepository>();
             services.AddTransient<IGovBodyRepository, GovBodyRepository>();
 

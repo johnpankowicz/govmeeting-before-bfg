@@ -24,33 +24,25 @@ namespace GM.WorkFlow
          * For new PDF files, it calls: ProcessTranscript
         */
 
-        bool _isDevelopment;
-        private string _datafilesPath;
-        private string incomingPath;
-        private string processedPath;
-        MeetingInfo _meetingInfo;
+        AppSettings _config;
+        //MeetingInfo _meetingInfo;
+        MeetingFolder _meetingFolder;
         TranscriptProcess _processTranscript;
         RecordingProcess _processRecording;
 
         public ProcessIncomingFiles(
             IOptions<AppSettings> config,
             TranscriptProcess processTranscript,
-            RecordingProcess processRecording
+            RecordingProcess processRecording,
+            MeetingFolder meetingFolder
            )
         {
             // Todo-g We need to get the location of the credentials file path from configuration.
             string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
 
-            _datafilesPath = config.Value.DatafilesPath;
-            _isDevelopment = config.Value.IsDevelopment;
-
-            incomingPath = _datafilesPath + @"\INCOMING";
-            Directory.CreateDirectory(incomingPath);
-
-            processedPath = _datafilesPath + @"\PROCESSED";
-            Directory.CreateDirectory(processedPath);
-
+            _meetingFolder = meetingFolder;
+            _config = config.Value;
             _processTranscript = processTranscript;
             _processRecording = processRecording;
         }
@@ -58,6 +50,9 @@ namespace GM.WorkFlow
         // Watch the incoming folder and process new files as they arrive.
         public void Run()
         {
+            string incomingPath = _config.DatafilesPath + @"\INCOMING";
+            Directory.CreateDirectory(incomingPath);
+
             // Process any existing files in the folder
             foreach (string f in Directory.GetFiles(incomingPath))
             {
@@ -72,17 +67,18 @@ namespace GM.WorkFlow
 
         public void doWork(string filename)
         {
-            _meetingInfo = new MeetingInfo(filename);
-            if (!_meetingInfo.valid)
+            if (!_meetingFolder.Set(filename))
+            //_meetingInfo = new MeetingInfo(filename);
+            //if (!_meetingInfo.valid)
             {
                 Console.WriteLine($"ProcessFiles.cs - filename is invalid: {filename}");
                 return;
             }
-            string meetingFolder = _meetingInfo.MeetingFolderFullPath(_datafilesPath);
-            string language = _meetingInfo.language;
+            string meetingFolder = _config.DatafilesPath + "\\" +_meetingFolder.path;
+            string language = _meetingFolder.language;
 
             // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
-            if (_isDevelopment)
+            if (_config.IsDevelopment)
             {
                 FileDataRepositories.FileAccess.DeleteDirectoryRecursively(meetingFolder);
 
@@ -108,14 +104,15 @@ namespace GM.WorkFlow
                     break;
             }
 
-            // Move the original file to "PROCESSED" folder
-            MoveFileToProcessedFolder(filename);
+            //// Move the original file to "PROCESSED" folder
+            //MoveFileToProcessedFolder(filename);
         }
 
-        private void MoveFileToProcessedFolder(string filename)
-        {
-            string newFile = processedPath + "\\" + Path.GetFileName(filename);
-            File.Move(filename, newFile);
-        }
+        //private void MoveFileToProcessedFolder(string filename)
+        //{
+        //    string processedPath = _config.DatafilesPath + @"\PROCESSED"
+        //    string newFile = processedPath + "\\" + Path.GetFileName(filename);
+        //    File.Move(filename, newFile);
+        //}
     }
 }

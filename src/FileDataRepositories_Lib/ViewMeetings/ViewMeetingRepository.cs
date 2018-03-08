@@ -30,7 +30,7 @@ namespace GM.FileDataRepositories
 
         public MeetingView Get(long meetingId)
         {
-            string meetingFolder = _meetingFolder.Get(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
             UseTestData.CopyIfNeeded(meetingFolder, _config.DatafilesPath, _config.TestfilesPath);
