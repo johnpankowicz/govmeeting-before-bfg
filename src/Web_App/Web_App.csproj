@@ -30,9 +30,13 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\app\models\models\**" />
+    <Compile Remove="Features\Models\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="Features\Models\**" />
     <EmbeddedResource Remove="ClientApp\app\models\models\**" />
+    <EmbeddedResource Remove="Features\Models\**" />
     <None Remove="ClientApp\app\models\models\**" />
+    <None Remove="Features\Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Models\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 

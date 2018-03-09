@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //import { TalksService } from './talks.service';
 //import { TopicsService } from '../topics/topics.service';
 import { AddtagsService } from '../addtags.service';
-import { Addtags, Talk } from '../../models/addtags';
+import { Addtags, Talk } from '../../models/addtags-view';
 
 @Component({
   selector: 'gm-talks',

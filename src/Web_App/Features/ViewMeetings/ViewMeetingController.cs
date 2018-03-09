@@ -23,9 +23,9 @@ namespace GM.WebApp.Features.Viewmeetings
         }
 
         [HttpGet("{meetingId}")]
-        public MeetingView Get(int meetingId)
+        public ViewmeetingView Get(int meetingId)
         {
-            MeetingView ret = meetings.Get(meetingId);
+            ViewmeetingView ret = meetings.Get(meetingId);
             return ret;
         }
     }

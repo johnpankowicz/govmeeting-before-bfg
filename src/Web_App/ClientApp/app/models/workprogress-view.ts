@@ -1,10 +1,8 @@
-﻿import { Meeting } from './meeting'
-import { Volunteer } from './volunteer';
-import { Location } from './location';
+﻿import { MeetingForView } from './meetingforview'
 
-export class WorkInProgress {
+export class WorkProgress {
     locationId: number;
-    meeting: Meeting;
+    meeting: MeetingForView;
     workitems: WorkItem[];
     volunteers: Volunteer[];
     locations: Location[];
@@ -19,4 +17,19 @@ export class WorkItem {
     lastEdit: number;
     lastEditTime: string;
     length: number;
+}
+
+export class Volunteer {
+    volunteerId: number;  // Unique ID for this volunteer
+    userName: string;    // user chosen user name
+    locationId: number;  // Home location
+    workItemId: number;  // Item that the volunteer is currently working on.
+}
+
+export class Location {
+    locationId: number;
+    country: string;
+    state: string;
+    county: string;
+    municipality: string;
 }

@@ -30,7 +30,8 @@ export class TopicsComponent implements OnInit {
         .subscribe(
             addtags => {
                 this.topics = addtags.topics;
-            console.log(this.topics);        },
+                //console.log(this.topics);
+            },
         error => this.errorMessage = <any>error);
     }
 

@@ -28,7 +28,7 @@ namespace GM.FileDataRepositories
             _meetingFolder = meetingFolder;
         }
 
-        public MeetingView Get(long meetingId)
+        public ViewmeetingView Get(long meetingId)
         {
             string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
 
@@ -47,12 +47,12 @@ namespace GM.FileDataRepositories
             }
         }
 
-        private MeetingView GetViewMeetingByPath(string path)
+        private ViewmeetingView GetViewMeetingByPath(string path)
         {
             string meetingString = FileAccess.Readfile(path);
             if (meetingString != null)
             {
-                MeetingView meeting = JsonConvert.DeserializeObject<MeetingView>(meetingString);
+                ViewmeetingView meeting = JsonConvert.DeserializeObject<ViewmeetingView>(meetingString);
                 return meeting;
             } else
             {

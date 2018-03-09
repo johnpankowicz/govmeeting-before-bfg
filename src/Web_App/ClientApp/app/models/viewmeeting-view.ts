@@ -1,8 +1,8 @@
-﻿import { Meeting } from './meeting'
+﻿import { MeetingForView } from './meetingforview'
 
 export class ViewMeeting {
     //meetingInfo: MeetingInfo;
-    meeting: Meeting;
+    meeting: MeetingForView;
     topicNames: string[];
     speakerNames: string[];
     topicDiscussions: TopicDiscussion[];

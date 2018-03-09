@@ -4,30 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { NavMenuComponent } from './navmenu/navmenu.component';
-import { ErrorHandlingService } from './gmshared/error-handling/error-handling.service';
+import { NavMenuComponent } from '../navmenu/navmenu.component';
+import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { ViewMeetingModule } from './viewmeeting/viewmeeting.module'
-import { AddtagsModule } from './addtags/addtags.module'
-import { FixasrModule } from './fixasr/fixasr.module'
-import { GmSharedModule } from './gmshared/gmshared.module'
-import { HomeModule } from './home/home.module';
-import { AboutModule } from './about/about.module';
-import { VolunteerModule } from './volunteer/volunteer.module';
-import { TemppagesModule } from './temppages/temppages.module';
-import { TestModule } from './test/test.module';
+import { AppRoutingModule } from '../app-routing/app-routing.module';
+import { ViewMeetingModule } from '../viewmeeting/viewmeeting.module'
+import { AddtagsModule } from '../addtags/addtags.module'
+import { FixasrModule } from '../fixasr/fixasr.module'
+import { GmSharedModule } from '../gmshared/gmshared.module'
+import { HomeModule } from '../home/home.module';
+import { AboutModule } from '../about/about.module';
+import { VolunteerModule } from '../volunteer/volunteer.module';
+import { TemppagesModule } from '../temppages/temppages.module';
+import { TestModule } from '../test/test.module';
 //import { MatsampModule } from './matsamp/matsamp.module
 
-import { ViewMeetingService } from './viewmeeting/viewmeeting.service';
-import { ViewMeetingServiceStub } from './viewmeeting/viewmeeting.service-stub';
-import { AddtagsService } from './addtags/addtags.service';
-import { AddtagsServiceStub } from './addtags/addtags.service-stub';
-import { FixasrService } from './fixasr/fixasr.service';
-import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
+import { ViewMeetingService } from '../viewmeeting/viewmeeting.service';
+import { ViewMeetingServiceStub } from '../viewmeeting/viewmeeting.service-stub';
+import { AddtagsService } from '../addtags/addtags.service';
+import { AddtagsServiceStub } from '../addtags/addtags.service-stub';
+import { FixasrService } from '../fixasr/fixasr.service';
+import { FixasrServiceStub } from '../fixasr/fixasr.service-stub';
 
-import { AppData } from './appdata';
+import { AppData } from '../appdata';
 
 @NgModule({
     declarations: [

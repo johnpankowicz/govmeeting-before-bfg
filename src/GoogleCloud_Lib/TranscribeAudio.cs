@@ -22,28 +22,6 @@ namespace GM.ProcessRecording
             language = _language;
         }
 
-        //public void TranscribeAll(string inputFolder, string outputFolder)
-        //{
-        //    Directory.CreateDirectory(outputFolder);
-        //    foreach (string f in Directory.GetFiles(inputFolder, "*.flac"))
-        //    {
-        //        string name = Path.GetFileNameWithoutExtension(f);
-        //        Console.WriteLine("TranscribeAudio.cs - " + f);
-
-        //        TranscribeToFile(inputFolder + "\\" + name + ".flac", outputFolder + "\\" + name + ".txt", false);
-        //    }
-        //}
-
-        //public void TranscribeToFile(string inputFile, string outputFile, bool inCloud)
-        //{
-        //    TranscribeResponse transcript = Transcribe(inputFile, inCloud);
-
-        //    string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
-
-        //    File.WriteAllText(outputFile, stringValue);
-        //}
-
-
         /// <param name="language">Language of the audio. This is the ISO 639 code</param>
         /// The audio file name may have been shortened. For the cloud object name, we want to use the original full
         /// name of the video, but change the extension to ".flac".

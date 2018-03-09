@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { WorkInProgress, WorkItem } from '../models/workinprogress';
-import { Volunteer } from '../models/volunteer';
-import { Meeting } from '../models/meeting'
-import { Location } from '../models/location';
+import { WorkProgress, WorkItem, Volunteer, Location } from '../models/workprogress-view';
+import { MeetingForView } from '../models/meetingforview'
 
 @Injectable()
 export class FixasrService {
@@ -12,7 +10,7 @@ export class FixasrService {
         console.log('VolunteerService stub constructor');
     }
     // We will return the data for location 6633 (Linden, NJ - USA)
-    getWorkInProgress(locationId: number = 5633): Observable<WorkInProgress> {
+    getWorkInProgress(locationId: number = 5633): Observable<WorkProgress> {
         console.log('getWorkInProgress from memory');
         return Observable.of(this.workinprogress);
     }
@@ -37,7 +35,7 @@ export class FixasrService {
 // We use an ISO 8601 date format:
 // https://stackoverflow.com/a/15952652/1978840
 
-    private workinprogress: WorkInProgress = {
+    private workinprogress: WorkProgress = {
         "locationId": 5633,
         "meeting": {
             "meetingId": 24356,

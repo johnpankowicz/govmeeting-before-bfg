@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { FixasrText, AsrSegment } from '../models/fixasr';
+import { FixasrText, AsrSegment } from '../models/fixasr-view';
 
 // Use fixasr.service-stub to return test data and not call the server.
 import { FixasrService } from './fixasr.service';

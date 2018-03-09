@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { ViewMeeting } from '../models/viewmeeting';
+import { ViewMeeting } from '../models/viewmeeting-view';
 import { share } from 'rxjs/operator/share';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 

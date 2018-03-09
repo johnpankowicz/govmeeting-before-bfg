@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FixasrText, AsrSegment } from '../models/fixasr';
+import { FixasrText, AsrSegment } from '../models/fixasr-view';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()

@@ -12,7 +12,7 @@ namespace GM.FileDataModel
      */
 
 
-    public class MeetingView
+    public class ViewmeetingView
     {
         public MeetingForView meeting { get; set; }
         public string[] topicNames { get; set; }

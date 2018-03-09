@@ -2,7 +2,7 @@
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Addtags, Talk } from '../models/addtags';
+import { Addtags, Talk } from '../models/addtags-view';
 
 @Injectable()
 export class AddtagsServiceStub {

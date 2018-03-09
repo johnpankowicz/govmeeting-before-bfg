@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.32.0.1100" />
-    <PackageReference Include="Google.Cloud.Speech.V1" Version="1.0.0" />
-    <PackageReference Include="Google.Cloud.Storage.V1" Version="2.1.0" />
-    <PackageReference Include="Grpc.Auth" Version="1.8.3" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="NAudio" Version="1.8.4" />
   </ItemGroup>
@@ -16,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration_Lib\Configuration_Lib.csproj" />
     <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+    <ProjectReference Include="..\GoogleCloud_Lib\GoogleCloud_Lib.csproj" />
   </ItemGroup>
 
 </Project>

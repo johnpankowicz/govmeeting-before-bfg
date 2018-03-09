@@ -1,4 +1,4 @@
-﻿export class Meeting {
+﻿export class MeetingForView {
     meetingId: number;
     locationId: number;
     governmentBody : string;

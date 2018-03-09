@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TalksComponent } from './talks.component';
-import { Talk } from '../../models/addtags'
+import { Talk } from '../../models/addtags-view'
 
 describe('TalksComponent', () => {
   let component: TalksComponent;
