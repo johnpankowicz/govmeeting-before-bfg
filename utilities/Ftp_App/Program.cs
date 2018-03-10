@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GM.OnlineAccess;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
@@ -16,7 +17,7 @@ namespace GM.Ftp
 
             // Get the FTP login info from the Development appsettings.
             string currentDir = Directory.GetCurrentDirectory();
-            string secretsDir = Path.GetFullPath(Path.Combine(currentDir, "../../../../_SECRETS")); 
+            string secretsDir = Path.GetFullPath(Path.Combine(currentDir, "../../../_SECRETS")); 
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(secretsDir)

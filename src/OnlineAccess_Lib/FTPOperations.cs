@@ -19,7 +19,7 @@ static void Main(string[] args)
         }  
  */
 
-namespace GM.Ftp
+namespace GM.OnlineAccess
 {
     public class FTPOperations
     {
