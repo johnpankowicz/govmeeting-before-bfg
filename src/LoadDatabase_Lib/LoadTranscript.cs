@@ -9,6 +9,10 @@ using GM.FileDataModel;
 using Microsoft.Extensions.Options;
 using GM.Configuration;
 
+/*    This is old code that needs to be re-done. Originally, the format of the transcript file
+ *    that was being read and loaded into the database was in a different format.
+ */
+
 namespace GM.LoadDatabase
 {
     /// <summary>

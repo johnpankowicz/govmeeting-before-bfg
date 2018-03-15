@@ -5,19 +5,12 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}/ClientApp/src"
-        },
-        {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/WebAppSpaTemplate.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/Web_App.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { HomeComponent } from '../home/home.component'
 import { AboutComponent } from '../about/about.component';
 import { ViewMeetingComponent } from '../viewmeeting/viewmeeting.component'
@@ -22,7 +23,10 @@ const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'viewmeeting', component: ViewMeetingComponent },
     { path: 'addtags', component: AddtagsComponent },
+
     { path: 'fixasr', component: FixasrComponent },
+    //{ path: 'fixasr', loadChildren: '../fixasr/fixasr.module#FixasrModule' },
+
     { path: 'home', component: HomeComponent },
     { path: 'volunteer', component: VolunteerComponent },
     { path: 'serverdemo', component: ServerdemoComponent },

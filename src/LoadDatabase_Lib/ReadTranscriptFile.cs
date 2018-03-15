@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using GM.DatabaseModel;
 
+
+/*    This is old code that needs to be re-done. Originally, the format of the transcript file
+ *    that was being read and loaded into the database was in a different format.
+ */
+
 /*
  * The ReadTranscript class reads a transcript file into an in-memory data model.
  * It does NOT access the database. In other words, it only references the Model project and not DbOperations.

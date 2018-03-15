@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\fixasr\fixasr-routing.module.ts" />
     <None Remove="ClientApp\app\gmshared\error-handling\error-handling.service.ts" />
   </ItemGroup>
 
@@ -56,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\fixasr\fixasr-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\gmshared\error-handling\error-handling.service.ts" />
   </ItemGroup>
 

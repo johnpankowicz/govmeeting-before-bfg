@@ -13,6 +13,7 @@ import { Addtags, Talk } from '../models/addtags-view';
 export class AddtagsService {
     private addtagsUrl: string = 'api/addtags';
     private addtags: Addtags;
+    private observable: Observable<Addtags>;
 
     // Normally the meetingId will be passed to the getTalks method.
     // But we did not yet write the component for the user to select a meeting.
@@ -24,12 +25,16 @@ export class AddtagsService {
     }
 
     getTalks(): Observable<Addtags> {
+        if (this.observable != null) {
+            return this.observable
+        }
         // See notes above for "meetingId".
         let url: string = this.addtagsUrl;
         url = url + "/" + this.meetingId;
-
-        return this.http.get<Addtags>(url)
-            .pipe(catchError(this.errHandling.handleError));
+        this.observable = this.http.get<Addtags>(url)
+            .pipe(catchError(this.errHandling.handleError))
+            .share();     // make it shared so more than one subscriber can get the same result.
+        return this.observable;
     }
 
     postChanges(addtags: Addtags): Observable<any> {

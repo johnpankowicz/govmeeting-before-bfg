@@ -6,6 +6,7 @@ import { FixasrComponent } from './fixasr.component';
 import { VideoModule } from '../video/video.module';
 import { GmSharedModule } from '../gmshared/gmshared.module'
 import { RouterModule } from '@angular/router';
+//import { FixasrRoutingModule } from './fixasr-routing.module';
 //import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     //ReactiveFormsModule,
     CommonModule,
     RouterModule,
+    //FixasrRoutingModule,
     FormsModule,
     HttpClientModule,
     VideoModule,
