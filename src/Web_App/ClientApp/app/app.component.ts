@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { AppData } from '../appdata';
+import { AppData } from './appdata';
 
 // See aumentations.ts for the explanation of the following.
 import 'rxjs/Subject';
