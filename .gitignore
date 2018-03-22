@@ -22,18 +22,17 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+/Properties/launchSettings.json
+
 # Govmeeting
-**/[Bb]in/
-**/[Oo]bj/
-**/node_modules/
-**/bower_components/
-**/wwwroot/lib/
-**/wwwroot/assets/video
-**/Database/Documentation/Help/
+/src/Web_App/wwwroot/lib/
 .synkron.syncdb
-**/desktop.ini
-src/Datafiles/*
-**/server/logs/
+desktop.ini
+Datafiles/
+src/logs/
+**/wwwroot/dist/
+**/ClientApp/dist/
+DebugLog*
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -150,7 +149,6 @@ publish/
 ## web deploy settings but do note that will include unencrypted
 ## passwords
 #*.pubxml
-
 *.publishproj
 
 # NuGet Packages
