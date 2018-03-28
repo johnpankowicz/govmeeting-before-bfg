@@ -6,7 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.SpaServices.Webpack;
+
+// For new SpaTemplate
+//using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -148,6 +152,13 @@ namespace GM.WebApp
                 options.ViewLocationExpanders.Add(new FeatureLocationExpander());
             });
 
+            // For new SpaTemplate
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
+
 
             // Add repositories
             services.AddSingleton<IGovBodyRepository, GovBodyRepositoryStub>();     // use stub
@@ -196,17 +207,19 @@ namespace GM.WebApp
             GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
             var logger = LogManager.LoadConfiguration("NLog.config").GetCurrentClassLogger();
 
-            redirect.Start();
+            //redirect.Start();
             Console.WriteLine("Startup.cs - Time = " + DateTime.Now);
             Console.WriteLine("Startup.cs - connection string = " + Configuration["Data:DefaultConnection:ConnectionString"]);
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
+
+                // For new SpaTemplate
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                //{
+                //    HotModuleReplacement = true
+                //});
             }
             else
             {
@@ -233,6 +246,21 @@ namespace GM.WebApp
             }
 
             app.UseStaticFiles();
+
+            // For new SpaTemplate
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
 
             DebugStartup("In Configure - after UseStaticFiles");
 
@@ -282,9 +310,10 @@ namespace GM.WebApp
                  * the index page of the Home controller. This returns the page containing the SPA. Once
                  * the SPA is running, it sees the URL that is being requested and handles it properly.
                  */
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                // Remove for new SpaTemplate
+                //routes.MapSpaFallbackRoute(
+                //    name: "spa-fallback",
+                //    defaults: new { controller = "Home", action = "Index" });
             });
 
             DebugStartup("In Configure - after UseMvc");
