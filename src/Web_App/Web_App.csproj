@@ -12,30 +12,12 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <!-- FROM ORIG -->
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
-    <PackageReference Include="NLog" Version="4.5.0-rc06" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0-rc3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0-preview1-final" />
+    <PackageReference Include="NLog" Version="4.5.0" />
+    <PackageReference Include="NLog.Web" Version="4.5.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,21 +30,12 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <!-- FROM ORIG -->
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\" />
-  </ItemGroup>
-
-  <!-- FROM ORIG -->
   <ItemGroup>
     <ProjectReference Include="..\Configuration_Lib\Configuration_Lib.csproj" />
-    <ProjectReference Include="..\DatabaseModel_Lib\DatabaseModel_Lib.csproj" />
     <ProjectReference Include="..\DatabaseRepositories_Lib\DatabaseRepositories_Lib.csproj" />
-    <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
     <ProjectReference Include="..\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj" />
   </ItemGroup>
 
-  <!-- FROM ORIG -->
   <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -96,4 +69,4 @@
     </ItemGroup>
   </Target>
 
-</Project>  
+</Project>

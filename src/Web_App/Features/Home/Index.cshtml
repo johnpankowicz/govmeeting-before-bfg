@@ -6,7 +6,9 @@
 @*The upgrade to Angular5 instructions asked for this change to the app-root element.
   http://www.talkingdotnet.com/upgrade-angular-4-app-angular-5-visual-studio-2017/*@
 @*<app-root asp-prerender-module="ClientApp/dist/main-server">Loading...</app-root>*@
-<app-root>Loading...</app-root>
+
+@*This was the one being used before switch to new spa template*@ 
+@*<app-root>Loading...</app-root>*@
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
