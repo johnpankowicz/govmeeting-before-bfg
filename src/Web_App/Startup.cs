@@ -203,10 +203,23 @@ namespace GM.WebApp
 
             }
 
-            _logger.Trace("GM: Configure static files");
+            _logger.Trace("GM: Configure static file paths");
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            _logger.Trace("GM: Configure PhysicalFileProvider");
+
+            // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
+            // videogular via the API, we need to allow these to be accessed as static files.
+            string datafilesPath = Configuration["AppSettings:DatafilesPath"];
+            datafilesPath = GetFullPath(datafilesPath);
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    datafilesPath),
+                    RequestPath = "/datafiles"
+            });
 
             _logger.Trace("GM: Configure routes");
 
@@ -230,25 +243,6 @@ namespace GM.WebApp
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
-            });
-
-            _logger.Trace("GM: Configure PhysicalFileProvider");
-
-            // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
-            // videogular via the API, we need to allow these to be accessed as static files.
-            //string datafilesPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]));
-            //datafilesPath = @"C:\ClientSites\govmeeting.org\Datafiles";
-            string datafilesPath = Configuration["AppSettings:DatafilesPath"];
-            datafilesPath = GetFullPath(datafilesPath);
-            if (!Directory.Exists(datafilesPath))
-            {
-                Directory.CreateDirectory(datafilesPath);
-            }
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(datafilesPath),
-                //RequestPath = new Microsoft.AspNetCore.Http.PathString("/datafiles")
-                RequestPath = "/datafiles"
             });
 
             _logger.Trace("GM: Configure Authenitication");
