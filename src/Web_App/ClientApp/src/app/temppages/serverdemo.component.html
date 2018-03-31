@@ -8,7 +8,7 @@
 
 <h3> Process Video recordings </h3>
 
-<p> The following processing occurs for video recording of meetings.  [An asterisk * means code is written for this.]</p>
+<p> The following processing occurs for video recording of meetings.  [An asterisk * means some code is written for this.]</p>
 <ul>
   <li> Retrieve new recordings as they become available. </li>
   <li> Convert to the primary web video formats (mp4, ogg and webm). </li>
@@ -28,20 +28,20 @@
   which makes it unusable on a small screen like a smartphone.
   <button (click)="ToggleTranscript()"> {{showhidetranscript}} Sample Transcript </button>
 </p>
-<img [hidden]="!CheckShowTranscript()" (click)="ToggleTranscript()" src="Philly transcript page.png" width="900" alt="Philadelphia transcript page">
+<img [hidden]="!CheckShowTranscript()" (click)="ToggleTranscript()" src="images/Philly transcript page.png" width="900" alt="Philadelphia transcript page">
 
 <p>
-  Finding information is difficult. There is no table of contents. Click below to see a sample page of the index.
+  Finding information is difficult. There is no table of contents. Click below to see part of the computer generated single-word index.
   It is meant more for a legal researcher than the average person.
   <button (click)="ToggleIndex()"> {{showhideindex}} Sample Index </button>
 </p>
-<img [hidden]="!CheckShowIndex()" (click)="ToggleIndex()" src="Philly transcript index.png" width="900" alt="Philadelphia transcript index">
+<img [hidden]="!CheckShowIndex()" (click)="ToggleIndex()" src="images/Philly transcript index.png" width="900" alt="Philadelphia transcript index">
 
 <p> These transcripts need to be processed as follows. </p>
 <ul>
   <li> Convert the transcipts from other formats (EG: PDF) into text files. * </li>
-  <li> Extract information such as speaker and section names. * (partially)</li>
-  <li> Put the information into a JSON format for further processing. </li>
+  <li> Extract information such as speaker and section names. * </li>
+  <li> Put the information into a JSON format for further processing. * </li>
 
 </ul>
 

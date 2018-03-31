@@ -1,48 +1,55 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using GM.WebApp.StartupCustomizations;
-using GM.WebApp.Data;
-using GM.WebApp.Services;
-using NLog.Extensions.Logging;
-using NLog.Web;
+using Microsoft.AspNetCore.Mvc.Razor;
+
 using NLog;
-using GM.FileDataRepositories;
-using GM.DatabaseRepositories;
+using NLog.Web;
+
 using GM.Configuration;
+using GM.WebApp.Data;
+using GM.WebApp.StartupCustomizations;
+using GM.DatabaseRepositories;
+using GM.FileDataRepositories;
+using GM.WebApp.Services;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace GM.WebApp
 {
     public class Startup
+
     {
+        NLog.Logger _logger;
+
+        //public Startup(IConfiguration configuration, ILogger<Startup> logger)
         public Startup(IConfiguration configuration)
         {
-            DebugStartup("In Startup");
             Configuration = configuration;
+            _logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
         }
 
         public IConfiguration Configuration { get; }
 
-        // ConfigureServices is called by the runtime. It adds services to the container.
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // We will redirect console output to a file during production.
-            services.AddSingleton<IRedirectConsole, RedirectConsole>();
+
+            // Set a variable in the gdc which is be used in NLog.config for the
+            // base path of our app: ${gdc:item=appbasepath} 
+            var appBasePath = System.IO.Directory.GetCurrentDirectory();
+            GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
+
+            _logger.Trace("GM: In ConfigureServices");
+
+            _logger.Info("GM: Add AppSettings");
 
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -53,28 +60,22 @@ namespace GM.WebApp
                 Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
             });
 
-            ///////////////////////////////////////////////////////////////////////
-            DebugStartup("In ConfigureServices - Configure Identity Services");
-            ///////////////////////////////////////////////////////////////////////
+            _logger.Trace("GM: Add ApplicationDbContext");
 
             // We will be able to access ApplicationDbContext in a controller with:
             //    public MyController(ApplicationDbContext context) { ... }
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            DebugStartup("In ConfigureServices - after AddDbContext");
-            DebugStartup("ConnectionString: " + Configuration["Data:DefaultConnection:ConnectionString"]);
+            _logger.Trace("GM: Add Add Authentication");
 
-            // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             services.AddAuthentication()
             .AddGoogle(options => {
                 options.ClientId = Configuration["ExternalAuth:Google:ClientId"];
                 options.ClientSecret = Configuration["ExternalAuth:Google:ClientSecret"];
             });
 
-            ///////////////////////////////////////////////////////////////////////
-            DebugStartup("In ConfigureServices - Configure Identity Services");
-            ///////////////////////////////////////////////////////////////////////
+            _logger.Trace("GM: Add Identity");
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -94,8 +95,6 @@ namespace GM.WebApp
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            DebugStartup("In ConfigureServices - after AddIdentity");
-
             // Govmeeting: Brock Allen suggest stronger hashing instead of the default.
             //services.Configure<PasswordHasherOptions>(options =>
             //{
@@ -103,23 +102,19 @@ namespace GM.WebApp
             //    options.IterationCount = 20000;
             //});
 
-                        // https://docs.asp.net/en/latest/security/authorization/claims.html
+            _logger.Trace("GM: Add Authorization");
+
+            // https://docs.asp.net/en/latest/security/authorization/claims.html
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Administrator", policy =>
-                {
-                    policy.RequireClaim("role", "administrator");
-                });
+                { policy.RequireClaim("role", "administrator"); });
 
                 options.AddPolicy("Editor", policy =>
-                {
-                    policy.RequireClaim("role", "editor");
-                });
+                { policy.RequireClaim("role", "editor"); });
 
                 options.AddPolicy("Proofreader", policy =>
-                {
-                    policy.RequireClaim("role", "proofreader");
-                });
+                { policy.RequireClaim("role", "proofreader"); });
 
                 options.AddPolicy("PhillyEditor", policy =>
                 {
@@ -133,13 +128,12 @@ namespace GM.WebApp
                 });
             });
 
-            DebugStartup("In ConfigureServices - after second AddAuthorization");
+            _logger.Trace("GM: Add MVC");
 
-            // Add framework services.
             services.AddMvc()
                 .AddXmlSerializerFormatters();
 
-            DebugStartup("In ConfigureServices - after AddMvc");
+            _logger.Trace("GM: Add Feature Folders");
 
             // This enables the use of "Feature Folders".
             // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
@@ -148,6 +142,15 @@ namespace GM.WebApp
                 options.ViewLocationExpanders.Add(new FeatureLocationExpander());
             });
 
+            _logger.Trace("GM: Add SPA static files");
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
+            _logger.Trace("GM: Add Repositories");
 
             // Add repositories
             services.AddSingleton<IGovBodyRepository, GovBodyRepositoryStub>();     // use stub
@@ -156,11 +159,11 @@ namespace GM.WebApp
             services.AddSingleton<IAddtagsRepository, AddtagsRepository>();
             services.AddSingleton<IFixasrRepository, FixasrRepository>();
 
+            _logger.Trace("GM: Add Application services");
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-
-            DebugStartup("In ConfigureServices - after AddTransient");
 
             services.AddTransient<IDbInitializer, DbInitializer>();
             services.AddTransient<MeetingFolder>();
@@ -168,131 +171,88 @@ namespace GM.WebApp
             services.AddSingleton(Configuration);
 
             services.AddScoped<ValidateReCaptchaAttribute>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
             IHostingEnvironment env,
-            IRedirectConsole redirect,
+            //IRedirectConsole redirect,
             IDbInitializer dbInitializer,
             ILoggerFactory loggerFactory,
             ApplicationDbContext db
             )
-            //RoleManager<IdentityRole> roleManager,
         {
-            // Logging configuration is now part of the "WebHost.CreateDefaultBuilder(args)" call in Program.cs
-            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
-
-            // Configure NLog
-            //loggerFactory.AddNLog();        //add NLog to ASP.NET Core
-            //app.AddNLogWeb();               //add NLog.Web
-            ////needed for non-NETSTANDARD platforms: configure nlog.config in your project root. 
-            //// NB: you need NLog.Web.AspNetCore package for this.         
-            //env.ConfigureNLog("nlog.config");
-
-            var appBasePath = System.IO.Directory.GetCurrentDirectory();
-            GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
-            var logger = LogManager.LoadConfiguration("NLog.config").GetCurrentClassLogger();
-
-            redirect.Start();
-            Console.WriteLine("Startup.cs - Time = " + DateTime.Now);
-            Console.WriteLine("Startup.cs - connection string = " + Configuration["Data:DefaultConnection:ConnectionString"]);
+            _logger.Trace("GM: Configure exception handler Identity");
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
             }
             else
             {
-                // added for debugging deploy problem.
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
-
                 app.UseExceptionHandler("/Home/Error");
-
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                // Using migrations with asp.net core: https://dzone.com/articles/how-to-use-migration-with-entity-framework-core 
                 try
                 {
-                    // This is from before we add ApplicationDbContext to Congigure() arguments:
-                    //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                    //    .CreateScope())
-                    //{
-                    //    serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                    //         .Database.Migrate();
-                    //}
-                    db.Database.Migrate();
+                    // db.Database.Migrate();
                 }
-                catch { }
+                catch {
+                    _logger.Debug("db.Database.Migrate() failed");
+                }
+
             }
 
+            _logger.Trace("GM: Configure static file paths");
+
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
-            DebugStartup("In Configure - after UseStaticFiles");
-
-            // When the client code was in src\Client\BrowserApp, we created a FileProvider for that folder.
-            //string browserApp = GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\Client\BrowserApp"));
-            //    app.UseStaticFiles(new StaticFileOptions()
-            //    {
-            //        FileProvider = new PhysicalFileProvider(browserAppPath),
-            //        RequestPath = new PathString("/ba")
-            //    });
-            //}
-
+            _logger.Trace("GM: Configure PhysicalFileProvider");
 
             // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
             // videogular via the API, we need to allow these to be accessed as static files.
-            //string datafilesPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, Configuration["TypedOptions:DatafilesPath"]));
-            //datafilesPath = @"C:\ClientSites\govmeeting.org\Datafiles";
             string datafilesPath = Configuration["AppSettings:DatafilesPath"];
             datafilesPath = GetFullPath(datafilesPath);
-            if (!Directory.Exists(datafilesPath))
+            app.UseStaticFiles(new StaticFileOptions
             {
-                Directory.CreateDirectory(datafilesPath);
-            }
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(datafilesPath),
-                RequestPath = new PathString("/datafiles")
+                FileProvider = new PhysicalFileProvider(
+                    datafilesPath),
+                    RequestPath = "/datafiles"
             });
-            DebugStartup("In Configure - datafiles = " + datafilesPath);
 
-
-            // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
-            app.UseAuthentication();
-
-            DebugStartup("In Configure - after UseAuthentication");
+            _logger.Trace("GM: Configure routes");
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
-                /* The following is for Angular SPA routes. When someone does a browser refresh or uses a 
-                 * bookmark that's a deep link into the SPA, a request is sent to the server, instead
-                 * of being handled by the SPA. The server does not find a controller for this route
-                 * and returns a 404, Not Found. This map route redirects the request immediately to
-                 * the index page of the Home controller. This returns the page containing the SPA. Once
-                 * the SPA is running, it sees the URL that is being requested and handles it properly.
-                 */
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    template: "{controller}/{action=Index}/{id?}");
             });
 
-            DebugStartup("In Configure - after UseMvc");
+            _logger.Trace("GM: Configure SPA");
 
-            // Create seed data
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
+            _logger.Trace("GM: Configure Authenitication");
+
+            app.UseAuthentication();
+
+            _logger.Trace("GM: Initialize database");
+
+            //Create seed data
             dbInitializer.Initialize().Wait();
-
-            DebugStartup("In Configure - after DbInitializer.Initialize");
 
         }
 
@@ -306,9 +266,6 @@ namespace GM.WebApp
             return Path.GetFullPath(path);
         }
 
-        private void DebugStartup(string message)
-        {
-            File.AppendAllText("DebugLogStartup.txt", message + "\r\n");
-        }
+
     }
 }

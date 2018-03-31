@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -55,36 +55,37 @@ export class AddtagsService {
     }
 
     // Todo - This needs to call the WebApi for the data.
-    getSections(): Observable<string[]> {
-        return Observable.of(this.sections);
-    }
+    //getSections(): Observable<string[]> {
+    //    return Observable.of(this.sections);
+    //}
 
     // Todo - This needs to call the WebApi for the data.
-    getTopics(): Observable<string[]> {
-        return Observable.of(this.topics);
-    }
+    //getTopics(): Observable<string[]> {
+    //    return Observable.of(this.topics);
+    //}
 
-    private topics: string[] = [
-        "Pave 4th St.",
-        "Hire business manager",
-        "Parking ordinaces",
-        "Ice skating rink"
-    ];
+  //private topics: string[] = [
+  //      "",
+  //      "Pavxe 4th St.",
+  //      "Hire business manager",
+  //      "Parking ordinaces",
+  //      "Ice skating rink"
+  //  ];
 
-    private sections: string[] = [
-        'Invocation',
-        'Approval of Journal',
-        'Leaves of Absense',
-        'Presentations',
-        'Communications',
-        'Introductions of Bills',
-        'Reports',
-        'Bills on Second Reading',
-        'Public Comment',
-        'Second Reading',
-        'Speeches',
-        'Adjournment'
-    ];
+    //private sections: string[] = [
+    //    'Invocation',
+    //    'Approval of Journal',
+    //    'Leaves of Absense',
+    //    'Presentations',
+    //    'Communications',
+    //    'Introductions of Bills',
+    //    'Reports',
+    //    'Bills on Second Reading',
+    //    'Public Comment',
+    //    'Second Reading',
+    //    'Speeches',
+    //    'Adjournment'
+    //];
 
     // The way that HTTP Post works in Asp.Net Core has changed from prior Asp.Net.
     // Some good sources of information are:
