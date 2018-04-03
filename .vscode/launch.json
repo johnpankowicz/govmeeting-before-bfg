@@ -9,10 +9,10 @@
             "request": "launch",
             "name": "Chrome",
             "url": "http://localhost:5000",
-            "webRoot": "${workspaceRoot}/src/Web_App/ClientApp"
+            "webRoot": "${workspaceRoot}/src/ClientApp"
         },
 		{
-			"name": "Web_App Launch (full)",
+			"name": "Web_App",
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "build-webapp",
@@ -26,13 +26,10 @@
 			},
 			"env": {
 				"ASPNETCORE_ENVIRONMENT": "Development"
-			},
-			"sourceFileMap": {
-				"/Views": "${workspaceFolder}/Views"
 			}
 		},
          {
-            "name": "Web_App Launch",
+            "name": "Web_App & Launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-webapp",
@@ -86,8 +83,8 @@
     ],
     "compounds": [
         {
-            "name": "Full stack",
-            "configurations": ["Web_App Launch", "Chrome"]
+            "name": "Web_App & Chrome",
+            "configurations": ["Web_App", "Chrome"]
         }
     ]
 }

@@ -12,14 +12,14 @@ import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.
 export class FixasrService {
     private fixasrUrl = 'api/fixasr';
     private asrtext: FixasrText;
-    private error = { message: "not defined yet" };
+    private error = { message: 'not defined yet' };
 
     // Normally the meetingId & part will be passed to the getAsr method.
     // But we did not yet write the component for the user to select this.
     // We will use meeting "3" and part "1" for now.
     // This maps to the first work segment of a meeting of BBH on the server.
-    private meetingId: number = 3;
-    private part: number = 1;
+    private meetingId = 3;
+    private part = 1;
 
     constructor(private http: HttpClient, private errHandling: ErrorHandlingService) {
         console.log('FixasrService - constructor');
@@ -28,17 +28,17 @@ export class FixasrService {
     getAsr(): Observable<FixasrText> {
         // See notes above for meetingId & part.
         let url: string = this.fixasrUrl;
-        url = url + "/" + this.meetingId + "/" + this.part;
+        url = url + '/' + this.meetingId + '/' + this.part;
 
         console.log('get data from ' + url);
         return this.http.get<FixasrText>(url)
             .pipe(catchError(this.errHandling.handleError));
     }
 
-    postChanges(asrtext : FixasrText): Observable < any > {
+    postChanges(asrtext: FixasrText): Observable < any > {
         // See notes above for meetingId & part.
         let url: string = this.fixasrUrl;
-        url = url + "/" + this.meetingId + "/" + this.part;
+        url = url + '/' + this.meetingId + '/' + this.part;
 
         console.log('postChanges in fixasr.service  ' + url);
         return this.postData(url, asrtext);
