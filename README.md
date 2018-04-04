@@ -83,7 +83,7 @@ Install the following VS Code extensions:
 
 Open the repository folder in VS Code.
 
-In the debug panel, set the launch configuration to "Web_App & Chrome" to run the server and Angular app. Press F5. This configuration enables debugging both Typescript & Typescript in the same session. For an explanation, see: https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
+In the debug panel, set the launch configuration to "Web_App & Chrome" to run the server and Angular app. Press F5. This configuration enables debugging both Typescript & C# in the same session. For an explanation, see: https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
 
 
 
