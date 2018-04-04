@@ -81,10 +81,10 @@ Install the following VS Code extensions:
 * "Debugger for Chrome" by Microsoft
 * "C# for Visual Studio Code" by Microsoft
 
-For how to debug both Typescript and C# together in VS Code, see:
-  https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
-
 Open the repository folder in VS Code.
+
+In the debug panel, set the launch configuration to "Web_App & Chrome" to run the server and Angular app. Press F5. This configuration enables debugging both Typescript & Typescript in the same session. For an explanation, see: https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
+
 
 
 
