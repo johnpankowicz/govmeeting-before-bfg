@@ -1,4 +1,4 @@
 export class AppData {
-  public isServerRunning: boolean;
-  public isDataFromMemory: boolean;
+  public isAspServerRunning: boolean;
+  // public isDataFromMemory: boolean;
 }

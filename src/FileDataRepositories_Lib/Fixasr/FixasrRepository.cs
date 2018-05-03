@@ -34,7 +34,7 @@ namespace GM.FileDataRepositories
 
 
             // Todo-g - Remove later - for development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(workFolder, _config.DatafilesPath, _config.TestfilesPath);
+            // UseTestData.CopyIfNeeded(workFolder, _config.DatafilesPath, _config.TestfilesPath);
 
             string partFolderPath = Path.Combine(_config.DatafilesPath, partFolder);
 

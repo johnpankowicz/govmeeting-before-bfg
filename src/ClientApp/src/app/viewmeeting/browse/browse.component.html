@@ -7,7 +7,7 @@
           <div style="padding:10px">
               <div *ngFor="let talk of topicDiscuss.talks; let j = index">
                   <div [hidden]="!CheckShowSpeaker(talk.speaker)">
-                      <p><strong>{{talk.speaker}}:</strong> {{talk.text}} </p>
+                      <p><strong>{{talk.Speaker}}:</strong> {{talk.Text}} </p>
                   </div>
               </div>
           </div>

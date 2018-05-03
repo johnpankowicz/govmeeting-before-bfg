@@ -3,12 +3,12 @@
 }
 
 
-@*The upgrade to Angular5 instructions asked for this change to the app-root element.
+@*The upgrade to Angular5 instructions asked for this change to the gm-root element.
   http://www.talkingdotnet.com/upgrade-angular-4-app-angular-5-visual-studio-2017/*@
-@*<app-root asp-prerender-module="ClientApp/dist/main-server">Loading...</app-root>*@
+@*<gm-root asp-prerender-module="ClientApp/dist/main-server">Loading...</gm-root>*@
 
 @*This was the one being used before switch to new spa template*@ 
-@*<app-root>Loading...</app-root>*@
+@*<gm-root>Loading...</gm-root>*@
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
@@ -18,9 +18,9 @@
 <!-- This was from before switching to SPATemplates
 <div class="row">
     <div class="col-xs-12">
-        <app-root>
+        <gm-root>
             Loading product application…
-        </app-root>
+        </gm-root>
     </div>
 </div>
 -->

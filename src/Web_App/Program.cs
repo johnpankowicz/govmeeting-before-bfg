@@ -56,5 +56,6 @@ namespace GM.WebApp
                 })
                 .UseNLog();  // NLog: setup NLog for Dependency injection
                 //.Build();
+    
     }
 }

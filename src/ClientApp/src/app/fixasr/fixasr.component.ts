@@ -2,21 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
 
-// Use fixasr.service-stub to return test data and not call the server.
 import { FixasrService } from './fixasr.service';
-//import { FixasrService } from './fixasr.service-stub';
 
 import { VideoComponent } from '../video/video.component';
 import { FixasrUtilities } from './fixasr-utilities';
 import { Observable } from 'rxjs/Rx';
 import { Speaker } from './speaker';
-//import { Ng2DropdownModule } from 'ng2-material-dropdown';
+// import { Ng2DropdownModule } from 'ng2-material-dropdown';
 
 // test
 import { ElementRef } from '@angular/core';
-//import { HostListener } from '@angular/core';
+// import { HostListener } from '@angular/core';
 
-//2017-02-18
+// 2017-02-18
 // https://angular.io/docs/ts/latest/guide/user-input.html
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement
 
@@ -27,34 +25,33 @@ import { ElementRef } from '@angular/core';
 @Component({
   selector: 'gm-fixasr',
   templateUrl: './fixasr.component.html',
-  //templateUrl: './fixasr.component-Copy.html',
+  // templateUrl: './fixasr.component-Copy.html',
   styleUrls: ['./fixasr.component.css'],
     providers: [
-        FixasrService,
         FixasrUtilities
     ]
 })
 export class FixasrComponent  implements OnInit {
     errorMessage: string;
-    lastPhrasePlayed : number = 0;
-    currentIndex : number = -1;
+    lastPhrasePlayed = 0;
+    currentIndex = -1;
     currentElement: HTMLInputElement;
-    isTyping : boolean = false;
-    isFirstSpace : boolean = false;
-    isInsertMode: boolean = false;
-    isSpeakerSelectVisible: boolean = true;
-    modeButtonText: string = 'REPLACE';
+    isTyping = false;
+    isFirstSpace = false;
+    isInsertMode = false;
+    isSpeakerSelectVisible = true;
+    modeButtonText = 'REPLACE';
     _scrollList: HTMLElement;
 
-    showhelp: boolean = true;
-    showhidehelp: string = "Hide";
+    showhelp = true;
+    showhidehelp = 'Hide';
 
     // Todo-g - Fix problem with asrtext.
     // We should just use asrtext, which contains both asrsegments & lastedit.
     // But the browser hangs when we try to access asrtext from HTML.
     asrsegments: AsrSegment[];
-    lastedit: number = -1;
-    speakerName: string = '';
+    lastedit = -1;
+    speakerName = '';
 
     speakers: Speaker [] = [
     {'abbreviation': 'TW', 'option': 'Tricia Warren'},
@@ -73,7 +70,7 @@ export class FixasrComponent  implements OnInit {
     @ViewChild('myInput') input: ElementRef;
 
     @ViewChild(VideoComponent)
-    private videoComponent : VideoComponent;
+    private videoComponent: VideoComponent;
 
     constructor(
         private _fixasrService: FixasrService,

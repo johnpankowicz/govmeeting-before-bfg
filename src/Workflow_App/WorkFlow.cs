@@ -53,12 +53,20 @@ namespace GM.WorkFlow
         {
             _logger.LogInformation($"Start Workflow - datafilesPath = {_config.DatafilesPath}");
 
+            // To be written: Retrieve online recordings and transcripts
+            // _processRetrieveFiles.Run();
+
+            // Process the retrieved files - auto speech recognition of recordings and
+            // pre-process transcript files
             _processIncomingFiles.Run();
 
+            // Process the fixed transcripts to get ready for tagging
             _processFixedTranscriptions.Run();
 
+            // Process tagged transcripts - Create browsable transcript and get ready for loading database
             _processTaggedTranscriptions.Run();
 
+            // Load completed transcript data into database
             _loadTranscript.Run();
 
             System.Console.ReadKey();

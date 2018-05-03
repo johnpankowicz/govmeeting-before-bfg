@@ -11,14 +11,14 @@ import { Addtags, Talk } from '../models/addtags-view';
 
 @Injectable()
 export class AddtagsService {
-    private addtagsUrl: string = 'api/addtags';
+    private addtagsUrl = 'api/addtags';
     private addtags: Addtags;
     private observable: Observable<Addtags>;
 
     // Normally the meetingId will be passed to the getTalks method.
     // But we did not yet write the component for the user to select a meeting.
     // We will use id "2" for now. This maps to a meeting of Philadelphia on the server.
-    private meetingId: number = 2;
+    private meetingId = 2;
 
     constructor(private http: HttpClient, private errHandling: ErrorHandlingService) {
         console.log('TalksService - constructor');
@@ -26,11 +26,11 @@ export class AddtagsService {
 
     getTalks(): Observable<Addtags> {
         if (this.observable != null) {
-            return this.observable
+            return this.observable;
         }
         // See notes above for "meetingId".
         let url: string = this.addtagsUrl;
-        url = url + "/" + this.meetingId;
+        url = url + '/' + this.meetingId;
         this.observable = this.http.get<Addtags>(url)
             .pipe(catchError(this.errHandling.handleError))
             .share();     // make it shared so more than one subscriber can get the same result.
@@ -39,7 +39,7 @@ export class AddtagsService {
 
     postChanges(addtags: Addtags): Observable<any> {
         console.log('postChanges in talks.service');
-        //return Observable.of(this.addtags);
+        // return Observable.of(this.addtags);
         return this.postData(this.addtagsUrl, addtags);
     }
 
@@ -55,16 +55,16 @@ export class AddtagsService {
     }
 
     // Todo - This needs to call the WebApi for the data.
-    //getSections(): Observable<string[]> {
+    // getSections(): Observable<string[]> {
     //    return Observable.of(this.sections);
     //}
 
     // Todo - This needs to call the WebApi for the data.
-    //getTopics(): Observable<string[]> {
+    // getTopics(): Observable<string[]> {
     //    return Observable.of(this.topics);
     //}
 
-  //private topics: string[] = [
+  // private topics: string[] = [
   //      "",
   //      "Pavxe 4th St.",
   //      "Hire business manager",
@@ -72,7 +72,7 @@ export class AddtagsService {
   //      "Ice skating rink"
   //  ];
 
-    //private sections: string[] = [
+    // private sections: string[] = [
     //    'Invocation',
     //    'Approval of Journal',
     //    'Leaves of Absense',
@@ -85,7 +85,7 @@ export class AddtagsService {
     //    'Second Reading',
     //    'Speeches',
     //    'Adjournment'
-    //];
+    // ];
 
     // The way that HTTP Post works in Asp.Net Core has changed from prior Asp.Net.
     // Some good sources of information are:

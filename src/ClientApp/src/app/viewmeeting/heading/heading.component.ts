@@ -12,7 +12,7 @@ export class HeadingComponent implements OnInit {
         meetingId: 0,
         locationId: 0,
         governmentBody: '',
-        language: "",
+        language: '',
         date: '',
         meetingLength: 0
     };
@@ -28,7 +28,7 @@ export class HeadingComponent implements OnInit {
     .subscribe(
     (viewMeeting: any) => {
         this.meeting = viewMeeting.meeting;
-        //console.log(this.meeting);
+        // console.log(this.meeting);
     },
     (error: any) => this.errorMessage = <any>error);
 }

@@ -53,29 +53,25 @@ For a detailed system design, see: [System Design](https://github.com/govmeeting
 * Clone the repo: `git clone https://github.com/govmeeting/govmeeting.git`
 or download zip file:`https://github.com/govmeeting/govmeeting/archive/master.zip`
 
-### In Visual Studio
+If you only want to develop the front-end Angular / Typeacript code, there are stub routines for the Asp.Net WebApi calls, see [Develop Angular Frontend Only](#develop-angular-frontend-only).
 
-#### To run Angular front-end and Asp.Net server:
+To develop both the Angular front-end and the Asp.Net backend, you can use either Visual Studio or Visual Studio Code.
+
+### Develop Angular front-end and/or Asp.Net server
 
 The front-end is what you see at [govmeeting.org](govmeeting.org).
 
+#### In Visual Studio
+
   * Open solution "govmeeting.sln"
   * Set startup project to `Web_App`. Press F5.
-
-#### To run back-end processing of recordings and and existing transcripts.
-
-This uses Google Speech API for transcription. You would need to first:  [Create GCP project](https://github.com/govmeeting/govmeeting/wiki) Then:
-
-* Set startup project to `WorkFlow_App`. Press F5.
-
-* Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INCOMING.
-
-  The program will recognize that a new file has appeared and start processing it.
-
-  
+    You will need to wait for Nuget and NPM packages to be downloaded
+    and all projects to be built. Your browser should open and display the front-end.
 
 
-### In Visual Studio Code
+#### In Visual Studio Code
+
+* Install Chrome
 
 Install the following VS Code extensions:
 * "Debugger for Chrome" by Microsoft
@@ -83,7 +79,40 @@ Install the following VS Code extensions:
 
 Open the repository folder in VS Code.
 
-In the debug panel, set the launch configuration to "Web_App & Chrome" to run the server and Angular app. Press F5. This configuration enables debugging both Typescript & C# in the same session. For an explanation, see: https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
+In the debug panel, set the launch configuration to "Web_App & Chrome". Press F5. This configuration enables debugging both Typescript & C# in the same session. See: https://github.com/Microsoft/vscode-recipes/tree/master/Angular-SpaTemplates
+
+#### Develop Angular Frontend Only
+
+Open the "src/ClientApp" folder in your favorite editor (Sublime, VSCode, etc).
+
+Change the following line in the file "src/ClientApp/src/app/app.module.ts" to use stub routines in place of the Asp.Net backend.
+
+    const _isAspServerRunning = true;
+to
+
+    const _isAspServerRunning = false;
+
+In the folder "src/ClientApp", run the following command:
+
+    npm serve --open
+
+
+### Develop Backend / Google Cloud Process
+
+"Workflow_App" is a separate process which runs on the backend. It retrieves online recordings and transcripts of meetings. It call the Google Speech API to transcribe recordings. To use Google Cloud services, you need to first:  [Create a GCP project](https://github.com/govmeeting/govmeeting/wiki). Then:
+
+#### In Visual Studio:
+* Set startup project to `WorkFlow_App`. Press F5.
+
+#### In VSCode
+* Set the Launch Configuration to `Workflow_App`. Press F5.
+
+The first time that Workflow_App is run, it will copy test data 
+
+* Copy (don't move) either the either sample MP4 recording or PDF transcript files from testdata to Datafiles/INCOMING.
+
+The program will recognize that a new file has appeared and start processing it.
+The results will appear in a new subdirectory in the Datafiles folder.
 
 
 

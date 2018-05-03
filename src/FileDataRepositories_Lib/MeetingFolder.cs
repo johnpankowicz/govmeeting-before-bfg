@@ -9,16 +9,23 @@ namespace GM.FileDataRepositories
 {
     // Work folders under Datafiles are named as follows:
     //    <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>/<date>
-    // Example:
-    //     "USA", "PA", "Philadelphia", "Philadelphia", "CityCouncil", "en", "2016-03-17"
+    // For example:
+    //      country = "USA"
+    //      state = "PA"
+    //      city = "Philadelphia"
+    //      county = "Philadelphia"
+    //      gov-entity = "CityCouncil"
+    //      language = "en"
+    //      date = "2016-03-17"
     // uses this folder:
     //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2016-03-17"
     //
+    //  
 
     public class MeetingFolder
     {
-        IMeetingRepository _meetingRepository;
-        IGovBodyRepository _govBodyRepository;
+        IMeetingRepository _meetingRepository;          // database meeting repository
+        IGovBodyRepository _govBodyRepository;          // database govbody repository
 
         public string filename { get; private set; }
         public string path { get; private set; }
@@ -45,7 +52,7 @@ namespace GM.FileDataRepositories
 
         public string GetPathFromId(long meetingId)
         {
-            Set(meetingId);
+            SetFields(meetingId);
             return path;
         }
 
@@ -55,7 +62,7 @@ namespace GM.FileDataRepositories
             return datafiles + "\\" + location + "\\" + date;
         }
 
-        public bool Set(string _filename)
+        public bool SetFields(string _filename)
         {
             filename = _filename;
             valid = true;
@@ -82,7 +89,7 @@ namespace GM.FileDataRepositories
             return valid;
         }
 
-        public bool Set(long meetingId)
+        public bool SetFields(long meetingId)
         {
             Meeting meeting = _meetingRepository.Get(meetingId);
             GovernmentBody govBody = _govBodyRepository.Get(meeting.GovernmentBodyId);

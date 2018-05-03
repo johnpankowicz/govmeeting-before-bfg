@@ -56,7 +56,7 @@ namespace GM.DatabaseRepositories
                 TopicDiscussions = null,
                 GovernmentBodyId = 1
            },
-            new Meeting()           // Philadelphia 3/175/2016
+            new Meeting()           // Philadelphia 3/15/2016
             {
                 Id = 4,
                 Name = "Monthly Regular",

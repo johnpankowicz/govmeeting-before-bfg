@@ -14,5 +14,6 @@ namespace GM.Configuration
         public int FixasrSegmentOverlap { get; set; }
         public int RecordingSizeForDevelopment { get; set; }
         public int MaxWorkFileBackups { get; set; }
+        public bool MoveIncomingFileAfterProcessing { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VgAPI } from 'videogular2/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { AppData } from '../appdata';
 
 @Component({
   selector: 'gm-video',
@@ -8,30 +9,38 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['video.component.css']
 })
 export class VideoComponent {
-    sources:Array<Object>;
-    api:VgAPI;
+    sources: Array<Object>;
+    api: VgAPI;
 
-    onPlayerReady(api:VgAPI) {
+
+    onPlayerReady(api: VgAPI) {
         this.api = api;
         console.log('In video OnPlayerReady');
         api.play();
     }
 
-    ngOnInit() {
-    }
+    constructor(private appData: AppData) {
+      let location: string;
 
-    constructor() {
         console.log('VideoComponent constructor');
-        // Todo - use the server API to return the video
-        //var location: string = 'api/video/';
+        console.log('AppData=' + appData);
+        console.log('appData.isAspServerRunning=' + appData.isAspServerRunning);
+        // Todo - Use the server API to return the video. Until then we need to specify the full path of the video file.
+        // var location: string = 'api/video/3/1';  // This would be for MeetingID=3 Part=1
 
-        // Todo - location is now just hardcoded. This will be chosen by user.
-        var location: string = "datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/Fixasr/part01/"
-        var fileBasename: string = "ToFix"
+        // If Web_App is running, return from solutions's Datafiles folder
+        if (appData.isAspServerRunning) {
+          location = 'datafiles/USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en/2017-02-15/Fixasr/part01/';
+        // else return from ClientApp stubdata folder
+        } else {
+          location = 'assets/stubdata/';
+        }
+        console.log('location=' + location);
+        const fileBasename = 'ToFix';
 
         this.sources = [
             {
-                //src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).mp4',
+                // src: location + '2016-10-11 Boothbay Harbor Selectmen (3 minutes).mp4',
                 src: location + fileBasename + '.mp4',
                 type: 'video/mp4'
             }
@@ -48,11 +57,11 @@ export class VideoComponent {
         ];
     }
 
-    playPhrase(start : number, duration : number) {
+    playPhrase(start: number, duration: number) {
         console.log('In video playPhrase, start=' + start + ' duration=' + duration);
-        let timer = Observable.timer(duration * 1000);
-        timer.subscribe(t=>this.api.pause());
-        //timer.subscribe(t=>console.log('done with timeout'));
+        const timer = Observable.timer(duration * 1000);
+        timer.subscribe(t => this.api.pause());
+        // timer.subscribe(t=>console.log('done with timeout'));
         this.api.seekTime(start);
         this.api.play();
         console.log('exiting video playPhrase');

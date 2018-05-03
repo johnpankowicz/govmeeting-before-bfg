@@ -21,6 +21,7 @@ using GM.FileDataRepositories;
 using GM.WebApp.Services;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json.Serialization;
 
 namespace GM.WebApp
 {
@@ -131,6 +132,10 @@ namespace GM.WebApp
             _logger.Trace("GM: Add MVC");
 
             services.AddMvc()
+				// The ContractResolver option is to prevent the case of Json field names 
+				// being changed when retrieved by client.
+                // https://codeopinion.com/asp-net-core-mvc-json-output-camelcase-pascalcase/
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddXmlSerializerFormatters();
 
             _logger.Trace("GM: Add Feature Folders");
@@ -254,6 +259,10 @@ namespace GM.WebApp
             //Create seed data
             dbInitializer.Initialize().Wait();
 
+            string testfilesPath = Configuration["AppSettings:TestfilesPath"];
+            testfilesPath = GetFullPath(testfilesPath);
+            CopyTestData(testfilesPath, datafilesPath);
+
         }
 
         // Modify the path to be the full path, if it is a relative path.
@@ -265,7 +274,10 @@ namespace GM.WebApp
             }
             return Path.GetFullPath(path);
         }
-
+        public static void CopyTestData(string testfilesPath, string datafilesPath)
+        {
+            
+        }
 
     }
 }

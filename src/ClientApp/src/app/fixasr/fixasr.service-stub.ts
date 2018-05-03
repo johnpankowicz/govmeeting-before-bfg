@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 
 @Injectable()
 export class FixasrServiceStub {
@@ -21,12 +24,19 @@ export class FixasrServiceStub {
         { startTime: '0:30', said: 'Trish Warren wendy wolf myself Denise' }
    ]};
 
-    getAsr(): Observable<FixasrText> {
-        console.log('getAsr from memory');
-        return Observable.of(this.asrtext);
+   constructor(private http: HttpClient, private errHandling: ErrorHandlingService) {
+    console.log('FixasrServiceStub - constructor');
+  }
+
+  getAsr(): Observable<FixasrText> {
+        // console.log('getAsr from memory');
+        // return Observable.of(this.asrtext);
+        const url = 'assets/stubdata/ToFix.json';
+        return this.http.get<FixasrText>(url)
+            .pipe(catchError(this.errHandling.handleError));
     }
 
-    postChanges(asrtext : FixasrText): Observable<any> {
+    postChanges(asrtext: FixasrText): Observable<any> {
         console.log('postChanges in fixasr.service stub');
         return Observable.of(this.asrtext);
     }

@@ -11,10 +11,6 @@ namespace GM.FileDataRepositories
     // this class will copy over some sample data from the testdata folder.
 
     // It will create the appropriate folders in Datafiles and copy the data.
-    // If "copyToAssets" is true, it will also copy the data to wwwroot/assets.
-    // This option is there because we haven't yet figured out how to serve video file
-    // for videogular using the WebApi. Therefore, for now, they are accessed as
-    // static files in wwroot/assets.
 
     public static class UseTestData
     {

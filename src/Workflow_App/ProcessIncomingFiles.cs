@@ -67,7 +67,7 @@ namespace GM.WorkFlow
 
         public void doWork(string filename)
         {
-            if (!_meetingFolder.Set(filename))
+            if (!_meetingFolder.SetFields(filename))
             //_meetingInfo = new MeetingInfo(filename);
             //if (!_meetingInfo.valid)
             {
@@ -104,15 +104,18 @@ namespace GM.WorkFlow
                     break;
             }
 
-            //// Move the original file to "PROCESSED" folder
-            //MoveFileToProcessedFolder(filename);
+            // Move the original file to "PROCESSED" folder
+            if (_config.MoveIncomingFileAfterProcessing)
+            {
+                MoveFileToProcessedFolder(filename);
+            }
         }
 
-        //private void MoveFileToProcessedFolder(string filename)
-        //{
-        //    string processedPath = _config.DatafilesPath + @"\PROCESSED"
-        //    string newFile = processedPath + "\\" + Path.GetFileName(filename);
-        //    File.Move(filename, newFile);
-        //}
+        private void MoveFileToProcessedFolder(string filename)
+        {
+            string processedPath = _config.DatafilesPath + @"\PROCESSED"
+            string newFile = processedPath + "\\" + Path.GetFileName(filename);
+            File.Move(filename, newFile);
+        }
     }
 }

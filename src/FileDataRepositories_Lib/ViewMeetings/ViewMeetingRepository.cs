@@ -30,10 +30,14 @@ namespace GM.FileDataRepositories
 
         public ViewmeetingView Get(long meetingId)
         {
+            // We need to get the work path that will be used for this meeting.
+            // GetPathFromId will first get the information about the meeting from the database.
+            // Then it will build the path name of the work folder.
             string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
 
             // Todo-g - Remove later - For development: If the data is not in Datafiles folder, copy it from testdata.
-            UseTestData.CopyIfNeeded(meetingFolder, _config.DatafilesPath, _config.TestfilesPath);
+            // UseTestData.CopyIfNeeded(meetingFolder, _config.DatafilesPath, _config.TestfilesPath);
+
 
             string latestCopy = Path.Combine(_config.DatafilesPath, meetingFolder, STEP4_BASE_NAME + "." + EXTENSION);
 
