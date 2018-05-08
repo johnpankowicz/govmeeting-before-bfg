@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using GM.Configuration;
 using GM.LoadDatabase;
-//using GM.LoadDatabase;
 
 namespace GM.WorkFlow
 {
@@ -13,12 +12,15 @@ namespace GM.WorkFlow
     public class WorkFlowController
     {
         /*  WorkFlowController is the "controller" for the Govmeeting processing steps:
-         *  (1) It watches for new recording and transcript files that are either uploaded
-         *      or retrieved automatically from YouTube, etc. and calls the pre-processing routines.
-         *  (2) When the corrections are completed of the auto voice recognition text,
+         *  (1) It reads the schedule from the database for retrieving new transcripts or recordings
+         *      from online sites. It retrieves new files and stores them in the INCOMING folder.
+         *  (2) It watches for new recordings and transcript files that appear in the INCOMING folder and 
+         *      performs pre-processing on them. Files can appear because of step 1 above and also
+         *      if a user uploads a file via the website or via the phone app for recording a meeting.
+         *  (3) When the corrections are completed of the auto voice recognition text,
          *      it transforms the JSON format for the next step in the process: adding tags.
-         *  (3) When the addition of tags is completed, it loads the completed transcript into
-         *      the database.
+         *  (4) When the addition of tags is completed, it creates a viewable transcript and also
+         *      it loads the completed transcript into the database.
          */
 
 
@@ -26,9 +28,10 @@ namespace GM.WorkFlow
         private readonly ILogger<WorkFlowController> _logger;
         private readonly AppSettings _config;
         private readonly ProcessIncomingFiles _processIncomingFiles;
-        private ProcessFixedTranscriptions _processFixedTranscriptions;
-        private ProcessTaggedTranscriptions _processTaggedTranscriptions;
-        private LoadTranscript _loadTranscript;
+        private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
+        private readonly ProcessFixedTranscriptions _processFixedTranscriptions;
+        private readonly ProcessTaggedTranscriptions _processTaggedTranscriptions;
+        private readonly LoadTranscript _loadTranscript;
 
         public WorkFlowController(
             //ITestService testService,
@@ -43,7 +46,8 @@ namespace GM.WorkFlow
             //_testService = testService;
             _logger = logger;
             _config = config.Value;
-            _processIncomingFiles = processIncomingFiles;
+            _retrieveOnlineFiles _RetrieveOnlineFiles;
+           _processIncomingFiles = processIncomingFiles;
             _processFixedTranscriptions = processFixedTranscriptions;
             _processTaggedTranscriptions = processTaggedTranscriptions;
             _loadTranscript = loadTranscript;
@@ -53,8 +57,8 @@ namespace GM.WorkFlow
         {
             _logger.LogInformation($"Start Workflow - datafilesPath = {_config.DatafilesPath}");
 
-            // To be written: Retrieve online recordings and transcripts
-            // _processRetrieveFiles.Run();
+            // Retrieve online recordings and transcripts
+            _retrieveOnlineFiles.Run();
 
             // Process the retrieved files - auto speech recognition of recordings and
             // pre-process transcript files
