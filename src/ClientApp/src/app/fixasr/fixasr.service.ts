@@ -15,10 +15,10 @@ export class FixasrService {
     private error = { message: 'not defined yet' };
 
     // Normally the meetingId & part will be passed to the getAsr method.
-    // But we did not yet write the component for the user to select this.
-    // We will use meeting "3" and part "1" for now.
-    // This maps to the first work segment of a meeting of BBH 2/15/2017.
-    private meetingId = 3;
+    // But we did not yet write the component for the user to select a meeting.
+    // Meeting "3" is BBH 2/15/2017.
+    // Meeting "5" is BBH 1/09/2017..
+    private meetingId = 5;
     private part = 1;
 
     constructor(private http: HttpClient, private errHandling: ErrorHandlingService) {

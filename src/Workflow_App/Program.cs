@@ -58,15 +58,17 @@ namespace GM.WorkFlow
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             services.Configure<AppSettings>(myOptions =>
             {
-                // Modify the DataFilesPath and TestfilesPath to be the full paths.
+                // Modify paths to be full paths.
                 myOptions.DatafilesPath = GMFileAccess.GetFullPath(myOptions.DatafilesPath);
                 myOptions.TestfilesPath = GMFileAccess.GetFullPath(myOptions.TestfilesPath);
+                myOptions.GoogleApplicationCredentials = GMFileAccess.GetFullPath(myOptions.GoogleApplicationCredentials);
             });
 
             // add services
             services.AddTransient<RetrieveOnlineFiles>();
             services.AddTransient<ProcessIncomingFiles>();
             services.AddTransient<RecordingProcess>();
+            services.AddTransient<TranscribeAudio>();
             services.AddTransient<TranscriptProcess>();
             services.AddTransient<LoadTranscript>();
             services.AddTransient<ProcessTaggedTranscriptions>();

@@ -21,12 +21,15 @@ namespace GM.ProcessRecording
          */
 
         private readonly AppSettings _config;
+        private readonly TranscribeAudio _transcribeAudio;
 
         public RecordingProcess(
-            IOptions<AppSettings> config
+            IOptions<AppSettings> config,
+            TranscribeAudio transcribeAudio
             )
         {
             _config = config.Value;
+            _transcribeAudio = transcribeAudio;
         }
 
         public void Process(string videoFile, string meetingFolder, string language)
@@ -55,11 +58,11 @@ namespace GM.ProcessRecording
 
             // We want the object name in the cloud to be the original video file name with ".flac" extension.
             string objectName = Path.GetFileNameWithoutExtension(videoFile) + ".flac";
-            TranscribeAudio transcribe = new TranscribeAudio(language);
+            //TranscribeAudio transcribe = new TranscribeAudio(language);
 
-            TranscribeResponse transcript = transcribe.MoveToCloudAndTranscribe(audioFile, objectName, language);
+            TranscribeResponse transcript = _transcribeAudio.MoveToCloudAndTranscribe(audioFile, objectName, language);
             // For development and it's already in cloud
-            //TranscribeResponse transcript = transcribe.TranscribeInCloud(objectName, language);
+            //TranscribeResponse transcript = _transcribeAudio.TranscribeInCloud(objectName, language);
 
             string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
             string outputJsonFile = meetingFolder + "\\" + "R2-Transcribed.json";

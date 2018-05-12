@@ -15,5 +15,6 @@ namespace GM.Configuration
         public int RecordingSizeForDevelopment { get; set; }
         public int MaxWorkFileBackups { get; set; }
         public bool MoveIncomingFileAfterProcessing { get; set; }
+        public string GoogleApplicationCredentials { get; set; }
     }
 }

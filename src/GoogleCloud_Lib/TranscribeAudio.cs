@@ -8,6 +8,8 @@ using Google.Apis.Auth.OAuth2;
 using System.Threading;
 using Newtonsoft.Json;
 using Google.Protobuf.Collections;
+using Microsoft.Extensions.Options;
+using GM.Configuration;
 
 // This is in the process of being written.  
 
@@ -15,11 +17,13 @@ namespace GM.ProcessRecording
 {
     public class TranscribeAudio
     {
-        public string language;
+        private readonly AppSettings _config;
 
-        public TranscribeAudio(string _language)
+        public TranscribeAudio(
+             IOptions<AppSettings> config
+        )
         {
-            language = _language;
+            _config = config.Value;
         }
 
         /// <param name="language">Language of the audio. This is the ISO 639 code</param>
@@ -162,11 +166,10 @@ namespace GM.ProcessRecording
 
         SpeechClient GetSpeechClient()
         {
-            //The following code can be used to avoid getting the location of the credentials file from the environment
-            // variable "GOOGLE_APPLICATION_CREDENTIALS" and instead directly access the this file ourselves.
-
-            // Todo-g The following is a hack. We need to get the location of the credentials file from configuration.
-            string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
+            // We could also get the location of the credentials file from the environment using the 
+            // variable "GOOGLE_APPLICATION_CREDENTIALS".
+            // Here we are instead getting this from appsettings.json.
+            string credentialsFilePath = _config.GoogleApplicationCredentials;
 
             GoogleCredential googleCredential;
             using (Stream m = new FileStream(credentialsFilePath, FileMode.Open))

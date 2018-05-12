@@ -72,7 +72,7 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2017,1, 09),
                 Length = 192,
                 TopicDiscussions = null,
-                GovernmentBodyId = 2
+                GovernmentBodyId = 1
            }
         };
     }

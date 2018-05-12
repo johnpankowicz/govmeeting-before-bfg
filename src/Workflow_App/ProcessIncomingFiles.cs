@@ -100,7 +100,7 @@ namespace GM.WorkFlow
                     _processTranscript.Process(filename, meetingFolder);
                     break;
                 case ".mp4":
-                    //_processRecording.Process(filename, meetingFolder, language);
+                    _processRecording.Process(filename, meetingFolder, language);
                     break;
             }
 
