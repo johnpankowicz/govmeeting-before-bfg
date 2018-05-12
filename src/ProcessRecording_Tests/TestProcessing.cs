@@ -58,7 +58,7 @@ namespace GM.ProcessRecording_Tests
             string inputFile = testdataPath + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15-rsp.json";
 
             string outputFolder = testdataPath + "\\" + "TestReformatOfTranscribeResponse";
-            FileDataRepositories.FileAccess.DeleteAndCreateDirectory(outputFolder);
+            FileDataRepositories.GMFileAccess.DeleteAndCreateDirectory(outputFolder);
             string outputFile = outputFolder + @"\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15.json";
 
             string stringValue = File.ReadAllText(inputFile);

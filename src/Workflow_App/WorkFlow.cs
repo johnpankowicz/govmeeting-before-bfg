@@ -37,6 +37,7 @@ namespace GM.WorkFlow
             //ITestService testService,
             IOptions<AppSettings> config,
             ILogger<WorkFlowController> logger,
+            RetrieveOnlineFiles retrieveOnlineFiles,
             ProcessIncomingFiles processIncomingFiles,
             ProcessFixedTranscriptions processFixedTranscriptions,
             ProcessTaggedTranscriptions processTaggedTranscriptions,
@@ -46,8 +47,8 @@ namespace GM.WorkFlow
             //_testService = testService;
             _logger = logger;
             _config = config.Value;
-            _retrieveOnlineFiles _RetrieveOnlineFiles;
-           _processIncomingFiles = processIncomingFiles;
+            _retrieveOnlineFiles = retrieveOnlineFiles;
+            _processIncomingFiles = processIncomingFiles;
             _processFixedTranscriptions = processFixedTranscriptions;
             _processTaggedTranscriptions = processTaggedTranscriptions;
             _loadTranscript = loadTranscript;

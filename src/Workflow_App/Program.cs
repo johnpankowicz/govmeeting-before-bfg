@@ -19,9 +19,9 @@ namespace GM.WorkFlow
      * So we use dependency injection with providers for logging, configuration and other services.
      */
 
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // https://pioneercode.com/post/dependency-injection-logging-and-configuration-in-a-dot-net-core-console-app
 
@@ -47,14 +47,24 @@ namespace GM.WorkFlow
 
             // build configuration
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory() + @"\..\Web_App")
+                // Todo - The following path will only work in development.
+                // It isn't yet decided how Workflow_App will be run in production.
+                // Will it be a separate .EXE or a .LIB loaded by Web_App?
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\..\..\..")
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 
             services.AddOptions();
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
+            services.Configure<AppSettings>(myOptions =>
+            {
+                // Modify the DataFilesPath and TestfilesPath to be the full paths.
+                myOptions.DatafilesPath = GMFileAccess.GetFullPath(myOptions.DatafilesPath);
+                myOptions.TestfilesPath = GMFileAccess.GetFullPath(myOptions.TestfilesPath);
+            });
 
             // add services
+            services.AddTransient<RetrieveOnlineFiles>();
             services.AddTransient<ProcessIncomingFiles>();
             services.AddTransient<RecordingProcess>();
             services.AddTransient<TranscriptProcess>();

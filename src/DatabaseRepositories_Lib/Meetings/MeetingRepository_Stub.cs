@@ -64,7 +64,16 @@ namespace GM.DatabaseRepositories
                 Length = 3466,
                 TopicDiscussions = null,
                 GovernmentBodyId = 2
-            }
+            },
+            new Meeting()           // Boothbay Harbor 2/15/2017
+            {
+                Id = 5,
+                Name = "Monthly Regular",
+                Date = new DateTime(2017,1, 09),
+                Length = 192,
+                TopicDiscussions = null,
+                GovernmentBodyId = 2
+           }
         };
     }
 }

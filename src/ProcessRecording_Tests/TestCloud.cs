@@ -28,7 +28,7 @@ namespace GM.ProcessRecording_Tests
             string videoFile = testdataPath + "\\" + baseName + ".mp4";
             string outputFolder = testdataPath + "\\" + "TestMoveToCloudAndTranscribe";
 
-            FileDataRepositories.FileAccess.DeleteAndCreateDirectory(outputFolder);
+            FileDataRepositories.GMFileAccess.DeleteAndCreateDirectory(outputFolder);
 
             string outputBasePath = outputFolder + "\\" + baseName;
             string shortFile = outputBasePath + ".mp4";

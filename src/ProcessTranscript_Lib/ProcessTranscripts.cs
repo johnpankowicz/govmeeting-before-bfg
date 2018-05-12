@@ -13,9 +13,7 @@ namespace GM.ProcessTranscript
          *       3. Convert the file to JSON format.
          */
 
-        //public ProcessTranscript()
-        //{
-        //}
+        const string WORK_FOLDER = "PreProcess";
 
         public bool Process(string filename, string meetingFolder)
         {
@@ -28,27 +26,30 @@ namespace GM.ProcessTranscript
             //    return false;
             //}
 
+            string workFolder = meetingFolder + "\\" + WORK_FOLDER + "\\";
+            Directory.CreateDirectory(workFolder);
+
             // Step 1 - Copy PDF to meeting directory
 
             FileInfo infile = new FileInfo(filename);
-            string outfile = meetingFolder + "\\" + "T1-PDF.pdf";
+            string outfile = workFolder + "1 original.pdf";
             File.Copy(filename, outfile);
 
             // Step 2 - Convert the PDF file to text
 
             string text = ConvertPdfToText.Convert(outfile);
-            outfile = meetingFolder + "\\" + "T2-TXT.txt";
+            outfile = workFolder + "2 plain-text.txt";
             File.WriteAllText(outfile, text);
 
             // Step 3 - Fix the transcript: Put in common format
 
             // Make the specific fixes to the philly data
-            Specific_Philadelphia_PA_USA philly = new Specific_Philadelphia_PA_USA("2016-03-17", meetingFolder);
+            Specific_Philadelphia_PA_USA philly = new Specific_Philadelphia_PA_USA("2016-03-17", workFolder);
             string transcript = philly.Fix(text);
 
             // Convert the fixed transcript to JSON
             ConvertToJson.Convert(ref transcript);
-            outfile = meetingFolder + "\\" + "T3-ToBeTagged.json";
+            outfile = workFolder + "3 ToBeTagged.json";
             File.WriteAllText(outfile, transcript);
 
             return true;

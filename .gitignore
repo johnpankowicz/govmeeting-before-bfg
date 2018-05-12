@@ -33,6 +33,7 @@ src/logs/
 **/wwwroot/dist/
 **/ClientApp/dist/
 DebugLog*
+xyzxyz/
 
 # Visual Studio 2015 cache/options directory
 .vs/

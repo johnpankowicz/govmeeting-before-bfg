@@ -22,6 +22,7 @@ using GM.WebApp.Services;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Options;
 
 namespace GM.WebApp
 {
@@ -42,7 +43,6 @@ namespace GM.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // Set a variable in the gdc which is be used in NLog.config for the
             // base path of our app: ${gdc:item=appbasepath} 
             var appBasePath = System.IO.Directory.GetCurrentDirectory();
@@ -51,25 +51,136 @@ namespace GM.WebApp
             _logger.Trace("GM: In ConfigureServices");
 
             _logger.Info("GM: Add AppSettings");
-
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<AppSettings>(myOptions =>
             {
                 // Modify the DataFilesPath option to be the full path.
                 //myOptions.DatafilesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), myOptions.DatafilesPath);
+                myOptions.DatafilesPath = GMFileAccess.GetFullPath(myOptions.DatafilesPath);
+                myOptions.TestfilesPath = GMFileAccess.GetFullPath(myOptions.TestfilesPath);
                 Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
             });
 
             _logger.Trace("GM: Add ApplicationDbContext");
-
             // We will be able to access ApplicationDbContext in a controller with:
             //    public MyController(ApplicationDbContext context) { ... }
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             _logger.Trace("GM: Add Add Authentication");
+            ConfigureAuthenticationServices(services);
 
+
+            _logger.Trace("GM: Add MVC");
+            services.AddMvc()
+				// The ContractResolver option is to prevent the case of Json field names 
+				// being changed when retrieved by client.
+                // https://codeopinion.com/asp-net-core-mvc-json-output-camelcase-pascalcase/
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
+                .AddXmlSerializerFormatters();
+
+            _logger.Trace("GM: Add Feature Folders");
+            // This enables the use of "Feature Folders".
+            // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new FeatureLocationExpander());
+            });
+
+            _logger.Trace("GM: Add SPA static files");
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "../ClientApp/dist";
+            });
+
+            _logger.Trace("GM: Add Application services");
+            AddApplicationServices(services);
+
+            services.AddSingleton(Configuration);
+        }
+
+        // This method gets called by the runtime. Here we configure the HTTP request pipeline.
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            IDbInitializer dbInitializer,
+            ILoggerFactory loggerFactory,
+            IOptions<AppSettings> config
+            )
+        {
+            _logger.Trace("GM: Configure exception handler Identity");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                try
+                {
+                    // db.Database.Migrate();
+                }
+                catch {
+                    _logger.Debug("db.Database.Migrate() failed");
+                }
+
+            }
+
+            _logger.Trace("GM: Configure static file paths");
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            _logger.Trace("GM: Configure datafiles PhysicalFileProvider");
+            // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
+            // videogular via the API, we need to allow these to be accessed as static files.
+            string datafilesPath = config.Value.DatafilesPath;
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    datafilesPath),
+                    RequestPath = "/datafiles"
+            });
+
+            _logger.Trace("GM: Configure routes");
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
+
+            _logger.Trace("GM: Configure SPA");
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "../ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
+            _logger.Trace("GM: Configure Authenitication");
+            app.UseAuthentication();
+
+            _logger.Trace("GM: Initialize database");
+            //Create seed data
+            dbInitializer.Initialize().Wait();
+
+
+            _logger.Trace("GM: Copy test data to Datafiles folder");
+            string testfilesPath = config.Value.TestfilesPath;
+            CopyTestData(testfilesPath, datafilesPath);
+
+        }
+
+        private void ConfigureAuthenticationServices(IServiceCollection services)
+        {
             services.AddAuthentication()
             .AddGoogle(options => {
                 options.ClientId = Configuration["ExternalAuth:Google:ClientId"];
@@ -129,34 +240,10 @@ namespace GM.WebApp
                 });
             });
 
-            _logger.Trace("GM: Add MVC");
+        }
 
-            services.AddMvc()
-				// The ContractResolver option is to prevent the case of Json field names 
-				// being changed when retrieved by client.
-                // https://codeopinion.com/asp-net-core-mvc-json-output-camelcase-pascalcase/
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-                .AddXmlSerializerFormatters();
-
-            _logger.Trace("GM: Add Feature Folders");
-
-            // This enables the use of "Feature Folders".
-            // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new FeatureLocationExpander());
-            });
-
-            _logger.Trace("GM: Add SPA static files");
-
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "../ClientApp/dist";
-            });
-
-            _logger.Trace("GM: Add Repositories");
-
+        private void AddApplicationServices(IServiceCollection services)
+        {
             // Add repositories
             services.AddSingleton<IGovBodyRepository, GovBodyRepositoryStub>();     // use stub
             services.AddSingleton<IMeetingRepository, MeetingRepositoryStub>();     // use stub
@@ -173,111 +260,29 @@ namespace GM.WebApp
             services.AddTransient<IDbInitializer, DbInitializer>();
             services.AddTransient<MeetingFolder>();
 
-            services.AddSingleton(Configuration);
-
             services.AddScoped<ValidateReCaptchaAttribute>();
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(
-            IApplicationBuilder app,
-            IHostingEnvironment env,
-            //IRedirectConsole redirect,
-            IDbInitializer dbInitializer,
-            ILoggerFactory loggerFactory,
-            ApplicationDbContext db
-            )
-        {
-            _logger.Trace("GM: Configure exception handler Identity");
 
-            if (env.IsDevelopment())
+        private void CopyTestData(string testfilesPath, string datafilesPath)
+        {
+            string[] dirs = new string[]
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+                @"USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2017-02-15",     // For Fixasr
+                @"USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en\2014-09-08",     // For ViewMeeting
+                @"USA_PA_Philadelphia_Philadelphia_CityCouncil_en\2014-09-25"       // For Addtags
+            };
+
+            foreach (string dir in dirs)
             {
-                app.UseExceptionHandler("/Home/Error");
-                try
+                string source = testfilesPath + "\\" + dir;
+                string destination = datafilesPath + "\\" + dir;
+                if (!Directory.Exists(destination))
                 {
-                    // db.Database.Migrate();
+                    Directory.CreateDirectory(destination);
+                    GMFileAccess.CopyContents(source, destination);
                 }
-                catch {
-                    _logger.Debug("db.Database.Migrate() failed");
-                }
-
             }
-
-            _logger.Trace("GM: Configure static file paths");
-
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-
-            _logger.Trace("GM: Configure PhysicalFileProvider");
-
-            // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
-            // videogular via the API, we need to allow these to be accessed as static files.
-            string datafilesPath = Configuration["AppSettings:DatafilesPath"];
-            datafilesPath = GetFullPath(datafilesPath);
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    datafilesPath),
-                    RequestPath = "/datafiles"
-            });
-
-            _logger.Trace("GM: Configure routes");
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
-
-            _logger.Trace("GM: Configure SPA");
-
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "../ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
-
-            _logger.Trace("GM: Configure Authenitication");
-
-            app.UseAuthentication();
-
-            _logger.Trace("GM: Initialize database");
-
-            //Create seed data
-            dbInitializer.Initialize().Wait();
-
-            string testfilesPath = Configuration["AppSettings:TestfilesPath"];
-            testfilesPath = GetFullPath(testfilesPath);
-            CopyTestData(testfilesPath, datafilesPath);
-
         }
-
-        // Modify the path to be the full path, if it is a relative path.
-        string GetFullPath(string path)
-        {
-            if (!Path.IsPathRooted(path))
-            {
-                path = Path.Combine(Directory.GetCurrentDirectory(), path);
-            }
-            return Path.GetFullPath(path);
-        }
-        public static void CopyTestData(string testfilesPath, string datafilesPath)
-        {
-            
-        }
-
     }
 }

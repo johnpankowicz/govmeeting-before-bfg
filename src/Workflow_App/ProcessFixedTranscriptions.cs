@@ -34,7 +34,7 @@ namespace GM.WorkFlow
         {
             // For now we will just convert a test file.
             //FixasrView fixasr = _fixasrRepository.GetFinal(MEETINGID);
-            string fisasrText = FileAccess.Readfile(@"C:\GOVMEETING\testdata - other\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN\2016-10-11\Step 3 - transcript corrected for errors - 04-LAST.json");
+            string fisasrText = GMFileAccess.Readfile(@"C:\GOVMEETING\testdata - other\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN\2016-10-11\Step 3 - transcript corrected for errors - 04-LAST.json");
             FixasrView fixasr = JsonConvert.DeserializeObject<FixasrView>(fisasrText);
 
             FormatConversions formatConversions = new FormatConversions();

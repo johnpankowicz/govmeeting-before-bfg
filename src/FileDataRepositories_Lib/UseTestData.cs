@@ -22,7 +22,7 @@ namespace GM.FileDataRepositories
             if (!Directory.Exists(meetingFolder))
             {
                 Directory.CreateDirectory(meetingFolder);
-                FileAccess.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
+                GMFileAccess.CopyFilesRecursively(new DirectoryInfo(testMeetingFolder), new DirectoryInfo(meetingFolder));
             }
         }
     }

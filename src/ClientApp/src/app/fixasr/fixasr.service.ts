@@ -17,7 +17,7 @@ export class FixasrService {
     // Normally the meetingId & part will be passed to the getAsr method.
     // But we did not yet write the component for the user to select this.
     // We will use meeting "3" and part "1" for now.
-    // This maps to the first work segment of a meeting of BBH on the server.
+    // This maps to the first work segment of a meeting of BBH 2/15/2017.
     private meetingId = 3;
     private part = 1;
 

@@ -93,7 +93,7 @@ export class ViewMeetingServiceStub {
         if (this.observable != null) {
           return this.observable;
       }
-      const url = 'assets/stubdata/T4-tagged.json';
+      const url = 'assets/stubdata/1 tagged.json';
         this.observable = this.http.get<ViewMeeting>(url)
            .pipe(catchError(this.errHandling.handleError))
            .share();     // make it shared so more than one subscriber can get the same result.

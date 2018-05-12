@@ -71,7 +71,7 @@ namespace GM.WorkFlow
             //_meetingInfo = new MeetingInfo(filename);
             //if (!_meetingInfo.valid)
             {
-                Console.WriteLine($"ProcessFiles.cs - filename is invalid: {filename}");
+                Console.WriteLine($"ProcessIncomingFiles.cs - filename is invalid: {filename}");
                 return;
             }
             string meetingFolder = _config.DatafilesPath + "\\" +_meetingFolder.path;
@@ -80,15 +80,15 @@ namespace GM.WorkFlow
             // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
             if (_config.IsDevelopment)
             {
-                FileDataRepositories.FileAccess.DeleteDirectoryRecursively(meetingFolder);
+                FileDataRepositories.GMFileAccess.DeleteDirectoryAndContents(meetingFolder);
 
             }
 
-            if (!FileDataRepositories.FileAccess.CreateDirectory(meetingFolder))
+            if (!FileDataRepositories.GMFileAccess.CreateDirectory(meetingFolder))
             {
                 // We were not able to create a folder for processing this video.
                 // Probably because the folder already exists.
-                Console.WriteLine("ProcessFiles.cs - ERROR: could not create meeting folder");
+                Console.WriteLine("ProcessIncomingFiles.cs - ERROR: could not create meeting folder");
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace GM.WorkFlow
                     _processTranscript.Process(filename, meetingFolder);
                     break;
                 case ".mp4":
-                    _processRecording.Process(filename, meetingFolder, language);
+                    //_processRecording.Process(filename, meetingFolder, language);
                     break;
             }
 
@@ -113,7 +113,7 @@ namespace GM.WorkFlow
 
         private void MoveFileToProcessedFolder(string filename)
         {
-            string processedPath = _config.DatafilesPath + @"\PROCESSED"
+            string processedPath = _config.DatafilesPath + @"\PROCESSED";
             string newFile = processedPath + "\\" + Path.GetFileName(filename);
             File.Move(filename, newFile);
         }
