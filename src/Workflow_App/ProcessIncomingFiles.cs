@@ -37,8 +37,10 @@ namespace GM.WorkFlow
             MeetingFolder meetingFolder
            )
         {
-            // Todo-g We need to get the location of the credentials file path from configuration.
-            string credentialsFilePath = Environment.CurrentDirectory + @"\..\..\..\..\_SECRETS\TranscribeAudio.json";
+            // Google Cloud libraries automatically use the environment variable GOOGLE_APPLICATION_CREDENTIALS
+            // to authenticate to Google Cloud. Here we set this variable to the path of the credentials file,
+            // which is defined in app.settings.json.
+            string credentialsFilePath = _config.GoogleApplicationCredentials;
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsFilePath);
 
             _meetingFolder = meetingFolder;

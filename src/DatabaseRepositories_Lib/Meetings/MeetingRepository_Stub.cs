@@ -36,7 +36,8 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2014,9, 8),
                 Length = 1810,
                 TopicDiscussions = null,
-                GovernmentBodyId = 1
+                GovernmentBodyId = 1,
+                WorkStatus = WorkStatus.Viewing
            },
             new Meeting()           // Philadelphia 9/25/2014
             {
@@ -45,7 +46,8 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2014,9, 25),
                 Length = 3550,
                 TopicDiscussions = null,
-                GovernmentBodyId = 2
+                GovernmentBodyId = 2,
+                WorkStatus = WorkStatus.Tagging
            },
             new Meeting()           // Boothbay Harbor 2/15/2017
             {
@@ -54,7 +56,8 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2017,2, 15),
                 Length = 2109,
                 TopicDiscussions = null,
-                GovernmentBodyId = 1
+                GovernmentBodyId = 1,
+                WorkStatus = WorkStatus.FixingAsr
            },
             new Meeting()           // Philadelphia 3/15/2016
             {
@@ -63,7 +66,8 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2017,2, 15),
                 Length = 3466,
                 TopicDiscussions = null,
-                GovernmentBodyId = 2
+                GovernmentBodyId = 2,
+                WorkStatus = WorkStatus.Retrieving
             },
             new Meeting()           // Boothbay Harbor 2/15/2017
             {
@@ -72,7 +76,8 @@ namespace GM.DatabaseRepositories
                 Date = new DateTime(2017,1, 09),
                 Length = 192,
                 TopicDiscussions = null,
-                GovernmentBodyId = 1
+                GovernmentBodyId = 1,
+                WorkStatus = WorkStatus.Retrieving
            }
         };
     }

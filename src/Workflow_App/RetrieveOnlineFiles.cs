@@ -13,6 +13,18 @@ namespace GM.WorkFlow
     {
         // Todo - IMPLEMENT THIS CLASS
 
+        /* RetrieveOnlineFiles will:
+         * Read the meeting schedules for all government bodies in the database.
+         * 1. If a current meeting may have taken place, it will:
+         *    Check the website where either its transcript or a recording may be found.
+         *    If found it will:
+         * 2. Create a "meeting" record in the database for this meeting and set the WorkStatus field to "Retrieving".
+         * 3. Start the file retrieval.
+         * 4. Store the retieved file in the "Datafiles/INCOMING" folder.
+         * 5. Set the Workstatus on the meeting record to "Retrieved".
+         * Repeat for each government body.
+         */
+
         AppSettings _config;
 
         public RetrieveOnlineFiles(
@@ -39,7 +51,8 @@ namespace GM.WorkFlow
             {
                 "USA_PA_Philadelphia_Philadelphia_CityCouncil_en_2017-12-07.pdf",
                 //"USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-02-15.mp4"
-                "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-01-09.mp4"
+               // Todo - This is about 58MB. Github prefers < 50.
+                "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_en_2017-01-09.mp4" //
             };
 
             foreach (string file in files)

@@ -4,8 +4,10 @@ using System.Text;
 
 namespace GM.WorkFlow
 {
-    public class ProcessTaggedTranscriptions
+    public class ProcessTagged
     {
+        // Todo - IMPLEMENT THIS CLASS
+
         public void Run()
         {
 

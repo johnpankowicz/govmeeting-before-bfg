@@ -71,8 +71,8 @@ namespace GM.WorkFlow
             services.AddTransient<TranscribeAudio>();
             services.AddTransient<TranscriptProcess>();
             services.AddTransient<LoadTranscript>();
-            services.AddTransient<ProcessTaggedTranscriptions>();
-            services.AddTransient<ProcessFixedTranscriptions>();
+            services.AddTransient<ProcessTagged>();
+            services.AddTransient<ProcessFixedAsr>();
             services.AddTransient<AddtagsRepository>();
             services.AddTransient<FixasrRepository>();
             services.AddTransient<MeetingFolder>();

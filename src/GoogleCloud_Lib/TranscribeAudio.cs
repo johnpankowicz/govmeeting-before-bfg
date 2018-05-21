@@ -164,11 +164,12 @@ namespace GM.ProcessRecording
             return milliseconds;
         }
 
+        // This method is not currently used. It would allow us to set the Google Application credentials file
+        // when we create the SpeechClient. However, we are instead setting the environment variable
+        // "GOOGLE_APPLICATION_CREDENTIALS" in a higher level routine. The Google Cloud libraries then
+        // automatically use that value.
         SpeechClient GetSpeechClient()
         {
-            // We could also get the location of the credentials file from the environment using the 
-            // variable "GOOGLE_APPLICATION_CREDENTIALS".
-            // Here we are instead getting this from appsettings.json.
             string credentialsFilePath = _config.GoogleApplicationCredentials;
 
             GoogleCredential googleCredential;

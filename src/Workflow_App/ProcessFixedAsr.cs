@@ -10,14 +10,14 @@ using GM.FileDataModel;
 
 namespace GM.WorkFlow
 {
-    public class ProcessFixedTranscriptions
+    public class ProcessFixedAsr
     {
         //int MEETINGID = 1;      // FOR DEVELOPMENT
 
         AddtagsRepository _addtagsRepository;
         FixasrRepository _fixasrRepository;
 
-        public ProcessFixedTranscriptions(
+        public ProcessFixedAsr(
             AddtagsRepository addtagsRepository,
             FixasrRepository fixasrRepository
             )

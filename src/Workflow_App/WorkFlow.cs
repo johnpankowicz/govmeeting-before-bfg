@@ -29,8 +29,8 @@ namespace GM.WorkFlow
         private readonly AppSettings _config;
         private readonly ProcessIncomingFiles _processIncomingFiles;
         private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
-        private readonly ProcessFixedTranscriptions _processFixedTranscriptions;
-        private readonly ProcessTaggedTranscriptions _processTaggedTranscriptions;
+        private readonly ProcessFixedAsr _processFixedTranscriptions;
+        private readonly ProcessTagged _processTaggedTranscriptions;
         private readonly LoadTranscript _loadTranscript;
 
         public WorkFlowController(
@@ -39,8 +39,8 @@ namespace GM.WorkFlow
             ILogger<WorkFlowController> logger,
             RetrieveOnlineFiles retrieveOnlineFiles,
             ProcessIncomingFiles processIncomingFiles,
-            ProcessFixedTranscriptions processFixedTranscriptions,
-            ProcessTaggedTranscriptions processTaggedTranscriptions,
+            ProcessFixedAsr processFixedTranscriptions,
+            ProcessTagged processTaggedTranscriptions,
             LoadTranscript loadTranscript
             )
         {
