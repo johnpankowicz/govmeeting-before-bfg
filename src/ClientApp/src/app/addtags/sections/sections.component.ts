@@ -8,7 +8,7 @@ import { AddtagsService } from '../addtags.service';
 })
 export class SectionsComponent implements OnInit {
     errorMessage: string;
-    sections : string[];
+    sections: string[];
 
   constructor(private _addtagsService: AddtagsService) {
   }
@@ -28,4 +28,16 @@ getSections() {
  OnChange(newValue: any) {
       console.log(newValue);
   }
+
+  isEmptyObject(obj) {
+    let prop;
+    for (prop in obj) {
+       if (obj.hasOwnProperty(prop)) {
+          return false;
+       }
+    }
+    return true;
+  }
+
 }
+

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VgAPI } from 'videogular2/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { timer } from 'rxjs/observable/timer';
 import { AppData } from '../appdata';
 
 @Component({
@@ -60,8 +61,9 @@ export class VideoComponent {
 
     playPhrase(start: number, duration: number) {
         console.log('In video playPhrase, start=' + start + ' duration=' + duration);
-        const timer = Observable.timer(duration * 1000);
-        timer.subscribe(t => this.api.pause());
+        // const timer = Observable.timer(duration * 1000);
+        const timerx = timer(100);   // yield for 100 milliseconds
+        timerx.subscribe(t => this.api.pause());
         // timer.subscribe(t=>console.log('done with timeout'));
         this.api.seekTime(start);
         this.api.play();

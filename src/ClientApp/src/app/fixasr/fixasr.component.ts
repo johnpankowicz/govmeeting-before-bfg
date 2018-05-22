@@ -6,7 +6,8 @@ import { FixasrService } from './fixasr.service';
 
 import { VideoComponent } from '../video/video.component';
 import { FixasrUtilities } from './fixasr-utilities';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { timer } from 'rxjs/observable/timer';
 import { Speaker } from './speaker';
 // import { Ng2DropdownModule } from 'ng2-material-dropdown';
 
@@ -88,7 +89,7 @@ export class FixasrComponent  implements OnInit {
         return this.showhelp;
     }
     ToggleHelp() {
-        this.showhidehelp = this.showhelp ? "Show" : "Hide";
+        this.showhidehelp = this.showhelp ? 'Show' : 'Hide';
         this.showhelp = !this.showhelp;
     }
 
@@ -106,7 +107,7 @@ export class FixasrComponent  implements OnInit {
         this._scrollList.scrollTop = top;
     }
 
-    getScrollPosition() : number {
+    getScrollPosition(): number {
         return this._scrollList.scrollTop;
     }
 
@@ -127,37 +128,37 @@ export class FixasrComponent  implements OnInit {
 
     addSpeaker(speaker: any) {
         console.log('new speaker=' + speaker);
-        var abbrev = this.createSpeakerAbbrev(speaker);
+        const abbrev = this.createSpeakerAbbrev(speaker);
         this._Utilities.insertAtStartCurrentWord(this.currentElement, '[' + abbrev + '] ');
-        var newSpeaker = new Speaker(speaker, abbrev);
+        const newSpeaker = new Speaker(speaker, abbrev);
         this.speakers.splice(this.speakers.length - 1, 0, newSpeaker);
 }
 
     createSpeakerAbbrev(name: string): string {
-      var firstname: string, lastname: string, abbrev: string, extras: string;
-        var x = name.indexOf(' ');
+      let firstname: string, lastname: string, abbrev: string, extras: string;
+        let x = name.indexOf(' ');
         // For a multi-word name, we start with abbreviaion of first-initial + last-initial.
         if (x !== -1) {
           firstname = name.substr(0, x);
           x = name.lastIndexOf(' ');
           lastname = name.substr(x + 1);
-          abbrev = firstname.substr(0,1).toUpperCase() + lastname.substr(0,1).toUpperCase();
+          abbrev = firstname.substr(0, 1).toUpperCase() + lastname.substr(0, 1).toUpperCase();
           // "extras" has extra letters we may need to make the abbreviation unique.
           extras = lastname.substr(1);  // Use rest of the letters of last name.
         } else {
          // For a single word name, we start with abbreviaion of first-initial.
-         abbrev = name.substr(0,1).toUpperCase();
+         abbrev = name.substr(0, 1).toUpperCase();
           extras = name.substr(1);  // Use rest of the letters of single name.
         }
         while (!this.isAbbreviationUnique(abbrev)) {
-          abbrev = abbrev + extras.substr(0,1);
+          abbrev = abbrev + extras.substr(0, 1);
           extras = extras.substr(1);
         }
         return abbrev;
     }
 
-    isAbbreviationUnique(abbrev: string) : boolean {
-      var answer: boolean = true;
+    isAbbreviationUnique(abbrev: string): boolean {
+      let answer = true;
       this.speakers.forEach(element => {
         if (element.abbreviation === abbrev) {
           answer = false;
@@ -168,19 +169,19 @@ export class FixasrComponent  implements OnInit {
 
     // ########
 
-    onFocus(event: any, i : number) {
+    onFocus(event: any, i: number) {
         console.log('onFocus index=' + i + '  size=' + this.asrsegments.length);
         this.currentIndex = i;
         this.currentElement = (<HTMLInputElement>event.target);
-        //this.isSpeakerSelectVisible = true;
+        // this.isSpeakerSelectVisible = true;
         this.isTyping = false;
         this.isFirstSpace = false;
     }
 
-    onMouseup(event: any, i : number) {
-        if (this.isInsertMode) return;
+    onMouseup(event: any, i: number) {
+        if (this.isInsertMode) { return; }
 
-        var ele : HTMLInputElement = (<HTMLInputElement>event.target);
+        const ele: HTMLInputElement = (<HTMLInputElement>event.target);
         console.log('onMouseup index=' + i + '   start=' + ele.selectionStart + '   end=' + ele.selectionEnd);
         console.log('onMouseup value=' + ele.value);
         this._Utilities.selectWord(ele);
@@ -189,13 +190,13 @@ export class FixasrComponent  implements OnInit {
     // When we enter punctuation while some text is selected,
     // put the puntuation at the end of the word and do NOT replace the text.
     // Therefore we remove the selection of the word, so that it does not get replaced.
-   onKeyDown(event: any, i : number) {
+   onKeyDown(event: any, i: number) {
         switch (event.key) {
           case '.':
           case ',':
           case ';':
           case '?':
-            var ele : HTMLInputElement = (<HTMLInputElement>event.target);
+            const ele: HTMLInputElement = (<HTMLInputElement>event.target);
             ele.selectionStart = ele.selectionEnd;
             return;
         }
@@ -203,6 +204,7 @@ export class FixasrComponent  implements OnInit {
 
    onKey(event: any, i: number) {
 
+        let ele: HTMLInputElement;
         // After inserting punctuation while in "Replace" mode, go to next word.
         if (!this.isInsertMode) {
             switch (event.key) {
@@ -210,7 +212,7 @@ export class FixasrComponent  implements OnInit {
                 case ',':
                 case ';':
                 case '?':
-                var ele : HTMLInputElement = (<HTMLInputElement>event.target);
+                ele = <HTMLInputElement>event.target;
                 this._Utilities.gotoNextWord(ele);
                 return;
             }
@@ -228,14 +230,13 @@ export class FixasrComponent  implements OnInit {
             return;
         }
 
-        if (this.isInsertMode) return;
+        if (this.isInsertMode) { return; }
 
-
-        var key = event.key;   // get key value
-        var ele : HTMLInputElement = (<HTMLInputElement>event.target);
-        var value : string = ele.value;
-        var start : number = ele.selectionStart;
-        var end : number = ele.selectionEnd;
+        const key = event.key;   // get key value
+        ele  = <HTMLInputElement>event.target;
+        let value: string = ele.value;
+        let start: number = ele.selectionStart;
+        const end: number = ele.selectionEnd;
 
 
         console.log('doKey: key=' + key + '   isTyping=' + this.isTyping);
@@ -324,7 +325,7 @@ export class FixasrComponent  implements OnInit {
             }
         }
         ele.value = value;
-        ele.setSelectionRange(start+2, start+2);
+        ele.setSelectionRange(start + 2, start + 2);
         console.log('start=' + ele.selectionStart + '   end=' + ele.selectionEnd);
         this._Utilities.selectWord(ele);
 
@@ -347,33 +348,34 @@ export class FixasrComponent  implements OnInit {
                 // We want to scroll the list to the last stored position.
                 // But Angular will not yet have updated the list. We need
                 // to yield for an instant to let it first do the update.
-                let timer = Observable.timer(100);   // yield for 100 milliseconds
-                timer.subscribe(t=>this.setScrollPosition(this.lastedit));
+                // const timer = Observable.timer(100);   // no longer valid
+                const timerx = timer(100);   // yield for 100 milliseconds
+                timerx.subscribe(t => this.setScrollPosition(this.lastedit));
                 },
                 error => this.errorMessage = <any>error
             );
     }
 
     saveChanges() {
-        var asrtext : FixasrText;
-        var lastedit = this.getScrollPosition();
+        // let asrtext: FixasrText;
+        const lastedit = this.getScrollPosition();
         console.log('saveTranscript');
         // Todo-g - See notes under getAsr().
-        //asrtext.lastedit = this.getScrollPosition();
-        //asrtext.asrsegments = this.asrsegments;
-        //this._asrService.postChanges(asrtext)
+        // asrtext.lastedit = this.getScrollPosition();
+        // asrtext.asrsegments = this.asrsegments;
+        // this._asrService.postChanges(asrtext)
         this._fixasrService.postChanges({ 'lastedit': lastedit, 'asrsegments': this.asrsegments })
             .subscribe (
                 t => t
             );
-        //error => this.errorMessage = <any>error);
+        // error => this.errorMessage = <any>error);
     }
 
 // #####################  Play selected part of video ####################################
 
     playPhrase() {
         // start playing at the currently selected phrase
-        var toPlay = this.currentIndex;
+        let toPlay = this.currentIndex;
         // If not current phrase, start from last edited phrase.
         if (toPlay === -1) {
             toPlay = this.lastedit;
@@ -381,29 +383,29 @@ export class FixasrComponent  implements OnInit {
             if (toPlay === -1) {
                 this.videoComponent.playPhrase(0, 4);
                 return;
-                //toPlay = 0;
+                // toPlay = 0;
             }
         }
-        if (toPlay === this.lastPhrasePlayed) return;
+        if (toPlay === this.lastPhrasePlayed) { return; }
         this.lastPhrasePlayed = toPlay;
 
-        let maxPhraseTime = 6; // minimum time of a single phrase
-        let beforeTime = 1;  // time to play before
-        let afterTime = 3;   // and after selected phrase
-        let startTime  = this.asrsegments[toPlay].startTime;
+        const maxPhraseTime = 6; // minimum time of a single phrase
+        const beforeTime = 1;  // time to play before
+        const afterTime = 3;   // and after selected phrase
+        const startTime  = this.asrsegments[toPlay].startTime;
 
         console.log('In fixasr playPhrase, index=' + toPlay);
 
         // Play for contextTime seconds before selected phrase
         let start = this.convertToSeconds(startTime) - beforeTime;
-        if (start < 0) {start = 0;}
+        if (start < 0) { start = 0; }
 
         // Assume duration is maxPhraseTime seconds if this is the last phrase.
         // Otherwise play for (contextTime * 2) seconds longer than duration.
         // This means contextTime before and contextTime after.
         let duration = maxPhraseTime;
-        if (this.asrsegments.length > toPlay+1) {
-            let endTime : string  = this.asrsegments[toPlay+1].startTime;
+        if (this.asrsegments.length > toPlay + 1) {
+          const endTime: string  = this.asrsegments[toPlay + 1].startTime;
             duration = this.convertToSeconds(endTime) - start + beforeTime + afterTime;
         }
         this.videoComponent.playPhrase(start, duration);
@@ -411,7 +413,7 @@ export class FixasrComponent  implements OnInit {
     }
 
    convertToSeconds(time: string) {
-       var array = time.split(':');
+      const array = time.split(':');
        let count = array.length;
        let seconds = 0;
        while (count > 0) {

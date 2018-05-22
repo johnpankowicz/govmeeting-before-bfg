@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/share';
 import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
@@ -31,7 +32,8 @@ export class AddtagsService {
         // See notes above for "meetingId".
         let url: string = this.addtagsUrl;
         url = url + '/' + this.meetingId;
-        this.observable = this.http.get<Addtags>(url)
+        // Todo - handle null return. Here we just cast to the correct object type.
+        this.observable = <Observable<Addtags>> this.http.get<Addtags>(url)
             .pipe(catchError(this.errHandling.handleError))
             .share();     // make it shared so more than one subscriber can get the same result.
         return this.observable;
@@ -50,19 +52,20 @@ export class AddtagsService {
             })
         };
         console.log('postData in fixasr.service');
-        return this.http.post<Addtags>(url, addtags, httpOptions)
+        // Todo - handle null return. Here we just cast to the correct object type.
+        return <Observable<Addtags>> this.http.post<Addtags>(url, addtags, httpOptions)
             .pipe(catchError(this.errHandling.handleError));
     }
 
     // Todo - This needs to call the WebApi for the data.
     // getSections(): Observable<string[]> {
     //    return Observable.of(this.sections);
-    //}
+    // }
 
     // Todo - This needs to call the WebApi for the data.
     // getTopics(): Observable<string[]> {
     //    return Observable.of(this.topics);
-    //}
+    // }
 
   // private topics: string[] = [
   //      "",

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
@@ -94,7 +94,8 @@ export class ViewMeetingServiceStub {
           return this.observable;
       }
       const url = 'assets/stubdata/1 tagged.json';
-        this.observable = this.http.get<ViewMeeting>(url)
+        // Todo - handle null return. Here we just cast to the correct object type.
+        this.observable = <Observable<ViewMeeting>> this.http.get<ViewMeeting>(url)
            .pipe(catchError(this.errHandling.handleError))
            .share();     // make it shared so more than one subscriber can get the same result.
        return this.observable;

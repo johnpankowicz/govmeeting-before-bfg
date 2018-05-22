@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
@@ -31,7 +31,8 @@ export class FixasrService {
         url = url + '/' + this.meetingId + '/' + this.part;
 
         console.log('get data from ' + url);
-        return this.http.get<FixasrText>(url)
+        // Todo - handle null return. Here we just cast to the correct object type.
+        return <Observable<FixasrText>> this.http.get<FixasrText>(url)
             .pipe(catchError(this.errHandling.handleError));
     }
 
@@ -51,7 +52,8 @@ export class FixasrService {
             })
         };
         console.log('postData in fixasr.service');
-        return this.http.post<FixasrText>(url, asrtext, httpOptions)
+        // Todo - handle null return. Here we just cast to the correct object type.
+        return <Observable<FixasrText>> this.http.post<FixasrText>(url, asrtext, httpOptions)
             .pipe(catchError(this.errHandling.handleError));
     }
 }
