@@ -4,19 +4,23 @@ using Newtonsoft.Json;
 using GM.ProcessRecording;
 using GM.FileDataModel;
 using GM.FileDataRepositories;
+using GM.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace GM.ProcessRecording_Tests
 
 {
     class TestCloud
     {
-        // Todo-g - These should come from configuration
-        private string testdataPath = Environment.CurrentDirectory + @"\..\..\testdata";
-        private string datafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
         private string language = "en";
+        private IOptions<AppSettings> config;
 
         public void TestAll()
         {
+            config.Value.DatafilesPath = Environment.CurrentDirectory + @"\..\..\Datafiles";
+            config.Value.TestfilesPath = Environment.CurrentDirectory + @"\..\..\testdata";
+            config.Value.GoogleApplicationCredentials = Environment.CurrentDirectory + @"..\\..\\..\\..\\..\\..\\..\\..\\_SECRETS\\TranscribeAudio.json";
+
             TestMoveToCloudAndTranscribe(language);
             TestTranscriptionOfFileInCloud(language);
             TestTranscriptionOfLocalFile(language);
@@ -25,8 +29,8 @@ namespace GM.ProcessRecording_Tests
         public void TestMoveToCloudAndTranscribe(string language)
         {
             string baseName = "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-02-15";
-            string videoFile = testdataPath + "\\" + baseName + ".mp4";
-            string outputFolder = testdataPath + "\\" + "TestMoveToCloudAndTranscribe";
+            string videoFile = config.Value.TestfilesPath + "\\" + baseName + ".mp4";
+            string outputFolder = config.Value.TestfilesPath + "\\" + "TestMoveToCloudAndTranscribe";
 
             FileDataRepositories.GMFileAccess.DeleteAndCreateDirectory(outputFolder);
 
@@ -45,7 +49,7 @@ namespace GM.ProcessRecording_Tests
             extract.Extract(shortFile, audioFile);
 
             // Transcribe
-            TranscribeAudio ta = new TranscribeAudio();
+            TranscribeAudio ta = new TranscribeAudio(config);
             TranscribeResponse response = ta.MoveToCloudAndTranscribe(audioFile, baseName + ".flac", language);
 
             string stringValue = JsonConvert.SerializeObject(response, Formatting.Indented);
@@ -62,7 +66,7 @@ namespace GM.ProcessRecording_Tests
 
         public void TestTranscriptionOfFileInCloud(string language)
         {
-            TranscribeAudio ta = new TranscribeAudio();
+            TranscribeAudio ta = new TranscribeAudio(config);
 
             // Test transcription of a file already in the cloud storage bucket
             TranscribeResponse transcript = ta.TranscribeInCloud("USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-01-09_00-01-40.flac", "en");
@@ -73,10 +77,10 @@ namespace GM.ProcessRecording_Tests
 
         public void TestTranscriptionOfLocalFile(string language)
         {
-            TranscribeAudio ta = new TranscribeAudio();
+            TranscribeAudio ta = new TranscribeAudio(config);
 
             // Test transcription on a local file. We will use sychronous calls to the Google Speech API. These allow a max of 1 minute per request.
-            string folder = datafilesPath + @"..\testdata\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2017-01-09\step 2 extract\";
+            string folder = config.Value.TestfilesPath + @"..\testdata\BBH Selectmen\USA_ME_LincolnCounty_BoothbayHarbor_Selectmen\2017-01-09\step 2 extract\";
             TranscribeResponse transcript = ta.TranscribeFile(folder + "USA_ME_LincolnCounty_BoothbayHarbor_Selectmen_EN_2017-01-09#00-01-40.flac", language);
 
             string stringValue = JsonConvert.SerializeObject(transcript, Formatting.Indented);
