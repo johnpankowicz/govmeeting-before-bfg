@@ -28,6 +28,7 @@ import { AddtagsServiceStub } from './addtags/addtags.service-stub';
 import { FixasrService } from './fixasr/fixasr.service';
 import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
 import { AppData } from './appdata';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Is the Asp.Net server running
 const _isAspServerRunning = true;
@@ -52,7 +53,8 @@ const _isAspServerRunning = true;
     TemppagesModule,
     // MatsampModule,
     GmSharedModule,
-    TestModule
+    TestModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ErrorHandlingService,
