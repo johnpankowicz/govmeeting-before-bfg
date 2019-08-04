@@ -1,0 +1,3 @@
+* Created a new project with "ng new"
+* Added a launch.json & tasks.json from:
+   https://github.com/Microsoft/vscode-recipes/tree/master/Angular-CLI

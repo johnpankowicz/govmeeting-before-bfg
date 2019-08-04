@@ -2,14 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './navmenu/navmenu.component';
 import { ErrorHandlingService } from './gmshared/error-handling/error-handling.service';
 
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { ViewMeetingModule } from './viewmeeting/viewmeeting.module';
 import { AddtagsModule } from './addtags/addtags.module';
 import { FixasrModule } from './fixasr/fixasr.module';
@@ -18,8 +17,7 @@ import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { VolunteerModule } from './volunteer/volunteer.module';
 import { TemppagesModule } from './temppages/temppages.module';
-import { TestModule } from './test/test.module';
-// import { MatsampModule } from './matsamp/matsamp.module
+import { UserModule } from './User/User.module';
 
 import { ViewMeetingService } from './viewmeeting/viewmeeting.service';
 import { ViewMeetingServiceStub } from './viewmeeting/viewmeeting.service-stub';
@@ -30,18 +28,18 @@ import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
 import { AppData } from './appdata';
 
 // Is the Asp.Net server running
-const _isAspServerRunning = true;
+const _isAspServerRunning = false;
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     AppRoutingModule,
     HomeModule,
     AboutModule,
@@ -50,9 +48,8 @@ const _isAspServerRunning = true;
     FixasrModule,
     VolunteerModule,
     TemppagesModule,
-    // MatsampModule,
     GmSharedModule,
-    TestModule
+    UserModule
   ],
   providers: [
     ErrorHandlingService,
@@ -74,3 +71,4 @@ const _isAspServerRunning = true;
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+//

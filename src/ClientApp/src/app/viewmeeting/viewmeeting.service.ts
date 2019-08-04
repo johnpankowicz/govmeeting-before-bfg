@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
+//import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
+//import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { share, catchError } from 'rxjs/operators';
+//import { HttpHeaders } from '@angular/common/http';
 import { ViewMeeting } from '../models/viewmeeting-view';
 
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
@@ -39,7 +39,7 @@ export class ViewMeetingService {
         url = url + '/' + this.meetingId;
          this.observable = this.http.get<ViewMeeting>(url)
             .pipe(catchError(this.errHandling.handleError))
-            .share();     // make it shared so more than one subscriber can get the same result.
+            .pipe(share());     // make it shared so more than one subscriber can get the same result.
         return this.observable;
    }
 

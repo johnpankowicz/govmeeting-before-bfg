@@ -43,8 +43,10 @@ namespace GM.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Set a variable in the gdc which is be used in NLog.config for the
+            // Set a variable in the gdc (Global Diagnostics Context) which is be used in NLog.config for the
             // base path of our app: ${gdc:item=appbasepath} 
+            // We will use this to specify where to store the log files: (EG)
+            //    fileName="${gdc:item=appbasepath}/../../logs/nlog-all-${shortdate}.log"
             var appBasePath = System.IO.Directory.GetCurrentDirectory();
             GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
 

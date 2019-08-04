@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Headers, RequestOptions } from '@angular/http';
+//import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/share';
-import { catchError } from 'rxjs/operators';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { share, catchError } from 'rxjs/operators';
+//import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 
 import { Addtags, Talk } from '../models/addtags-view';
@@ -35,13 +34,13 @@ export class AddtagsService {
         // Todo - handle null return. Here we just cast to the correct object type.
         this.observable = <Observable<Addtags>> this.http.get<Addtags>(url)
             .pipe(catchError(this.errHandling.handleError))
-            .share();     // make it shared so more than one subscriber can get the same result.
+            .pipe(share());     // make it shared so more than one subscriber can get the same result.
         return this.observable;
     }
 
     postChanges(addtags: Addtags): Observable<any> {
         console.log('postChanges in talks.service');
-        // return Observable.of(this.addtags);
+        // return of(this.addtags);
         return this.postData(this.addtagsUrl, addtags);
     }
 
@@ -59,12 +58,12 @@ export class AddtagsService {
 
     // Todo - This needs to call the WebApi for the data.
     // getSections(): Observable<string[]> {
-    //    return Observable.of(this.sections);
+    //    return of(this.sections);
     // }
 
     // Todo - This needs to call the WebApi for the data.
     // getTopics(): Observable<string[]> {
-    //    return Observable.of(this.topics);
+    //    return of(this.topics);
     // }
 
   // private topics: string[] = [

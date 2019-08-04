@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+//import { Http, Response } from '@angular/http';
+//import { Headers, RequestOptions } from '@angular/http';
+import { of, Observable } from 'rxjs';
 import { Addtags, Talk } from '../models/addtags-view';
 
 @Injectable()
@@ -9,12 +9,12 @@ export class AddtagsServiceStub {
 
     getTalks(): Observable<Addtags> {
         console.log('getAsr from memory');
-        return Observable.of(this.addtags);
+        return of(this.addtags);
     }
 
     postChanges(addtags: Addtags): Observable<Addtags> {
         console.log('postChanges in talks.service stub');
-        return Observable.of(this.addtags);
+        return of(this.addtags);
     }
 
     private addtags: Addtags = {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { WorkProgress, WorkItem, Volunteer, Location } from '../models/workprogress-view';
 import { MeetingForView } from '../models/meetingforview'
 
@@ -12,7 +12,7 @@ export class FixasrService {
     // We will return the data for location 6633 (Linden, NJ - USA)
     getWorkInProgress(locationId: number = 5633): Observable<WorkProgress> {
         console.log('getWorkInProgress from memory');
-        return Observable.of(this.workinprogress);
+        return of(this.workinprogress);
     }
 
 // The data below represents:

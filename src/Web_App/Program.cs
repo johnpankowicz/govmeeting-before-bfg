@@ -32,6 +32,12 @@ namespace GM.WebApp
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        /* This link explains program startup changes in .Net Core 2.0:
+         * https://andrewlock.net/exploring-program-and-startup-in-asp-net-core-2-preview1-2/
+         * We call CreateDefaultBuilder but in addition, we also do the following:
+         *      Call ConfigureAppConfiguration to add our Secrets config file
+         *      Call ConfigureLogging to use NLog for logging
+         */
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()

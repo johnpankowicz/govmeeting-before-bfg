@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
@@ -31,7 +30,7 @@ export class FixasrServiceStub {
 
   getAsr(): Observable<FixasrText> {
         // console.log('getAsr from memory');
-        // return Observable.of(this.asrtext);
+        // return of(this.asrtext);
         const url = 'assets/stubdata/ToFix.json';
         // Todo - handle null return. Here we just cast to the correct object type.
         return <Observable<FixasrText>> this.http.get<FixasrText>(url)
@@ -40,7 +39,7 @@ export class FixasrServiceStub {
 
     postChanges(asrtext: FixasrText): Observable<any> {
         console.log('postChanges in fixasr.service stub');
-        return Observable.of(this.asrtext);
+        return of(this.asrtext);
     }
 }
 

@@ -6,8 +6,9 @@ import { FixasrService } from './fixasr.service';
 
 import { VideoComponent } from '../video/video.component';
 import { FixasrUtilities } from './fixasr-utilities';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
+//import { Observable } from 'rxjs/Observable';
+//import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
 import { Speaker } from './speaker';
 // import { Ng2DropdownModule } from 'ng2-material-dropdown';
 
@@ -68,9 +69,9 @@ export class FixasrComponent  implements OnInit {
 
     // https://github.com/videogular/videogular2/blob/master/docs/using-the-api.md
 
-    @ViewChild('myInput') input: ElementRef;
+    @ViewChild('myInput', {static: true}) input: ElementRef;
 
-    @ViewChild(VideoComponent)
+    @ViewChild(VideoComponent, {static: true})
     private videoComponent: VideoComponent;
 
     constructor(

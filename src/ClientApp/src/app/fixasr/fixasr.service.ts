@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
+//import { Headers, RequestOptions, Response } from '@angular/http';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
 import { Observable } from 'rxjs';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+//import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';

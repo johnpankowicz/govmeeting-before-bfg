@@ -1,4 +1,4 @@
-# This script is outdated. It was valid when WebApp and ClientrApp were
+# This script is outdated. It was valid when WebApp and ClientApp were
 # in separate Visual Studio projects.
 
 GOV="/C/GOVMEETING/_SOURCECODE"

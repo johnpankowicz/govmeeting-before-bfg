@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators';
+//import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { share, catchError } from 'rxjs/operators';
 import { ViewMeeting } from '../models/viewmeeting-view';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
 
@@ -88,7 +88,7 @@ export class ViewMeetingServiceStub {
 
     public getMeeting(): Observable<ViewMeeting> {
         // console.log('getMeeting from memory');
-        // return Observable.of(this.viewMeeting);
+        // return of(this.viewMeeting);
 
         if (this.observable != null) {
           return this.observable;
@@ -97,7 +97,7 @@ export class ViewMeetingServiceStub {
         // Todo - handle null return. Here we just cast to the correct object type.
         this.observable = <Observable<ViewMeeting>> this.http.get<ViewMeeting>(url)
            .pipe(catchError(this.errHandling.handleError))
-           .share();     // make it shared so more than one subscriber can get the same result.
+           .pipe(share());     // make it shared so more than one subscriber can get the same result.
        return this.observable;
 }
 
