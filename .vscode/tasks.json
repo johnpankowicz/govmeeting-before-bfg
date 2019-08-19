@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Web_App/Web_App.csproj"
+                "${workspaceFolder}/BackEnd/Web_App/Web_App.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Workflow_App/Workflow_App.csproj"
+                "${workspaceFolder}/BackEnd/Workflow_App/Workflow_App.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

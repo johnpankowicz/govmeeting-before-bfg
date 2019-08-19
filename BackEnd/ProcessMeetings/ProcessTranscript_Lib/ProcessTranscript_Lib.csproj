@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--https://stackoverflow.com/questions/40236194/itextsharp-any-support-for-dotnet-core-netstandard1-6-->
+    <PackageReference Include="iTextSharp" Version="5.5.13.1" />
+    <PackageReference Include="NAudio" Version="1.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="NLog" Version="4.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+    <ProjectReference Include="..\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj" />
+  </ItemGroup>
+
+</Project>
