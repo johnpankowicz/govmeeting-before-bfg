@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BlockAndDelay.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
+    <PackageReference Include="NLog" Version="4.6.6" />
+    <PackageReference Include="NLog.Web" Version="4.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration_Lib\Configuration_Lib.csproj" />
+    <ProjectReference Include="..\Database\DatabaseRepositories_Lib\DatabaseRepositories_Lib.csproj" />
+    <ProjectReference Include="..\Database\LoadDatabase_Lib\LoadDatabase_Lib.csproj" />
+    <ProjectReference Include="..\ProcessMeetings\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+    <ProjectReference Include="..\ProcessMeetings\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj" />
+    <ProjectReference Include="..\ProcessMeetings\ProcessRecording_Lib\ProcessRecording_Lib.csproj" />
+    <ProjectReference Include="..\ProcessMeetings\ProcessTranscript_Lib\ProcessTranscript_Lib.csproj" />
+  </ItemGroup>
+
+</Project>

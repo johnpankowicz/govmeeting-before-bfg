@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Fixasr\" />
+    <Folder Include="Addtags\" />
+    <Folder Include="ViewMeetings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Database\DatabaseRepositories_Lib\DatabaseRepositories_Lib.csproj" />
+    <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Configuration_Lib">
+      <HintPath>..\..\Configuration_Lib\bin\Debug\netcoreapp2.0\Configuration_Lib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

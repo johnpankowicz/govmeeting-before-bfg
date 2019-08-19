@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileDataModel_Lib\FileDataModel_Lib.csproj" />
+    <ProjectReference Include="..\FileDataRepositories_Lib\FileDataRepositories_Lib.csproj" />
+    <ProjectReference Include="..\ProcessRecording_Lib\ProcessRecording_Lib.csproj" />
+  </ItemGroup>
+
+</Project>
