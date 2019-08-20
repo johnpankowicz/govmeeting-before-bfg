@@ -1,7 +1,8 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { FixasrText, AsrSegment } from '../models/fixasr-view';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../gmshared/error-handling/error-handling.service';
@@ -40,7 +41,7 @@ export class FixasrServiceStub {
 
     postChanges(asrtext: FixasrText): Observable<any> {
         console.log('postChanges in fixasr.service stub');
-        return Observable.of(this.asrtext);
+        return observableOf(this.asrtext);
     }
 }
 

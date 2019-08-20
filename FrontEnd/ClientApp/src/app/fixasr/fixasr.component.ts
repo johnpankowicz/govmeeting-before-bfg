@@ -6,8 +6,7 @@ import { FixasrService } from './fixasr.service';
 
 import { VideoComponent } from '../video/video.component';
 import { FixasrUtilities } from './fixasr-utilities';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
+import { Observable ,  timer } from 'rxjs';
 import { Speaker } from './speaker';
 // import { Ng2DropdownModule } from 'ng2-material-dropdown';
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VgAPI } from 'videogular2/core';
-import { Observable } from 'rxjs';
-import { timer } from 'rxjs/observable/timer';
+import { Observable ,  timer } from 'rxjs';
 import { AppData } from '../appdata';
 
 @Component({
