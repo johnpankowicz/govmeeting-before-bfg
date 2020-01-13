@@ -5,9 +5,12 @@
     <!-- <gm-header></gm-header> -->
 
     <mat-toolbar class="main-header" [class.is-mobile]="mobileQuery.matches">
+      <span>
         <button mat-icon-button class="main-header-button" (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
+        <span class="main-header-title">Govmeeting</span>
+      </span>
         <gm-user-dropdown></gm-user-dropdown>
     </mat-toolbar>
 

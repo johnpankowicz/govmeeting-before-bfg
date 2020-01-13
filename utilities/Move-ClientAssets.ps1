@@ -1,102 +1,154 @@
-﻿# move-client-assets.ps1
+﻿# Move-ClientAssets.ps1
 
-function Main
+Function Main
 {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, Position = 1)] [string] $source,
-        [Parameter(Mandatory = $true, Position = 2)] [string] $destination,
-        [Parameter(Mandatory = $true, Position = 3)] [string] $layout,
-        [Parameter(Mandatory = $true, Position = 4)] [string] $homeview
+        [Parameter(Mandatory = $true, Position = 1)] [string] $source
     )
 
     $usage = "@
-    Usage: move-client-assets <source-folder> <destination-folder> <index-page>
+    Usage: move-client-assets <source-folder>
     #    <source-folder> - Angular ClientApp folder
-    #    <destination-folder> - Asp.Net WebApp folder
-    #    <layout> - relative path in WebApp to _layout.cshtml
-    #    <homeview> - relative path in WebApp to index.cshtml of HomeController.
     # Move assets from ClientApp to Web_App.
     # Step 1: Move files from dist folder in ClientApp to wwwroot folder in WebApp.
     # Step 2: Edit _layout.cshtml file to match index.html in ClientApp (with slight modifications).
+    # Step 3: Edit index.cshtml in Web_App Home controller to just contain Angular app element.
 @"
+    $me = "Move-ClientAssets: "
 
-    if (!(Test-Path $source -pathType container))
+    $GOVMEETING = $false
+
+    # Uncomment the notice you want to get.
+    #[void][Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+    #[void][System.Windows.Forms.MessageBox]::Show("It works.")
+    #[Console]::Beep(600, 800)
+
+    Write-Host "$me Running pre-build script Move-ClientAssets.ps1 " -NoNewline
+    Write-Host @args
+
+    $location = Get-Location
+    Write-Host "$me My location is $location"
+
+    $destination = $location.Path
+    $_sourceAssets = "dist\ClientApp"
+    $_destAssets = "wwwroot"
+    $_indexpage = "wwwroot\index.html" 
+
+
+    if ($GOVMEETING)
     {
-        echo "$source does not exist"
-        echo $usage
+        $webapp = "BackEnd\Web_App"
+        $_source = "..\..\FrontEnd\ClientApp"
+        $source = join-path $destination $_source
+        $_layout = "Features\Shared\_layout.cshtml"
+        $_homeview = "Features\Home\index.cshtml" 
+
+    } else {
+        $webapp = "Web_App"
+        $source = "C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp"
+        $_layout = "Views\shared\_layout.cshtml"
+        $_homeview = "Views\Home\index.cshtml" 
+    }
+
+    ##################   Check Web App location   ########################
+
+    # When this command is run, we should already be in Backend\Web_App
+    # But we want to make absolutely sure. We will be deleting some contents of this folder and modifying others.
+    if (!($destination.EndsWith($webapp)))
+    {
+        echo "$me ERROR Current location should end with $webapp"
         exit
     }
 
-    $oDir = Get-Item $source
-    $DirName = $oDir.Name
-    $sourceAssets = $source + "\dist\" + $DirName
-    $destAssets = $destination + "\wwwroot"
 
-    CheckFolderLocations $sourceAssets $destAssets
+    ##################   set assets destination   ########################
+
+
+    $destAssets = join-path $destination $_destAssets
+    echo "$me destAssets is $destAssets"
+    if (!(Test-Path $destAssets -pathType container))
+    {
+        echo "$me ERROR $destAssets does not exist"
+        exit
+    } 
+
+    ##################   set assets source   ########################
+    
+    $sourceAssets = [IO.Path]::GetFullPath( (join-path $source $_sourceAssets) )
+    echo "$me sourceAssets is $sourceAssets"
+    if (!(Test-Path $sourceAssets -pathType container))
+    {
+        echo "$me ERROR $sourceAssets does not exist"
+        exit
+    }
+
+
+    ##################   set layout page   ########################
+
+    $layout = join-path $destination $_layout
+    echo "$me layout is $layout"
+    if (!(Test-Path $layout -pathType leaf))
+    {
+        echo "$me ERROR $layout does not exist"
+        exit
+    }
+
+
+    ##################   set Home controller page   ########################
+
+    $homeview = join-path $destination $_homeview 
+    echo "$me homeview is $homeview"
+    if (!(Test-Path $homeview -pathType leaf))
+    {
+        echo "$me ERROR $homeview does not exist"
+        exit
+    }
+
+    ##################   set index page   ########################
+
+    $indexpage = join-path $destination $_indexpage
+    echo "$me indexpage is $indexpage"
+    # NOTE: we can't test for existence until we copy the client assets.
+
+
+    ##################  Copy Assets   ########################
+
+    MoveClientAssets $sourceAssets $destAssets $layout $homeview $indexpage
+
+}
+
+
+Function MoveClientAssets
+{
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 1)] [string] $sourceAssets,
+        [Parameter(Mandatory = $true, Position = 2)] [string] $destAssets,
+        [Parameter(Mandatory = $true, Position = 3)] [string] $layout,
+        [Parameter(Mandatory = $true, Position = 4)] [string] $homeview,
+        [Parameter(Mandatory = $true, Position = 5)] [string] $indexpage
+    )
+
 
     DeleteFolderContentsMax100 $destAssets
 
     CopyFolderContents $sourceAssets $destAssets
 
-    $indexpage = $destAssets + "\index.html"
-    $layoutpage = $destination + "\" + $layout
-    $homepage = $destination + "\" + $homeview
-
-    CheckFileLocations $indexpage $layoutpage $homepage
-
-    # $content = (EditLayoutPage $indexpage, $homepage)
-
-    EditLayoutPage $indexpage | set-content $layoutpage
-
-    "<app-root></app-root>"  | set-content $homepage
-
-}
-
-
-Function CheckFolderLocations
-{
-    param($sourceAssets, $destAssets, $indexpage, $layoutpage)
-
-    if (!(Test-Path $sourceAssets -pathType container))
-    {
-        echo "$sourceAssets does not exist"
-        echo $usage
-        exit
-    }
-    if (!(Test-Path $destAssets -pathType container))
-    {
-        echo "$destAssets does not exist"
-        echo $usage
-        exit
-    } 
-}
-
-Function CheckFileLocations
-{
-    param($indexpage, $layoutpage, $homepage)
-
     if (!(Test-Path $indexpage -pathType leaf))
     {
-        echo "$indexpage does not exist"
-        echo $usage
+        echo "$me ERROR $indexpage does not exist"
         exit
     }
 
-    if (!(Test-Path $layoutpage -pathType leaf))
-    {
-        echo "$layoutpage does not exist"
-        echo $usage
-        exit
-    }
+    $content = EditLayoutPage $indexpage
 
-    if (!(Test-Path $homepage -pathType leaf))
-    {
-        echo "$homepage does not exist"
-        echo $usage
-        exit
-    }
+    (EditLayoutPage $indexpage) | set-content $layout
+
+    "<app-root></app-root>"  | set-content $homeview
+
 }
+
 
 # Delete folder contents, but not if it contains > 100 items.
 Function DeleteFolderContentsMax100($folder)
@@ -106,8 +158,7 @@ Function DeleteFolderContentsMax100($folder)
     $count = ( Get-ChildItem $folder -Recurse | Measure-Object ).Count
     if ($count -gt 100)
     {
-        echo "There are $count items in $folder."
-        echo "Are you sure you want to delete it?"
+        echo "ERROR  $me There are $count items in $folder. Are you sure you want to delete it?"
         exit
     }
 
@@ -139,15 +190,6 @@ Function EditLayoutPage($page)
 # Execute Main function. This is excecuted first.
 # Main @args
 
-#$source = "C:\GOVMEETING\_WORKAREA\WORK\aspnet-barebone\mvc\ClientApp"
-#$destination = "C:\GOVMEETING\_WORKAREA\WORK\aspnet-barebone\mvc\Web_App"
-#$layout = "Views\shared\_layout.cshtml"
-#$homeview = "Views\Home\index.cshtml"
+$source = "..\..\FrontEnd\ClientApp"
 
-$source = "C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp"
-$destination = "C:\GOVMEETING\_WORKAREA\WORK\aspnet-barebone\mvc\Web_App"
-$layout = "Views\shared\_layout.cshtml"
-$homeview = "Views\Home\index.cshtml"
-
-
-Main $source $destination $layout $homeview
+Main $source

@@ -13,13 +13,13 @@ export class NewsComponent implements OnInit {
   @Input()
     set location(location: string) {
       this._location = location;
-      console.log("bills set location=" + location)}
+      console.log("news set location=" + location)}
     get location(): string { return this._location; }
 
     @Input()
     set agency(agency: string) {
       this._agency = agency;
-      console.log("bills set agency=" + agency)}
+      console.log("news set agency=" + agency)}
     get agency(): string { return this._agency; }
 
   constructor() { }

@@ -87,6 +87,10 @@
    <Message Text="Skip PublishRunWebpackPub" />
 </Target>
 
+<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Exec Command="REM powershell.exe C:\GOVMEETING\_SOURCECODE\Utilities\Move-ClientAssets.ps1&#xD;&#xA;echo &quot;skip script&quot;" />
+</Target>
+
 
 </Project>
 

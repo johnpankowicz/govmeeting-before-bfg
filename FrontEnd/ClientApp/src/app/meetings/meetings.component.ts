@@ -12,13 +12,13 @@ export class MeetingsComponent implements OnInit {
   @Input()
     set location(location: string) {
       this._location = location;
-      console.log("bills set location=" + location)}
+      console.log("Meetings set location=" + location)}
     get location(): string { return this._location; }
 
     @Input()
     set agency(agency: string) {
       this._agency = agency;
-      console.log("bills set agency=" + agency)}
+      console.log("Meetings set agency=" + agency)}
     get agency(): string { return this._agency; }
   constructor() { }
 
