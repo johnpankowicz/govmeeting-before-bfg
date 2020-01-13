@@ -17,7 +17,7 @@ Function Main
 @"
     $me = "Move-ClientAssets: "
 
-    $GOVMEETING = $false
+    $GOVMEETING = $true
 
     # Uncomment the notice you want to get.
     #[void][Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")

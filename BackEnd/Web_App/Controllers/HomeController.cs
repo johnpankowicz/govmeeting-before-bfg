@@ -21,6 +21,8 @@ namespace Web_App.Controllers
         public IActionResult Index()
         {
             return View();
+            //return File(@"index.html", "text/html");
+            //return Redirect("client/index.html");
         }
 
         public IActionResult Privacy()
