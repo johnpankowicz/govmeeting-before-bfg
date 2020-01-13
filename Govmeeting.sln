@@ -95,6 +95,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeepWebsiteAlive_App", "Uti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration_Lib", "BackEnd\Configuration_Lib\Configuration_Lib.csproj", "{2E008A6B-E302-4D1C-AC12-A8616F24F2FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_App", "BackEnd\Web_App\Web_App.csproj", "{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,10 @@ Global
 		{2E008A6B-E302-4D1C-AC12-A8616F24F2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E008A6B-E302-4D1C-AC12-A8616F24F2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E008A6B-E302-4D1C-AC12-A8616F24F2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +206,7 @@ Global
 		{F7B36B1E-D4B2-4225-82C1-5C0B92B11473} = {6B15424B-85AE-44A7-BDB0-A964CC25188E}
 		{450595A5-421D-47B6-BA5C-5F9EFB9F46DB} = {6B15424B-85AE-44A7-BDB0-A964CC25188E}
 		{2E008A6B-E302-4D1C-AC12-A8616F24F2FC} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
+		{382BF8F2-5A4B-4B32-9EA8-595F02E7FF98} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {577CF991-85C7-44E5-A640-AE87641C3A8D}
