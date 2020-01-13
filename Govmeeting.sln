@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}"
 EndProject
@@ -39,8 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testdata", "Testdata", "{34
 		BackEnd\Testdata\USA_PA_Philadelphia_Philadelphia_CityCouncil_en_2017-12-07.pdf = BackEnd\Testdata\USA_PA_Philadelphia_Philadelphia_CityCouncil_en_2017-12-07.pdf
 		BackEnd\Testdata\USA_TX_TravisCounty_Austin_CityCouncil_en_2017-12-14.pdf = BackEnd\Testdata\USA_TX_TravisCounty_Austin_CityCouncil_en_2017-12-14.pdf
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_App", "BackEnd\Web_App\Web_App.csproj", "{1242549D-3EEF-4127-943D-9DED99CC32E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow_App", "BackEnd\Workflow_App\WorkFlow_App.csproj", "{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}"
 EndProject
@@ -103,10 +101,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1242549D-3EEF-4127-943D-9DED99CC32E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1242549D-3EEF-4127-943D-9DED99CC32E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1242549D-3EEF-4127-943D-9DED99CC32E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1242549D-3EEF-4127-943D-9DED99CC32E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -188,7 +182,6 @@ Global
 		{0CBEFF1D-C0B1-453F-89C2-023983B4E721} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
 		{C5D796A1-3CBE-49F5-BD47-3BB29027F878} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
 		{343DC6DF-F370-46AC-BC6C-0C907DDD90BA} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
-		{1242549D-3EEF-4127-943D-9DED99CC32E9} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
 		{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C} = {A0111C47-4A43-4C2D-A7BC-6A6A3FF536E1}
 		{0D6AE633-E06A-45AB-869D-7CE0DD7E67BF} = {22F19757-4172-4C0A-8B4C-D5059022F7E4}
 		{B7570C4D-2491-444C-88CA-B7E78E2880C2} = {22F19757-4172-4C0A-8B4C-D5059022F7E4}
