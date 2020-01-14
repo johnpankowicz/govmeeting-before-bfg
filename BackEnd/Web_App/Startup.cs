@@ -14,6 +14,9 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Web;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Authentication;
+//using Microsoft.AspNetCore.Authentication.Google;
 
 using GM.Configuration;
 using GM.WebApp.StartupCustomizations;
@@ -33,6 +36,12 @@ namespace GM.WebApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            /* Logging will be written to the "logs" folder two levels up from the application base path.
+             *   Two files will be written to:
+             *   "nlog.own.<date>.log" - contains our application log messages only
+             *   "nlog.all.<date>.log  - contains our messages and system messages  
+             */
             _logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
         }
 
@@ -65,6 +74,10 @@ namespace GM.WebApp
             //    public MyController(ApplicationDbContext context) { ... }
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            _logger.Trace("GM: Add Add Authentication");
+            // ConfigureAuthenticationServices(services);
+            ConfigureAuthentication.ConfigureAuthenticationServices(services, Configuration, _logger);
 
             services.AddControllersWithViews();
 
@@ -122,5 +135,70 @@ namespace GM.WebApp
             app.UseStaticFiles();
 
         }
+
+        private void ConfigureAuthenticationServices(IServiceCollection services)
+        {
+            services.AddAuthentication()
+            .AddGoogle(options => {
+                options.ClientId = Configuration["ExternalAuth:Google:ClientId"];
+                options.ClientSecret = Configuration["ExternalAuth:Google:ClientSecret"];
+            });
+
+            _logger.Trace("GM: Add Identity");
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                // Govmeeting: Set options for cookie expiration.
+                // TODO - While upgrading to .NET SDK 2.0, I was getting an error on the next two line so
+                // I commented them out. Error = "IdentityOptions does not contain a definition for Cookies"
+                //options.Cookies.ApplicationCookie.SlidingExpiration = true;
+                //options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromHours(1);
+
+                options.Password.RequiredLength = 8;
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // amount of time they are locked out
+                options.Lockout.AllowedForNewUsers = true;
+                // TODO We should send the admin an email if someone is locked out.
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Govmeeting: Brock Allen suggest stronger hashing instead of the default.
+            //services.Configure<PasswordHasherOptions>(options =>
+            //{
+            //    options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2;
+            //    options.IterationCount = 20000;
+            //});
+
+            _logger.Trace("GM: Add Authorization");
+
+            // https://docs.asp.net/en/latest/security/authorization/claims.html
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy =>
+                { policy.RequireClaim("role", "administrator"); });
+
+                options.AddPolicy("Editor", policy =>
+                { policy.RequireClaim("role", "editor"); });
+
+                options.AddPolicy("Proofreader", policy =>
+                { policy.RequireClaim("role", "proofreader"); });
+
+                options.AddPolicy("PhillyEditor", policy =>
+                {
+                    policy.RequireClaim("role", "editor");
+                    policy.RequireClaim("location", "Philadelphia");
+                });
+                options.AddPolicy("BbhEditor", policy =>
+                {
+                    policy.RequireClaim("role", "editor");
+                    policy.RequireClaim("location", "Boothbay Harbor");
+                });
+            });
+
+        }
+
+
     }
 }
