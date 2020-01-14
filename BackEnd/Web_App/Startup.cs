@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 
 using NLog;
 using NLog.Web;
+using Microsoft.EntityFrameworkCore;
 
 using GM.Configuration;
 using GM.WebApp.StartupCustomizations;
@@ -58,6 +59,12 @@ namespace GM.WebApp
                 myOptions.TestfilesPath = GMFileAccess.GetFullPath(myOptions.TestfilesPath);
                 Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
             });
+
+            _logger.Trace("GM: Add ApplicationDbContext");
+            // We will be able to access ApplicationDbContext in a controller with:
+            //    public MyController(ApplicationDbContext context) { ... }
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddControllersWithViews();
 
