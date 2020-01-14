@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GM.WebApp.StartupCustomizations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,13 +11,28 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
+using NLog;
+using NLog.Web;
+
+using GM.Configuration;
+using GM.WebApp.StartupCustomizations;
+using GM.DatabaseRepositories;
+using GM.DatabaseAccess;
+using GM.FileDataRepositories;
+//using GM.WebApp.Services;
+
+
+
 namespace GM.WebApp
 {
     public class Startup
     {
+        readonly NLog.Logger _logger;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,15 +40,35 @@ namespace GM.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set a variable in the gdc which is be used in NLog.config for the
+            // base path of our app: ${gdc:item=appbasepath} 
+            var appBasePath = System.IO.Directory.GetCurrentDirectory();
+            GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
+
+            _logger.Trace("GM: In ConfigureServices");
+
+            _logger.Info("GM: Add AppSettings");
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<AppSettings>(myOptions =>
+            {
+                // Modify the DataFilesPath option to be the full path.
+                //myOptions.DatafilesPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), myOptions.DatafilesPath);
+                myOptions.DatafilesPath = GMFileAccess.GetFullPath(myOptions.DatafilesPath);
+                myOptions.TestfilesPath = GMFileAccess.GetFullPath(myOptions.TestfilesPath);
+                Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
+            });
+
             services.AddControllersWithViews();
 
-            // This enables the use of "Feature Folders".
+            _logger.Trace("GM: Enable use of Feature Folders");
             // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.ViewLocationExpanders.Add(new FeatureLocationExpander());
             });
 
+            _logger.Trace("GM: Exit ConfigureServices");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
