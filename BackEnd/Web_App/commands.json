@@ -1,9 +1,9 @@
 {
   "commands": {
-    "Move-ClientAssets": {
+    "Copy-ClientAssets": {
       "fileName": "powershell.exe",
       "workingDirectory": ".",
-      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File Utilities\\Move-ClientAssets.ps1"
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File Utilities\\Copy-ClientAssets.ps1"
     }
   }
 }

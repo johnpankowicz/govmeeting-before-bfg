@@ -43,15 +43,6 @@ namespace Web_App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            string ClientfilesPath = @"C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp\dist\ClientApp";
-            //string ClientfilesPath = @"..\..\FrontEnd\ClientApp\dist\ClientApp";
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    ClientfilesPath),
-                RequestPath = "/client"
-            });
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -64,12 +55,6 @@ namespace Web_App
             });
 
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute("default", "{controller}/{action}");
-            //    routes.MapRoute("Spa", "{*url}", defaults: new { controller = "Home", action = "Spa" });
-            //});
-
             app.Use(async (context, next) =>
             {
                 context.Request.Path = "/index.html";
@@ -81,8 +66,8 @@ namespace Web_App
                 await next().ConfigureAwait(true);
             });
 
-
             app.UseStaticFiles();
+
         }
     }
 }

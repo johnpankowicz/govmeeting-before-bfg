@@ -20,9 +20,8 @@ namespace Web_App.Controllers
 
         public IActionResult Index()
         {
-            return View();
-            //return File(@"index.html", "text/html");
-            //return Redirect("client/index.html");
+            //return View();
+            return File("~/index.html", "text/html");
         }
 
         public IActionResult Privacy()
