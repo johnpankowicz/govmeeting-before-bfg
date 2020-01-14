@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GM.WebApp.StartupCustomizations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -25,6 +27,14 @@ namespace Web_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // This enables the use of "Feature Folders".
+            // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new FeatureLocationExpander());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +64,9 @@ namespace Web_App
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
+            // This sends all unhandled URLs to the static index.html page..
+            // The default HomeController/Index is already configured to send index.html.
+            // Can we remove the code below and handle this case in app.UseEndpoints?
             app.Use(async (context, next) =>
             {
                 context.Request.Path = "/index.html";
