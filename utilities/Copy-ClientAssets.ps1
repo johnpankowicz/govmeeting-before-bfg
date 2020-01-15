@@ -1,4 +1,6 @@
 ﻿# Copy-ClientAssets.ps1
+# This script is meant to be run from the WebApp folder as a pre-build step.
+# The location of the ClientApp relative to the WebApp is passed as "$source".
 
 Function Main
 {
@@ -9,8 +11,8 @@ Function Main
 
     $usage = "@
     Usage: Copy-ClientAssets <source-folder>
-    #    <source-folder> - Angular ClientApp folder
-    # Copy assets from ClientApp dist folder to Web_App wwwroot.
+    #    <source-folder> - Angular ClientApp folder relative to the WebApp
+    # Copy assets from ClientApp dist folder to WebApp wwwroot.
 @"
     $me = "Copy-ClientAssets: "
 
@@ -35,8 +37,7 @@ Function Main
     if ($GOVMEETING)
     {
         $webapp = "BackEnd\Web_App"
-        $_source = "..\..\FrontEnd\ClientApp"
-        $source = join-path $destination $_source
+        $source = join-path $destination $source
 
     } else {
         $webapp = "Web_App"
@@ -91,12 +92,29 @@ Function CopyClientAssets
         [Parameter(Mandatory = $true, Position = 2)] [string] $destAssets
     )
 
+    DeleteClientAssets $destAssets
 
-    DeleteFolderContentsMax100 $destAssets
+    # DeleteFolderContentsMax100 $destAssets
 
     CopyFolderContents $sourceAssets $destAssets
 
 }
+
+
+Function DeleteClientAssets($folder)
+{
+    Get-Childitem $folder -File | ForEach-Object { 
+        Remove-Item $_.FullName
+    }
+
+    $assetsFolder = $folder + "\assets"
+
+    Get-Childitem $assetsFolder | ForEach-Object { 
+        Remove-Item $_.FullName -Recurse -Force
+    }
+    Remove-Item $assetsFolder
+}
+
 
 
 # Delete folder contents, but not if it contains > 100 items.
@@ -126,6 +144,10 @@ Function CopyFolderContents($source, $destination)
 # Execute Main function. This is excecuted first.
 # Main @args
 
+# Pass location of ClientApp relative to the WebApp
 $source = "..\..\FrontEnd\ClientApp"
 
 Main $source
+
+
+#DeleteClientAssets c:\tmp\wwwroot
