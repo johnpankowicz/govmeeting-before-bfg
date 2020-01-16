@@ -10,8 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{6B15424B-85AE-44A7-BDB0-A964CC25188E}"
 	ProjectSection(SolutionItems) = preProject
 		Utilities\build-publish.sh = Utilities\build-publish.sh
-		commands.json = commands.json
-		Utilities\Copy-ClientAssets.ps1 = Utilities\Copy-ClientAssets.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{55F4C852-9760-41BA-844D-B3C0983A699D}"

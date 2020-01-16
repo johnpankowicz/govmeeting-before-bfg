@@ -1,0 +1,13 @@
+﻿*** Command Task Runner in Visual Studio *** 
+The Command Task Runner by Mads Kristensen enables shell commands to be added to Task Runner Explorer.
+To add a command: Right-click on the command file in Solutions Explorer and select "Add to Task Runner".
+This adds it to the file "commands.json" in either the root of the project where the command is located,
+or in the root of the solution, if it in a folder outside of a project.
+
+*** Other way to add tasks to Task Runner Explorer ***
+If you create a package.json file in any project folder, scripts that you add to this will appear in TRE.
+For example, create package.json in the Web_App folder and put this in it:
+    { "scripts": { "buildclient": "cd ../../FrontEnd/ClientApp && npm run build" } }
+"buildclient" will appear in TRE and can be added as a Before Build task. However, unless all the Before Build tasks
+are within package.json, it is difficult (impossible?) to change the order with others. For example, it seems impossible
+to have this "buildclient" task run before the command task "Copy-ClientAssets.ps1". 

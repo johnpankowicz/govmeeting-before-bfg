@@ -1,9 +1,15 @@
 {
   "commands": {
+    "Build-ClientApp": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File Build-ClientApp.ps1"
+    },
     "Copy-ClientAssets": {
       "fileName": "powershell.exe",
       "workingDirectory": ".",
-      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File Utilities\\Copy-ClientAssets.ps1"
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File Copy-ClientAssets.ps1"
     }
   }
+
 }

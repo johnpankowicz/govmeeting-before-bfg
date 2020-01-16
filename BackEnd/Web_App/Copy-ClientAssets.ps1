@@ -36,11 +36,11 @@ Function Main
 
     if ($GOVMEETING)
     {
-        $webapp = "BackEnd\Web_App"
+        $webapp = "BackEnd\Web_App".ToLower()
         $source = join-path $destination $source
 
     } else {
-        $webapp = "Web_App"
+        $webapp = "Web_App".ToLower()
         $source = "C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp"
     }
 
@@ -48,7 +48,7 @@ Function Main
 
     # When this command is run, we should already be in Backend\Web_App
     # But we want to make absolutely sure. We will be deleting the contents of this folder.
-    if (!($destination.EndsWith($webapp)))
+    if (!($destination.ToLower().EndsWith($webapp)))
     {
         echo "$me ERROR Current location should end with $webapp"
         exit
@@ -103,24 +103,48 @@ Function CopyClientAssets
 
 Function DeleteClientAssets($folder)
 {
-    Get-Childitem $folder -File | ForEach-Object { 
+# The client assets consist of the files in ClientApp/dist/ClientApp and
+# the single "assets" folder in that location.
+# Deleting the files in Web_App/wwwroot is easy. But, I tried all of the solutions for quietly deleting
+# the assets folder and its contents, that I found at:
+# https://stackoverflow.com/questions/7909167/how-to-quietly-remove-a-directory-with-content-in-powershell
+# All of them randomly failed, depending on where I ran the commands (in the ISE, as a pre-build task, etc).
+# This seems to be because of the asynchronous way Windows executes Remove-Item.
+# See: https://stackoverflow.com/a/53561052/1978840
+# The easiest way around this for deleting the assets folder is to:
+#   1. First delete all files recursively.
+#   2. Then delete all folders (non-recursively).
+#   3. Then delete the assets folder.
+# This solution depends on the fact that the folders in wwwroot/assets are only one level deep.
+
+
+   echo "$me Deleting existing files in $folder"
+   Get-Childitem $folder -File | ForEach-Object { 
         Remove-Item $_.FullName
     }
 
     $assetsFolder = $folder + "\assets"
 
-    Get-Childitem $assetsFolder | ForEach-Object { 
-        Remove-Item $_.FullName -Recurse -Force
+    if ((Test-Path $assetsFolder -pathType container))
+    {
+        echo "$me Deleting existing files in $assetsFolder"
+        Get-Childitem $assetsFolder -File -Recurse| ForEach-Object { 
+            Remove-Item $_.FullName-Force
+        }
+        echo "$me Deleting existing folders in $assetsFolder"
+        Get-Childitem $assetsFolder -Directory -Recurse| ForEach-Object { 
+            Remove-Item $_.FullName-Force
+        }
+        echo "$me Deleting $assetsFolder"
+        Remove-Item $assetsFolder
     }
-    Remove-Item $assetsFolder
 }
-
 
 
 # Delete folder contents, but not if it contains > 100 items.
 Function DeleteFolderContentsMax100($folder)
 {
-    # deleting everything in a user-supplied folder is dangerous.
+    # deleting everything in a user-supplied folder name is dangerous.
     # Count the items that we will delete and abort if over 100.
     $count = ( Get-ChildItem $folder -Recurse | Measure-Object ).Count
     if ($count -gt 100)
@@ -136,6 +160,7 @@ Function DeleteFolderContentsMax100($folder)
 
 Function CopyFolderContents($source, $destination)
 {
+    echo "$me Copying $source to $destination"
     $sourceContents = $source + "\*"
     Copy-item -Recurse $sourceContents -Destination $destination
 }
