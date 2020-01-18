@@ -1,10 +1,17 @@
 ﻿@{
-    ViewBag.Title = "Index";
+  ViewBag.Title = "Index";
 }
 
+<div class="text-center">
+  <br /><h1 class="display-4">Govmeeting</h1>
+</div>
+
 <h2>
-@Html.ActionLink("Manage Users", "EditUsers")
+  @Html.ActionLink("Manage Users", "EditUsers")
 </h2>
 <h2>
-@Html.ActionLink("Manage Claims", "EditClaims")
+  @Html.ActionLink("Manage Claims", "EditClaims")
 </h2>
+
+@await Html.PartialAsync("_DevNotePartial")
+
