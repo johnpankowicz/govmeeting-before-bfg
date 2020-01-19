@@ -28,25 +28,19 @@ using GM.WebApp.Services;
 
 namespace GM.WebApp
 {
-    public class Startup
+    public partial class Startup
 
     {
+        // https://github.com/NLog/NLog/wiki/Getting-started-with-ASP.NET-Core-2
         //readonly NLog.Logger LogMsg;
         private readonly ILogger<Startup> _logger;
 
-        //public Startup(IConfiguration configuration, ILogger<Startup> logger)
-        //public Startup(IConfiguration configuration, ILoggerFactory loggerFactory)
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             // CurrentDirectoryHelpers.SetCurrentDirectory();
 
             Configuration = configuration;
             _logger = logger;
-            //LogManager.LoadConfiguration("nlog.config");
-            //var factory = new LoggerFactory().AddNLog();
-            //ILogger logger = factory.CreateLogger<Startup>();
-            //LogMsg = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
-            //LogMsg = loggerFactory.CreateLogger<Startup>();
         }
 
         public IConfiguration Configuration { get; }
@@ -81,8 +75,7 @@ namespace GM.WebApp
 
             _logger.LogTrace("GM: Add Add Authentication");
             //ConfigureAuthenticationServices(services);
-            ConfigureAuthentication configAuth = new ConfigureAuthentication();
-            configAuth.ConfigureAuthenticationServices(services, Configuration);
+            ConfigureAuthenticationServices(services);
 
             _logger.LogTrace("GM: Add MVC");
             services.AddMvc()
@@ -100,13 +93,13 @@ namespace GM.WebApp
                 options.ViewLocationExpanders.Add(new FeatureLocationExpander());
             });
 
-            _logger.LogTrace("GM: Add SPA static files");
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "../../Frontend/ClientApp/dist";
-                //configuration.RootPath = "ClientApp/dist";
-            });
+            //_logger.LogTrace("GM: Add SPA static files");
+            //// In production, the Angular files will be served from this directory
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "../../Frontend/ClientApp/dist";
+            //    //configuration.RootPath = "ClientApp/dist";
+            //});
 
             _logger.LogTrace("GM: Add Application services");
             AddApplicationServices(services);
@@ -143,7 +136,7 @@ namespace GM.WebApp
 
             _logger.LogTrace("GM: Use static files & spa static files");
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
 
             _logger.LogTrace("GM: Configure datafiles PhysicalFileProvider");
             // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
@@ -171,7 +164,7 @@ namespace GM.WebApp
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "../../Frontend/ClientApp";
+                //spa.Options.SourcePath = "../../Frontend/ClientApp";
                 //spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

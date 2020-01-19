@@ -11,17 +11,10 @@ using GM.DatabaseAccess;
 
 namespace GM.WebApp
 {
-    public class ConfigureAuthentication
+    public partial class Startup
     {
-        //private readonly ILogger<ConfigureAuthentication> _logger;
-
-        //public ConfigureAuthentication(ILogger<ConfigureAuthentication> logger)
-        //{
-        //    _logger = logger;
-        //}
         public void ConfigureAuthenticationServices(
-            IServiceCollection services,
-            IConfiguration Configuration
+            IServiceCollection services
             )
         {
             services.AddAuthentication()
@@ -31,7 +24,7 @@ namespace GM.WebApp
                 options.ClientSecret = Configuration["ExternalAuth:Google:ClientSecret"];
             });
 
-            //_logger.LogTrace("GM: Add Identity");
+            _logger.LogTrace("GM: Add Identity");
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -58,7 +51,7 @@ namespace GM.WebApp
             //    options.IterationCount = 20000;
             //});
 
-            //_logger.LogTrace("GM: Add Authorization");
+            _logger.LogTrace("GM: Add Authorization");
 
             // https://docs.asp.net/en/latest/security/authorization/claims.html
             services.AddAuthorization(options =>
