@@ -23,7 +23,7 @@ namespace GM.WorkFlow
             // Start monitoring events
             watcher.Changed += new FileSystemEventHandler(OnChanged);
 
-            // OnChanged only gets fired if the file is COPIED to the folder and
+            // Toddo - OnChanged only gets fired if the file is COPIED to the folder and
             // not if it is MOVED to the folder. I tried these two event handlers
             // but neither get called either when the file is moved.
             //watcher.Created += new FileSystemEventHandler(OnCreated);

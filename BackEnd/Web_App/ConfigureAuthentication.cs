@@ -3,20 +3,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 
-using NLog;
-using NLog.Web;
-
+//using NLog;
+//using NLog.Web;
+using Microsoft.Extensions.Logging;
 using GM.DatabaseAccess;
 
 
 namespace GM.WebApp
 {
-    public static class ConfigureAuthentication
+    public class ConfigureAuthentication
     {
-        public static void ConfigureAuthenticationServices(
+        //private readonly ILogger<ConfigureAuthentication> _logger;
+
+        //public ConfigureAuthentication(ILogger<ConfigureAuthentication> logger)
+        //{
+        //    _logger = logger;
+        //}
+        public void ConfigureAuthenticationServices(
             IServiceCollection services,
-            IConfiguration Configuration,
-            Logger _logger)
+            IConfiguration Configuration
+            )
         {
             services.AddAuthentication()
             .AddGoogle(options =>
@@ -25,7 +31,7 @@ namespace GM.WebApp
                 options.ClientSecret = Configuration["ExternalAuth:Google:ClientSecret"];
             });
 
-            _logger.Trace("GM: Add Identity");
+            //_logger.LogTrace("GM: Add Identity");
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -52,7 +58,7 @@ namespace GM.WebApp
             //    options.IterationCount = 20000;
             //});
 
-            _logger.Trace("GM: Add Authorization");
+            //_logger.LogTrace("GM: Add Authorization");
 
             // https://docs.asp.net/en/latest/security/authorization/claims.html
             services.AddAuthorization(options =>

@@ -103,6 +103,7 @@ namespace GM.WebApp.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            _logger.LogInformation(10, "Account controller Register action. Returning view.");
             return View();
         }
 
