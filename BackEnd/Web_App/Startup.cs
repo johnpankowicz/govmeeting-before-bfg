@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 
+using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
+using NLog.Extensions.Logging;
 
 using System.IO;
 using Microsoft.Extensions.FileProviders;
@@ -30,15 +31,22 @@ namespace GM.WebApp
     public class Startup
 
     {
-        readonly NLog.Logger _logger;
+        //readonly NLog.Logger LogMsg;
+        private readonly ILogger<Startup> _logger;
 
         //public Startup(IConfiguration configuration, ILogger<Startup> logger)
-        public Startup(IConfiguration configuration)
+        //public Startup(IConfiguration configuration, ILoggerFactory loggerFactory)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             // CurrentDirectoryHelpers.SetCurrentDirectory();
 
             Configuration = configuration;
-            _logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            _logger = logger;
+            //LogManager.LoadConfiguration("nlog.config");
+            //var factory = new LoggerFactory().AddNLog();
+            //ILogger logger = factory.CreateLogger<Startup>();
+            //LogMsg = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            //LogMsg = loggerFactory.CreateLogger<Startup>();
         }
 
         public IConfiguration Configuration { get; }
@@ -51,9 +59,9 @@ namespace GM.WebApp
             var appBasePath = System.IO.Directory.GetCurrentDirectory();
             GlobalDiagnosticsContext.Set("appbasepath", appBasePath);
 
-            _logger.Trace("GM: In ConfigureServices");
+            _logger.LogTrace("GM: In ConfigureServices");
 
-            _logger.Info("GM: Add AppSettings");
+            _logger.LogTrace("GM: Add AppSettings");
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<AppSettings>(myOptions =>
@@ -65,17 +73,18 @@ namespace GM.WebApp
                 Console.WriteLine("Datafile path = " + myOptions.DatafilesPath);
             });
 
-            _logger.Trace("GM: Add ApplicationDbContext");
+            _logger.LogTrace("GM: Add ApplicationDbContext");
             // We will be able to access ApplicationDbContext in a controller with:
             //    public MyController(ApplicationDbContext context) { ... }
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            _logger.Trace("GM: Add Add Authentication");
+            _logger.LogTrace("GM: Add Add Authentication");
             //ConfigureAuthenticationServices(services);
-            ConfigureAuthentication.ConfigureAuthenticationServices(services, Configuration, _logger);
+            ConfigureAuthentication configAuth = new ConfigureAuthentication();
+            configAuth.ConfigureAuthenticationServices(services, Configuration);
 
-            _logger.Trace("GM: Add MVC");
+            _logger.LogTrace("GM: Add MVC");
             services.AddMvc()
 				// The ContractResolver option is to prevent the case of Json field names 
 				// being changed when retrieved by client.
@@ -83,7 +92,7 @@ namespace GM.WebApp
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddXmlSerializerFormatters();
 
-            _logger.Trace("GM: Add Feature Folders");
+            _logger.LogTrace("GM: Add Feature Folders");
             // This enables the use of "Feature Folders".
             // https://scottsauber.com/2016/04/25/feature-folder-structure-in-asp-net-core/
             services.Configure<RazorViewEngineOptions>(options =>
@@ -91,7 +100,7 @@ namespace GM.WebApp
                 options.ViewLocationExpanders.Add(new FeatureLocationExpander());
             });
 
-            _logger.Trace("GM: Add SPA static files");
+            _logger.LogTrace("GM: Add SPA static files");
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -99,7 +108,7 @@ namespace GM.WebApp
                 //configuration.RootPath = "ClientApp/dist";
             });
 
-            _logger.Trace("GM: Add Application services");
+            _logger.LogTrace("GM: Add Application services");
             AddApplicationServices(services);
 
             services.AddSingleton(Configuration);
@@ -114,7 +123,7 @@ namespace GM.WebApp
             IOptions<AppSettings> config
             )
         {
-            _logger.Trace("GM: Configure exception handler");
+            _logger.LogTrace("GM: Configure exception handler");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -127,19 +136,20 @@ namespace GM.WebApp
                     // db.Database.Migrate();
                 }
                 catch {
-                    _logger.Debug("db.Database.Migrate() failed");
+                    _logger.LogDebug("db.Database.Migrate() failed");
                 }
 
             }
 
-            _logger.Trace("GM: Use static files & spa static files");
+            _logger.LogTrace("GM: Use static files & spa static files");
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            _logger.Trace("GM: Configure datafiles PhysicalFileProvider");
+            _logger.LogTrace("GM: Configure datafiles PhysicalFileProvider");
             // Add a PhysicalFileProvider for the Datafiles folder. Until we have a way to serve video files to 
             // videogular via the API, we need to allow these to be accessed as static files.
             string datafilesPath = config.Value.DatafilesPath;
+            _logger.LogTrace("GM: datafilesPath=" + datafilesPath);
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
@@ -147,7 +157,7 @@ namespace GM.WebApp
                     RequestPath = "/datafiles"
             });
 
-            _logger.Trace("GM: Configure routes");
+            _logger.LogTrace("GM: Configure routes");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -155,7 +165,7 @@ namespace GM.WebApp
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            _logger.Trace("GM: Use SPA");
+            _logger.LogTrace("GM: Use SPA");
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -171,15 +181,31 @@ namespace GM.WebApp
                 }
             });
 
-            _logger.Trace("GM: Use Authenitication");
+            //// This sends all unhandled URLs to the static index.html page..
+            //// The default HomeController/Index is already configured to send index.html.
+            //// Can we remove the code below and handle this case in app.UseEndpoints?
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Request.Path = "/index.html";
+            //    // I got a warning from FxCop to use ConfigureAwait instead of await:
+            //    // "Calling ConfigureAwait(true) on the task has the same behavior as not explicitly 
+            //    // calling ConfigureAwait. By explicitly calling this method, you're letting readers 
+            //    // know you intentionally want to perform the continuation on the original synchronization context."
+            //    // await next();
+            //    await next().ConfigureAwait(true);
+            //});
+
+            //app.UseStaticFiles();
+
+            _logger.LogTrace("GM: Use Authenitication");
             app.UseAuthentication();
 
-            _logger.Trace("GM: Initialize database");
+            _logger.LogTrace("GM: Initialize database");
             //Create seed data
             dbInitializer.Initialize().Wait();
 
 
-            _logger.Trace("GM: Copy test data to Datafiles folder");
+            _logger.LogTrace("GM: Copy test data to Datafiles folder");
             string testfilesPath = config.Value.TestfilesPath;
             CopyTestData(testfilesPath, datafilesPath);
 
@@ -194,7 +220,7 @@ namespace GM.WebApp
             services.AddSingleton<IAddtagsRepository, AddtagsRepository>();
             services.AddSingleton<IFixasrRepository, FixasrRepository>();
 
-            _logger.Trace("GM: Add Application services");
+            _logger.LogTrace("GM: Add Application services");
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
