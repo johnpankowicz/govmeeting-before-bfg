@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using GM.Configuration;
 using GM.FileDataRepositories;
 
-namespace GM.WorkFlow
+namespace GM.Workflow
 {
     public class ProcessIncomingFiles
     {

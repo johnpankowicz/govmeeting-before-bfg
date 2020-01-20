@@ -33,17 +33,17 @@ Function Main
 
     if ($GOVMEETING)
     {
-        $webapp = "BackEnd\Web_App".ToLower()
+        $webapp = "BackEnd\WebApp".ToLower()
         $source = join-path $destination $source
 
     } else {
-        $webapp = "Web_App".ToLower()
+        $webapp = "WebApp".ToLower()
         $source = "C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp"
     }
 
     ##################   Check Web App location   ########################
 
-    # When this command is run, we should already be in Backend\Web_App
+    # When this command is run, we should already be in Backend\WebApp
     if (!($destination.ToLower().EndsWith($webapp)))
     {
         echo "$me ERROR Current location should end with $webapp"
