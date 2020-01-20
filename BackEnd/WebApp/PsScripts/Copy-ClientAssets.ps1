@@ -36,17 +36,17 @@ Function Main
 
     if ($GOVMEETING)
     {
-        $webapp = "BackEnd\Web_App".ToLower()
+        $webapp = "BackEnd\WebApp".ToLower()
         $source = join-path $destination $source
 
     } else {
-        $webapp = "Web_App".ToLower()
+        $webapp = "WebApp".ToLower()
         $source = "C:\GOVMEETING\_SOURCECODE\FrontEnd\ClientApp"
     }
 
     ##################   Check Web App location   ########################
 
-    # When this command is run, we should already be in Backend\Web_App
+    # When this command is run, we should already be in Backend\WebApp
     # But we want to make absolutely sure. We will be deleting the contents of this folder.
     if (!($destination.ToLower().EndsWith($webapp)))
     {
@@ -105,7 +105,7 @@ Function DeleteClientAssets($folder)
 {
 # The client assets consist of the files in ClientApp/dist/ClientApp and
 # the single "assets" folder in that location.
-# Deleting the files in Web_App/wwwroot is easy. But, I tried all of the solutions for quietly deleting
+# Deleting the files in WebApp/wwwroot is easy. But, I tried all of the solutions for quietly deleting
 # the assets folder and its contents, that I found at:
 # https://stackoverflow.com/questions/7909167/how-to-quietly-remove-a-directory-with-content-in-powershell
 # All of them randomly failed, depending on where I ran the commands (in the ISE, as a pre-build task, etc).

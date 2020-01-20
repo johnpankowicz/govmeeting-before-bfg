@@ -10,15 +10,20 @@
       "workingDirectory": ".",
       "arguments": "-ExecutionPolicy Bypass -NonInteractive -File PsScripts\\Copy-ClientAssets.ps1"
     },
-    "Publish": {
+    "Publish-WebApp": {
       "fileName": "powershell.exe",
       "workingDirectory": ".",
-      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File PsScripts\\Publish.ps1"
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File PsScripts\\Publish-WebApp.ps1"
     },
-    "RunProduction": {
+    "Run-PublishedWebApp": {
       "fileName": "powershell.exe",
       "workingDirectory": ".",
       "arguments": "-ExecutionPolicy Bypass -NonInteractive -File PsScripts\\RunProduction.ps1"
+    },
+    "Run-ClientApp": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File PsScripts\\Run-ClientApp.ps1"
     }
   }
 }

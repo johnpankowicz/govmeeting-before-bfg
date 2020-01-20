@@ -13,7 +13,7 @@ using GM.DatabaseRepositories;
 using GM.LoadDatabase;
 using GM.ProcessRecordings;
 
-namespace GM.WorkFlow
+namespace GM.Workflow
 {
     /* Eventually This will become part of WebApp. It is in a separate proceess
      * for development. We want to start it in the same way that WebApp will start it.
@@ -34,7 +34,7 @@ namespace GM.WorkFlow
             var serviceProvider = services.BuildServiceProvider();
 
             // entry to run app
-            serviceProvider.GetService<WorkFlowController>().Run();
+            serviceProvider.GetService<WorkflowController>().Run();
         }
         private static void ConfigureServices(IServiceCollection services)
         {
@@ -50,7 +50,7 @@ namespace GM.WorkFlow
             var configuration = new ConfigurationBuilder()
                 // TODO - The following path will only work in development.
                 // It isn't yet decided how Workflow_App will be run in production.
-                // Will it be a separate .EXE or a .LIB loaded by Web_App?
+                // Will it be a separate .EXE or a .LIB loaded by WebApp?
                 .SetBasePath(Directory.GetCurrentDirectory() + @"\..\..\..")
                 .AddJsonFile("appsettings.json", false)
                 .Build();
@@ -81,7 +81,7 @@ namespace GM.WorkFlow
             services.AddTransient<IGovBodyRepository, GovBodyRepository>();
 
             // add app
-            services.AddTransient<WorkFlowController>();
+            services.AddTransient<WorkflowController>();
         }
     }
 }

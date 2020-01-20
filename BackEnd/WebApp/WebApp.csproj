@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="..\..\Frontend\ClientApp\package-lock.json" />
+    <None Remove="..\..\Frontend\ClientApp\package.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Configuration_Lib\Configuration_Lib.csproj" />
     <ProjectReference Include="..\Database\DatabaseAccess_Lib\DatabaseAccess_Lib.csproj" />
     <ProjectReference Include="..\Database\DatabaseRepositories_Lib\DatabaseRepositories_Lib.csproj" />
@@ -50,10 +55,6 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="PsScripts\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

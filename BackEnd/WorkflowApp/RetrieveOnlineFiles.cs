@@ -7,7 +7,7 @@ using GM.FileDataRepositories;
 using System.IO;
 using GM.ProcessRecording;
 
-namespace GM.WorkFlow
+namespace GM.Workflow
 {
     public class RetrieveOnlineFiles
     {

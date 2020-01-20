@@ -6,12 +6,12 @@ using Microsoft.Extensions.Options;
 using GM.Configuration;
 using GM.LoadDatabase;
 
-namespace GM.WorkFlow
+namespace GM.Workflow
 {
 
-    public class WorkFlowController
+    public class WorkflowController
     {
-        /*  WorkFlowController is the "controller" for the Govmeeting processing steps:
+        /*  WorkflowController is the "controller" for the Govmeeting processing steps:
          *  (1) It reads the schedule from the database for retrieving new transcripts or recordings
          *      from online sites. It retrieves new files and stores them in the INCOMING folder.
          *  (2) It watches for new recordings and transcript files that appear in the INCOMING folder and 
@@ -25,7 +25,7 @@ namespace GM.WorkFlow
 
 
         //private readonly ITestService _testService;
-        private readonly ILogger<WorkFlowController> _logger;
+        private readonly ILogger<WorkflowController> _logger;
         private readonly AppSettings _config;
         private readonly ProcessIncomingFiles _processIncomingFiles;
         private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
@@ -33,10 +33,10 @@ namespace GM.WorkFlow
         private readonly ProcessTagged _processTaggedTranscriptions;
         private readonly LoadTranscript _loadTranscript;
 
-        public WorkFlowController(
+        public WorkflowController(
             //ITestService testService,
             IOptions<AppSettings> config,
-            ILogger<WorkFlowController> logger,
+            ILogger<WorkflowController> logger,
             RetrieveOnlineFiles retrieveOnlineFiles,
             ProcessIncomingFiles processIncomingFiles,
             ProcessFixedAsr processFixedTranscriptions,

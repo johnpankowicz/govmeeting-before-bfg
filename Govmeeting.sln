@@ -40,9 +40,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testdata", "Testdata", "{34
 		BackEnd\Testdata\USA_TX_TravisCounty_Austin_CityCouncil_en_2017-12-14.pdf = BackEnd\Testdata\USA_TX_TravisCounty_Austin_CityCouncil_en_2017-12-14.pdf
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_App", "BackEnd\Web_App\Web_App.csproj", "{1242549D-3EEF-4127-943D-9DED99CC32E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "BackEnd\WebApp\WebApp.csproj", "{1242549D-3EEF-4127-943D-9DED99CC32E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow_App", "BackEnd\Workflow_App\WorkFlow_App.csproj", "{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkflowApp", "BackEnd\WorkflowApp\WorkflowApp.csproj", "{AC8924F1-E7F0-4184-ADDF-4934ED1AF66C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseAccess_Lib", "BackEnd\Database\DatabaseAccess_Lib\DatabaseAccess_Lib.csproj", "{0D6AE633-E06A-45AB-869D-7CE0DD7E67BF}"
 EndProject
