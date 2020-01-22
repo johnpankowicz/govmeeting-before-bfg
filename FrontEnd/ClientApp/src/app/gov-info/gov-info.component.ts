@@ -55,7 +55,7 @@ export class GovInfoComponent implements OnInit {
 //           this.information = "info on Austin";
 //           break;
 //         }
-//         case 'Traves County': {
+//         case 'Travis County': {
 //           this.information = "info on Travis";
 //           break;
 //         }

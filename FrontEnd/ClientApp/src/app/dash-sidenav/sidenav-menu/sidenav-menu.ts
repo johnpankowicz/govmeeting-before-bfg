@@ -93,7 +93,7 @@ export class SidenavMenuComponent implements AfterViewInit {
         new NavItem('Planning Board', 'group', 2, 'dashboard/govinfo'),
         new NavItem('All Depts.', 'group', 2, 'dashboard/govinfo'),
       ]),
-      new NavItem('Traves County', 'group', 1,
+      new NavItem('Travis County', 'group', 1,
       [
         new NavItem('Commissioners', 'group', 2, 'dashboard/infocounty'),
         new NavItem('Transportation', 'group', 2, 'dashboard/infocounty'),
