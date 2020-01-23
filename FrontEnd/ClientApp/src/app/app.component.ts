@@ -18,6 +18,7 @@ import { NavService } from './dash-sidenav/sidenav-menu/service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  // template: `<gm-header></gm-header>`,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {

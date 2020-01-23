@@ -36,9 +36,10 @@ $color-java: #1BBAE1; // blue text
     @include profile-avatar;
 
     // position: relative;
-    position: fixed;
-    right: 12px;
-    top: 5px;
+
+    // position: fixed;
+    // right: 12px;
+    // top: 5px;
 
     margin: 0 26px;
     width: 35px;
