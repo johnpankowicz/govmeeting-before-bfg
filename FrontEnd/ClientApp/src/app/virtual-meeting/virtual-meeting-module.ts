@@ -6,6 +6,7 @@ import { VirtualMeetingComponent } from './virtual-meeting';
 
 @NgModule({
   declarations: [VirtualMeetingComponent],
+
   imports: [
     CommonModule
   ],

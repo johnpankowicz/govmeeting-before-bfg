@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs';
 import { MessageService } from '../message.service';
 
 @Component({
-  selector: 'gm-main-content',
+  selector: 'gm-dash-main',
   templateUrl: './dash-main.html',
   styleUrls: ['./dash-main.scss']
 })
-export class MainContentComponent implements OnInit, OnDestroy {
+export class DashMainComponent implements OnInit, OnDestroy {
   messages: any[] = [];
   subscription: Subscription;
 

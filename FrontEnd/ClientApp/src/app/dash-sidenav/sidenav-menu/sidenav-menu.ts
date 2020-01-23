@@ -33,11 +33,11 @@ export class SidenavMenuComponent implements AfterViewInit {
     console.log("====OnEmitted(sidenav): ");
     console.log(items);
 
-    this.navService.closeOrgMenu(0);
+    // this.navService.closeOrgMenu(0);
 
     let submenu = items[items.length -1].displayName;
     switch (submenu){
-      case 'Select Agency': {
+      case 'Select Location': {
           this.router.navigate(['dashboard']);
           let agency = items[0].displayName;
           let location = items[1].displayName;
@@ -45,22 +45,23 @@ export class SidenavMenuComponent implements AfterViewInit {
           this.messageService.sendMessage('AgencySelected:' + location + ':' + agency);
           break;
         }
-        case 'Transcripts': {
-          let transcriptTask = items[0].displayName;
-          switch (transcriptTask) {
-            case 'Proofread': {
-              this.router.navigateByUrl('fixasr');
+        case 'About': {
+          let AboutDoc = items[0].displayName;
+          switch (AboutDoc) {
+            case 'Purpose': {
+              this.router.navigateByUrl('purpose');
               break;
             }
-            case 'Add Issue Tags': {
-              this.router.navigateByUrl('addtags');
+            case 'Overview': {
+              this.router.navigateByUrl('overview');
               break;
             }
-            case 'Browse': {
-              this.router.navigateByUrl('viewmeeting');
+            case 'Workflow': {
+              this.router.navigateByUrl('workflow');
               break;
             }
           }
+
           break;
         }
         case 'Documentation': {
@@ -83,8 +84,21 @@ export class SidenavMenuComponent implements AfterViewInit {
 
     orgItems: Array<NavItem> = [
 
+      new NavItem('About', null, 0,
+      [
+        new NavItem('Purpose', 'group', 1, 'info-city'),
+        new NavItem('Overview', 'school', 1, 'info-city'),
+        new NavItem('Workflow', 'school', 1, 'info-city')
+      ]),
 
-      new NavItem('Select Agency', null, 0,
+      // new NavItem('Transcripts', null, 0,
+      // [
+      //   new NavItem('Proofread', 'group', 1, 'info-city'),
+      //   new NavItem('Add Issue Tags', 'school', 1, 'info-city'),
+      //   new NavItem('Browse', 'school', 1, 'info-city')
+      // ]),
+
+    new NavItem('Select Location', null, 0,
     [
       new NavItem('Austin', 'location_city', 1,
       [
@@ -115,22 +129,10 @@ export class SidenavMenuComponent implements AfterViewInit {
       [
         new NavItem('Glendale HOA', 'group', 2, 'info-HOA'),
       ])
-      ]),
+    ]),
 
-      new NavItem('Transcripts', null, 0,
-      [
-        new NavItem('Proofread', 'group', 1, 'info-city'),
-        new NavItem('Add Issue Tags', 'school', 1, 'info-city'),
-        new NavItem('Browse', 'school', 1, 'info-city')
-      ]),
+    new NavItem('Documentation', null, 0)
 
-      new NavItem('Documentation', null, 0)
-      // [
-      //   new NavItem('About', 'group', 1, 'info-city'),
-      //   new NavItem('Github', 'school', 1, 'info-city')
-      // ])
-
-
-    ];
+  ];
 
 }

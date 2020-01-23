@@ -11,6 +11,8 @@ import { SectionsComponent } from './sections/sections';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
+  declarations: [AddtagsComponent, TalksComponent, TopicsComponent, SectionsComponent],
+
   imports: [
     CommonModule,
     FormsModule,
@@ -18,6 +20,9 @@ import { SharedModule } from '../shared/shared.module';
     //ReactiveFormsModule
     SharedModule
   ],
-  declarations: [AddtagsComponent, TalksComponent, TopicsComponent, SectionsComponent]
+
+  exports: [
+    AddtagsComponent
+  ]
 })
 export class AddtagsModule { }

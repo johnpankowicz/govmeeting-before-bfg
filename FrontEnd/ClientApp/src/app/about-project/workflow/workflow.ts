@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'gm-workflow',
-  templateUrl: './workflow.component.html',
-  styleUrls: ['./workflow.component.scss']
+  templateUrl: './workflow.html',
+  styleUrls: ['./workflow.scss']
 })
 export class WorkflowComponent implements OnInit {
 
