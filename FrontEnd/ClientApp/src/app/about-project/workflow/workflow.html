@@ -1,9 +1,22 @@
+<mat-card>
+  <mat-card-title>Workflow</mat-card-title>
+
 <ol>
   <li>
     <span class="L1"> Individual Registration</span>
+    <p>
+      During registration, users specify their home location (town, city, village, postal code, etc). Based on their location, the system
+      determines each of their governing entities (country, state, county, town/city etc)
+  </p>
   </li>
   <li>
     <span class="L1">Government Body Registration</span>
+    <p>
+      If not yet done, an individual user may complete the registration for their local governing entity (town, city, village, etc).
+      When a new user registers for the same location, they will see the data already entered for their local government. They
+      can vote on the accuracy of any data item and specify alternate values. Votes will accumulate for each data value and the values
+      with the most votes become the values that are on the official registration form that is used by the system.
+    </p>
   </li>
   <li>
     <span class="L1"> Import recordings or transcripts</span>
@@ -120,9 +133,10 @@
   </li>
 </ol>
 
-
 <p>
   For a detailed functional design, see: <a href="https://github.com/govmeeting/govmeeting/wiki/functional-design">Funtional Design on Github.</a><br>
   For a detailed system design, see: <a href="https://github.com/govmeeting/govmeeting/wiki/system-design">System Design on Github.</a>
 </p>
+
+</mat-card>
 

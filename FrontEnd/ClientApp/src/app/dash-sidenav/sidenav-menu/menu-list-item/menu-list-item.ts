@@ -57,7 +57,7 @@ export class MenuListItemComponent {
 
   onItemSelected(item: NavItem) {
 
-    if (item.displayName == "Select Agency"){
+    if (item.displayName == "Select Location"){
       this.router.navigate(['dashboard']);
     }
 

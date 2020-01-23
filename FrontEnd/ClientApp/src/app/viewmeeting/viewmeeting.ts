@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserchoiceService } from './userchoice.service';
 
 @Component({
-  selector: 'gm-meeting',
+  selector: 'gm-viewmeeting',
   templateUrl: './viewmeeting.html',
   styleUrls: ['./viewmeeting.css'],
   providers: [

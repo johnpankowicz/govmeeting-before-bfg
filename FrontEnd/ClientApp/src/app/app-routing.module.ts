@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewMeetingComponent } from './viewmeeting/viewmeeting'
 import { AddtagsComponent } from './addtags/addtags'
 import { FixasrComponent } from './fixasr/fixasr'
-import { MainContentComponent } from './dash-main/dash-main';
+import { DashMainComponent } from './dash-main/dash-main';
 import { AboutProjectComponent } from './about-project/about-project';
 import { GovInfoComponent } from './gov-info/gov-info.component';
 
@@ -13,14 +13,21 @@ import { BillsComponent } from './bills/bills.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { NewsComponent } from './news/news.component';
 
+import { PurposeComponent } from './about-project/purpose/purpose';
+import { OverviewComponent } from './about-project/overview/overview';
+import { WorkflowComponent } from './about-project/workflow/workflow';
+
 const routes: Routes = [
 
     // { path: '', redirectTo: 'about' },
     { path: 'viewmeeting', component: ViewMeetingComponent },
     { path: 'addtags', component: AddtagsComponent },
     { path: 'fixasr', component: FixasrComponent },
-    { path: 'dashboard', component: MainContentComponent},
+    { path: 'dashboard', component: DashMainComponent},
     { path: 'about', component: AboutProjectComponent},
+    { path: 'purpose', component: PurposeComponent},
+    { path: 'overview', component: OverviewComponent},
+    { path: 'workflow', component: WorkflowComponent},
     { path: '**', redirectTo: 'about' }
 
 ];

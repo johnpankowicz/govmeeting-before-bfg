@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
   declarations: [
     FixasrComponent,
   ],
+
   imports: [
     //ReactiveFormsModule,
     CommonModule,
@@ -23,6 +24,9 @@ import { RouterModule } from '@angular/router';
     VideoModule,
     SharedModule
   ],
+
+  exports: [FixasrComponent],
+
   providers: [],
 })
 export class FixasrModule { }

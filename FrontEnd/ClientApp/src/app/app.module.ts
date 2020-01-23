@@ -1,20 +1,4 @@
-// from app.module.ts
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { ViewMeetingModule } from './viewmeeting/viewmeeting.module';
-import { AddtagsModule } from './addtags/addtags.module';
-import { FixasrModule } from './fixasr/fixasr.module';
-import { SharedModule } from './shared/shared.module';
-import { ErrorHandlingService } from './shared/error-handling/error-handling.service';
-import { ViewMeetingService } from './viewmeeting/viewmeeting.service';
-import { ViewMeetingServiceStub } from './viewmeeting/viewmeeting.service-stub';
-import { AddtagsService } from './addtags/addtags.service';
-import { AddtagsServiceStub } from './addtags/addtags.service-stub';
-import { FixasrService } from './fixasr/fixasr.service';
-import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
-import { AppData } from './appdata';
-import { AppRoutingModule } from './app-routing.module';
-
-// Modules - external
+/////////////////// Modules - external ///////////////////////////////////
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -22,74 +6,67 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
-// Modules - internal
+/////////////////// Modules - internal ///////////////////////////////////
+import { AppRoutingModule } from './app-routing.module';
 import { DemoMaterialModule } from './material';
 import { ChatModule } from './chat/chat.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { AboutProjectModule } from './about-project/about-project.module';
 import { VirtualMeetingModule } from './virtual-meeting/virtual-meeting-module';
 import { DashCardsModule } from './dash-cards/dash-cards.module';
+import { ViewMeetingModule } from './viewmeeting/viewmeeting.module';
+import { AddtagsModule } from './addtags/addtags.module';
+import { FixasrModule } from './fixasr/fixasr.module';
+import { SharedModule } from './shared/shared.module';
+import { TestingModule } from './testing/testing.module';
+import { SidenavMenuModule } from './dash-sidenav/sidenav-menu/sidenav-menu-module';
+import { HeaderModule } from './header/header.module';
+// import { AmchartsModule } from './amcharts/amcharts.module';
 
-/////////////////// Components ///////////////////////////////////
-
-// Dashboard container
-import { AppComponent } from './app.component';
-
-
-// Main Container - contains small and large cards
-// import { DashMainComponent } from './dash-main/dash-main';
-import { MainContentComponent } from './dash-main/dash-main';
-
-import { ShoutoutsComponent } from './shoutouts/shoutouts';
-
-import { DashFooterComponent } from './dash-footer/dash-footer';
-
-//////////////////////////////////////// Services /////////////////////////////////////
+/////////////////// Services ///////////////////////////////////
+// Services
+import { ErrorHandlingService } from './shared/error-handling/error-handling.service';
+import { ViewMeetingService } from './viewmeeting/viewmeeting.service';
+import { ViewMeetingServiceStub } from './viewmeeting/viewmeeting.service-stub';
+import { AddtagsService } from './addtags/addtags.service';
+import { AddtagsServiceStub } from './addtags/addtags.service-stub';
+import { FixasrService } from './fixasr/fixasr.service';
+import { FixasrServiceStub } from './fixasr/fixasr.service-stub';
 import { ChatService } from './chat/chat.service';
 import { MessagingService } from './conversation/messaging.service';
 import { DataFactoryService } from './testing/data-factory.service';
 import { DataFakeService } from './testing/data-fake.service';
 
-// import { AmchartsModule } from './amcharts/amcharts.module';
-// import { PieChartComponent } from './amcharts/pie-chart/pie-chart';
-// import { BarChartComponent } from './amcharts/bar-chart/bar-chart';
+/////////////////// Components ///////////////////////////////////
 
-import { TestingModule } from './testing/testing.module';
-import { SidenavMenuModule } from './dash-sidenav/sidenav-menu/sidenav-menu-module';
+import { AppComponent } from './app.component';
+import { DashMainComponent } from './dash-main/dash-main';
+import { ShoutoutsComponent } from './shoutouts/shoutouts';
+import { DashFooterComponent } from './dash-footer/dash-footer';
 import { RegisterComponent } from './register/register';
-// import { OrganizationComponent } from './organization/organization';
-// import { TopHeaderComponent } from './header/top-header/top-header/top-header';
-// import { UserDropdownComponent } from './header/top-header/user-dropdown/user-dropdown';
-
-// import { HeaderModule } from './header/header.module';
-// import { UserdropdownModule } from './userdropdown/userdropdown.module';
-import { HeaderModule } from './header/header.module';
 import { GovInfoComponent } from './gov-info/gov-info.component';
 import { BillsComponent } from './bills/bills.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { NewsComponent } from './news/news.component';
 import { ConfigComponent } from './config/config.component';
 
+import { AppData } from './appdata';
 const _isAspServerRunning = false;
+
+//////// for testing/////////////////////////////////
+
+// import { PieChartComponent } from './amcharts/pie-chart/pie-chart';
+// import { BarChartComponent } from './amcharts/bar-chart/bar-chart';
 
 
 @NgModule({
   imports: [
-	// from app.module.ts
-    ViewMeetingModule,
-    AddtagsModule,
-    FixasrModule,
-    SharedModule,
-    FlexLayoutModule,
-    AboutProjectModule,
-    AppRoutingModule,
+    /////////////// external //////////////
     // RouterModule.forRoot([]),
-
-
-    // external
-    CommonModule,
     RouterModule,
+    CommonModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
     LayoutModule,
@@ -97,32 +74,30 @@ const _isAspServerRunning = false;
     ReactiveFormsModule,
     NgMaterialMultilevelMenuModule,
 
-    // internal
+    /////////////// internal //////////////
+    ViewMeetingModule,
+    AddtagsModule,
+    FixasrModule,
+    SharedModule,
+    FlexLayoutModule,
+    AboutProjectModule,
+    AppRoutingModule,
     DashCardsModule,
     ChatModule,
     ConversationModule,
     AboutProjectModule,
-    // AmchartsModule,
     TestingModule,
     SidenavMenuModule,
     VirtualMeetingModule,
-
     HeaderModule
-    //UserdropdownModule
-    ],
+    // AmchartsModule,
+  ],
   declarations: [
     AppComponent,
-    // TopHeaderComponent,
-    // UserDropdownComponent,
-
-    // DashMainComponent,
-    MainContentComponent,
-
+    DashMainComponent,
     DashFooterComponent,
-
     ShoutoutsComponent,
     RegisterComponent,
-    // OrganizationComponent,
     GovInfoComponent,
     BillsComponent,
     MeetingsComponent,
@@ -132,7 +107,7 @@ const _isAspServerRunning = false;
   exports: [
     DemoMaterialModule
 
-    // The exports below are just for testing that compnent in app.component.html
+    // The exports below are just for testing that component standalone in app.component.html
     // SmallCardsComponent,
     // SmallCardComponent,
     // SidenavHeaderComponent,
@@ -142,7 +117,6 @@ const _isAspServerRunning = false;
     // BarChartComponent
   ],
   providers: [
-	// from app.module.ts
     ErrorHandlingService,
     AppData,
     {

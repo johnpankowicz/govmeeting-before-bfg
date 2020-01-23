@@ -36,8 +36,8 @@
     <gm-small-card
       icon="far fa-file-alt"
       iconcolor="color-document-icon"
-      title="Bills"
-      tooltip="Displays information on legislature and its status.">
+      title="legislation"
+      tooltip="Displays information on bills, proclamations, etc and their status.">
       <gm-bills
         [location]="location"
         [agency]="agency" >
@@ -47,7 +47,7 @@
     <gm-small-card
       icon="fas fa-users"
       iconcolor="color-calendar-icon"
-      title="Meetings"
+      title="Calendar"
       tooltip="Displays a calendar of past and future meetings.">
       <gm-meetings
         [location]="location"
@@ -70,6 +70,30 @@
   </gm-small-cards>
 
   <gm-large-cards>
+
+    <gm-large-card
+      icon="fas fa-exclamation"
+      iconcolor="color-calendar-icon"
+      title="Proofread"
+      tooltip="Proofread speech recognition text.">
+      <gm-fixasr></gm-fixasr>
+    </gm-large-card>
+
+    <gm-large-card
+      icon="fas fa-exclamation"
+      iconcolor="color-calendar-icon"
+      title="Add Tags"
+      tooltip="Proofread speech recognition text.">
+      <gm-addtags></gm-addtags>
+    </gm-large-card>
+
+    <gm-large-card
+      icon="fas fa-exclamation"
+      iconcolor="color-calendar-icon"
+      title="View Meeting"
+      tooltip="Browse or search latest meeting.">
+      <gm-viewmeeting></gm-viewmeeting>
+    </gm-large-card>
 
     <gm-large-card
       icon="fas fa-exclamation"

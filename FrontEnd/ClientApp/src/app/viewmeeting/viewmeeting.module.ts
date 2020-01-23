@@ -10,6 +10,7 @@ import { SpeakersComponent } from './speakers/speakers';
 import { TopicsComponent } from './topics/topics';
 import { SharedModule } from '../shared/shared.module';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,17 @@ import { SharedModule } from '../shared/shared.module';
     HttpClientModule,
     SharedModule
  ],
-  declarations: [ViewMeetingComponent, BrowseComponent,
-     HeadingComponent, SpeakersComponent, TopicsComponent]
+
+  declarations: [
+    ViewMeetingComponent,
+    BrowseComponent,
+    HeadingComponent,
+    SpeakersComponent,
+    TopicsComponent
+  ],
+
+  exports: [
+    ViewMeetingComponent
+  ]
 })
 export class ViewMeetingModule { }
