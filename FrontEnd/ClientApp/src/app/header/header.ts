@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.changeBackground("generic");
   }
 
   openNav() {
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
       case 'State of Texas': { background = "url('/assets/images/Texas_State_Capitol.png')"; break; }
       case 'United States': { background = "url('/assets/images/United_States_Capitol.png')"; break; }
       case 'Glendale HOA': { background = "url('/assets/images/condominiums.png')"; break; }
+      case 'generic': { background = "url('/assets/images/Budget_Town_Hall.png')"; break; }
     }
     this.backgroundStyle = { 'background-image': background };
   }
