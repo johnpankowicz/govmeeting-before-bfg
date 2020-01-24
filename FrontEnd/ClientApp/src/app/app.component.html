@@ -1,13 +1,5 @@
 
-<div class="main-header">
-  <p>
-    This is the div header.
-    An element with position: absolute; is positioned relative to the
-  </p>
-</div>
-
-
-<!-- <gm-header></gm-header> -->
+<gm-header></gm-header>
 
 <!-- <main> -->
 <!-- <ng-container> -->
@@ -24,6 +16,7 @@
   <mat-sidenav-container class="sidenav-container"
     [hasBackdrop]="options.value.hasBackdrop">
 
+    <!-- <mat-sidenav class="sidenav" #sidenav> -->
     <mat-sidenav class="sidenav" #sidenav
       [mode]="options.value.mode"
       [opened]="!mobileQuery.matches"
@@ -56,15 +49,10 @@
 <!-- </ng-container> -->
 <!-- </main> -->
 
-<div class="main-footer">
-  <p>
-    This is the div footer
-  </p>
-</div>
-
-<!-- <mat-toolbar class="main-footer">
-  Footer
-</mat-toolbar> -->
+<mat-toolbar class="main-footer">
+  This is the mat-toolbar footer.
+  An element with position: absolute; is positioned relative to the
+</mat-toolbar>
 
 
 <!-- partial -->

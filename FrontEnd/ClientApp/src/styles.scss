@@ -102,3 +102,8 @@ position: relative;
     visibility: hidden;
   }
 }
+
+.mat-drawer-inner-container,
+.mat-drawer-content{
+   overflow-x: hidden !important;
+}
