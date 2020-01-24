@@ -6,16 +6,16 @@ import { AddtagsComponent } from './addtags/addtags'
 import { FixasrComponent } from './fixasr/fixasr'
 import { DashMainComponent } from './dash-main/dash-main';
 import { AboutProjectComponent } from './about-project/about-project';
-import { GovInfoComponent } from './gov-info/gov-info.component';
-
-
-import { BillsComponent } from './bills/bills.component';
-import { MeetingsComponent } from './meetings/meetings.component';
-import { NewsComponent } from './news/news.component';
-
 import { PurposeComponent } from './about-project/purpose/purpose';
 import { OverviewComponent } from './about-project/overview/overview';
 import { WorkflowComponent } from './about-project/workflow/workflow';
+import { AutoProcessingComponent } from './about-project/auto-processing/auto-processing';
+
+// import { GovInfoComponent } from './gov-info/gov-info.component';
+// import { BillsComponent } from './bills/bills.component';
+// import { MeetingsComponent } from './meetings/meetings.component';
+// import { NewsComponent } from './news/news.component';
+
 
 const routes: Routes = [
 
@@ -28,6 +28,7 @@ const routes: Routes = [
     { path: 'purpose', component: PurposeComponent},
     { path: 'overview', component: OverviewComponent},
     { path: 'workflow', component: WorkflowComponent},
+    { path: 'autoprocessing', component: AutoProcessingComponent},
     { path: '**', redirectTo: 'about' }
 
 ];

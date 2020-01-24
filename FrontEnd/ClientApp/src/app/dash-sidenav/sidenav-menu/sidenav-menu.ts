@@ -37,6 +37,8 @@ export class SidenavMenuComponent implements AfterViewInit {
 
     let submenu = items[items.length -1].displayName;
     switch (submenu){
+
+      // If the user selected a new location, send a message to the components that need to be updated.
       case 'Select Location': {
           this.router.navigate(['dashboard']);
           let agency = items[0].displayName;
@@ -45,31 +47,41 @@ export class SidenavMenuComponent implements AfterViewInit {
           this.messageService.sendMessage('AgencySelected:' + location + ':' + agency);
           break;
         }
-        case 'About': {
-          let AboutDoc = items[0].displayName;
-          switch (AboutDoc) {
-            case 'Purpose': {
-              this.router.navigateByUrl('purpose');
-              break;
-            }
-            case 'Overview': {
-              this.router.navigateByUrl('overview');
-              break;
-            }
-            case 'Workflow': {
-              this.router.navigateByUrl('workflow');
-              break;
-            }
-          }
 
-          break;
+      // If the user selected a new About page, navigate to it.
+      case 'About': {
+        let AboutDoc = items[0].displayName;
+        switch (AboutDoc) {
+          case 'Purpose': {
+            this.router.navigateByUrl('purpose');
+            break;
+          }
+          case 'Overview': {
+            this.router.navigateByUrl('overview');
+            break;
+          }
+          case 'Workflow': {
+            this.router.navigateByUrl('workflow');
+            break;
+          }
+          case 'Auto Processing': {
+            this.router.navigateByUrl('autoprocessing');
+            break;
+          }
+          case '[All Pages]': {
+            this.router.navigateByUrl('about');
+            break;
+          }
         }
-        case 'Documentation': {
-          this.router.navigateByUrl('about');
-          break;
-        }
+
+        break;
+      }
+      case 'Documentation': {
+        this.router.navigateByUrl('about');
+        break;
       }
     }
+  }
     // this.router.navigate(['dashboard/govinfo', location, agency]);
 
     // this.router.navigateByUrl('dashboard/(bills:bills//meetings:meetings)');
@@ -88,7 +100,9 @@ export class SidenavMenuComponent implements AfterViewInit {
       [
         new NavItem('Purpose', 'group', 1, 'info-city'),
         new NavItem('Overview', 'school', 1, 'info-city'),
-        new NavItem('Workflow', 'school', 1, 'info-city')
+        new NavItem('Workflow', 'school', 1, 'info-city'),
+        new NavItem('Auto Processing', 'school', 1, 'info-city'),
+        new NavItem('[All Pages]', 'school', 1, 'info-city')
       ]),
 
       // new NavItem('Transcripts', null, 0,
@@ -129,9 +143,9 @@ export class SidenavMenuComponent implements AfterViewInit {
       [
         new NavItem('Glendale HOA', 'group', 2, 'info-HOA'),
       ])
-    ]),
+    ])
 
-    new NavItem('Documentation', null, 0)
+    // new NavItem('Documentation', null, 0)
 
   ];
 
