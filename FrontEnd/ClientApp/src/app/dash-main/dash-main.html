@@ -25,7 +25,7 @@
     <gm-small-card
       icon="fas fa-sitemap"
       iconcolor="color-mail-icon"
-      title="Politics"
+      title={{govinfoTitle}}
       tooltip="Displays information on governing political structure.">
       <gm-gov-info
         [location]="location"
@@ -36,7 +36,7 @@
     <gm-small-card
       icon="far fa-file-alt"
       iconcolor="color-document-icon"
-      title="legislation"
+      title={{billsTitle}}
       tooltip="Displays information on bills, proclamations, etc and their status.">
       <gm-bills
         [location]="location"
@@ -47,7 +47,7 @@
     <gm-small-card
       icon="fas fa-users"
       iconcolor="color-calendar-icon"
-      title="Calendar"
+      title={{meetingsTitle}}
       tooltip="Displays a calendar of past and future meetings.">
       <gm-meetings
         [location]="location"
@@ -58,7 +58,7 @@
     <gm-small-card
       icon="far fa-newspaper"
       iconcolor="color-photo-icon"
-      title="News"
+      title={{newsTitle}}
       tooltip="Displays current news.">
       <gm-news
       [location]="location"
@@ -74,7 +74,7 @@
     <gm-large-card
       icon="fas fa-exclamation"
       iconcolor="color-calendar-icon"
-      title="Proofread"
+      title={{fixasrTitle}}
       tooltip="Proofread speech recognition text.">
       <gm-fixasr></gm-fixasr>
     </gm-large-card>
@@ -82,15 +82,15 @@
     <gm-large-card
       icon="fas fa-exclamation"
       iconcolor="color-calendar-icon"
-      title="Add Tags"
-      tooltip="Proofread speech recognition text.">
+      title={{addtagsTitle}}
+      tooltip="Add tags to text.">
       <gm-addtags></gm-addtags>
     </gm-large-card>
 
     <gm-large-card
       icon="fas fa-exclamation"
       iconcolor="color-calendar-icon"
-      title="View Meeting"
+      title={{viewMeetingTitle}}
       tooltip="Browse or search latest meeting.">
       <gm-viewmeeting></gm-viewmeeting>
     </gm-large-card>
@@ -98,7 +98,7 @@
     <gm-large-card
       icon="fas fa-exclamation"
       iconcolor="color-calendar-icon"
-      title="Issues"
+      title={{issuesTitle}}
       tooltip="Displays information about current issues.">
      Recent<br/>
      Most active<br/>
@@ -108,14 +108,14 @@
     <gm-large-card
       icon="fas fa-user-friends"
       iconcolor="color-calendar-icon"
-      title="Officials"
+      title={{officialsTitle}}
       tooltip="Displays information about current governing officials.">
     </gm-large-card>
 
     <gm-large-card
       icon="far fa-calendar-check"
       iconcolor="color-mail-icon"
-      title="Virtual Meeting"
+      title={{virtualMeetingTitle}}
       tooltip="Displays information about past and future virtual meetings.">
       <gm-virtual-meeting></gm-virtual-meeting>
     </gm-large-card>
@@ -123,7 +123,7 @@
     <gm-large-card
       icon="fas fa-comments"
       iconcolor="color-mail-icon"
-      title="Chat"
+      title={{chatTitle}}
       tooltip="This is a chat window for discussing current issue.">
       <gm-chat></gm-chat>
     </gm-large-card>
@@ -131,7 +131,7 @@
     <gm-large-card
       icon="far fa-calendar-check"
       iconcolor="color-calendar-icon"
-      title="Charts"
+      title={{chartsTitle}}
       tooltip="Displays information about issues, bills, officials, etc, in graphical form.">
       <!-- <gm-pie-chart></gm-pie-chart> -->
       <!-- <gm-bar-chart></gm-bar-chart> -->
