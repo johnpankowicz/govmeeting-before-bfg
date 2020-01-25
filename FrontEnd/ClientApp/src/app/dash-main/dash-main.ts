@@ -16,6 +16,19 @@ export class DashMainComponent implements OnInit, OnDestroy {
   location: string;
   agency: string;
 
+  govinfoTitle: string = "Politics";
+  billsTitle: string = "Legislation";
+  meetingsTitle: string = "Calendar";
+  newsTitle: string = "Govmeeting News";
+  fixasrTitle: string = "Proofread Transcripts";
+  addtagsTitle: string = "Add Tags to Transcripts"
+  viewMeetingTitle: string = "View Meetings";
+  issuesTitle: string = "Issues";
+  officialsTitle: string = "Officials";
+  virtualMeetingTitle: string = "Virtual Meeting";
+  chatTitle: string = "Chat Meeting";
+  chartsTitle: string = "Charts Meeting";
+
   constructor(public router: Router, private messageService: MessageService) {
     // constructor(private messageService: MessageService) {
 
@@ -25,6 +38,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
         console.log("dash-main: message=")
         console.log(message.text);
         this.parseMessage(message.text);
+        this.setTitles();
       } else {
         // clear messages when empty message received
         this.messages = [];
@@ -49,18 +63,25 @@ export class DashMainComponent implements OnInit, OnDestroy {
     }
   }
 
-  // CallBills(){
-  //   console.log("CallBills");
+  // These titles need to be set from within the individual components (gov-info, bills, calendar, etc)
+  setTitles() {
+    this.govinfoTitle = this.location + " Politics"
+    this.billsTitle = this.location + " Legislation"
+    this.meetingsTitle = this.agency + " Calendar"
+    this.newsTitle = "Govmeeting News";
+    this.fixasrTitle = "Proof 2/14 " + this.agency + " transcript";
+    this.addtagsTitle = "Add tags to 2/21 " + this.agency + " transcript";
+    this.viewMeetingTitle = "View " + this.agency + " meetings";
+    this.issuesTitle = this.agency + " Issues";
+    this.officialsTitle = this.agency + " Officials";
+    this.virtualMeetingTitle = "Virtual Meeting";
+    this.chatTitle = "Chat";
+    this.chartsTitle = this.agency + " Charts";
 
-  //   // this.router.navigate([{outlets: {"bills": ['dashboard/bills']}}]);
-  //      // this.router.navigate(['dashboard/govinfo', location, agency]);
+    if ((this.agency.startsWith("All") || (this.agency.startsWith("Both")))) {
+      this.fixasrTitle = "Proofread Transcripts";
+      this.addtagsTitle = "Add Tags to Transcripts";
+    }
 
-  //      this.router.navigateByUrl('dashboard/(bills:bills)');
-
-  //   // this.router.navigate([{outlets: {"bills": ['dashboard/bills']}}]);
-  //   // <a [routerLink]="[{ outlets: { 'bills': ['bills'] } }]">Link Bills</a><br/>
-  //   // this.router.navigate([{ outlets: {'playListOutletName': ['playlist-path']}]);
-  //   //     <a [routerLink]="[{ outlets: {"playListOutletName": ["playlist-path"]}}]">Link text</a>
-  // }
-
+  }
 }

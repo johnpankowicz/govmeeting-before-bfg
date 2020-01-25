@@ -53,6 +53,8 @@ import { NewsComponent } from './news/news.component';
 import { ConfigComponent } from './config/config.component';
 
 import { AppData } from './appdata';
+import { CalendarComponent } from './calendar/calendar.component';
+// import { CalendarComponent } from './calendar/calendar';
 const _isAspServerRunning = false;
 
 //////// for testing/////////////////////////////////
@@ -102,7 +104,9 @@ const _isAspServerRunning = false;
     BillsComponent,
     MeetingsComponent,
     NewsComponent,
-    ConfigComponent
+    ConfigComponent,
+    CalendarComponent
+    // CalendarComponent
   ],
   exports: [
     DemoMaterialModule
