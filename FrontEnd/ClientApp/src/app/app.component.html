@@ -3,10 +3,10 @@
 
 <!-- <main> -->
 <!-- <ng-container> -->
-  <!-- <ng-container [class.is-mobile]="mobileQuery.matches"> -->
+  <!-- <ng-container [class.is-mobile]="mediaQueryList.matches"> -->
 
 
-    <!-- <mat-toolbar class="main-header" [class.is-mobile]="mobileQuery.matches">
+    <!-- <mat-toolbar class="main-header" [class.is-mobile]="mediaQueryList.matches">
         <button mat-icon-button class="main-header-button" (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
@@ -19,7 +19,7 @@
     <!-- <mat-sidenav class="sidenav" #sidenav> -->
     <mat-sidenav class="sidenav" #sidenav
       [mode]="options.value.mode"
-      [opened]="!mobileQuery.matches"
+      [opened]="!mediaQueryList.matches"
       [fixedInViewport]="options.value.fixed"
       [fixedTopGap]="options.value.top"
       [fixedBottomGap]="options.value.bottom">
