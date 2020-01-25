@@ -77,10 +77,13 @@ export class DashMainComponent implements OnInit, OnDestroy {
     this.virtualMeetingTitle = "Virtual Meeting";
     this.chatTitle = "Chat";
     this.chartsTitle = this.agency + " Charts";
-
     if ((this.agency.startsWith("All") || (this.agency.startsWith("Both")))) {
       this.fixasrTitle = "Proofread Transcripts";
       this.addtagsTitle = "Add Tags to Transcripts";
+    } else {
+      // These titles need to be set to the current transcript being worked on.
+      this.fixasrTitle = "Proof 2/14 " + this.agency + " transcript";
+      this.addtagsTitle = "Add tags to 2/21 " + this.agency + " transcript";
     }
 
   }
