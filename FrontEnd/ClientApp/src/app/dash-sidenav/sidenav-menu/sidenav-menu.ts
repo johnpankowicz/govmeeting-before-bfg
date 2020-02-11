@@ -15,7 +15,7 @@ enum DeviceType{
   mobile
 }
 
-const NoLog = false;  // set to false for console logging
+const NoLog = true;  // set to false for console logging
 
 @Component({
   selector: 'gm-sidenav-menu',
@@ -37,30 +37,10 @@ export class SidenavMenuComponent implements AfterViewInit {
 
   deviceType: string;
 
-  constructor(private navService: NavService, public router: Router, private messageService: MessageService) {
-  }
-
-  checkDeviceType() : DeviceType {
-    var width = window.innerWidth;
-    var deviceType;
-    if (width <= 768) {
-      deviceType = DeviceType.mobile;
-      this.deviceType = "Mobile";
-      NoLog || console.log(this.ClassName + 'mobile device detected')
-    } else if (width > 768 && width <= 992) {
-      deviceType = DeviceType.tablet;
-      this.deviceType = "Tablet";
-      NoLog || console.log(this.ClassName + 'tablet detected')
-    } else {
-      deviceType = DeviceType.desktop;
-      this.deviceType = "Desktop";
-      NoLog || console.log(this.ClassName + 'desktop detected')
-    }
-    return deviceType;
-  }
-
-  isMobile() {
-    return (this.checkDeviceType() == DeviceType.mobile)
+  constructor(
+    private navService: NavService,
+    public router: Router,
+    private messageService: MessageService) {
   }
 
   ngAfterViewInit() {
@@ -69,11 +49,7 @@ export class SidenavMenuComponent implements AfterViewInit {
   }
 
   OnFinalSelection(items: Array<NavItem>){
-    NoLog || console.log(this.ClassName + "====OnEmitted(sidenav): ");
-    NoLog || console.log(this.ClassName, items);
-    NoLog || console.log(this.ClassName + "org:" + this.navigationItems[0].displayName)
-
-    // this.navService.closeOrgMenu(0);
+    NoLog || console.log(this.ClassName + "OnFinalSelection: ", items);
 
     let submenu = items[items.length -1].displayName;
     let location;
@@ -139,7 +115,30 @@ export class SidenavMenuComponent implements AfterViewInit {
     if (this.isMobile()) {
       this.navService.closeNav();
     }
-}
+  }
+
+  private checkDeviceType() : DeviceType {
+    var width = window.innerWidth;
+    var deviceType;
+    if (width <= 768) {
+      deviceType = DeviceType.mobile;
+      this.deviceType = "Mobile";
+      NoLog || console.log(this.ClassName + 'mobile device detected')
+    } else if (width > 768 && width <= 992) {
+      deviceType = DeviceType.tablet;
+      this.deviceType = "Tablet";
+      NoLog || console.log(this.ClassName + 'tablet detected')
+    } else {
+      deviceType = DeviceType.desktop;
+      this.deviceType = "Desktop";
+      NoLog || console.log(this.ClassName + 'desktop detected')
+    }
+    return deviceType;
+  }
+
+  private isMobile() {
+    return (this.checkDeviceType() == DeviceType.mobile)
+  }
 
 
 }

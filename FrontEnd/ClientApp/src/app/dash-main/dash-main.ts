@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router} from '@angular/router';
 import { Subscription } from 'rxjs';
-
 import { MessageService } from '../message.service';
 
-const NoLog = false;  // set to false for console logging
+const NoLog = true;  // set to false for console logging
 
 @Component({
   selector: 'gm-dash-main',
@@ -16,7 +15,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
   messages: any[] = [];
   subscription: Subscription;
 
-  location: string;
+  location: string = "Boothbay Harbor";
   agency: string;
 
   // TODO These titles need to be set from within the individual components (gov-info, bills, calendar, etc)
@@ -39,7 +38,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
     this.subscription = this.messageService.getMessage().subscribe(message => {
       if (message) {
         this.messages.push(message);
-        NoLog || console.log(this.ClassName + "message=" + message.text)
+        NoLog || console.log(this.ClassName + "receive location message=" + message.text)
         this.parseMessage(message.text);
         // this.setTitles();
       } else {
@@ -50,6 +49,8 @@ export class DashMainComponent implements OnInit, OnDestroy {
    }
 
    ngOnInit() {
+    NoLog || console.log(this.ClassName + "ngOnInit send location message")
+    this.messageService.sendMessage('AgencySelected:Boothbay Harbor:x');
     }
 
   ngOnDestroy() {
