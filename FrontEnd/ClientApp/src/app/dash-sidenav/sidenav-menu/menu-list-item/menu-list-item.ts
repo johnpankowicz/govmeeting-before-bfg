@@ -5,7 +5,7 @@ import {NavService} from '../service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MessageService } from '../../../message.service';
 
-const NoLog = true;  // set to false for console logging
+const NoLog = false;  // set to false for console logging
 
 @Component({
   selector: 'app-menu-list-item',
@@ -43,13 +43,13 @@ export class MenuListItemComponent {
   ngOnInit() {
     // this.item.depth = this.depth;
     this.displayNameClass = 'depth' + this.item.depth;
-    NoLog || console.log(this.ClassName, "NgOnInit DisplayName=" + this.item.displayName),
-    NoLog || console.log(this.ClassName + "NgOnInit route=", this.item.route);
-    NoLog || console.log(this.ClassName, "NgOnInit route-active=" + this.router.isActive(this.item.route, true))
+    NoLog || console.log(this.ClassName, "NgOnInit DisplayName=" + this.item.displayName);
+    // NoLog || console.log(this.ClassName + "NgOnInit route=", this.item.route);
+    // NoLog || console.log(this.ClassName, "NgOnInit route-active=" + this.router.isActive(this.item.route, true));
   }
 
   OnFinalSelection(items: Array<NavItem> ){
-    NoLog || console.log(this.ClassName + "OnFinalSelection item=" + this.item);
+    NoLog || console.log(this.ClassName + "OnFinalSelection item=", this.item);
     NoLog || console.log(this.ClassName + "OnFinalSelection items=", items);
 
     // Some descendent was selected. Append myself to the

@@ -15,7 +15,7 @@ enum DeviceType{
   mobile
 }
 
-const NoLog = true;  // set to false for console logging
+const NoLog = false;  // set to false for console logging
 
 @Component({
   selector: 'gm-sidenav-menu',
@@ -26,6 +26,12 @@ const NoLog = true;  // set to false for console logging
 export class SidenavMenuComponent implements AfterViewInit {
   private ClassName: string = this.constructor.name + ": ";
   @ViewChild('appDrawer', {static: false})
+
+  // I thought that this component could send a 'AgencySelected' message
+  // to set a default selection when the dashboad is loaded. But there is
+  // no easy way without a long delay between when the dashboard is routed to
+  // and sending the message. Otherwise the sub-components do not see that being set.
+  // Therefore I have the default hard-coded into dash-main.ts.
   @Input() defaultLocation: string = null;
   @Input() defaultAgency: string = null;
 
