@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit, Input} from '@angular/core';
-import {VERSION} from '@angular/material';
-import {Router} from '@angular/router';
-
-import {NavItem} from './nav-item';
-import {NavService} from './service';
-import { MessageService } from '../../message.service';
-import { string } from '@amcharts/amcharts4/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit, Input} from '@angular/core';
+import { VERSION } from '@angular/material';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NavItem, EntryType } from './nav-item';
+import { NavService } from './service';
+import { LocationService } from '../../location.service';
+//import { string } from '@amcharts/amcharts4/core';
 
 import { navigationItems } from './menu-items';
 import { MenuTreeArray } from './menu-tree-array'
@@ -27,38 +27,107 @@ const NoLog = false;  // set to false for console logging
 export class SidenavMenuComponent implements AfterViewInit {
   private ClassName: string = this.constructor.name + ": ";
   @ViewChild('appDrawer', {static: false})
-
-  // I thought that this component could send a 'AgencySelected' message
-  // to set a default selection when the dashboad is loaded. But there is
-  // no easy way without a long delay between when the dashboard is routed to
-  // and sending the message. Otherwise the sub-components do not see that being set.
-  // Therefore I have the default hard-coded into dash-main.ts.
-  @Input() defaultLocation: string = null;
-  @Input() defaultAgency: string = null;
-
+  subscription: Subscription;
+  messages: any[] = [];
   sidenav: ElementRef;
   version = VERSION;
-
   itemSelected: string = '';
   navigationItems: NavItem[] = navigationItems;
   menuTreeArray: MenuTreeArray;
-
   deviceType: string;
+  // Sending an 'AgencySelected' message with default values did not work because
+  // the listening components are not yet loaded.
+  // @Input() defaultLocation: string = null;
+  // @Input() defaultAgency: string = null;
 
   constructor(
     private navService: NavService,
     public router: Router,
-    private messageService: MessageService) {
+    private LocationService: LocationService)
+  {
       this.menuTreeArray = new MenuTreeArray();
       this.menuTreeArray.assignPositions(navigationItems);
       console.log(this.ClassName + "navigationItems=", this.navigationItems);
       // let item: NavItem = this.menuTreeArray.getItem([1,3,1], this.navigationItems);
       // NoLog || console.log(this.ClassName + "selectedItem=", item);
-  }
+
+      this.subscription = this.navService.getMenuSelection().subscribe(message => {
+        if (message) {
+          //this.messages.push(message);
+          NoLog || console.log(this.ClassName + "navService message=", message);
+          //this.parseMessage(message.text);
+          this.HandleSelection(message);
+        } else {
+          // clear messages when empty message received
+          this.messages = [];
+        }
+      });
+    }
 
   ngAfterViewInit() {
     this.navService.sidenav = this.sidenav;
     this.navService.navigationItems = this.navigationItems;
+  }
+
+
+  HandleSelection(item: NavItem){
+    let location: string;
+    let agency: string;
+
+    if (item.entryType != EntryType.link) {
+      this.router.navigate(['dashboard']);
+    }
+
+    switch (item.entryType) {
+      case EntryType.location: {
+        location = item.displayName;
+        this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
+        break;
+      }
+      case EntryType.agency: {
+        agency = item.displayName;
+        let parent = this.menuTreeArray.getParent(item, this.navigationItems);
+        location = parent.displayName;
+        this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
+        break;
+      }
+      case EntryType.link: {
+        switch (item.displayName) {
+          case 'Purpose': {
+            this.router.navigateByUrl('purpose');
+            break;
+          }
+          case 'Overview': {
+            this.router.navigateByUrl('overview');
+            break;
+          }
+          case 'Workflow': {
+            this.router.navigateByUrl('workflow');
+            break;
+          }
+          case 'Auto Processing': {
+            this.router.navigateByUrl('autoprocessing');
+            break;
+          }
+          case 'Manual Processing': {
+            this.router.navigateByUrl('manualprocessing');
+            break;
+          }
+          case 'Extend Govmeeting': {
+            this.router.navigateByUrl('extendgovmeeting');
+            break;
+          }
+          case '[All Pages]': {
+            this.router.navigateByUrl('about');
+            break;
+          }
+        }
+        break;
+      }
+    }
+    if (this.isMobile()) {
+      this.navService.closeNav();
+    }
   }
 
   OnFinalSelection(items: Array<NavItem>){
@@ -80,7 +149,7 @@ export class SidenavMenuComponent implements AfterViewInit {
             agency = items[0].displayName;
           }
           NoLog || console.log(this.ClassName + "location=" + location + " agency="+ agency)
-          this.messageService.sendMessage('AgencySelected:' + location + ':' + agency);
+          this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
           break;
         }
 
@@ -120,10 +189,10 @@ export class SidenavMenuComponent implements AfterViewInit {
 
         break;
       }
-      case 'Documentation': {
-        this.router.navigateByUrl('about');
-        break;
-      }
+      // case 'Documentation': {
+      //   this.router.navigateByUrl('about');
+      //   break;
+      // }
     }
     if (this.isMobile()) {
       this.navService.closeNav();

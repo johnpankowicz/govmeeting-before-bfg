@@ -3,7 +3,7 @@ import {NavItem} from '../nav-item';
 import {Router} from '@angular/router';
 import {NavService} from '../service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { MessageService } from '../../../message.service';
+import { LocationService } from '../../../location.service';
 
 const NoLog = false;  // set to false for console logging
 
@@ -33,7 +33,7 @@ export class MenuListItemComponent {
 
   constructor(public navService: NavService,
               public router: Router,
-              private messageService: MessageService
+              private LocationService: LocationService
               ) {
     // if (this.depth === undefined) {
     //   this.depth = 0;
@@ -74,7 +74,7 @@ export class MenuListItemComponent {
         item.expanded = false;
       } else {
         NoLog || console.log(this.ClassName + "item not expanded: close menu & expand it");
-        this.navService.closeOrgMenu(1);
+        this.navService.closeMenu(1);
         item.expanded = true;
       }
 
@@ -87,8 +87,8 @@ export class MenuListItemComponent {
       // Tell my parent that the user made a selection and
       // send the navItems array. This calls "OnEmitted()" on my parent.
       // My parent will append herself and send the array to their parent.
-      this.finalSelection.emit(this.navItems);
-
+      //this.finalSelection.emit(this.navItems);
+      this.navService.sendMenuSelection(item);
     }
   }
 
