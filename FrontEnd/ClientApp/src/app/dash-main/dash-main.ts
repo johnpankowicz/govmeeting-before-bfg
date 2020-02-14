@@ -36,7 +36,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
   constructor(public router: Router, private LocationService: LocationService) {
     // constructor(private LocationService: LocationService) {
 
-    this.subscription = this.LocationService.getMessage().subscribe(message => {
+    this.subscription = this.LocationService.getLocation().subscribe(message => {
       if (message) {
         this.messages.push(message);
         NoLog || console.log(this.ClassName + "receive location message=" + message.text)
@@ -51,7 +51,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
 
    ngOnInit() {
     NoLog || console.log(this.ClassName + "ngOnInit send location message")
-    // this.LocationService.sendMessage('AgencySelected:' + this.defaultLocation + ':x');
+    // this.LocationService.sendMessage('LocationSelected:' + this.defaultLocation + ':x');
     }
 
   ngOnDestroy() {
@@ -61,7 +61,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
 
   parseMessage(message: string) {
     let mes = message.split(':');
-    if (mes[0] == 'AgencySelected') {
+    if (mes[0] == 'LocationSelected') {
       this.location = mes[1];
       this.agency = mes[2];
 

@@ -35,7 +35,8 @@ export class SidenavMenuComponent implements AfterViewInit {
   navigationItems: NavItem[] = navigationItems;
   menuTreeArray: MenuTreeArray;
   deviceType: string;
-  // Sending an 'AgencySelected' message with default values did not work because
+
+  // Sending an 'LocationSelected' message with default values did not work because
   // the listening components are not yet loaded.
   // @Input() defaultLocation: string = null;
   // @Input() defaultAgency: string = null;
@@ -53,9 +54,7 @@ export class SidenavMenuComponent implements AfterViewInit {
 
       this.subscription = this.navService.getMenuSelection().subscribe(message => {
         if (message) {
-          //this.messages.push(message);
           NoLog || console.log(this.ClassName + "navService message=", message);
-          //this.parseMessage(message.text);
           this.HandleSelection(message);
         } else {
           // clear messages when empty message received
@@ -69,7 +68,6 @@ export class SidenavMenuComponent implements AfterViewInit {
     this.navService.navigationItems = this.navigationItems;
   }
 
-
   HandleSelection(item: NavItem){
     let location: string;
     let agency: string;
@@ -81,14 +79,14 @@ export class SidenavMenuComponent implements AfterViewInit {
     switch (item.entryType) {
       case EntryType.location: {
         location = item.displayName;
-        this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
+        this.LocationService.sendLocation('LocationSelected:' + location + ':' + agency);
         break;
       }
       case EntryType.agency: {
         agency = item.displayName;
         let parent = this.menuTreeArray.getParent(item, this.navigationItems);
         location = parent.displayName;
-        this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
+        this.LocationService.sendLocation('LocationSelected:' + location + ':' + agency);
         break;
       }
       case EntryType.link: {
@@ -130,75 +128,6 @@ export class SidenavMenuComponent implements AfterViewInit {
     }
   }
 
-  OnFinalSelection(items: Array<NavItem>){
-    NoLog || console.log(this.ClassName + "OnFinalSelection: ", items);
-
-    let submenu = items[items.length -1].displayName;
-    let location;
-    let agency;
-    switch (submenu){
-
-      // If the user selected a new location, send a message to the components that need to be updated.
-      case 'Select Location': {
-          this.router.navigate(['dashboard']);
-          location = items[1].displayName;
-          if (location == 'Select Location') {
-            location = items[0].displayName;
-            agency = null;
-          } else {
-            agency = items[0].displayName;
-          }
-          NoLog || console.log(this.ClassName + "location=" + location + " agency="+ agency)
-          this.LocationService.sendMessage('AgencySelected:' + location + ':' + agency);
-          break;
-        }
-
-      // If the user selected a new About page, navigate to it.
-      case 'About': {
-        let AboutDoc = items[0].displayName;
-        switch (AboutDoc) {
-          case 'Purpose': {
-            this.router.navigateByUrl('purpose');
-            break;
-          }
-          case 'Overview': {
-            this.router.navigateByUrl('overview');
-            break;
-          }
-          case 'Workflow': {
-            this.router.navigateByUrl('workflow');
-            break;
-          }
-          case 'Auto Processing': {
-            this.router.navigateByUrl('autoprocessing');
-            break;
-          }
-          case 'Manual Processing': {
-            this.router.navigateByUrl('manualprocessing');
-            break;
-          }
-          case 'Extend Govmeeting': {
-            this.router.navigateByUrl('extendgovmeeting');
-            break;
-          }
-          case '[All Pages]': {
-            this.router.navigateByUrl('about');
-            break;
-          }
-        }
-
-        break;
-      }
-      // case 'Documentation': {
-      //   this.router.navigateByUrl('about');
-      //   break;
-      // }
-    }
-    if (this.isMobile()) {
-      this.navService.closeNav();
-    }
-  }
-
   private checkDeviceType() : DeviceType {
     var width = window.innerWidth;
     var deviceType;
@@ -221,6 +150,5 @@ export class SidenavMenuComponent implements AfterViewInit {
   private isMobile() {
     return (this.checkDeviceType() == DeviceType.mobile)
   }
-
 
 }

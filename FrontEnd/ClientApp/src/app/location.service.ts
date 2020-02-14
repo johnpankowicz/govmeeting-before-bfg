@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 export class LocationService {
     private subject = new Subject<any>();
 
-    sendMessage(message: string) {
+    sendLocation(message: string) {
         this.subject.next({ text: message });
     }
 
@@ -13,7 +13,7 @@ export class LocationService {
         this.subject.next();
     }
 
-    getMessage(): Observable<any> {
+    getLocation(): Observable<any> {
         return this.subject.asObservable();
     }
 }

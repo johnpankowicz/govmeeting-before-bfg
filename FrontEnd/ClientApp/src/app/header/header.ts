@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public navService: NavService, private LocationService: LocationService) {
 
-    this.subscription = this.LocationService.getMessage().subscribe(message => {
+    this.subscription = this.LocationService.getLocation().subscribe(message => {
       if (message) {
         this.messages.push(message);
         NoLog || console.log(this.ClassName + "header: message=")
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
 
   parseMessage(message: string) {
     let mes = message.split(':');
-    if (mes[0] == 'AgencySelected') {
+    if (mes[0] == 'LocationSelected') {
       this.location = mes[1];
       if (this.location == "Non-Government") {
         this.location = mes[2];

@@ -26,10 +26,10 @@ export class MenuListItemComponent {
   @Input() item: NavItem;
   // @HostBinding('attr.aria-expanded') ariaExpanded = this.item.expanded;
   @Input() depth: number;
-  @Output() finalSelection = new EventEmitter();
+  //@Output() finalSelection = new EventEmitter();
 
   displayNameClass: string;
-  navItems: Array<NavItem> = new Array<NavItem>();
+  //navItems: Array<NavItem> = new Array<NavItem>();
 
   constructor(public navService: NavService,
               public router: Router,
@@ -54,8 +54,8 @@ export class MenuListItemComponent {
 
     // Some descendent was selected. Append myself to the
     // item array and send it to my parent.
-    items.push(this.item);    // add my item to the array.
-    this.finalSelection.emit(items);
+    //items.push(this.item);    // add my item to the array.
+    //this.finalSelection.emit(items);
 }
 
   onItemSelected(item: NavItem) {
@@ -82,7 +82,7 @@ export class MenuListItemComponent {
     } else {
       // Put myself onto the navItems array.
       // Since I was just selected, I am the only entry so far
-      this.navItems.push(item);
+      //this.navItems.push(item);
 
       // Tell my parent that the user made a selection and
       // send the navItems array. This calls "OnEmitted()" on my parent.
