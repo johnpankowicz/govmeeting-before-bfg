@@ -8,6 +8,7 @@ import {NavService} from '../sidenav-menu/nav.service';
 })
 export class TopNavComponent implements OnInit {
 
+  // NavService is used in the template for the button to close the menu.
   constructor(public navService: NavService) { }
 
   ngOnInit() {

@@ -5,7 +5,7 @@ import {NavService} from '../nav.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { UserSettingsService } from '../../../user-settings.service';
 
-const NoLog = false;  // set to false for console logging
+const NoLog = true;  // set to false for console logging
 
 @Component({
   selector: 'app-menu-list-item',
@@ -33,7 +33,7 @@ export class MenuListItemComponent {
 
   constructor(public navService: NavService,
               public router: Router,
-              private LocationService: UserSettingsService
+              private userSettngsService: UserSettingsService
               ) {
     // if (this.depth === undefined) {
     //   this.depth = 0;
