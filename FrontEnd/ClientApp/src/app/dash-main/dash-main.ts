@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UserSettingsService } from '../user-settings.service';
+import { UserSettingsService, UserSettings } from '../user-settings.service';
 
 const NoLog = false;  // set to false for console logging
 
@@ -13,7 +13,8 @@ const NoLog = false;  // set to false for console logging
 export class DashMainComponent implements OnInit, OnDestroy {
   private ClassName: string = this.constructor.name + ": ";
   messages: any[] = [];
-  subscription: Subscription;
+  locSubsription: Subscription;
+  usSubscription: Subscription;
   defaultLocation: string = "Boothbay Harbor";
   location: string = this.defaultLocation;
   agency: string;
@@ -33,20 +34,25 @@ export class DashMainComponent implements OnInit, OnDestroy {
   chatTitle: string = "Chat";
   chartsTitle: string = "Charts";
 
-  constructor(public router: Router, private LocationService: UserSettingsService) {
+  constructor(public router: Router, private userSettingsService: UserSettingsService) {
     // constructor(private LocationService: LocationService) {
 
-    this.subscription = this.LocationService.getLocation().subscribe(message => {
-      if (message) {
-        this.messages.push(message);
-        NoLog || console.log(this.ClassName + "receive location message=" + message.text)
-        this.parseMessage(message.text);
-        // this.setTitles();
-      } else {
-        // clear messages when empty message received
-        this.messages = [];
-      }
-    });
+    // this.locSubsription = this.userSettingsService.getLocation().subscribe(message => {
+    //   if (message) {
+    //     this.messages.push(message);
+    //     NoLog || console.log(this.ClassName + "receive location message=" + message.text)
+    //     this.parseMessage(message.text);
+    //     // this.setTitles();
+    //   } else {
+    //     // clear messages when empty message received
+    //     this.messages = [];
+    //   }
+    // });
+
+    this.usSubscription = this.userSettingsService.getSettings().subscribe(settings => {
+      NoLog || console.log(this.ClassName + "receive settings=", settings);
+      this.changeLocation(settings);
+    })
    }
 
    ngOnInit() {
@@ -56,19 +62,27 @@ export class DashMainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+    this.locSubsription.unsubscribe();
 }
 
-  parseMessage(message: string) {
-    let mes = message.split(':');
-    if (mes[0] == 'LocationSelected') {
-      this.location = mes[1];
-      this.agency = mes[2];
+private changeLocation(item: UserSettings) {
+  this.location = item.location;
+  this.agency = item.agency;
+  NoLog || console.log(this.ClassName + "location:" + this.location);
 
-      this.isCounty = (this.location == "Lincoln County")
-      NoLog || console.log(this.ClassName + "location:" + this.location);
-    }
-  }
+  this.isCounty = (this.location == "Lincoln County")
+}
+
+  // parseMessage(message: string) {
+  //   let mes = message.split(':');
+  //   if (mes[0] == 'LocationSelected') {
+  //     this.location = mes[1];
+  //     this.agency = mes[2];
+
+  //     this.isCounty = (this.location == "Lincoln County")
+  //     NoLog || console.log(this.ClassName + "location:" + this.location);
+  //   }
+  // }
 
   // TODO These titles need to be set from within the individual components (gov-info, bills, calendar, etc)
   // setTitles() {
