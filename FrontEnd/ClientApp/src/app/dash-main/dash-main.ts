@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UserSettingsService } from '../location.service';
+import { UserSettingsService } from '../user-settings.service';
 
 const NoLog = false;  // set to false for console logging
 

@@ -3,7 +3,7 @@ import {NavItem} from '../nav-item';
 import {Router} from '@angular/router';
 import {NavService} from '../nav.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { UserSettingsService } from '../../../location.service';
+import { UserSettingsService } from '../../../user-settings.service';
 
 const NoLog = false;  // set to false for console logging
 

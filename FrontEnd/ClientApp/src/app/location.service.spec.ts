@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserSettingsService } from './location.service';
+import { UserSettingsService } from './user-settings.service';
 
 describe('LocationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

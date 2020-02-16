@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { NavService } from '../dash-sidenav/sidenav-menu/nav.service';
-import { UserSettingsService } from '../location.service';
+import { UserSettingsService } from '../user-settings.service';
 
 const NoLog = true;  // set to false for console logging
 
