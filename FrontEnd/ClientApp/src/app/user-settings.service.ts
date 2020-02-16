@@ -9,18 +9,9 @@ export class UserSettingsService {
   private subject = new Subject<any>();
   private settingsSubject = new Subject<UserSettings>();
 
-  sendLocation(message: string) {
-      this.subject.next({ text: message });
-  }
-
   clearMessages() {
       this.subject.next();
   }
-
-  getLocation(): Observable<any> {
-      return this.subject.asObservable();
-  }
-
 
   sendSettings(settings: UserSettings) {
     this.settingsSubject.next(settings);

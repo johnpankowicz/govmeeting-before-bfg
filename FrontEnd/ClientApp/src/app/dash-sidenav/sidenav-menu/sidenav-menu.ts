@@ -83,8 +83,6 @@ export class SidenavMenuComponent implements AfterViewInit {
     switch (item.entryType) {
       case EntryType.location: {
         location = item.displayName;
-        this.userSettingsService.sendLocation('LocationSelected:' + location + ':' + agency);
-
         let userSettings: UserSettings = new UserSettings('en', location, null);
         this.userSettingsService.sendSettings(userSettings)
         break;
@@ -93,8 +91,6 @@ export class SidenavMenuComponent implements AfterViewInit {
         agency = item.displayName;
         let parent = this.menuTreeArray.getParent(item, this.navigationItems);
         location = parent.displayName;
-        this.userSettingsService.sendLocation('LocationSelected:' + location + ':' + agency);
-
         let userSettings: UserSettings = new UserSettings('en', location, agency);
         this.userSettingsService.sendSettings(userSettings)
         break;

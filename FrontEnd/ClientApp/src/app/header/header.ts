@@ -20,19 +20,6 @@ export class HeaderComponent implements OnInit {
   backgroundStyle: any;
 
   constructor(public navService: NavService, private userSettingsService: UserSettingsService) {
-
-    // this.locSubscription = this.userSettingsService.getLocation().subscribe(message => {
-    //   if (message) {
-    //     this.messages.push(message);
-    //     NoLog || console.log(this.ClassName + "header: message=")
-    //     NoLog || console.log(this.ClassName + message.text);
-    //     this.parseMessage(message.text);
-    //   } else {
-    //     // clear messages when empty message received
-    //     this.messages = [];
-    //   }
-    // });
-
     this.usSubscription = this.userSettingsService.getSettings().subscribe(settings => {
       NoLog || console.log(this.ClassName + "receive settings=", settings);
       this.changeLocation(settings);
@@ -52,18 +39,6 @@ export class HeaderComponent implements OnInit {
     NoLog || console.log(this.ClassName + "location:" + this.location);
     this.changeBackground(this.location)
 }
-
-  // parseMessage(message: string) {
-  //   let mes = message.split(':');
-  //   if (mes[0] == 'LocationSelected') {
-  //     this.location = mes[1];
-  //     if (this.location == "Non-Government") {
-  //       this.location = mes[2];
-  //     }
-  //     NoLog || console.log(this.ClassName + "location:" + this.location);
-  //     this.changeBackground(this.location)
-  //   }
-  // }
 
   changeBackground(location: string) {
     let background;
