@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class LocationService {
+export class UserSettingsService {
     private subject = new Subject<any>();
 
     sendLocation(message: string) {
