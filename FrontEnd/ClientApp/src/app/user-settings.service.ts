@@ -9,7 +9,7 @@ export { UserSettings, LocationType };
 export class UserSettingsService {
   //private subject = new Subject<any>();
   private settingsSubject = new Subject<UserSettings>();
-  private bSubject = new BehaviorSubject("a");
+  private bSubject = new BehaviorSubject<UserSettings>(new UserSettings());
 
   clearMessages() {
       this.settingsSubject.next();
@@ -23,8 +23,8 @@ export class UserSettingsService {
     return this.settingsSubject.asObservable();
   }
 
-  sendBSubject(message: string){
-    this.bSubject.next(message);
+  sendBSubject(settings: UserSettings){
+    this.bSubject.next(settings);
   }
 
   getBSubject() {

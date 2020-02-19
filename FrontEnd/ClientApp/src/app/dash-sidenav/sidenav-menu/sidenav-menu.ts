@@ -98,7 +98,7 @@ export class SidenavMenuComponent implements AfterViewInit {
         location = item.displayName;
         let userSettings: UserSettings = new UserSettings('en', location,  null);
         this.userSettingsService.sendSettings(userSettings);
-        this.userSettingsService.sendBSubject(location);
+        this.userSettingsService.sendBSubject(userSettings);
         break;
       }
       case EntryType.agency: {

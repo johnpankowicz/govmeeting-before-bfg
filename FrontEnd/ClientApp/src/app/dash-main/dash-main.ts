@@ -50,15 +50,16 @@ export class DashMainComponent implements OnInit, OnDestroy {
    ngOnInit() {
 
     console.log("dashmain subscribe to settings");
-    this.subscription = this.userSettingsService.getSettings().subscribe(settings => {
-      console.log("dashmain receive settings")
-      NoLog || console.log(this.ClassName + "receive settings=", settings);
-      this.changeLocation(settings);
-    })
+    // this.subscription = this.userSettingsService.getSettings().subscribe(settings => {
+    //   console.log("dashmain receive settings")
+    //   NoLog || console.log(this.ClassName + "receive settings=", settings);
+    //   this.changeLocation(settings);
+    // })
 
-    this.userSettingsService.getBSubject().subscribe(message => {
-      console.log("dashmain receive bsubject " + message);
-      this.location = message;
+    this.userSettingsService.getBSubject().subscribe(settings => {
+      console.log("dashmain receive bsubject ", settings);
+      this.location = settings.location;
+      this.agency = settings.agency;
     })
 
 
@@ -78,7 +79,7 @@ export class DashMainComponent implements OnInit, OnDestroy {
     this.agency = item.agency;
     NoLog || console.log(this.ClassName + "location:" + this.location);
 
-    this.isCounty = (this.location == "Lincoln County")
+    // this.isCounty = (this.location == "Lincoln County")
   }
 
 }

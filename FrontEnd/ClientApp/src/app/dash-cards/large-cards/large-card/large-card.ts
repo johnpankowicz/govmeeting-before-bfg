@@ -32,15 +32,16 @@ export class LargeCardComponent implements OnInit {
 
   ngOnInit() {
     console.log("large-card subscribe to settings")
-    this.subscription = this.userSettingsService.getSettings().subscribe(settings => {
-      console.log("large-card receive settings");
-      //NoLog || console.log(this.ClassName + "receive settings=", settings);
-      NoLog || console.log(this.ClassName + "settings:inputs:"+this.title+":"+this.disableMunicipal);
-      this.customizeHeader(settings);
-    })
+    // this.subscription = this.userSettingsService.getSettings().subscribe(settings => {
+    //   console.log("large-card receive settings");
+    //   //NoLog || console.log(this.ClassName + "receive settings=", settings);
+    //   NoLog || console.log(this.ClassName + "settings:inputs:"+this.title+":"+this.disableMunicipal);
+    //   this.customizeHeader(settings);
+    // })
 
-    this.userSettingsService.getBSubject().subscribe(message => {
-      console.log("large-card receive bsubject " + message)
+    this.userSettingsService.getBSubject().subscribe(settings => {
+      console.log("large-card receive bsubject ", settings)
+      this.customizeHeader(settings);
     })
 
   }
