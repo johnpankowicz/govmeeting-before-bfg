@@ -31,21 +31,12 @@ export class LargeCardComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.userSettingsService.getBSubject().subscribe(settings => {
-    //   NoLog || console.log(this.ClassName + this.title, settings);
-    //   // NoLog || console.log(this.ClassName +  "disable muni/cty:", this.disableMunicipal, this.disableCounty);
-    //   this.customizeHeader(settings);
-    //   // NoLog || console.log(this.ClassName +  "enabled: ", this.enabled)
-    // })
-
     this.userSettingsService.SettingsChangeAsObservable().subscribe(message => {
       // NoLog || console.log(this.ClassName + "receive message: " + message)
       let newSettings = this.userSettingsService.settings;
       NoLog || console.log(this.ClassName + "SCAO " + this.title, newSettings);
       this.customizeHeader(newSettings);
     })
-
-
   }
 
   customizeHeader(settings: UserSettings) {

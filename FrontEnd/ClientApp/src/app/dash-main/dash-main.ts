@@ -40,22 +40,13 @@ export class DashMainComponent implements OnInit, OnDestroy {
    }
 
    ngOnInit() {
-
-    // NoLog || console.log(this.ClassName + "subscribe to settings");
-    // this.userSettingsService.getBSubject().subscribe(settings => {
-    //   NoLog || console.log(this.ClassName + "bsubject ", settings);
-    //   this.location = settings.location;
-    //   this.agency = settings.agency;
-    // })
-
     this.userSettingsService.SettingsChangeAsObservable().subscribe(message => {
       // NoLog || console.log(this.ClassName + "receive message: " + message)
       let newSettings = this.userSettingsService.settings;
       NoLog || console.log(this.ClassName + "SCAO ", newSettings);
       this.location = newSettings.location;
       this.agency = newSettings.agency;
-  })
-
+    })
   }
 
   ngOnDestroy() {
