@@ -105,7 +105,7 @@ const NoLog = false;  // set to false for console logging
         this.router.navigate(['dashboard']);
         location = item.displayName;
         let userSettings: UserSettings = new UserSettings('en', location,  null);
-        this.userSettingsService.sendSettings(userSettings);
+        // this.userSettingsService.sendSettings(userSettings);
         // this.userSettingsService.sendBSubject(userSettings);
         this.userSettingsService.settings = userSettings;
         // this.userSettingsService.sendSettingsChange();
@@ -117,7 +117,7 @@ const NoLog = false;  // set to false for console logging
         let parent = this.menuTreeArray.getParent(item, this.navigationItems);
         location = parent.displayName;
         let userSettings: UserSettings = new UserSettings('en', location,  agency);
-        this.userSettingsService.sendSettings(userSettings)
+        // this.userSettingsService.sendSettings(userSettings)
         break;
       }
       case EntryType.link: {

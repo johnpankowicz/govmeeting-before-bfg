@@ -9,7 +9,6 @@ export { UserSettings, LocationType };
 export class UserSettingsService {
   //private subject = new Subject<any>();
   private settingsSubject = new Subject<UserSettings>();
-  // private bSubject = new BehaviorSubject<UserSettings>(new UserSettings());
   private settingsChange = new BehaviorSubject<string>("Initial");
 
   private _settings: UserSettings;
@@ -30,16 +29,8 @@ export class UserSettingsService {
     this.settingsSubject.next(settings);
   }
 
-  getSettings(): Observable<UserSettings> {
-    return this.settingsSubject.asObservable();
-  }
-
-  // sendBSubject(settings: UserSettings){
-  //   this.bSubject.next(settings);
-  // }
-
-  // getBSubject() {
-  //   return this.bSubject;
+  // getSettings(): Observable<UserSettings> {
+  //   return this.settingsSubject.asObservable();
   // }
 
   sendSettingsChange(){
