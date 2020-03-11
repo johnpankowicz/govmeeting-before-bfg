@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title class="cardtitle">Flowcharts</mat-card-title>
+  <mat-card-title class="cardtitle">System Design</mat-card-title>
 
 <markdown ngPreserveWhitespaces>
 
@@ -11,7 +11,7 @@ There are separate diagrams for the Web_app and ClientApp internals.
 
 ___
 
-### System  Flowchart
+## System  Flowchart
 </markdown>
 
 <img src="assets/images/FlowchartSystem.png">
@@ -37,7 +37,7 @@ The components in the above diagram are:
 
 ___
 
-### ClientApp Flowchart
+## ClientApp Flowchart
 </markdown>
 
 <img src="assets/images/FlowchartClientApp.png">
@@ -60,7 +60,7 @@ ___
 ```
 ___
 
-### WebApp Flowchart
+## WebApp Flowchart
 </markdown>
 
 <img src="assets/images/FlowchartWebApp.png">
@@ -78,12 +78,12 @@ ___
 ```
 ___
 
-# Frameworks
+## Frameworks
 
 The Front-end is written in Typescript using Angular (2+).
 The web server and backend are in C# using [DotNet Core](https://github.com/dotnet/core)  and [Asp.Net Core](https://github.com/aspnet/home)
 
-# Application Environment
+## Application Environment
 
 ASP.NET Core references a particular environment variable, ASPNETCORE_ENVIRONMENT to describe the environment the application is currently running in. This variable can be set to any value you like, but three values are used by convention: Development, Staging, and Production.
 
@@ -91,7 +91,7 @@ This value is set in the project properties under the Debug tab. It is used ofte
 
 ___
 
-# User Secrets
+## User Secrets
 
 When you clone the govmeeting repository from Github, you get everything except the "_SECRETS" folder. This folder resides outside the repository. It contains the following "secret" information:
 
@@ -111,6 +111,14 @@ The _SECRETS folder may contain four files.
 TranscribeAudio.json contains the Google Cloud Platform credentials. Each of other three files may contain settings for each of the other secrets. appsettings.Production.json should contain all of the setting for production. Whatever settings are in these file will overide those that are in Server/WebApp/app.settings.json. This file is inlcluded in the repository.
 
 If you want your local machine to have access to the Google services, you need to create a local folder "../_SECRETS in relation to where the repository is located. Then, for example, you can add a file "appsettings.Development.json" to it, which contains keys that you obtain from Google. See: [Google API Keys](home#google-api-keys)
+
+
+## extra info - to add somewhere
+
+Continuing improvement in the software can make the manual steps as minimal as possible.
+
+But democracy also needs to be something people participate in. The manual steps can help to bring people together in their community to achieve a common goal.
+
 
 </markdown>
 
