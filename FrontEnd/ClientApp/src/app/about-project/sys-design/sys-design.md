@@ -3,86 +3,101 @@
 
 <markdown ngPreserveWhitespaces>
 
-The diagrams below show the interaction between software components. The ClientApp is the Angular Single Page Application that runs in the browser. The other components run on the server.
+The diagrams below show the interaction between software components.
+ The ClientApp is the Angular Single Page Application that runs in the browser. The other components run on the server.
 
-Each server component is a  separate Visual Studio project. Workflow_App and Web_App are console applications . The others are C# libraries.
+Each server component is a  separate Visual Studio project. WorkflowApp and WebApp are console applications.
+ The others are C# libraries.
 
-There are separate diagrams for the Web_app and ClientApp internals.
+There are separate diagrams for the WebApp and ClientApp internals.
 
 ___
-
 ## System  Flowchart
 </markdown>
-
 <img src="assets/images/FlowchartSystem.png">
-
 <markdown ngPreserveWhitespaces>
 
 The components in the above diagram are:
 
-```
-* ClientApp            - Angular SPA
-* WebApp               - Asp.Net  web server process
-* WorkflowApp          - Workflow control process
-* GetOnlineFiles       - Retrieve online transcripts and recordings
-* ProcessRecording     - Extract & transcribe audio. Create work segments.
-* ProcessTranscript    - Transform raw transcripts
-* LoadDatabase         - Populate database with data from completed transcript
-* OnlineAccess         - Routines to retrieve files from remote sites.
-* GoogleCloudAccess    - Routines to access Google Cloud services
-* FileDataRepositories - Store & Get JSON work file data
-* DatabaseRepositories - Store & Get Model data from database
-* DatabaseAccess       - Access database using Entity Framework
-```
+<table style="width:100%">
+<tr><th colspan="2"> Applications</th></tr>
+<tr><td>ClientApp</td><td>Angular SPA</td></tr>
+<tr><td>WebApp</td><td>Asp.Net  web server process</td></tr>
+<tr><td>WorkflowApp</td><td>Workflow server control process</td></tr>
+<tr><th colspan="2"> Libraries</th></tr>
+<tr><td>GetOnlineFiles</td><td>Retrieve online transcripts and recordings</td></tr>
+<tr><td>ProcessRecording</td><td>Extract & transcribe audio. Create work segments.</td></tr>
+<tr><td>ProcessTranscript</td><td>Transform raw transcripts</td></tr>
+<tr><td>LoadDatabase</td><td>Populate database with data from completed transcript</td></tr>
+<tr><td>OnlineAccess</td><td>Routines to retrieve files from remote sites</td></tr>
+<tr><td>GoogleCloudAccess</td><td>Routines to access Google Cloud services</td></tr>
+<tr><td>FileDataRepositories</td><td>Store & Get JSON work file data</td></tr>
+<tr><td>DatabaseRepositories</td><td>Store & Get Model data from database</td></tr>
+<tr><td>DatabaseAccess</td><td>Access database using Entity Framework</td></tr>
+</table>
 
 ___
-
 ## ClientApp Flowchart
 </markdown>
-
 <img src="assets/images/FlowchartClientApp.png">
-
 <markdown ngPreserveWhitespaces>
 
-```
-* appmodule               - tell Angular how to construct and bootstrap the app
-* app-routing & navmenu   - Angular component router and  navigation bar
-* home                    - default first page
-* volunteer               - first page for registered user
-* fixasr                  - page to fix Auto Speech Recognition text
-* video                   - component to play video file for fixasr
-* addtags                 - page to add tag metadata to transcript
-* register                - page to register a government body
-* viewmeeting             - public page to view a completed transcript
-* searchmeeting           - public page to search meeting databae
-* setalerts               - public page to set alerts on future meeting events
-* gmshared and models     - shared components and data models
-```
-___
+The structure of the ClientApp is best shown by its Angular Component structure
 
+<table style="width:100%">
+<tr><th colspan="2">Main App Components</th></tr>
+<tr><td>Header</td><td>Header</td></tr>
+<tr><td>Sidenav</td><td>Sidebar Navigation</td></tr>
+<tr><td>(router-outlet)</td><td>Where other component will be placed</td></tr>
+<tr><th colspan="2"> Documentation components</th></tr>
+<tr><td>About</td><td>Returns Markdown pages in assets/docs</td></tr>
+<tr><td>Overview/SysDesign</td><td>Doc pages that have their own components</td></tr>
+<tr><th colspan="2"> Dashboard components</th></tr>
+<tr><td>Dashboard</td><td>Container for dashboard components</td></tr>
+<tr><td>Fixasr</td><td>Fix Auto Speech Recognition text</td></tr>
+<tr><td>Addtags</td><td>Add tags to transcripts</td></tr>
+<tr><td>ViewMeeting</td><td>View completed transcripts</td></tr>
+<tr><td>Issues</td><td>View information on issues</td></tr>
+<tr><td>Alerts</td><td>View and set information on alerts</td></tr>
+<tr><td>Officials</td><td>View information on officials</td></tr>
+<tr><th colspan="2"> Services</th></tr>
+<tr><td>VirtualMeeting</td><td>Run virtual meeting</td></tr>
+<tr><td>Chat</td><td>User chat component</td></tr>
+</table>
+
+
+
+___
 ## WebApp Flowchart
 </markdown>
-
 <img src="assets/images/FlowchartWebApp.png">
-
 <markdown ngPreserveWhitespaces>
-```
-* Home Controller         - Home controller serves page with root Angular tag
-* Account Controller      - Process user registration and login
-* Manage Controller       - Users can manage their profiles
-* Admin Controller        - Administrator can manage users, policies and claims
-* Web API Controllers     - Each of these are small and merely get or put data to the
-                            database or filesystem.
-* Email Service           - Handle registration email confirmation
-* Message Service         - Handle registration confirmation via text message
-```
-___
 
+Each of the Web API's are small and call the repositories to put or get data from the database or filesystem.
+
+<table style="width:100%">
+<tr><th colspan="2"> Controllers</th></tr>
+<tr><td>Fixasr</td><td>Save and get most recent version of transcript being proofread.</td></tr>
+<tr><td>Addtags</td><td>Save and get most recent version of transcript being tagged.</td></tr>
+<tr><td>Viewmeeting</td><td>Get latest completed trnascript.</td></tr>
+<tr><td>Govbodies</td><td>Save and get registered government body data.</td></tr>
+<tr><td>Meetings</td><td>Save and get meeting information.</td></tr>
+<tr><td>Video</td><td>Get video of meeting.</td></tr>
+<tr><td>Account</td><td>Process user registration and login.</td></tr>
+<tr><td>Manage</td><td>Users can manage their profiles.</td></tr>
+<tr><td>Admin</td><td>Administrator can manage users, policies and claims</td></tr>
+<tr><th colspan="2"> Services</th></tr>
+<tr><td>Email</td><td>Handle registration email confirmation.</td></tr>
+<tr><td>Message</td><td>Handle registration confirmation via text message .</td></tr>
+</table>
+
+___
 ## Frameworks
 
 The Front-end is written in Typescript using Angular (2+).
 The web server and backend are in C# using [DotNet Core](https://github.com/dotnet/core)  and [Asp.Net Core](https://github.com/aspnet/home)
 
+___
 ## Application Environment
 
 ASP.NET Core references a particular environment variable, ASPNETCORE_ENVIRONMENT to describe the environment the application is currently running in. This variable can be set to any value you like, but three values are used by convention: Development, Staging, and Production.
@@ -90,7 +105,6 @@ ASP.NET Core references a particular environment variable, ASPNETCORE_ENVIRONMEN
 This value is set in the project properties under the Debug tab. It is used often in the Views\Shared cshtml files.
 
 ___
-
 ## User Secrets
 
 When you clone the govmeeting repository from Github, you get everything except the "_SECRETS" folder. This folder resides outside the repository. It contains the following "secret" information:
