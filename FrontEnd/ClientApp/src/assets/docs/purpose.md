@@ -7,10 +7,10 @@ present their points of view and try to work together toward common goals.
 In the Athenian Assembly of 500 BC, a quorum of 6,000 of the 43,000 citizens was needed to conduct business.
 In the 10th century, the Icelandic Althing was held in a natural outdoor amphitheater and all citizens could attend.
 
+## Challanges Today
+
 Today it is rare to see more than a dozen attendees at a council meeting in a town of 30,000 people.
 Is this still democracy?
-
-## Challanges Today
 
 Meetings today may be broadcast on local TV. But how many actually watch?
 And of course, it is impossible to participate this way.
@@ -29,21 +29,17 @@ Today, hundreds of millions need to work together. Each of us needs to participa
 
 ## Solutions 
 
-The tools for democarcy haven't changed much in 2,000 years. But today with technolgy, we may finally are able to
-create tools that can can allow hundreds of millions to work together.
+The tools for democarcy haven't changed much in 2,000 years. But with today's technolgy, we may finally be able to
+create tools we need.
 
-The purpose of Govmeeting is to build software that enables everyone to actively participate in government.
-The goal is to build something generic enough that it can be used in any country on any level of government.
+The purpose of Govmeeting is to build software so all can participate more in government.
+The goal is to build something that can be used in any country on any level of government.
 
 Most other "Open Government" projects rely on government supplied data. Govmeeting takes the opposite approach.
-It will use government data if available. But if government can't or won't supply the needed
-data, it provides a way for citizens themselves to create the data that they need to monitor government actions.
+It will use government data if available. But if government can't or won't supply the data, it provides a way for citizens to create the data themselves.
 
-The workings of democracy need to be learned first at the grassroot level - in towns, villages and small cities.
-  It is only if democracy can succeed at the grassroots level, that there is any hope of it succeeding at higher levels.
-
-Govmeeting's initial primary focus is on tools that work the best at the local level. Lessons learned there
-can help us fashion the tools we need at the regional, state and country level.
+Govmeeting's initial focus is on tools that work the best at the local level. Lessons learned there
+can help us build tools for the regional, state and country level.
 
 Govmeeting is  an  <a href="https://github.com/govmeeting/govmeeting"> open source project on Github. </a>
 

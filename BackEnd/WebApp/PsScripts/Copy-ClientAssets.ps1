@@ -50,7 +50,7 @@ Function Main
     # But we want to make absolutely sure. We will be deleting the contents of this folder.
     if (!($destination.ToLower().EndsWith($webapp)))
     {
-        echo "$me ERROR Current location should end with $webapp"
+        Write-Output "$me ERROR Current location should end with $webapp"
         exit
     }
 
@@ -59,20 +59,20 @@ Function Main
 
 
     $destAssets = join-path $destination $_destAssets
-    echo "$me destAssets is $destAssets"
+    Write-Output "$me destAssets is $destAssets"
     if (!(Test-Path $destAssets -pathType container))
     {
-        echo "$me ERROR $destAssets does not exist"
+        Write-Output "$me ERROR $destAssets does not exist"
         exit
     } 
 
     ##################   set assets source   ########################
     
     $sourceAssets = [IO.Path]::GetFullPath( (join-path $source $_sourceAssets) )
-    echo "$me sourceAssets is $sourceAssets"
+    Write-Output "$me sourceAssets is $sourceAssets"
     if (!(Test-Path $sourceAssets -pathType container))
     {
-        echo "$me ERROR $sourceAssets does not exist"
+        Write-Output "$me ERROR $sourceAssets does not exist"
         exit
     }
 
@@ -118,7 +118,7 @@ Function DeleteClientAssets($folder)
 # This solution depends on the fact that the folders in wwwroot/assets are only one level deep.
 
 
-   echo "$me Deleting existing files in $folder"
+   Write-Output "$me Deleting existing files in $folder"
    Get-Childitem $folder -File | ForEach-Object { 
         Remove-Item $_.FullName
     }
@@ -127,15 +127,15 @@ Function DeleteClientAssets($folder)
 
     if ((Test-Path $assetsFolder -pathType container))
     {
-        echo "$me Deleting existing files in $assetsFolder"
+        Write-Output "$me Deleting existing files in $assetsFolder"
         Get-Childitem $assetsFolder -File -Recurse| ForEach-Object { 
             Remove-Item $_.FullName-Force
         }
-        echo "$me Deleting existing folders in $assetsFolder"
+        Write-Output "$me Deleting existing folders in $assetsFolder"
         Get-Childitem $assetsFolder -Directory -Recurse| ForEach-Object { 
             Remove-Item $_.FullName-Force
         }
-        echo "$me Deleting $assetsFolder"
+        Write-Output "$me Deleting $assetsFolder"
         Remove-Item $assetsFolder
     }
 }
@@ -149,7 +149,7 @@ Function DeleteFolderContentsMax100($folder)
     $count = ( Get-ChildItem $folder -Recurse | Measure-Object ).Count
     if ($count -gt 100)
     {
-        echo "ERROR  $me There are $count items in $folder. Are you sure you want to delete it?"
+        Write-Output "ERROR  $me There are $count items in $folder. Are you sure you want to delete it?"
         exit
     }
 
@@ -160,11 +160,12 @@ Function DeleteFolderContentsMax100($folder)
 
 Function CopyFolderContents($source, $destination)
 {
-    echo "$me Copying $source to $destination"
+    Write-Output "$me Copying $source to $destination"
     $sourceContents = $source + "\*"
     Copy-item -Recurse $sourceContents -Destination $destination
 }
 
+Write-Host "############################ Copy-ClientAssets.ps1 ############################"
 
 # Execute Main function. This is excecuted first.
 # Main @args
