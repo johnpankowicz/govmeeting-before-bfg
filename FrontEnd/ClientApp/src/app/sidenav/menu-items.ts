@@ -53,7 +53,6 @@ let aboutpagesMenu = new NavItem(null, 'About', null,
     new NavItem(EntryType.docId, 'ClientApp', 'computer', 'dev-client-app'),
     new NavItem(EntryType.docId, 'WebApi', 'wifi', 'dev-webapi'),
     new NavItem(EntryType.docId, 'WorkflowApp', 'trending_up', 'dev-workflow-app'),
-    new NavItem(EntryType.docId, 'Other Apps', 'smartphone', 'dev-other-apps'),
     new NavItem(EntryType.docId, 'Database', 'smartphone', 'dev-database'),
   ])
 ])

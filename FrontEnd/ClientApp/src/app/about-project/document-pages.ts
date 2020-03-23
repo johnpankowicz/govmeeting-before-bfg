@@ -7,7 +7,6 @@
   "dev-client-app": "Client App",
   "dev-webapi": "WebApi",
   "dev-workflow-app": "Workflow App",
-  "dev-other-apps": "Other Apps",
   "dev-database": "Database",
   "system-design": "System Design"
 }

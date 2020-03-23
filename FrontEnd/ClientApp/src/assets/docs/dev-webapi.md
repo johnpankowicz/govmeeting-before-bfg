@@ -1,20 +1,3 @@
-## Disable authorization during development
-
-proofreading or adding tags, the "Save" button will call WebApi to save the changes. Normally the user
-needs to be logged in as "Proofreader" or "Editor" to do this. You can disable authorization by defining the C#
-preprocesser symbol "NOAUTH". This can be be done in FixasrController.cs or AddtagsController.cs for that
-controller. Un-comment the "#if NOAUTH" line at the top of the file.
-
-You can also define NOAUTH for the entire WebApp project. Either enter the following in WebApi.scproj.
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'>
-    <DefineConstants>NOAUTH</DefineConstants>
-    </PropertyGroup>
-
-or if using Visual Studio, go to WebApp property pages -> Build ->
-and enter NOAUTH in the "Conditional Compiliation Symbols" box.
-
-
 ## Add a new table to the database
 
 ## Add more fields to the database for the logged in user
