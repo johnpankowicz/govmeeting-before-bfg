@@ -3,10 +3,8 @@
   "purpose": "Purpose",
   "workflow": "Govmeeting Workflow",
   "project-status": "Project Status",
-  "dev-setup": "Setup & General Info",
-  "dev-client-app": "Client App",
-  "dev-webapi": "WebApi",
-  "dev-workflow-app": "Workflow App",
-  "dev-database": "Database",
+  "setup": "Setup",
+  "design-notes": "Design Notes",
+  "database": "Database",
   "system-design": "System Design"
 }

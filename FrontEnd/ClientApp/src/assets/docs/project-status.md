@@ -3,22 +3,32 @@
 
 # Implemented
 
-## Software frameworks for the main systems
- * Front End Angular app
- * Server side Asp.Net Web API
- * Server side .Net Workflow processing
-
+* Overall system design
+* Component libraries
+* Data Model / Relational database design.
+* Build and Publish scripts
 
 ## Frontend
- * Navigation and dashboard
- * User interface to proofread a transcript
- * User interface to add tags to a transcript
- * User interface to browse a processed transcript
+ * User interface design
+ * Framework for Navigation and dashboard
+ * Component to proofread a transcript
+ * Component to add tags to a transcript
+ * Component to browse a processed transcript
+ * Placeholders for various other components
+ * View Models
+ * Message services
 
 ## Backend
+* Asp.Net Web API
+* .Net Workflow processing framework
 * Transcribe a meeting recording using Google Speech Services.
+* Google Cloud access routines.
 * Auto-process an existing city transcript and extract the information.
-* Relational database design.
+* Database and File access routines
+* Repositories to abstract away file and database access
+* Component for handling multiple backups during transcript editing
+* Message logging
+
 
 ## Authentication
 * User registration and login
@@ -28,54 +38,67 @@
 
 # To Be Implemented
 
-## Critical pieces
-These are critical to the full operation of the software.
+* <b> Critical Components </b> - essential for the software to be usable.
+* <b> Needed Improvements </b> - important for easy usability.
+* <b> Priority </b> - would add much value.
+* <b> Extras </b> - could be added later.
+
+## Critical Components
 * Component to retrieve online transcripts and recordings.
-* Design and implement a "reputation" system.
-  <a href="https://github.com/govmeeting/govmeeting/issues/77">Issue #77</a>
+  <a href="https://github.com/govmeeting/govmeeting/issues/83">Issue #83</a>
 * Implement "Register Government Entity" feature.
   <a href="https://github.com/govmeeting/govmeeting/issues/62">Issue #62</a>
 * Work in Progress feature.
   <a href="https://github.com/govmeeting/govmeeting/issues/58">Issue #58</a>
-* Implement User Alerts feature Feature.
+* Implement User Alerts feature.
   <a href="https://github.com/govmeeting/govmeeting/issues/20">Issue #20</a>
 * Support multi-languages.
   <a href="https://github.com/govmeeting/govmeeting/issues/16">Issue #16</a>
-* Component to identify political sub-divisions based on user's location.
+* Component to identify political sub-divisions from user's location.
   <a href="https://github.com/govmeeting/govmeeting/issues/13">Issue #13</a>
+* Capture additional user info during user registration.
+  <a href="https://github.com/govmeeting/govmeeting/issues/47">Issue #47</a>
+* Implement a "Manager" component.
+  <a href="https://github.com/govmeeting/govmeeting/issues/84">Issue #84</a>
+* Design and implement a "reputation" system.
+  <a href="https://github.com/govmeeting/govmeeting/issues/77">Issue #77</a>
 
-## Improvements
-These improvements should to be implemented before a first release of the software.
-* Use Phrase Hints to improve accuracy of voice recognition
+## Needed Improvements
+* Improve accuracy of voice recognition.
   <a href="https://github.com/govmeeting/govmeeting/issues/66">Issue #66</a>
-* Improve Proofreading user interface
-* Improve Add Tags user interface
-* Improve View Meeting user interface
+* Improve Proofreading user interface.
+  <a href="https://github.com/govmeeting/govmeeting/issues/">Issue #</a>
+* Improve Add Tags user interface.
+  <a href="https://github.com/govmeeting/govmeeting/issues/">Issue #</a>
+* Improve View Meeting user interface.
+  <a href="https://github.com/govmeeting/govmeeting/issues/">Issue #</a>
+* Download and process panoramic images for location headers.
+  <a href="https://github.com/govmeeting/govmeeting/issues/76">Issue #76</a>
 
-## Extras
-Though all very useful, these could be added later.
+## Priority
 * Mobile app to record a meeting.
   <a href="https://github.com/govmeeting/govmeeting/issues/18">Issue #18</a>
 * Mobile app to use voice commands to proofread a meeting.
   <a href="https://github.com/govmeeting/govmeeting/issues/55">Issue #55</a>
-* Feature to enlist help with proofreading.
-  <a href="https://github.com/govmeeting/govmeeting/issues/69">Issue #69</a>
-* Download and process panoramic images for location headers.
-  <a href="https://github.com/govmeeting/govmeeting/issues/76">Issue #76</a>
-* Component to get political information about a government entity.
-  <a href="https://github.com/govmeeting/govmeeting/issues/74">Issue #74</a>
-* Re-write front-end Authentication code in Angular.
-  <a href="https://github.com/govmeeting/govmeeting/issues/73">Issue #73</a>
 * Addtags - make it a two step process?
   <a href="https://github.com/govmeeting/govmeeting/issues/67">Issue #67</a>
 * Addtags - filter view by section.
   <a href="https://github.com/govmeeting/govmeeting/issues/65">Issue #65</a>
-* Implement "Register Government Entity" feature.
-  <a href="https://github.com/govmeeting/govmeeting/issues/61">Issue #61</a>
-* Capture additional user info during Register.
-  <a href="https://github.com/govmeeting/govmeeting/issues/47">Issue #47</a>
 * Locate existing online transcripts or recordings.
   <a href="https://github.com/govmeeting/govmeeting/issues/13">Issue #13</a>
+
+## Extras
+* Component to get political information about a government entity.
+  <a href="https://github.com/govmeeting/govmeeting/issues/74">Issue #74</a>
+* Re-write front-end Authentication code in Angular.
+  <a href="https://github.com/govmeeting/govmeeting/issues/73">Issue #73</a>
+* Feature to enlist help with proofreading.
+  <a href="https://github.com/govmeeting/govmeeting/issues/69">Issue #69</a>
+* Create server WebApi for serving video files.
+  <a href="https://github.com/govmeeting/govmeeting/issues/61">Issue #61</a>
+* Implement a means to network multiple instances of Govmeeting systems
+  <a href="https://github.com/govmeeting/govmeeting/issues/">Issue #</a>
+
 
 
 # Production Systems
