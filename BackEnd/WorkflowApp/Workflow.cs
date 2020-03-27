@@ -31,7 +31,7 @@ namespace GM.Workflow
         private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
         private readonly ProcessFixedAsr _processFixedAsr;
         private readonly ProcessTagged _processTagged;
-        private readonly LoadTranscript _loadTranscript;
+        private readonly ILoadTranscript _loadTranscript;
 
         public WorkflowController(
             //ITestService testService,
@@ -41,7 +41,7 @@ namespace GM.Workflow
             ProcessIncomingFiles processIncomingFiles,
             ProcessFixedAsr processFixedAsr,
             ProcessTagged processTagged,
-            LoadTranscript loadTranscript
+            ILoadTranscript loadTranscript
             )
         {
             //_testService = testService;
