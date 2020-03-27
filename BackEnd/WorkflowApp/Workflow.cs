@@ -18,9 +18,8 @@ namespace GM.Workflow
         private readonly ProcessIncomingFiles _processNewFiles;
         private readonly ProcessFixedAsr _processFixedAsr;
         private readonly ProcessTagged _processTagged;
-        private readonly LoadTranscript _loadTranscript;
-        private readonly NotifyManager _notifyManager;
-
+        private readonly INotifyManager _notifyManager;
+        private readonly ILoadTranscript _loadTranscript;
 
         public WorkflowController(
             //ITestService testService,
@@ -30,8 +29,8 @@ namespace GM.Workflow
             ProcessIncomingFiles processIncomingFiles,
             ProcessFixedAsr processFixedAsr,
             ProcessTagged processTagged,
-            LoadTranscript loadTranscript,
-            NotifyManager notifyManager
+            INotifyManager notifyManager,
+            ILoadTranscript loadTranscript
             )
         {
             //_testService = testService;
@@ -41,6 +40,7 @@ namespace GM.Workflow
             _processNewFiles = processIncomingFiles;
             _processFixedAsr = processFixedAsr;
             _processTagged = processTagged;
+            _notifyManager = notifyManager;
             _loadTranscript = loadTranscript;
         }
 
@@ -68,7 +68,7 @@ namespace GM.Workflow
             // Load completed transcript data into database
             _loadTranscript.Run();
 
-            // Nnotify manager(s) if approval is needed.
+            // Notify manager(s) if approval is needed on any steps.
             _notifyManager.Run();
 
             System.Console.ReadKey();

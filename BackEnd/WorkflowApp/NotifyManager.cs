@@ -37,4 +37,24 @@ namespace GM.Workflow
         {
         }
     }
+
+    public interface INotifyManager
+    {
+        void Run();
+    }
+
+    public class NotifyManager_Stub : INotifyManager
+    {
+        AppSettings _config;
+
+        public NotifyManager_Stub( IOptions<AppSettings> config )
+        {
+            _config = config.Value;
+        }
+        public void Run()
+        {
+            // Check if any new files received.
+        }
+    }
+
 }
