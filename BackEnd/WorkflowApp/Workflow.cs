@@ -15,6 +15,7 @@ namespace GM.Workflow
         private readonly ILogger<WorkflowController> _logger;
         private readonly AppSettings _config;
         private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
+        private readonly ProcessReceivedFiles _processReceivedFiles;
         private readonly ProcessRecordings _processRecordings;
         private readonly ProcessTranscripts _processTranscripts;
         private readonly ProcessProofread _processFixedAsr;
@@ -26,9 +27,10 @@ namespace GM.Workflow
             IOptions<AppSettings> config,
             ILogger<WorkflowController> logger,
             RetrieveOnlineFiles retrieveOnlineFiles,
+            ProcessReceivedFiles processReceivedFiles,
             ProcessRecordings processRecordings,
             ProcessTranscripts processTranscripts,
-ProcessProofread processFixedAsr,
+            ProcessProofread processFixedAsr,
             ProcessTagged processTagged,
             ILoadTranscript loadTranscript
             )
@@ -37,6 +39,7 @@ ProcessProofread processFixedAsr,
             _logger = logger;
             _config = config.Value;
             _retrieveOnlineFiles = retrieveOnlineFiles;
+            _processReceivedFiles = processReceivedFiles;
             _processRecordings = processRecordings;
             _processTranscripts = processTranscripts;
             _processFixedAsr = processFixedAsr;
@@ -54,6 +57,9 @@ ProcessProofread processFixedAsr,
 
             // Retreive online transcripts or recordings
             _retrieveOnlineFiles.Run();
+
+            // Process received files
+            _processReceivedFiles.Run();
 
             // Process new recordings - auto speech recognition
             _processRecordings.Run();

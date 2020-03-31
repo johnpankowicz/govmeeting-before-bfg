@@ -95,6 +95,8 @@ ___
 
 The status of the workflow for a specific meeting is kept in its Meeting record in the database. Each of the workflow components operates independently. They are each called in turn to check for available work. Each component will query the database for meetings matching their criteria for available work. If work is found, they will perform it and update the meeting's status in the database. 
 
+In order to build a robust system, that can recover from failures, we need to treat steps in the workflow as "transactions". A transaction either completes fully or not at all. If there are  unrecoverable failures during a processing step, the state for that meeting rolls back to the last valid state. 
+
 Pseudo code is given below for the components
 
 * RetreiveOnlineFiles

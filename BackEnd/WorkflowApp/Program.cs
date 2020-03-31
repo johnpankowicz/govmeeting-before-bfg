@@ -35,6 +35,8 @@ namespace GM.Workflow
             // create service provider
             var serviceProvider = services.BuildServiceProvider();
 
+            //var m = serviceProvider.GetService<IMeetingRepository>();
+
             // Copy test data to Datafiles
             var config = serviceProvider.GetService<IOptions<AppSettings>>().Value;
             string testfilesPath = config.TestfilesPath;
@@ -88,6 +90,7 @@ namespace GM.Workflow
             services.AddTransient<ApplicationDbContext>();
             services.AddTransient<dBOperations>();
             services.AddTransient<RetrieveOnlineFiles>();
+            services.AddTransient<ProcessReceivedFiles>();
             services.AddTransient<ProcessRecordings>();
             services.AddTransient<ProcessTranscripts>();
             services.AddTransient<RecordingProcess>();

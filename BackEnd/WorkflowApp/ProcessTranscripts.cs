@@ -28,13 +28,13 @@ namespace GM.Workflow
 
         AppSettings _config;
         MeetingFolder _meetingFolder;
-        TranscriptProcess _processTranscript;
+        TranscriptProcess _transcriptProcess;
         IMeetingRepository _meetingRepository;
         IGovBodyRepository _govBodyRepository;
 
         public ProcessTranscripts(
             IOptions<AppSettings> config,
-            TranscriptProcess processTranscript,
+            TranscriptProcess transcriptProcess,
             MeetingFolder meetingFolder,
             IMeetingRepository meetingRepository,
             IGovBodyRepository govBodyRepository
@@ -42,7 +42,7 @@ namespace GM.Workflow
         {
             _config = config.Value;
             _meetingFolder = meetingFolder;
-            _processTranscript = processTranscript;
+            _transcriptProcess = transcriptProcess;
             _meetingRepository = meetingRepository;
             _govBodyRepository = govBodyRepository;
         }
@@ -62,31 +62,7 @@ namespace GM.Workflow
 
         public void doWork(Meeting meeting)
         {
-            string x = meeting.SourceFilename;
-
-            //string path = _config.DatafilesPath + @"\RECEIVED\" + meeting.SourceFilename;
-            // Create a MeetingInfo instance. This takes the info in the filename string, for example,
-            // "USA_TX_TravisCounty_Austin_CityCouncil_en/2017-12-14" and puts it into a strongly typed object.
-            if (!_meetingFolder.SetFields(meeting.SourceFilename))
-            {
-                // If this is not a valid name, skip it.
-                Console.WriteLine($"ProcessIncomingFiles.cs - filename is invalid: {meeting.SourceFilename}");
-                return;
-            }
-
-            // Check if there is a database record for this government body.
-            long govBodyId = _govBodyRepository.GetId(
-                _meetingFolder.country,
-                _meetingFolder.state,
-                _meetingFolder.county,
-                _meetingFolder.municipality);
-
-            // Check if there is database record for this meeting.
-            long Id = _meetingFolder.GetId();
-            Meeting meeting = _meetingRepository.Get(govBodyId, DateTime.Parse(_meetingFolder.date));
-
-
-            string meetingFolder = _config.DatafilesPath + "\\PROCESSING\\" + _meetingFolder.path;
+            string workFolderPath = _config.DatafilesPath + "\\PROCESSING\\" + _meetingFolder.path;
             string language = _meetingFolder.language;
 
             // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
@@ -96,34 +72,16 @@ namespace GM.Workflow
 
             //}
 
-            if (!FileDataRepositories.GMFileAccess.CreateDirectory(meetingFolder))
+            if (!FileDataRepositories.GMFileAccess.CreateDirectory(workFolderPath))
             {
                 // We were not able to create a folder for processing this video.
                 // Probably because the folder already exists.
-                Console.WriteLine("ProcessIncomingFiles.cs - ERROR: could not create meeting folder");
+                Console.WriteLine("ProcessTranscriptsFiles.cs - ERROR: could not create work folder");
                 return;
             }
 
-            FileInfo file = new FileInfo(filename);
-            string extension = file.Extension;
-            switch (extension)
-            {
-                case ".pdf":
-                case ".txt":
-                    _processTranscript.Process(filename, meetingFolder, language);
-                    break;
-                case ".mp4":
-                    _processRecording.Process(filename, meetingFolder, language);
-                    break;
-            }
-
-            //// Move the original file to "COMPLETED" folder
-            //if (_config.MoveIncomingFileAfterProcessing)
-            //{
-            //    MoveFileToProcessedFolder(filename);
-            //}
+            _transcriptProcess.Process(meeting.SourceFilename, workFolderPath, language);
         }
-
         //private void MoveFileToProcessedFolder(string filename)
         //{
         //    string processedPath = _config.DatafilesPath + @"\COMPLETED";
