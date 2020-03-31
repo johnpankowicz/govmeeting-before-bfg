@@ -54,9 +54,9 @@ namespace GM.FileDataRepositories
 
         public string GetWorkFolderPath(long meetingId)
         {
-            string meetingFolder = _meetingFolder.GetNameFromId(meetingId);
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
             string workFolder = meetingFolder + "\\" + WORK_FOLDER_NAME;
-            string workFolderPath = Path.Combine(_config.DatafilesPath, workFolder);
+            string workFolderPath = Path.Combine(_config.DatafilesPath, "PROCESSING", workFolder);
             return workFolderPath;
         }
     }

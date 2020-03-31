@@ -15,10 +15,10 @@ namespace GM.Workflow
         private readonly ILogger<WorkflowController> _logger;
         private readonly AppSettings _config;
         private readonly RetrieveOnlineFiles _retrieveOnlineFiles;
-        private readonly ProcessIncomingFiles _processNewFiles;
-        private readonly ProcessFixedAsr _processFixedAsr;
+        private readonly ProcessRecordings _processRecordings;
+        private readonly ProcessTranscripts _processTranscripts;
+        private readonly ProcessProofread _processFixedAsr;
         private readonly ProcessTagged _processTagged;
-        private readonly INotifyManager _notifyManager;
         private readonly ILoadTranscript _loadTranscript;
 
         public WorkflowController(
@@ -26,10 +26,10 @@ namespace GM.Workflow
             IOptions<AppSettings> config,
             ILogger<WorkflowController> logger,
             RetrieveOnlineFiles retrieveOnlineFiles,
-            ProcessIncomingFiles processIncomingFiles,
-            ProcessFixedAsr processFixedAsr,
+            ProcessRecordings processRecordings,
+            ProcessTranscripts processTranscripts,
+ProcessProofread processFixedAsr,
             ProcessTagged processTagged,
-            INotifyManager notifyManager,
             ILoadTranscript loadTranscript
             )
         {
@@ -37,10 +37,10 @@ namespace GM.Workflow
             _logger = logger;
             _config = config.Value;
             _retrieveOnlineFiles = retrieveOnlineFiles;
-            _processNewFiles = processIncomingFiles;
+            _processRecordings = processRecordings;
+            _processTranscripts = processTranscripts;
             _processFixedAsr = processFixedAsr;
             _processTagged = processTagged;
-            _notifyManager = notifyManager;
             _loadTranscript = loadTranscript;
         }
 
@@ -48,28 +48,27 @@ namespace GM.Workflow
         {
             _logger.LogInformation($"Start Workflow - datafilesPath = {_config.DatafilesPath}");
 
-            string testfilesPath = _config.TestfilesPath;
-            string datafilesPath = _config.DatafilesPath;
-            InitializeFileTestData.CopyTestData(testfilesPath, datafilesPath);
+            //string testfilesPath = _config.TestfilesPath;
+            //string datafilesPath = _config.DatafilesPath;
+            //InitializeFileTestData.CopyTestData(testfilesPath, datafilesPath);
 
             // Retreive online transcripts or recordings
             _retrieveOnlineFiles.Run();
 
-            // Process new files - auto speech recognition of recordings and
-            // pre-processing of transcript files
-            _processNewFiles.Run();
+            // Process new recordings - auto speech recognition
+            _processRecordings.Run();
 
-            // Process the fixed transcripts to get ready for tagging
+            // Processing new transcript files
+            _processTranscripts.Run();
+
+            // Process the proofread transcripts to get ready for tagging
             _processFixedAsr.Run();
 
-            // Process tagged transcripts - Create browsable transcript and get ready for loading database
+            // Process tagged transcripts to be ready for viewing
             _processTagged.Run();
 
             // Load completed transcript data into database
             _loadTranscript.Run();
-
-            // Notify manager(s) if approval is needed on any steps.
-            _notifyManager.Run();
 
             System.Console.ReadKey();
         }

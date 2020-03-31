@@ -9,28 +9,27 @@ using GM.DatabaseModel;
 
 namespace GM.FileDataRepositories
 {
-    // Work folders under Datafiles are named as follows:
-    //    <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>/<date>
-    // THe purpose of this class is to build this name from its parts or to extact the parts from a folder name.
-    // If a meeting ID is passed to GetPathFromId, it will first look up the  meeting info in the database and then build the path.
-    // For example:
-    //      country = "USA"
-    //      state = "PA"
-    //      city = "Philadelphia"
-    //      county = "Philadelphia"
-    //      gov-entity = "CityCouncil"
-    //      language = "en"
-    //      date = "2016-03-17"
-    // uses this folder:
-    //     "Datafiles/USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2016-03-17"
-    //
-    //  
+    // When a new transcript or recording is received by the system,
+    //   the convention for naming the file is:
+    //   <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>_<date>.<extension>
+    //   For example: USA_PA_Philadelphia_Philadelphia_CityCouncil_en_2017-12-07.pdf
+    // When the new file is received, a database record is created for this meeting.
+    // One may also be created for the government body, if this is the 
+    //   first first meeting ever seen for this governement body.
+    // The work folder for processing the meeting file is created as follows:
+    //   <country>_<state>_<county>_<town-or-city>_<gov-entity>_<language>/<date>
+    //   For example: USA_PA_Philadelphia_Philadelphia_CityCouncil_en/2017-12-07
+    // 
+    // The purpose of this class is to convert between three ways of designating the meeting:
+    //   1. the original received filename for this meeting
+    //   2. the path of the work folder for this meeting
+    //   3. the MeetingId in the database for this meeting.
 
     public class MeetingFolder
     {
         IMeetingRepository _meetingRepository;          // database meeting repository
         IGovBodyRepository _govBodyRepository;          // database govbody repository
-
+   
         public string filename { get; private set; }
         public string path { get; private set; }
         public string location { get; private set; }
@@ -54,10 +53,36 @@ namespace GM.FileDataRepositories
             valid = false;
         }
 
-        public string GetNameFromId(long meetingId)
+        public string GetPathFromId(long meetingId)
         {
             SetFields(meetingId);
             return path;
+        }
+
+        // Get ID of meeting if it exists in database
+        public long GetId()
+        {
+            //GovernmentBody g = new GovernmentBody();
+            //g.Country = country;
+            //g.State = state;
+            //g.County = county;
+            //g.Municipality = municipality;
+
+            long govBodyId = _govBodyRepository.GetId(country, state, county, municipality);
+            Meeting m = new Meeting();
+            m.GovernmentBodyId = govBodyId;
+            m.Date = DateTime.Parse(date);
+            long Id = _meetingRepository.GetId(m);
+            return Id;
+        }
+
+        public long GetIdFromPath(string filename)
+        {
+            if (SetFields(filename))
+            {
+                return GetId();
+            }
+            return -1;
         }
 
 

@@ -68,8 +68,8 @@ namespace GM.FileDataRepositories
             // We need to get the work path that is used for this meeting.
             // GetPathFromId will first get the information about the meeting from the database.
             // Then it will build the path name of the work folder.
-            string meetingFolder = _meetingFolder.GetNameFromId(meetingId);
-            string workFolder = meetingFolder + "\\" + WORK_FOLDER_NAME;
+            string meetingFolder = _meetingFolder.GetPathFromId(meetingId);
+            string workFolder = meetingFolder + "\\PROCESSING\\" + WORK_FOLDER_NAME;
             string workFolderPath = Path.Combine(_config.DatafilesPath, workFolder);
             return workFolderPath;
         }

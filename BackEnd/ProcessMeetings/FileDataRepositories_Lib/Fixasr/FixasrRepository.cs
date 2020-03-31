@@ -55,9 +55,9 @@ namespace GM.FileDataRepositories
 
         private string GetPartFolder(long meetingId, int part)
         {
-            string meetingFolderPath = meetingFolder.GetNameFromId(meetingId);
+            string meetingFolderPath = meetingFolder.GetPathFromId(meetingId);
 
-            string workFolder = meetingFolderPath + "\\" + WORK_FOLDER_NAME;
+            string workFolder = meetingFolderPath + "\\PROCESSING\\" + WORK_FOLDER_NAME;
             string partFolder = workFolder + $"\\part{part:D2}";
             string partFolderPath = Path.Combine(datafiles, partFolder);
 
