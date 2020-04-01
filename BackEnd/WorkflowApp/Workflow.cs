@@ -62,7 +62,7 @@ namespace GM.Workflow
             _processReceivedFiles.Run();
 
             // Process new recordings - auto speech recognition
-            _processRecordings.Run();
+//            _processRecordings.Run();
 
             // Processing new transcript files
             _processTranscripts.Run();

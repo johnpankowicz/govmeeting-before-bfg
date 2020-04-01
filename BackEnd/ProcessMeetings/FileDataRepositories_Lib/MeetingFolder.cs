@@ -27,8 +27,8 @@ namespace GM.FileDataRepositories
 
     public class MeetingFolder
     {
-        IMeetingRepository _meetingRepository;          // database meeting repository
-        IGovBodyRepository _govBodyRepository;          // database govbody repository
+        //IMeetingRepository _meetingRepository;          // database meeting repository
+        //IGovBodyRepository _govBodyRepository;          // database govbody repository
    
         public string filename { get; private set; }
         public string path { get; private set; }
@@ -44,46 +44,45 @@ namespace GM.FileDataRepositories
 
 
         public MeetingFolder(
-            IMeetingRepository meetingRepository,
-            IGovBodyRepository govBodyRepository
+            //IMeetingRepository meetingRepository,
+            //IGovBodyRepository govBodyRepository
         )
         {
-            _meetingRepository = meetingRepository;
-            _govBodyRepository = govBodyRepository;
             valid = false;
         }
 
-        public string GetPathFromId(long meetingId)
-        {
-            SetFields(meetingId);
-            return path;
-        }
+
+        //public string GetPathFromId(long meetingId)
+        //{
+        //    SetFields(meetingId);
+        //    return path;
+        //}
 
         // Get ID of meeting if it exists in database
-        public long GetId()
-        {
-            //GovernmentBody g = new GovernmentBody();
-            //g.Country = country;
-            //g.State = state;
-            //g.County = county;
-            //g.Municipality = municipality;
+        //public long GetId()
+        //{
+        //    //GovernmentBody g = new GovernmentBody();
+        //    //g.Country = country;
+        //    //g.State = state;
+        //    //g.County = county;
+        //    //g.Municipality = municipality;
 
-            long govBodyId = _govBodyRepository.GetId(country, state, county, municipality);
-            Meeting m = new Meeting();
-            m.GovernmentBodyId = govBodyId;
-            m.Date = DateTime.Parse(date);
-            long Id = _meetingRepository.GetId(m);
-            return Id;
-        }
+        //    long govBodyId = _govBodyRepository.GetId(country, state, county, municipality);
+        //    Meeting m = new Meeting();
+        //    m.GovernmentBodyId = govBodyId;
+        //    m.Date = DateTime.Parse(date);
+        //    long Id = _meetingRepository.GetId(m);
+        //    return Id;
+        //}
 
-        public long GetIdFromPath(string filename)
-        {
-            if (SetFields(filename))
-            {
-                return GetId();
-            }
-            return -1;
-        }
+        //public long GetIdFromPath(string filename)
+        //{
+        //    if (SetFields(filename))
+        //    {
+        //        return GetId();
+        //    }
+        //    return -1;
+        //}
 
 
         public string MeetingFolderFullPath(string datafiles)
@@ -117,28 +116,46 @@ namespace GM.FileDataRepositories
             }
             return valid;
         }
-
-        public bool SetFields(long meetingId)
+        public bool SetFields(string _country, string _state, string _county, string _municipality, DateTime _date, string _governmentBody, string _language)
         {
-            Meeting meeting = _meetingRepository.Get(meetingId);
-            GovernmentBody govBody = _govBodyRepository.Get(meeting.GovernmentBodyId);
+            date = string.Format("{0:yyyy-MM-dd}", _date);
 
-            date = string.Format("{0:yyyy-MM-dd}", meeting.Date);
-            location = govBody.Country + "_" + govBody.State + "_" + govBody.County + "_" + govBody.Municipality +
-                "_" + govBody.Name + "_" + govBody.Languages[0].Name;
+            country = _country;
+            state = _state;
+            county = _county;
+            municipality = _municipality;
+            governmentBody = _governmentBody;
+            language = _language;
+
+            location = country + "_" + state + "_" + county + "_" + municipality + "_" + governmentBody + "_" + language;
             filename = location + "_" + date;
             path = location + "\\" + date;
-
-            country = govBody.Country;
-            state = govBody.State;
-            county = govBody.County;
-            municipality = govBody.Municipality;
-            governmentBody = govBody.Name;
-            language = govBody.Languages[0].Name;
 
             valid = true;
             return valid;
         }
+
+        //public bool SetFields(long meetingId)
+        //{
+        //    Meeting meeting = _meetingRepository.Get(meetingId);
+        //    GovernmentBody govBody = _govBodyRepository.Get(meeting.GovernmentBodyId);
+
+        //    date = string.Format("{0:yyyy-MM-dd}", meeting.Date);
+        //    location = govBody.Country + "_" + govBody.State + "_" + govBody.County + "_" + govBody.Municipality +
+        //        "_" + govBody.Name + "_" + govBody.Languages[0].Name;
+        //    filename = location + "_" + date;
+        //    path = location + "\\" + date;
+
+        //    country = govBody.Country;
+        //    state = govBody.State;
+        //    county = govBody.County;
+        //    municipality = govBody.Municipality;
+        //    governmentBody = govBody.Name;
+        //    language = govBody.Languages[0].Name;
+
+        //    valid = true;
+        //    return valid;
+        //}
 
         //public string GetPartFolder(long meetingId, int part, string workfolderName, string datafiles)
         //{

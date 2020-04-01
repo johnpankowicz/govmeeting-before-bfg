@@ -94,7 +94,7 @@ namespace GM.Workflow
                 _meetingFolder.municipality);
 
             // Check if there is database record for this meeting.
-            long Id = _meetingFolder.GetId();
+            //long Id = _meetingFolder.GetId();
             Meeting meeting = _meetingRepository.Get(govBodyId, DateTime.Parse(_meetingFolder.date));
 
 

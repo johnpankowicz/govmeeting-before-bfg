@@ -27,31 +27,31 @@ namespace GM.Workflow
         */
 
         AppSettings _config;
-        MeetingFolder _meetingFolder;
-        TranscriptProcess _transcriptProcess;
-        IMeetingRepository _meetingRepository;
-        IGovBodyRepository _govBodyRepository;
+        MeetingFolder meetingFolder;
+        TranscriptProcess transcriptProcess;
+        IMeetingRepository meetingRepository;
+        IGovBodyRepository govBodyRepository;
 
         public ProcessTranscripts(
             IOptions<AppSettings> config,
-            TranscriptProcess transcriptProcess,
-            MeetingFolder meetingFolder,
-            IMeetingRepository meetingRepository,
-            IGovBodyRepository govBodyRepository
+            TranscriptProcess _transcriptProcess,
+            MeetingFolder _meetingFolder,
+            IMeetingRepository _meetingRepository,
+            IGovBodyRepository _govBodyRepository
            )
         {
             _config = config.Value;
-            _meetingFolder = meetingFolder;
-            _transcriptProcess = transcriptProcess;
-            _meetingRepository = meetingRepository;
-            _govBodyRepository = govBodyRepository;
+            meetingFolder = _meetingFolder;
+            transcriptProcess = _transcriptProcess;
+            meetingRepository = _meetingRepository;
+            govBodyRepository = _govBodyRepository;
         }
 
         // Watch the incoming folder and process new files as they arrive.
         public void Run()
         {
 
-            List<Meeting> meetings = _meetingRepository.FindAll(SourceType.Transcript, WorkStatus.Received, true);
+            List<Meeting> meetings = meetingRepository.FindAll(SourceType.Transcript, WorkStatus.Received, true);
 
             foreach (Meeting meeting in meetings)
             {
@@ -62,8 +62,12 @@ namespace GM.Workflow
 
         public void doWork(Meeting meeting)
         {
-            string workFolderPath = _config.DatafilesPath + "\\PROCESSING\\" + _meetingFolder.path;
-            string language = _meetingFolder.language;
+
+            GovernmentBody g = govBodyRepository.Get(meeting.GovernmentBodyId);
+            string language = g.Languages[0].Name;
+            meetingFolder.SetFields(g.Country, g.State, g.County, g.Municipality, meeting.Date, g.Name, language);
+
+            string workFolderPath = _config.DatafilesPath + "\\PROCESSING\\" + meetingFolder.path;
 
             // FOR DEVELOPMENT: WE DELETE PRIOR MEETING FOLDER IF IT EXISTS.
             //if (_config.IsDevelopment)
@@ -80,8 +84,10 @@ namespace GM.Workflow
                 return;
             }
 
-            _transcriptProcess.Process(meeting.SourceFilename, workFolderPath, language);
+            string sourceFilePath = _config.DatafilesPath + "\\RECEIVED\\" + meeting.SourceFilename;
+            transcriptProcess.Process(sourceFilePath, workFolderPath, language);
         }
+
         //private void MoveFileToProcessedFolder(string filename)
         //{
         //    string processedPath = _config.DatafilesPath + @"\COMPLETED";

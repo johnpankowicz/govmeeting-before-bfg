@@ -32,7 +32,9 @@ namespace GM.DatabaseRepositories
         public Meeting Get(long govBodyId, DateTime datetime)
         {
             Meeting m = testMeetings.Find(element =>
-               (element.GovernmentBodyId == govBodyId)
+               (element.GovernmentBodyId == govBodyId) &&
+               (element.Date == datetime)
+
             );
             return m;
         }
@@ -40,9 +42,9 @@ namespace GM.DatabaseRepositories
         public List<Meeting> FindAll(SourceType? sourceType, WorkStatus? workStatus, bool? approved)
         {
             List<Meeting> meetings = testMeetings.FindAll(element =>
-               (sourceType == null) || (element.SourceType == sourceType) &&
-               (workStatus == null) || (element.WorkStatus == workStatus) &&
-               (approved == null) || (element.Approved == approved)
+               ((sourceType == null) || (element.SourceType == sourceType)) &&
+               ((workStatus == null) || (element.WorkStatus == workStatus)) &&
+               ((approved == null) || (element.Approved == approved))
             );
             return meetings;
         }
