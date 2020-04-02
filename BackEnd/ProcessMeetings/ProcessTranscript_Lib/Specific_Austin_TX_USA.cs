@@ -3,7 +3,7 @@ using ProcessTranscript_Lib;
 
 namespace GM.ProcessTranscript
 {
-    class Specific_Austin_TX_USA
+    class Specific_Austin_TX_USA : ISpecificFix
     {
         private string transcriptText;
         private string officersNames = "";

@@ -7,19 +7,25 @@ using System.Text.RegularExpressions;
 
 namespace GM.ProcessTranscript
 {
-    public class Specific_Philadelphia_PA_USA
+    interface ISpecificFix
+    {
+        string Fix(string _transcript);
+    }
+
+
+    public class Specific_Philadelphia_PA_USA : ISpecificFix
     {
         // original PDF sources at: http://legislation.phila.gov/council-transcriptroom/
 
         private string transcriptText;
-        private string meetingInfo;
-        private string officersNames;
+        private string meetingInfo = "";
+        private string officersNames = "";
         CommonFixes cf = new CommonFixes();
         LogProgress lp;
 
-        public Specific_Philadelphia_PA_USA(string logDirectory)
+        public Specific_Philadelphia_PA_USA(string workfolder)
         {
-            lp = new LogProgress(logDirectory);
+            lp = new LogProgress(workfolder);
         }
 
         public string Fix(string _transcript)

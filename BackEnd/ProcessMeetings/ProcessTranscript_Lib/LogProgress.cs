@@ -9,14 +9,13 @@ namespace ProcessTranscript_Lib
     {
         string officersNames;
         string meetingInfo;
-        //protected string meetingDate;
-        string logDirectory;
+        string workfolder;
 
         int step = 1;
 
-        public LogProgress(string _logDirectory)
+        public LogProgress(string _workfolder)
         {
-            logDirectory = _logDirectory;
+            workfolder = _workfolder;
         }
 
         public void SetParts(string info, string names)
@@ -27,7 +26,7 @@ namespace ProcessTranscript_Lib
 
         public void Log(string fix_step, string transcriptText)
         {
-            string outputFile = logDirectory + "\\" + "2-" + step + " " + fix_step + ".txt";
+            string outputFile = workfolder + "\\" + "2-" + step + " " + fix_step + ".txt";
             step++;
 
             File.WriteAllText(outputFile, meetingInfo + "-----------------------------\n" + officersNames + "-----------------------------\n" + transcriptText);
