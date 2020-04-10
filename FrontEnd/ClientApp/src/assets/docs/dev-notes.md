@@ -1,4 +1,4 @@
-# Modifying the Client Dashboard
+# Modifying the Dashboard
 
 ## Add a new new card for new feature </h4>
 
@@ -28,22 +28,3 @@ The log files for WebApp and WorkflowApp are in the folder "logs" at the root of
 At the top of many of the component files in ClientApp, a const "NoLog" is defined.
 Change its value from true to false to turn on console logging for only that component.
 
-# Workflow App
-
-The  project "WorkflowApp" in folder "govmeeting/BackEnd/WorkflowApp" does all the auto-processing of recordings and transcripts.
-It also co-ordinates manual processing with auto-processing.
-
-When the project runs, it watches for new files to arrive into the folder "Datafiles/RECEIVED".
-
-If the new file is a video,
-it does speech recognition to produce a transcript. The transcript can be found in the "Datafiles/WORK" folder in a subfolder named after
-the government agency whose meeting it is for. This transcript is
-now ready to be proofread.
-
-If the new file is text (.pdf or .txt), it processes it and
-produces a JSON object that has the contents of the transcript in a structured format.
-Separate fields in this object will contain spoken text, the name of the speaker, setion name, etc.
-
-While processing it outputs trace files to the Datafiles/WORK folder. Each trace file contains the complete text of the transcript, after each particular fix is applied.
-Therefore if the final fixed transcript contains strange or invalid text, it is easy to trace
-back to where those errors were introduced.
