@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title class="cardtitle">System Design</mat-card-title>
+  <mat-card-title class="cardtitle">Design</mat-card-title>
 
 <markdown ngPreserveWhitespaces>
 
