@@ -1,3 +1,5 @@
+<!-- Note the controller for this page is app/about-project/sys-desigh/sys-design.ts -->
+
 <mat-card>
   <mat-card-title class="cardtitle">Design</mat-card-title>
 
