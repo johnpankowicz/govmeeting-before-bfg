@@ -1,8 +1,21 @@
+<a name="Contents"></a>
+# Contents
+* <a href="about?id=setup#InstallTools"> Install tools and clone repository </a>
+* <a href="about?id=setup#DevelopVsCode"> Develop with VsCode </a>
+* <a href="about?id=setup#DevelopVS"> Develop with Visual Studio </a>
+* <a href="about?id=setup#DevelopOther"> Develop on other platforms </a>
+* <a href="about?id=setup#Database"> Database </a>
+* <a href="about?id=setup#GoogleCloud"> Google Cloud Platform account </a>
+* <a href="about?id=setup#GoogleApi"> Google API Keys </a>
+
 These documentation pages can be found in FrontEnd/ClientApp/src/app/assets/docs. Please make corrections there and issue
 a <a href="https://github.com/govmeeting/govmeeting"> pull request on Gitub. </a>
 
 --------------------------------------------------------------
-# Install tools and clone repository
+<a name="InstallTools"></a>
+
+# Install tools and clone repository <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 * Install git.  <a href="https://gitforwindows.org"> Git for Windows </a>, <a href="https://git-scm.com/download/mac"> Git for Mac </a>
 * Install <a href="https://nodejs.org/en/download/"> Node.js. </a>
@@ -15,7 +28,10 @@ Open a console (teminal) window
 The "_SECRETS" folder is for keys and passwords that are not stored in the public repository.
 
 --------------------------------------------------------------
-# Develop with VsCode
+<a name="DevelopVsCode"></a>
+
+# Develop with VsCode <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 ## Install VsCode
 * Install <a href="https://code.visualstudio.com/download"> Visual Studio Code <a> and start it.
@@ -24,6 +40,7 @@ The "_SECRETS" folder is for keys and passwords that are not stored in the publi
   * "C# for Visual Studio Code" by Microsoft
   * "SQL Server (mssql)" by Microsoft
   * "Todo Tree" by Gruntfuggly - shows TODO lines in code (optional)
+  * "Powershell" by Microsoft - for debugging Powershell build scripts (optional)
 
 ## Debug/Run ClientApp & WebApp
 
@@ -70,10 +87,13 @@ When the WorkflowApp starts it:
 * Processes the transcript PDF file and creates a JSON file ready to be tagged.
 * Process the recording MP4 file by transcribing it in the cloud and creates a JSON file ready to be proofread.
 
-The results can be found in Datafiles/PROCESSING. 
+The results can be found in Datafiles/PROCESSING. However, you will first need to  setup a <a href="about?id=setup#GoogleCloud">Google Cloud account </a>, for the recording to be transcribed.
 
 --------------------------------------------------------------
-# Develop with Visual Studio
+<a name="DevelopVS"></a>
+
+# Develop with Visual Studio <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 * Install  the free <a href="https://visualstudio.microsoft.com/free-developer-offers/"> Visual Studio Community Edition. </a>
 *  During installation, select both the "ASP.NET" and the ".NET desktop" workloads.
@@ -102,7 +122,12 @@ Note: See notes for WorkflowApp under "Visual Studio Code"
 
 
 --------------------------------------------------------------
-# Develop on other platforms
+<a name="DevelopOther"></a>
+
+# Develop on other platforms <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
+
+In your profile, set the environment variable, ASPNETCORE_ENVIRONMENT, to "Development". This is used by WebApp and WorkflowApp.
 
 ## Build and run ClientApp
 
@@ -142,7 +167,10 @@ Note: See notes for WorkflowApp under "Visual Studio Code"
 
 --------------------------------------------------------------
 
-# Database
+<a name="Database"></a>
+
+# Database <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 You may not need to install and setup the database. There are test stubs that substitute for calling database. See "Test Stubs" below.
  
@@ -227,7 +255,10 @@ You can use the "NOAUTH" pre-processor value in WebApp to bypass authentication.
 and enter NOAUTH in the "Conditional Compiliation Symbols" box.
 
 --------------------------------------------------------------
-# Google Cloud Platform account
+<a name="GoogleCloud"></a>
+
+# Google Cloud Platform account <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 To use the Google Speech APIs for speech-to-text conversion, you need a Google Cloud Platform (GCP) account. For most development work in Govmeeting, you will not need this. You can use existing test data.
 To process new input, you will a GCP. The API recognizes more than 120 languages and variants.
@@ -267,7 +298,10 @@ NOTE: The above steps may have changed slightly. If so, please update this docum
   set to "180". This causes the transcription routine in ProcessRecording_Lib to process only the first 180 seconds of the recording.
 
 --------------------------------------------------------------
-# Google API Keys
+<a name="GoogleApi"></a>
+
+# Google API Keys <br/>
+<a href="about?id=setup#Contents"> [Contents] </a>
 
 You will need these keys if you want to use or work on certain features of the registration and login process.
 
@@ -302,15 +336,3 @@ Create a file named "appsettings.Development.json" in the "_SECRETS" folder. It 
 * Run the WebApp project.
 * Click on "Login" in the upper right.
 * Under "Use another service to log in", choose "Google".
-
-___
-## Application Environment
-
-ASP.NET Core references a particular environment variable, ASPNETCORE_ENVIRONMENT to describe the environment the application is currently running in. This variable can be set to any value you like, but three values are used by convention: Development, Staging, and Production.
-
-In Visual Studio, the value is set in the project properties under the Debug tab.
-
-In Visual Studio, the value is defined in .vscode/launch.json
-
-In other setups, you will need to set it as an environment variable.
-

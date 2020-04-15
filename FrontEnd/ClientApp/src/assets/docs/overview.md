@@ -44,13 +44,15 @@ People will then be able to:
 
 <!-- END OF README SECTION -->
 
+<a name="continued"></a>
+
 ## Problems with current access
 
 Getting access to this kind of information is difficult today. Only a few large cities make transcripts of their meetings available. 
 And these are often difficult to obtain and use.
 
 
-Here is a sample page from a Philadelphia transcript.
+Philadelphia is the 6th largest city in the U.S. Here is a sample page from a Council transcript.
 It's 154 pages of double-spaced lines, 10-words-per-line. It's in PDF format, making it unusable on small screens, since the size can't be adjusted.
 
 </markdown>
@@ -71,8 +73,7 @@ Click:
 <markdown ngPreserveWhitespaces>
 
 
-New York City is the largest city in the U.S. It produces transcripts of city council meetings. But trying to get them is not easy.
-Their website states that you need to go in person to the city clerk's office and pay $1 per page or $20 for an electronic copy.
+New York City is the largest city in the U.S. It also produces transcripts of city council meetings. But trying to get them is not easy. You need to file a request and pay $1 per page or $20 for an electronic copy of each meeting.
 
 ## The Focus 
 

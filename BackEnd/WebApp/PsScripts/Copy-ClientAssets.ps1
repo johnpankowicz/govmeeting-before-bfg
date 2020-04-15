@@ -9,11 +9,11 @@ Function Main
         [Parameter(Mandatory = $true, Position = 1)] [string] $source
     )
 
-    $usage = "@
-    Usage: Copy-ClientAssets <source-folder>
-    #    <source-folder> - Angular ClientApp folder relative to the WebApp
-    # Copy contents of ClientApp/dist/ClientApp to WebApp/wwwroot.
-@"
+#     $usage = "@
+#     Usage: Copy-ClientAssets <source-folder>
+#     #    <source-folder> - Angular ClientApp folder relative to the WebApp
+#     # Copy contents of ClientApp/dist/ClientApp to WebApp/wwwroot.
+# @"
     $me = "Copy-ClientAssets: "
 
     $GOVMEETING = $true
