@@ -28,11 +28,11 @@ bld/
 
 # Govmeeting
 # track the subfolders but not the files in WebApp/wwwroot
-WebApp/wwwroot/*
-!WebApp/wwwroot/css/
-!WebApp/wwwroot/js/
-!WebApp/wwwroot/lib/
-!WebApp/wwwroot/assets/
+**/WebApp/wwwroot/*
+!**/WebApp/wwwroot/css/
+!**/WebApp/wwwroot/js/
+!**/WebApp/wwwroot/lib/
+!**/WebApp/wwwroot/assets/
 
 .synkron.syncdb
 desktop.ini
